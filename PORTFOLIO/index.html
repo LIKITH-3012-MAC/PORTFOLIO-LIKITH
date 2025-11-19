@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Likith Naidu Anumakonda | Cyberpunk Portfolio</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="font-sans antialiased text-slate-200 bg-slate-950 overflow-x-hidden transition-all duration-500">
+
+  <!-- MORE INFO BUTTON (STATIC – OPTIONAL) -->
+  <section class="p-6 text-center">
+    <!-- Removed id="more-info-btn" because your JS uses dynamic .more-info-btn -->
+    <button class="more-info-btn button-neon" data-info="github">
+        <span>P.INFO</span>
+    </button>
+</section>
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 w-full z-50 transition-all py-4 md:py-6">
+    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between relative z-10">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 bg-slate-900 rounded-full overflow-hidden border border-emerald-500/50 group-hover:border-emerald-500 transition-all">
+          <img src="" alt="Logo" class="w-full h-full object-cover">
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-white tracking-tight leading-none text-lg">LIKITH<span class="text-emerald-500">NAIDU</span></span>
+          <span class="text-[9px] text-emerald-500/70 font-mono tracking-[0.2em] uppercase">System Online</span>
+        </div>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about" class="nav-link text-xs font-mono font-bold text-slate-400 hover:text-white uppercase tracking-wider">About</a>
+        <a href="#achievements" class="nav-link text-xs font-mono font-bold text-slate-400 hover:text-white uppercase tracking-wider">Achievements</a>
+        <a href="#projects" class="nav-link text-xs font-mono font-bold text-slate-400 hover:text-white uppercase tracking-wider">Projects</a>
+        <a href="#skills" class="nav-link text-xs font-mono font-bold text-slate-400 hover:text-white uppercase tracking-wider">Skills</a>
+        <button id="theme-toggle" class="px-4 py-2 bg-emerald-500 text-black font-bold text-xs uppercase tracking-widest rounded-sm hover:bg-emerald-400 transition-all">Toggle Day/Night</button>
+      </div>
+      <button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:text-emerald-400">
+        <i data-lucide="menu" class="w-8 h-8"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MORE INFO MODAL (FIXED) -->
+  <div id="more-info-modal" class="fixed inset-0 bg-black/80 backdrop-blur-lg flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 z-50">
+      <div class="bg-slate-900 rounded-2xl p-8 w-11/12 max-w-md relative text-white border-2 border-emerald-500 shadow-neon">
+          <button id="close-more-info" class="absolute top-3 right-3 text-emerald-500 text-2xl font-bold hover:text-red-500">&times;</button>
+          
+          <!-- ✔ Added missing ID -->
+          <h2 id="more-info-title" class="modal-title text-2xl font-bold text-emerald-500 mb-3">Details</h2>
+
+          <p id="more-info-desc" class="text-slate-200 mb-6 text-center"></p>
+          <div class="text-center">
+              <button id="more-info-link-btn" class="button-neon"><span>Open Link</span></button>
+          </div>
+      </div>
+  </div>
+
+  <!-- Dynamic More Info Buttons -->
+  <section class="p-6 text-center space-x-4">
+      <button class="more-info-btn button-neon" data-info="github"><span>GitHub</span></button>
+      <button class="more-info-btn button-neon" data-info="linkedin"><span>LinkedIn</span></button>
+      <button class="more-info-btn button-neon" data-info="email"><span>Email</span></button>
+      <button class="more-info-btn button-neon" data-info="mobile"><span>Mobile</span></button>
+  </section>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu" class="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-500">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.1),transparent_70%)]"></div>
+      <div class="flex flex-col gap-8 text-center relative z-10">
+        <a href="#about" class="mobile-link text-2xl font-black text-white hover:text-emerald-400">ABOUT</a>
+        <a href="#achievements" class="mobile-link text-2xl font-black text-white hover:text-emerald-400">ACHIEVEMENTS</a>
+        <a href="#projects" class="mobile-link text-2xl font-black text-white hover:text-emerald-400">PROJECTS</a>
+        <a href="#skills" class="mobile-link text-2xl font-black text-white hover:text-emerald-400">SKILLS</a>
+        <a href="#contact" class="mobile-link text-emerald-500 font-mono text-lg border border-emerald-500/50 px-8 py-3 rounded hover:bg-emerald-500 hover:text-black">INITIATE CONTACT</a>
+      </div>
+  </div>
+
+  <!-- HERO -->
+  <section id="about" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-cover bg-center" style="background-image: url('https://i.ibb.co/4ZH4SWSw');">
+      <div class="absolute inset-0 bg-black/60"></div>
+      <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center relative z-10 gap-16">
+          
+          <div class="relative w-64 h-64 md:w-80 md:h-80 group rounded-xl overflow-hidden border border-emerald-500/50">
+            <img src="https://i.ibb.co/m5GYjVY8/Gemini-Generated-Image-7rq0ul7rq0ul7rq0-2.png" 
+            alt="Alternate Likith" 
+            class="absolute inset-0 w-full h-full object-cover rounded-lg opacity-100 transition-opacity duration-500">       
+              <div class="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay"></div>
+          </div>
+
+          <div class="text-center md:text-left max-w-2xl space-y-6">
+              <h1 class="text-4xl md:text-6xl font-black text-white uppercase tracking-tight">
+                Hi, I'm <span class="text-emerald-500">Likith Naidu</span>
+              </h1>
+              <p class="text-slate-300 text-lg md:text-xl leading-relaxed">
+                AI-ML-IIT-PATNA,SQL,MANGO-DB,JAVA(SE),PYTHON,WEB_DESIGNING,DBMS Enthusiast | Aspiring Data Scientist | Passionate about leveraging technology to solve real-world problems and create innovative solutions.    
+              </p>
+          </div>
+
+      </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements" class="section-card p-6 m-6 rounded-lg">
+      <h2 class="glitch mb-4" data-text="Achievements">Achievements</h2>
+
+      <ul id="achievement-list" class="space-y-4">
+
+        <li>
+          <button class="button-neon" onclick="showFeatureInfo(
+            'SQL & AI Data Storytelling',
+            'Completed an advanced project on SQL and AI-based data storytelling.',
+            'https://www.linkedin.com/posts/...'
+          )">SQL & AI Data Storytelling</button>
+        </li>
+
+        <li>
+          <button class="button-neon" onclick="showFeatureInfo(
+            'MongoDB Bootcamp',
+            'Successfully completed MongoDB bootcamp and implemented real-world database projects.',
+            'https://www.linkedin.com/posts/...'
+          )">MongoDB Bootcamp</button>
+        </li>
+
+        <li>
+          <button class="button-neon" onclick="showFeatureInfo(
+            'Technova2K25 - PBRVITS',
+            'Participated and presented projects in Technova2K25 at PBRVITS.',
+            'https://www.linkedin.com/posts/...'
+          )">Technova2K25 - PBRVITS</button>
+        </li>
+
+      </ul>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="py-20 md:py-32">
+      <div class="max-w-6xl mx-auto px-6 text-center">
+          <h2 class="text-4xl md:text-6xl font-black text-white mb-12">Projects</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+              <div class="section-card p-6 rounded-xl">
+                <button class="button-neon" onclick="showFeatureInfo(
+                  'Python GUI Software',
+                  'Developed a Python GUI application.',
+                  'https://www.linkedin.com/posts/...'
+                )">Python GUI Software</button>
+              </div>
+
+              <div class="section-card p-6 rounded-xl">
+                <button class="button-neon" onclick="showFeatureInfo(
+                  'AI Tool Prometheus',
+                  'Built a custom AI tool for automation.',
+                  'https://www.linkedin.com/posts/...'
+                )">AI Tool Prometheus</button>
+              </div>
+
+              <!-- Dynamic More Info -->
+              <div class="section-card p-6 rounded-xl">
+                <button class="more-info-btn button-neon" data-info="mobile"><span>More Info</span></button>
+              </div>
+
+          </div>
+      </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="py-20 md:py-32 relative">
+      <div class="max-w-6xl mx-auto px-6 text-center">
+          <h2 class="text-4xl md:text-6xl font-black text-white mb-12">Skills</h2>
+
+          <div class="flex flex-wrap justify-center gap-6">
+            <span class="px-4 py-2 bg-emerald-500/20 border border-emerald-500/50 rounded font-mono text-sm highlight-emerald">MongoDB</span>
+              <span class="px-4 py-2 bg-emerald-500/20 border border-emerald-500/50 rounded font-mono text-sm highlight-emerald">Python</span>
+              <span class="px-4 py-2 bg-emerald-500/20 border border-emerald-500/50 rounded font-mono text-sm highlight-emerald">Java</span>
+              <span class="px-4 py-2 bg-emerald-500/20 border border-emerald-500/50 rounded font-mono text-sm highlight-emerald">SQL</span>
+              <span class="px-4 py-2 bg-emerald-500/20 border border-emerald-500/50 rounded font-mono text-sm highlight-emerald">AI-ML(IIT-Patna)</span>
+          </div>
+      </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="py-20 md:py-32 relative border-t border-emerald-500/20">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+          <h2 class="text-4xl md:text-7xl font-black text-white mb-8 tracking-tight">READY TO COLLABORATE?</h2>
+
+          <form action="https://formspree.io/f/xanvejee" method="POST" class="space-y-6">
+            <input type="text" name="name" placeholder="Name" required class="input-field">
+            <input type="email" name="email" placeholder="Email" required class="input-field">
+            <input type="tel" name="phone" placeholder="Phone" required class="input-field">
+            <textarea name="message" placeholder="Message" rows="4" required class="input-field"></textarea>
+            <button type="submit" class="px-6 py-3 bg-emerald-500 text-black font-bold rounded hover:bg-emerald-400 transition-all">SEND SIGNAL</button>
+          </form>
+      </div>
+  </section>
+
+  <!-- FEATURE INFO MODAL -->
+  <div id="feature-info-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 z-50">
+      <div class="bg-slate-900 p-8 rounded-xl max-w-md text-center relative">
+
+          <button id="close-feature" class="absolute top-4 right-4 text-emerald-500 hover:text-emerald-400">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+
+          <h2 id="feature-title" class="text-2xl font-bold text-emerald-500 mb-2">Title</h2>
+          <p id="feature-desc" class="text-white mb-4">Description</p>
+
+          <button id="feature-link-btn" class="button-neon">Open Link</button>
+
+      </div>
+  </div>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
+/* 2. Root Variables for Colors */
+:root {
+    --neon-green: #10b981;
+    --neon-pink: #ff00ff;
+    --neon-blue: #00f9ff;
+    --bg-dark: url('https://img.freepik.com/free-photo/3d-render-grunge-dark-interior-with-light-from-side-windows_1048-13351.jpg?semt=ais_incoming&w=740&q=80');
+    --text-dark: #ffffff;
+    --text-light: #0b111e;
+    --subtext-dark: #94a3b8; 
+    --subtext-light: #4b5563;
+    --border-dark: rgba(16,185,129,0.3);
+    --border-light: rgba(16,185,129,0.5);
+    --bg-card-dark: rgba(15, 23, 42, 0.7);
+    --bg-card-light: rgba(255,255,255,0.7);
+}
+
+/* 3. Global Body */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-dark);
+    background-image: var(--bg-dark);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Light/Dark Mode */
+body.light-mode {
+    background-image: var(--bg-light);
+    color: var(--text-light);
+}
+
+body.light-mode::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.25);
+    pointer-events: none;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--neon-green);
+    text-shadow: 0 0 5px var(--neon-green), 0 0 15px var(--neon-green);
+    transition: all 0.3s ease;
+}
+
+p { line-height: 1.6; }
+
+/* Neon Buttons */
+.button-neon {
+    display: inline-block;
+    padding: 0.7em 1.5em;
+    border: 2px solid var(--neon-green);
+    color: var(--neon-green);
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    border-radius: 8px;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.button-neon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, var(--neon-green), var(--neon-blue), var(--neon-pink));
+    transition: all 0.4s;
+    z-index: 0;
+}
+
+.button-neon:hover::after { left: 0; }
+.button-neon span { position: relative; z-index: 1; }
+
+/* Glitch Text */
+.glitch {
+    position: relative;
+    color: var(--neon-green);
+    font-size: 2.5em;
+    font-weight: bold;
+    animation: flicker 1s infinite alternate;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+}
+
+.glitch::before {
+    text-shadow: 2px 0 var(--neon-pink);
+    clip: rect(0, 900px, 0, 0);
+    animation: glitchTop 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    text-shadow: -2px 0 var(--neon-blue);
+    clip: rect(0, 900px, 0, 0);
+    animation: glitchBottom 2s infinite linear alternate-reverse;
+}
+
+/* Typing Effect */
+.typing {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2em;
+    border-right: 0.15em solid var(--neon-green);
+    white-space: nowrap;
+    overflow: hidden;
+    width: 24ch;
+    animation: typing 3s steps(24), blink 0.75s step-end infinite;
+}
+
+@keyframes typing { from { width: 0; } to { width: 24ch; } }
+@keyframes blink { 50% { border-color: transparent; } }
+
+/* Perspective Grid */
+.perspective-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    transform: perspective(1000px) rotateX(75deg);
+    opacity: 0.08;
+}
+
+/* Scrollbar */
+body::-webkit-scrollbar { width: 8px; }
+body::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius: 10px; }
+body::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+
+/* Glitch Keyframes */
+@keyframes flicker {
+    0%,19%,21%,23%,25%,54%,56%,100% { opacity: 1; }
+    20%,22%,24%,55% { opacity: 0.4; }
+}
+
+@keyframes glitchTop {
+    0% { clip: rect(2px, 9999px, 44px, 0); transform: translate(-2px,-2px); }
+    25% { clip: rect(12px, 9999px, 50px, 0); transform: translate(2px,2px); }
+    50% { clip: rect(18px, 9999px, 36px, 0); transform: translate(-1px,1px); }
+    75% { clip: rect(10px, 9999px, 52px, 0); transform: translate(1px,-1px); }
+    100% { clip: rect(2px, 9999px, 44px, 0); transform: translate(0,0); }
+}
+
+@keyframes glitchBottom {
+    0% { clip: rect(50px,9999px,90px,0); transform: translate(2px,2px); }
+    25% { clip: rect(60px,9999px,96px,0); transform: translate(-2px,-2px); }
+    50% { clip: rect(70px,9999px,88px,0); transform: translate(1px,-1px); }
+    75% { clip: rect(55px,9999px,92px,0); transform: translate(-1px,1px); }
+    100% { clip: rect(50px,9999px,90px,0); transform: translate(0,0); }
+}
+
+/* Cards */
+.section-card {
+    background-color: var(--bg-card-dark);
+    border: 1px solid var(--border-dark);
+    color: var(--text-dark);
+    transition: all 0.5s ease;
+}
+
+body.light-mode .section-card {
+    background-color: var(--bg-card-light);
+    border-color: var(--border-light);
+    color: var(--text-light);
+}
+
+.section-subtext {
+    color: var(--subtext-dark);
+    transition: color 0.5s ease;
+}
+body.light-mode .section-subtext { color: var(--subtext-light); }
+
+/* Input Fields */
+.input-field {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #374151;
+    background-color: rgba(0,0,0,0.5);
+    color: #fff;
+    font-family: monospace;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+body.light-mode .input-field {
+    border-color: var(--neon-green);
+    background-color: #f3f4f6;
+    color: #1f2937;
+}
+
+/* Achievement List */
+#achievement-list li { display: flex; flex-direction: column; }
+#achievement-list p { margin-top: 0.3rem; font-size: 0.9rem; }
+#achievement-list button { width: fit-content; }
+
+/* ===================================================
+   MORE INFO BUTTON & MODAL
+   =================================================== */
+
+#more-info-btn {
+    margin: 2rem auto;
+    display: inline-block;
+    padding: 0.8em 2em;
+    border: 2px solid var(--neon-green);
+    color: var(--neon-green);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#more-info-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, var(--neon-green), var(--neon-blue), var(--neon-pink));
+    transition: all 0.4s;
+    z-index: 0;
+}
+
+#more-info-btn:hover::after { left: 0; }
+#more-info-btn span { position: relative; z-index: 1; }
+
+#more-info-modal {
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s ease-in-out;
+    z-index: 50;
+}
+
+#more-info-modal.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.shadow-neon {
+    box-shadow: 0 0 20px var(--neon-green),
+                0 0 40px var(--neon-blue),
+                0 0 60px var(--neon-pink);
+}
+
+#more-info-modal ul li {
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+#more-info-modal ul li img {
+    filter: drop-shadow(0 0 2px var(--neon-green));
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* ===================================================
+   🔥 NEW FIXES & ENHANCEMENTS ADDED BY GPT
+   =================================================== */
+
+/* FIX: Prevent glitch effects inside modal */
+#more-info-modal * {
+    animation: none !important;
+    text-shadow: none !important;
+    clip: auto !important;
+    position: relative !important;
+}
+
+/* FIX: Disable glitch layers when modal is open */
+#more-info-modal.show ~ .glitch::before,
+#more-info-modal.show ~ .glitch::after {
+    display: none !important;
+}
+
+/* Modal Backdrop Enhancement */
+#more-info-modal::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    z-index: -1;
+}
+
+/* Neon Hover for Modal List */
+#more-info-modal ul li:hover {
+    color: var(--neon-green);
+    transform: translateX(6px);
+    filter: drop-shadow(0 0 8px var(--neon-green));
+}
