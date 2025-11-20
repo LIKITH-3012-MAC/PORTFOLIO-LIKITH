@@ -1,197 +1,212 @@
-// ===========================================
-// ☀️ EARLY MORNING MIST JS (SMOOTH PROTOCOLS)
-// ===========================================
+// 1. Navbar Scroll Behavior
+document.addEventListener('DOMContentLoaded', () => {
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        // Add 'scrolled' class after scrolling 50px down
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
 
-// --- CORE SYSTEM REFERENCES ---
-const navbar = document.getElementById('navbar');
-const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-const mobileMenu = document.getElementById('mobile-menu');
-const mobileLinks = document.querySelectorAll('.mobile-link');
-const themeToggle = document.getElementById('theme-toggle');
-const heroSection = document.getElementById('about');
+    // Initialize Lucide icons
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+    // Set current year for the footer
+    const currentYear = document.getElementById('current-year');
+    if (currentYear) {
+        currentYear.textContent = new Date().getFullYear();
+    }
+    
+    // Smooth Scrolling for Navigation Links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
 
-// --- MODAL REFERENCES ---
+    // Initialize Mobile Menu
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuContent = document.getElementById('mobile-menu-content') || mobileMenu;
+    
+    // Clone desktop links into mobile menu
+    const desktopLinks = document.querySelector('.hidden.md\\:flex');
+    if (mobileMenu && desktopLinks) {
+        mobileMenuContent.innerHTML = `
+            <button id="close-menu-btn" class="absolute top-6 right-6 text-slate-800 hover:text-morning-gold">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+            <div class="flex flex-col space-y-6 text-center">
+                ${desktopLinks.innerHTML}
+            </div>
+        `;
+        mobileMenuContent.querySelectorAll('a').forEach(link => {
+            link.classList.remove('nav-link', 'text-xs', 'font-mono');
+            link.classList.add('text-xl', 'py-4', 'w-full', 'block');
+            link.addEventListener('click', () => {
+                closeMobileMenu();
+                document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Reinitialize Lucide icons for the new content (the 'x' icon)
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    }
+    
+    const openMobileMenu = () => {
+        mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+        document.getElementById('close-menu-btn')?.addEventListener('click', closeMobileMenu);
+    };
+
+    const closeMobileMenu = () => {
+        mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+    };
+
+    mobileMenuBtn?.addEventListener('click', openMobileMenu);
+    
+});
+
+// 2. Global Modal Variables and Functions
+const infoModal = document.getElementById('more-info-modal');
 const featureModal = document.getElementById('feature-info-modal');
-const moreInfoModal = document.getElementById('more-info-modal');
-const morningRipple = document.getElementById('morning-ripple'); // 💡 New Ripple Element
 
-// --- DATA LOGS ---
-const moreInfoData = {
-    github: {
-        title: "GITHUB PROFILE",
-        desc: "Review projects and contributions. Status: Clear.",
-        link: "https://github.com/LIKITH-3012-MAC"
-    },
-    linkedin: {
-        title: "NETWORK INTERFACE",
-        desc: "Connect professionally and explore achievements.",
-        link: "https://www.linkedin.com/in/likhith-naidu-anumakonda-33a347327/"
-    },
-    email: {
-        title: "DIRECT SIGNAL INITIATION",
-        desc: "Send an email for collaborations or queries.",
-        link: "mailto:likith.anumakonda@gmail.com"
-    },
-    mobile: {
-        title: "COMMUNICATION LINK",
-        desc: "Establish a quick communication channel.",
-        link: "tel:+919440113763"
-    }
-};
-
-// ----------------------------------------------------
-// 🚀 MODULE 1: MORNING RIPPLE & UI BEHAVIOR
-// ----------------------------------------------------
-
-// --- A. MORNING RIPPLE ACTIVATION ---
-document.addEventListener('click', function(e) {
-    if (!morningRipple) return;
-    
-    morningRipple.style.left = e.clientX + 'px';
-    morningRipple.style.top = e.clientY + 'px';
-    
-    // Reset and trigger animation
-    morningRipple.classList.remove('active');
-    void morningRipple.offsetWidth; // Force reflow
-    morningRipple.classList.add('active');
-});
-
-// --- NAVBAR & MOBILE MENU ---
-window.addEventListener('scroll', () => {
-    // Standard Navbar Shadow (simple scroll effect)
-    if (window.scrollY > 50) navbar.classList.add('shadow-xl', 'bg-white/90');
-    else navbar.classList.remove('shadow-xl', 'bg-white/90');
-});
-
-mobileMenuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('opacity-0');
-    mobileMenu.classList.toggle('pointer-events-none');
-    document.body.style.overflow = mobileMenu.classList.contains('opacity-0') ? '' : 'hidden';
-});
-
-mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        mobileMenu.classList.add('opacity-0', 'pointer-events-none');
-        document.body.style.overflow = '';
-    });
-});
-
-// --- THEME TOGGLE (Early Morning vs. Soft Night) ---
-themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    
-    const isDark = document.body.classList.contains('dark-mode');
-    
-    // Update body class for styling (Crucial for CSS variables)
-    document.body.classList.toggle('light-mode', !isDark);
-    
-    // Contextual background update
-    heroSection.style.backgroundImage = isDark
-        ? "url('https://images.unsplash.com/photo-1518331649938-2396955d7f25?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" // Soft Night Image
-        : "url('https://images.unsplash.com/photo-1549477022-d7b67035f299?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"; // Early Morning Image
-});
-
-
-// ----------------------------------------------------
-// --- MODULE 2: MODAL PROTOCOLS ---
-// ----------------------------------------------------
-
-function openModal(modal) {
-    modal.classList.remove('opacity-0', 'pointer-events-none');
-    modal.classList.add('show');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeModal(modal) {
+/**
+ * Universal function to close any modal.
+ * @param {HTMLElement} modal - The modal element to close.
+ */
+const closeModal = (modal) => {
     modal.classList.add('opacity-0', 'pointer-events-none');
-    modal.classList.remove('show');
-    document.body.style.overflow = '';
-}
-
-// --- FEATURE INFO MODAL (Project Details) ---
-const featureClose = featureModal.querySelector('#close-feature');
-const featureTitle = document.getElementById('feature-title');
-const featureDesc = document.getElementById('feature-desc');
-const featureLinkBtn = document.getElementById('feature-link-btn');
-
-window.showFeatureInfo = function(title, desc, link) {
-    featureTitle.innerText = title;
-    featureDesc.innerText = desc;
-    featureLinkBtn.onclick = () => window.open(link, '_blank');
-    openModal(featureModal);
 };
 
-featureClose.addEventListener('click', () => closeModal(featureModal));
 
-
-// --- MORE INFO MODAL (Contact Data) ---
-const closeMoreInfo = moreInfoModal.querySelector('#close-more-info');
-
-document.querySelectorAll('.more-info-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const key = btn.dataset.info;
-        const data = moreInfoData[key];
-
-        document.getElementById('more-info-title').innerText = data.title;
-        document.getElementById('more-info-desc').innerText = data.desc;
-        document.getElementById('more-info-link-btn').onclick = () => window.open(data.link, '_blank');
-
-        openModal(moreInfoModal);
-    });
-});
-
-closeMoreInfo.addEventListener('click', () => closeModal(moreInfoModal));
-
-
-// ----------------------------------------------------
-// --- MODULE 3: SYSTEM STABILITY & INITIALIZATION ---
-// ----------------------------------------------------
-
-// --- GLOBAL ESC KEY HANDLER ---
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        closeModal(featureModal);
-        closeModal(moreInfoModal);
+/**
+ * Global function to open the specific project/achievement modal.
+ * This needs to be defined globally as it's called from the HTML onclick attributes.
+ * @param {string} title - The title of the project.
+ * @param {string} description - The description/metrics.
+ * @param {string} link - The external link (e.g., LinkedIn/GitHub).
+ */
+window.showFeatureInfo = (title, description, link) => {
+    
+    // --- DIRECT REDIRECTION FOR AI TOOL PROMETHEUS (AS REQUESTED) ---
+    if (title.includes('Prometheus')) {
+        const prometheusLink = 'https://www.linkedin.com/posts/likhith-naidu-anumakonda-33a347327_heres-my-own-ai-tool-prometheus-working-activity-7366461485377617920-UpNK?utm_source=share&utm_medium=member_android&rcm=ACoAAFJ0SR4B07s_UcD08YSRW3iIQCJcKF1he1o';
+        window.open(prometheusLink, '_blank');
+        return; // Stop execution here and skip modal
     }
-});
+    // --- END DIRECT REDIRECTION ---
 
-// --- MOBILE MENU RESIZE FIX ---
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-        mobileMenu.classList.add('opacity-0', 'pointer-events-none');
-        document.body.style.overflow = '';
+    let modalContent;
+
+    // --- GENERIC MODAL CONTENT (for all other projects) ---
+    modalContent = `
+        <div class="section-card p-8 rounded-xl max-w-xl w-11/12 shadow-soft-glow relative">
+            <button onclick="closeModal(featureModal)" class="absolute top-4 right-4 text-slate-800 hover:text-morning-gold"><i data-lucide="x-circle" class="w-8 h-8"></i></button>
+            <h3 class="text-3xl soft-title mb-4">${title}</h3>
+            <p class="text-slate-700 mb-6">${description}</p>
+            <a href="${link}" target="_blank" class="button-soft !block text-center">VIEW LINKEDIN POST</a>
+        </div>
+    `;
+
+
+    featureModal.innerHTML = modalContent;
+    featureModal.classList.remove('opacity-0', 'pointer-events-none');
+    
+    // Reinitialize Lucide icons for the new content (the 'x-circle' icon)
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
     }
-});
+};
 
-// --- ACCESSIBILITY: FOCUS TRAP ---
-[featureModal, moreInfoModal].forEach(m => {
-    m.addEventListener('keydown', (e) => {
-        if (e.key === 'Tab') {
-            const focusable = m.querySelectorAll('a, button, textarea, input, select');
-            if (!focusable.length) return;
 
-            const first = focusable[0];
-            const last = focusable[focusable.length - 1];
+// 3. Contact Bar Functionality (POPULATED WITH YOUR DATA)
+document.querySelectorAll('.more-info-btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+        const infoType = e.currentTarget.getAttribute('data-info');
+        let content = '';
 
-            if (e.shiftKey && document.activeElement === first) {
-                e.preventDefault();
-                last.focus();
-            } else if (!e.shiftKey && document.activeElement === last) {
-                e.preventDefault();
-                first.focus();
-            }
+        // Define content based on data-info attribute
+        switch (infoType) {
+            case 'github':
+                content = `
+                    <p class="text-lg">Access the code repository via GitHub.</p>
+                    <a href="https://github.com/LIKITH-3012-MAC" target="_blank" class="button-soft !block text-center mt-4">VIEW GITHUB REPOSITORY</a>
+                `;
+                break;
+            case 'linkedin':
+                content = `
+                    <p class="text-lg">Connect to view my professional network and endorsements.</p>
+                    <a href="https://www.linkedin.com/in/likhith-naidu-anumakonda-33a347327?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="button-soft !block text-center mt-4">LINKEDIN PROFILE</a>
+                `;
+                break;
+            case 'email':
+                content = `
+                    <p class="text-lg">Direct Signal Contact (Choose Preferred Client):</p>
+                    <a href="mailto:likith.naidu@icloud.com" class="button-soft !block text-center mt-4 mb-2">Apple Mail: likith.naidu@icloud.com</a>
+                    <a href="mailto:likith.anumakonda@gmail.com" class="button-soft !block text-center">Google Mail: likith.anumakonda@gmail.com</a>
+                `;
+                break;
+            case 'mobile':
+                content = `
+                    <p class="text-lg">Communication Link (Available after 10:00 AM IST):</p>
+                    <span class="text-2xl font-bold text-morning-gold">+91 94401 13763</span>
+                    <a href="tel:+919440113763" class="button-soft !block text-center mt-4">CALL LINK</a>
+                `;
+                break;
+        }
+
+        // Populate and show the contact bar modal
+        infoModal.innerHTML = `
+            <div class="section-card p-8 rounded-xl max-w-sm w-11/12 text-center shadow-soft-glow relative">
+                <button onclick="closeModal(infoModal)" class="absolute top-4 right-4 text-slate-800 hover:text-morning-gold"><i data-lucide="x-circle" class="w-8 h-8"></i></button>
+                <div class="mb-4 text-glow" data-text="${infoType.toUpperCase()}">${infoType.toUpperCase()}</div>
+                ${content}
+            </div>
+        `;
+        infoModal.classList.remove('opacity-0', 'pointer-events-none');
+        
+        // Reinitialize Lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
         }
     });
 });
 
-// --- INITIALIZATION PROTOCOL ---
-document.addEventListener('DOMContentLoaded', () => {
-    // Set initial hero background based on theme state
-    const isDark = document.body.classList.contains('dark-mode');
-    heroSection.style.backgroundImage = isDark
-        ? "url('https://images.unsplash.com/photo-1518331649938-2396955d7f25?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"
-        : "url('https://images.unsplash.com/photo-1549477022-d7b67035f299?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')";
+
+// 4. Dark/Light Theme Toggle
+document.getElementById('theme-toggle').addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    
+    // Optional: Save preference in localStorage
+    if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
 });
-// ===========================================
-// ☀️ END OF EARLY MORNING MIST JS
-// ===========================================
+
+// Apply saved theme on load
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+}
+
+
+// 5. Morning Ripple Click Effect
+document.addEventListener('click', (e) => {
+    const ripple = document.getElementById('morning-ripple');
+    ripple.style.left = `${e.clientX}px`;
+    ripple.style.top = `${e.clientY}px`;
+    
+    // Reset and start animation
+    ripple.classList.remove('active');
+    void ripple.offsetWidth; // Trigger reflow
+    ripple.classList.add('active');
+});
