@@ -1,17 +1,66 @@
 // ===========================================
-// CYBERPUNK PORTFOLIO JS (FIXED & OPTIMIZED)
-// Author: Likith Naidu
+// ☀️ EARLY MORNING MIST JS (SMOOTH PROTOCOLS)
 // ===========================================
 
-// --- NAVBAR SCROLL & MOBILE MENU ---
+// --- CORE SYSTEM REFERENCES ---
 const navbar = document.getElementById('navbar');
 const mobileMenuBtn = document.getElementById('mobile-menu-btn');
 const mobileMenu = document.getElementById('mobile-menu');
 const mobileLinks = document.querySelectorAll('.mobile-link');
+const themeToggle = document.getElementById('theme-toggle');
+const heroSection = document.getElementById('about');
 
+// --- MODAL REFERENCES ---
+const featureModal = document.getElementById('feature-info-modal');
+const moreInfoModal = document.getElementById('more-info-modal');
+const morningRipple = document.getElementById('morning-ripple'); // 💡 New Ripple Element
+
+// --- DATA LOGS ---
+const moreInfoData = {
+    github: {
+        title: "GITHUB PROFILE",
+        desc: "Review projects and contributions. Status: Clear.",
+        link: "https://github.com/LIKITH-3012-MAC"
+    },
+    linkedin: {
+        title: "NETWORK INTERFACE",
+        desc: "Connect professionally and explore achievements.",
+        link: "https://www.linkedin.com/in/likhith-naidu-anumakonda-33a347327/"
+    },
+    email: {
+        title: "DIRECT SIGNAL INITIATION",
+        desc: "Send an email for collaborations or queries.",
+        link: "mailto:likith.anumakonda@gmail.com"
+    },
+    mobile: {
+        title: "COMMUNICATION LINK",
+        desc: "Establish a quick communication channel.",
+        link: "tel:+919440113763"
+    }
+};
+
+// ----------------------------------------------------
+// 🚀 MODULE 1: MORNING RIPPLE & UI BEHAVIOR
+// ----------------------------------------------------
+
+// --- A. MORNING RIPPLE ACTIVATION ---
+document.addEventListener('click', function(e) {
+    if (!morningRipple) return;
+    
+    morningRipple.style.left = e.clientX + 'px';
+    morningRipple.style.top = e.clientY + 'px';
+    
+    // Reset and trigger animation
+    morningRipple.classList.remove('active');
+    void morningRipple.offsetWidth; // Force reflow
+    morningRipple.classList.add('active');
+});
+
+// --- NAVBAR & MOBILE MENU ---
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) navbar.classList.add('shadow-lg');
-    else navbar.classList.remove('shadow-lg');
+    // Standard Navbar Shadow (simple scroll effect)
+    if (window.scrollY > 50) navbar.classList.add('shadow-xl', 'bg-white/90');
+    else navbar.classList.remove('shadow-xl', 'bg-white/90');
 });
 
 mobileMenuBtn.addEventListener('click', () => {
@@ -27,65 +76,57 @@ mobileLinks.forEach(link => {
     });
 });
 
-// --- THEME TOGGLE ---
-const themeToggle = document.getElementById('theme-toggle');
-const heroSection = document.getElementById('about');
+// --- THEME TOGGLE (Early Morning vs. Soft Night) ---
 themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('light-mode');
-    heroSection.style.backgroundImage = document.body.classList.contains('light-mode') 
-        ? "url(' https://i.ibb.co/4ZH4SWSw.png')" 
-        : "url('https://img.freepik.com/free-photo/3d-render-grunge-dark-interior-with-light-from-side-windows_1048-13351.jpg')";
+    document.body.classList.toggle('dark-mode');
+    
+    const isDark = document.body.classList.contains('dark-mode');
+    
+    // Update body class for styling (Crucial for CSS variables)
+    document.body.classList.toggle('light-mode', !isDark);
+    
+    // Contextual background update
+    heroSection.style.backgroundImage = isDark
+        ? "url('https://images.unsplash.com/photo-1518331649938-2396955d7f25?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" // Soft Night Image
+        : "url('https://images.unsplash.com/photo-1549477022-d7b67035f299?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"; // Early Morning Image
 });
 
-// --- FEATURE INFO MODAL ---
-const featureModal = document.getElementById('feature-info-modal');
-const featureTitle = document.getElementById('feature-title');
-const featureDesc = document.getElementById('feature-desc');
-const featureLinkBtn = document.getElementById('feature-link-btn');
-const featureClose = document.getElementById('close-feature');
 
-function showFeatureInfo(title, desc, link) {
-    featureTitle.innerText = title;
-    featureDesc.innerText = desc;
-    featureLinkBtn.onclick = () => window.open(link, '_blank');
+// ----------------------------------------------------
+// --- MODULE 2: MODAL PROTOCOLS ---
+// ----------------------------------------------------
 
-    featureModal.classList.remove('opacity-0', 'pointer-events-none');
+function openModal(modal) {
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    modal.classList.add('show');
     document.body.style.overflow = 'hidden';
 }
 
-featureClose.addEventListener('click', () => {
-    featureModal.classList.add('opacity-0', 'pointer-events-none');
+function closeModal(modal) {
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    modal.classList.remove('show');
     document.body.style.overflow = '';
-});
+}
 
-// --- MORE INFO MODAL (Dynamic) ---
-const moreInfoModal = document.getElementById('more-info-modal');
-const closeMoreInfo = moreInfoModal.querySelector('#close-more-info');
+// --- FEATURE INFO MODAL (Project Details) ---
+const featureClose = featureModal.querySelector('#close-feature');
+const featureTitle = document.getElementById('feature-title');
+const featureDesc = document.getElementById('feature-desc');
+const featureLinkBtn = document.getElementById('feature-link-btn');
 
-const moreInfoData = {
-    github: {
-        title: "GitHub Profile",
-        desc: "Check out my projects, repos, and contributions on GitHub.",
-        link: "https://github.com/LIKITH-3012-MAC"
-    },
-    linkedin: {
-        title: "LinkedIn Profile",
-        desc: "Connect with me professionally and see my achievements.",
-        link: "https://www.linkedin.com/in/likhith-naidu-anumakonda-33a347327/"
-    },
-    email: {
-        title: "Email Me",
-        desc: "Send me an email for collaborations or queries.",
-        link: "mailto:likith.anumakonda@gmail.com"
-    },
-    mobile: {
-        title: "Call Me",
-        desc: "Reach out to me on my mobile for quick communication.",
-        link: "tel:+919440113763"
-    }
+window.showFeatureInfo = function(title, desc, link) {
+    featureTitle.innerText = title;
+    featureDesc.innerText = desc;
+    featureLinkBtn.onclick = () => window.open(link, '_blank');
+    openModal(featureModal);
 };
 
-// ALL dynamic more-info buttons
+featureClose.addEventListener('click', () => closeModal(featureModal));
+
+
+// --- MORE INFO MODAL (Contact Data) ---
+const closeMoreInfo = moreInfoModal.querySelector('#close-more-info');
+
 document.querySelectorAll('.more-info-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         const key = btn.dataset.info;
@@ -95,36 +136,22 @@ document.querySelectorAll('.more-info-btn').forEach(btn => {
         document.getElementById('more-info-desc').innerText = data.desc;
         document.getElementById('more-info-link-btn').onclick = () => window.open(data.link, '_blank');
 
-        // Show modal
-        moreInfoModal.classList.remove('opacity-0', 'pointer-events-none');
-        moreInfoModal.classList.add('show');
-        document.body.style.overflow = 'hidden';
+        openModal(moreInfoModal);
     });
 });
 
-// Close modal
-closeMoreInfo.addEventListener('click', () => {
-    moreInfoModal.classList.add('opacity-0', 'pointer-events-none');
-    moreInfoModal.classList.remove('show');
-    document.body.style.overflow = '';
-});
+closeMoreInfo.addEventListener('click', () => closeModal(moreInfoModal));
+
+
+// ----------------------------------------------------
+// --- MODULE 3: SYSTEM STABILITY & INITIALIZATION ---
+// ----------------------------------------------------
 
 // --- GLOBAL ESC KEY HANDLER ---
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        
-        // Feature modal
-        if (!featureModal.classList.contains('opacity-0')) {
-            featureModal.classList.add('opacity-0', 'pointer-events-none');
-        }
-
-        // More Info modal
-        if (moreInfoModal.classList.contains('show')) {
-            moreInfoModal.classList.add('opacity-0', 'pointer-events-none');
-            moreInfoModal.classList.remove('show');
-        }
-
-        document.body.style.overflow = '';
+        closeModal(featureModal);
+        closeModal(moreInfoModal);
     }
 });
 
@@ -136,7 +163,7 @@ window.addEventListener('resize', () => {
     }
 });
 
-// --- ACCESSIBILITY: FOCUS TRAP FOR MODALS ---
+// --- ACCESSIBILITY: FOCUS TRAP ---
 [featureModal, moreInfoModal].forEach(m => {
     m.addEventListener('keydown', (e) => {
         if (e.key === 'Tab') {
@@ -157,14 +184,15 @@ window.addEventListener('resize', () => {
     });
 });
 
-// --- MODAL TRANSITION EFFECTS ---
-[featureModal, moreInfoModal].forEach(m => {
-    m.classList.add('transition-opacity', 'duration-300');
-});
-
-// --- Set initial hero background on load ---
+// --- INITIALIZATION PROTOCOL ---
 document.addEventListener('DOMContentLoaded', () => {
-    heroSection.style.backgroundImage = document.body.classList.contains('light-mode') 
-        ? "url('https://i.ibb.co/4ZH4SWSw.png')" 
-        : "url('https://img.freepik.com/free-photo/3d-render-grunge-dark-interior-with-light-from-side-windows_1048-13351.jpg')";
+    // Set initial hero background based on theme state
+    const isDark = document.body.classList.contains('dark-mode');
+    heroSection.style.backgroundImage = isDark
+        ? "url('https://images.unsplash.com/photo-1518331649938-2396955d7f25?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"
+        : "url('https://images.unsplash.com/photo-1549477022-d7b67035f299?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')";
 });
+// ===========================================
+// ☀️ END OF EARLY MORNING MIST JS
+// ===========================================
+
