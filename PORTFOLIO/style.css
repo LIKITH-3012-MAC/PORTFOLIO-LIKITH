@@ -1,314 +1,457 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Share+Tech+Mono&family=Playfair+Display:wght@700&display=swap');
 
-/* 2. Root Variables for Colors */
+/* 2. Root Variables for Colors (Early Morning Mist Palette) */
 :root {
-    --neon-green: #10b981;
-    --neon-pink: #ff00ff;
-    --neon-blue: #00f9ff;
-    --bg-dark: url('https://img.freepik.com/free-photo/3d-render-grunge-dark-interior-with-light-from-side-windows_1048-13351.jpg?semt=ais_incoming&w=740&q=80');
-    --text-dark: #ffffff;
-    --text-light: #0b111e;
-    --subtext-dark: #94a3b8; 
+    --morning-gold: #ff9f1c; /* Warm, soft sunrise yellow/orange */
+    --mist-pink: #ffc4d6;    /* Light, delicate pink/magenta */
+    --mist-blue: #a3d9ff;    /* Calming, pale sky blue */
+    
+    --bg-light: #ffffff;
+    --bg-dark: #1f2937;
+    
+    /* ➡️ STRATEGIC HIRING IMAGE - URL REPLACED */
+    --hiring-image: url('https://images.unsplash.com/photo-1556740714-a83786570c97?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); 
+
+    --text-light: #1f2937;
+    --text-dark: #f3f4f6; 
     --subtext-light: #4b5563;
-    --border-dark: rgba(16,185,129,0.3);
-    --border-light: rgba(16,185,129,0.5);
-    --bg-card-dark: rgba(15, 23, 42, 0.7);
-    --bg-card-light: rgba(255,255,255,0.7);
+    --subtext-dark: #9ca3af;
+    --border-light: rgba(255, 159, 28, 0.5);
+    --border-dark: rgba(255, 159, 28, 0.7);
+    --bg-card-light: rgba(255, 255, 255, 0.9);
+    --bg-card-dark: rgba(31, 41, 55, 0.9);
+
+    /* Navbar Variables */
+    --nav-bg-default: rgba(255, 255, 255, 0.6);
+    --nav-bg-scrolled: rgba(255, 255, 255, 0.95);
+    --nav-border-default: rgba(163, 217, 255, 0.3);
+    --nav-border-scrolled: rgba(255, 159, 28, 0.2);
 }
+
+/* ⚠️ CRITICAL FIX: Ensure Tailwind classes use CSS variables where intended for the custom colors. */
+.text-morning-gold { color: var(--morning-gold) !important; }
+.border-morning-gold\/50 { border-color: rgba(255, 159, 28, 0.5); }
+.shadow-morning-gold\/30 { box-shadow: 0 4px 6px -1px rgba(255, 159, 28, 0.3), 0 2px 4px -2px rgba(255, 159, 28, 0.3); }
+.shadow-morning-gold\/50 { box-shadow: 0 10px 15px -3px rgba(255, 159, 28, 0.5), 0 4px 6px -4px rgba(255, 159, 28, 0.5); }
+
 
 /* 3. Global Body */
 body {
     margin: 0;
-    padding: 0;
+    padding-bottom: 80px; 
     font-family: 'Roboto', sans-serif;
-    color: var(--text-dark);
-    background-image: var(--bg-dark);
+    color: var(--text-light);
+    
+    /* ➡️ REMOVED GLOBAL BACKGROUND IMAGE */
+    background-image: none;
+    background-color: var(--bg-light); 
+    
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     transition: all 0.5s ease-in-out;
+    position: relative;
+    overflow-x: hidden;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewport="0 0 16 16" style="fill:%23ff9f1c;opacity:0.8;"><circle cx="8" cy="8" r="4"/></svg>') 16 16, pointer;
 }
 
-/* Light/Dark Mode */
-body.light-mode {
-    background-image: var(--bg-light);
-    color: var(--text-light);
+/* Light/Dark Mode (Inverted Logic: Default is light-mode) */
+body.dark-mode {
+    color: var(--text-dark);
+    background-color: var(--bg-dark);
+    background-image: none; 
 }
 
-body.light-mode::before {
-    content: '';
+/* 💡 MIST OVERLAY */
+.mist-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(255, 255, 255, 0.25);
+    background: radial-gradient(circle at 10% 20%, rgba(255, 220, 240, 0.2), transparent 40%),
+                radial-gradient(circle at 80% 90%, rgba(163, 217, 255, 0.2), transparent 40%);
     pointer-events: none;
+    animation: mistFlow 40s linear infinite alternate;
+    z-index: 1;
+}
+
+@keyframes mistFlow {
+    0% { transform: scale(1) translate(0, 0); opacity: 1; }
+    100% { transform: scale(1.1) translate(5%, -5%); opacity: 0.9; }
+}
+
+/* 🚀 SOFT QUANTUM RIPPLE (Morning Ripple) */
+.morning-ripple {
+    position: fixed;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--mist-pink) 0%, transparent 70%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+.morning-ripple.active {
+    animation: morningRipple 0.7s ease-out;
+}
+@keyframes morningRipple {
+    0% { width: 0; height: 0; opacity: 0.7; }
+    100% { width: 300vh; height: 300vh; opacity: 0; filter: blur(30px); }
+}
+
+
+/* 🛠️ NAV BAR SCROLL BEHAVIOR (FIX/ENHANCEMENT) */
+#navbar {
+    background-color: var(--nav-bg-default);
+    border-bottom: 1px solid var(--nav-border-default);
+    transition: all 0.3s ease-in-out;
+}
+
+#navbar.scrolled {
+    background-color: var(--nav-bg-scrolled);
+    border-bottom: 1px solid var(--nav-border-scrolled);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode #navbar.scrolled {
+    background-color: rgba(31, 41, 55, 0.98);
+    border-bottom: 1px solid rgba(255, 159, 28, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Share Tech Mono', monospace;
-    color: var(--neon-green);
-    text-shadow: 0 0 5px var(--neon-green), 0 0 15px var(--neon-green);
+    font-family: 'Playfair Display', serif;
+    color: var(--text-light);
     transition: all 0.3s ease;
-}
-
-p { line-height: 1.6; }
-
-/* Neon Buttons */
-.button-neon {
-    display: inline-block;
-    padding: 0.7em 1.5em;
-    border: 2px solid var(--neon-green);
-    color: var(--neon-green);
     text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 0.1em;
-    border-radius: 8px;
+}
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode h5, body.dark-mode h6 {
+    color: var(--text-dark);
+}
+
+/* Soft Title Effect */
+.soft-title {
+    color: var(--morning-gold);
+    text-shadow: 0 0 5px rgba(255, 159, 28, 0.3);
+    font-family: 'Share Tech Mono', monospace; 
+}
+body.dark-mode .soft-title {
+    color: var(--morning-gold);
+    text-shadow: 0 0 15px rgba(255, 159, 28, 0.6);
+}
+
+/* 🚀 TEXT GLOW (Replaces Ghost Text) */
+.text-glow {
     position: relative;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    overflow: hidden;
+    display: inline-block;
+    transition: color 0.3s ease;
 }
 
-.button-neon::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(120deg, var(--neon-green), var(--neon-blue), var(--neon-pink));
-    transition: all 0.4s;
-    z-index: 0;
-}
-
-.button-neon:hover::after { left: 0; }
-.button-neon span { position: relative; z-index: 1; }
-
-/* Glitch Text */
-.glitch {
-    position: relative;
-    color: var(--neon-green);
-    font-size: 2.5em;
-    font-weight: bold;
-    animation: flicker 1s infinite alternate;
-}
-
-.glitch::before,
-.glitch::after {
+.text-glow::after {
     content: attr(data-text);
     position: absolute;
-    left: 0;
-}
-
-.glitch::before {
-    text-shadow: 2px 0 var(--neon-pink);
-    clip: rect(0, 900px, 0, 0);
-    animation: glitchTop 2s infinite linear alternate-reverse;
-}
-
-.glitch::after {
-    text-shadow: -2px 0 var(--neon-blue);
-    clip: rect(0, 900px, 0, 0);
-    animation: glitchBottom 2s infinite linear alternate-reverse;
-}
-
-/* Typing Effect */
-.typing {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1.2em;
-    border-right: 0.15em solid var(--neon-green);
-    white-space: nowrap;
-    overflow: hidden;
-    width: 24ch;
-    animation: typing 3s steps(24), blink 0.75s step-end infinite;
-}
-
-@keyframes typing { from { width: 0; } to { width: 24ch; } }
-@keyframes blink { 50% { border-color: transparent; } }
-
-/* Perspective Grid */
-.perspective-grid {
-    position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     pointer-events: none;
-    background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
-    background-size: 50px 50px;
-    transform: perspective(1000px) rotateX(75deg);
-    opacity: 0.08;
-}
-
-/* Scrollbar */
-body::-webkit-scrollbar { width: 8px; }
-body::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius: 10px; }
-body::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
-
-/* Glitch Keyframes */
-@keyframes flicker {
-    0%,19%,21%,23%,25%,54%,56%,100% { opacity: 1; }
-    20%,22%,24%,55% { opacity: 0.4; }
-}
-
-@keyframes glitchTop {
-    0% { clip: rect(2px, 9999px, 44px, 0); transform: translate(-2px,-2px); }
-    25% { clip: rect(12px, 9999px, 50px, 0); transform: translate(2px,2px); }
-    50% { clip: rect(18px, 9999px, 36px, 0); transform: translate(-1px,1px); }
-    75% { clip: rect(10px, 9999px, 52px, 0); transform: translate(1px,-1px); }
-    100% { clip: rect(2px, 9999px, 44px, 0); transform: translate(0,0); }
-}
-
-@keyframes glitchBottom {
-    0% { clip: rect(50px,9999px,90px,0); transform: translate(2px,2px); }
-    25% { clip: rect(60px,9999px,96px,0); transform: translate(-2px,-2px); }
-    50% { clip: rect(70px,9999px,88px,0); transform: translate(1px,-1px); }
-    75% { clip: rect(55px,9999px,92px,0); transform: translate(-1px,1px); }
-    100% { clip: rect(50px,9999px,90px,0); transform: translate(0,0); }
-}
-
-/* Cards */
-.section-card {
-    background-color: var(--bg-card-dark);
-    border: 1px solid var(--border-dark);
-    color: var(--text-dark);
-    transition: all 0.5s ease;
-}
-
-body.light-mode .section-card {
-    background-color: var(--bg-card-light);
-    border-color: var(--border-light);
-    color: var(--text-light);
-}
-
-.section-subtext {
-    color: var(--subtext-dark);
-    transition: color 0.5s ease;
-}
-body.light-mode .section-subtext { color: var(--subtext-light); }
-
-/* Input Fields */
-.input-field {
-    width: 100%;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    border: 1px solid #374151;
-    background-color: rgba(0,0,0,0.5);
-    color: #fff;
-    font-family: monospace;
-    font-size: 0.875rem;
-    transition: all 0.3s ease;
-}
-
-body.light-mode .input-field {
-    border-color: var(--neon-green);
-    background-color: #f3f4f6;
-    color: #1f2937;
-}
-
-/* Achievement List */
-#achievement-list li { display: flex; flex-direction: column; }
-#achievement-list p { margin-top: 0.3rem; font-size: 0.9rem; }
-#achievement-list button { width: fit-content; }
-
-/* ===================================================
-   MORE INFO BUTTON & MODAL
-   =================================================== */
-
-#more-info-btn {
-    margin: 2rem auto;
-    display: inline-block;
-    padding: 0.8em 2em;
-    border: 2px solid var(--neon-green);
-    color: var(--neon-green);
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 1.1rem;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-#more-info-btn::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(120deg, var(--neon-green), var(--neon-blue), var(--neon-pink));
-    transition: all 0.4s;
-    z-index: 0;
-}
-
-#more-info-btn:hover::after { left: 0; }
-#more-info-btn span { position: relative; z-index: 1; }
-
-#more-info-modal {
+    color: var(--mist-pink);
     opacity: 0;
-    pointer-events: none;
-    transition: all 0.4s ease-in-out;
-    z-index: 50;
-}
-
-#more-info-modal.show {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.shadow-neon {
-    box-shadow: 0 0 20px var(--neon-green),
-                0 0 40px var(--neon-blue),
-                0 0 60px var(--neon-pink);
-}
-
-#more-info-modal ul li {
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    gap: 0.5rem;
-    align-items: center;
-}
-
-#more-info-modal ul li img {
-    filter: drop-shadow(0 0 2px var(--neon-green));
-    width: 1.5rem;
-    height: 1.5rem;
-}
-
-/* ===================================================
-   🔥 NEW FIXES & ENHANCEMENTS ADDED BY GPT
-   =================================================== */
-
-/* FIX: Prevent glitch effects inside modal */
-#more-info-modal * {
-    animation: none !important;
-    text-shadow: none !important;
-    clip: auto !important;
-    position: relative !important;
-}
-
-/* FIX: Disable glitch layers when modal is open */
-#more-info-modal.show ~ .glitch::before,
-#more-info-modal.show ~ .glitch::after {
-    display: none !important;
-}
-
-/* Modal Backdrop Enhancement */
-#more-info-modal::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(8px);
+    filter: blur(2px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
     z-index: -1;
 }
 
-/* Neon Hover for Modal List */
-#more-info-modal ul li:hover {
-    color: var(--neon-green);
-    transform: translateX(6px);
-    filter: drop-shadow(0 0 8px var(--neon-green));
+.text-glow:hover {
+    color: var(--mist-blue);
 }
+
+.text-glow:hover::after {
+    opacity: 0.6;
+    transform: translate(1px, 1px);
+}
+body.dark-mode .text-glow::after { color: var(--mist-pink); }
+body.dark-mode .text-glow:hover { color: var(--mist-pink); }
+
+
+/* Soft Buttons */
+.button-soft {
+    display: inline-block;
+    padding: 0.8em 1.6em;
+    border: 1px solid var(--morning-gold);
+    background-color: transparent;
+    color: var(--morning-gold);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    border-radius: 50px; 
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.button-soft::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--mist-blue), var(--mist-pink));
+    opacity: 0;
+    transition: opacity 0.4s;
+    z-index: 0;
+}
+
+.button-soft:hover::before { opacity: 1; }
+.button-soft:hover {
+    color: var(--text-dark); 
+    border-color: var(--mist-pink);
+    box-shadow: 0 4px 15px rgba(255, 196, 214, 0.5);
+}
+.button-soft span { position: relative; z-index: 1; }
+
+/* 🛠️ THEME TOGGLE SPECIFIC FIXES (HIGH CONTRAST) */
+#theme-toggle {
+    background-color: var(--morning-gold);
+    color: var(--text-light) !important;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#theme-toggle:hover {
+    background-color: var(--mist-pink);
+    color: var(--text-light) !important;
+}
+
+body.dark-mode #theme-toggle {
+    background-color: var(--bg-dark);
+    color: var(--morning-gold) !important;
+    border: 2px solid var(--morning-gold);
+}
+
+body.dark-mode #theme-toggle:hover {
+    background-color: var(--morning-gold);
+    color: var(--text-dark) !important;
+}
+
+/* 🛠️ CONTACT BAR STYLING */
+#contact-bar {
+    padding-bottom: 12px;
+    padding-top: 12px;
+}
+@media (min-width: 768px) {
+    #contact-bar {
+        padding-bottom: 16px;
+        padding-top: 16px;
+    }
+}
+
+
+/* Cards (Soft, Elevated Look) */
+.section-card {
+    background-color: var(--bg-card-light);
+    color: var(--text-light);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.5s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.section-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 159, 28, 0.15);
+}
+
+body.dark-mode .section-card {
+    background-color: var(--bg-card-dark);
+    color: var(--text-dark);
+    border-color: var(--border-dark);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Input Fields (Clean and Smooth) */
+.input-soft {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--mist-blue);
+    background-color: var(--bg-light);
+    color: var(--text-light);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 5px rgba(163, 217, 255, 0.2);
+}
+
+.input-soft:focus {
+    outline: none;
+    border-color: var(--morning-gold);
+    box-shadow: 0 0 10px rgba(255, 159, 28, 0.4);
+}
+body.dark-mode .input-soft {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+    border-color: var(--border-dark);
+}
+
+/* Skill Tags (Pill Shape) */
+.skill-tag {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    background-color: var(--mist-pink);
+    color: var(--text-light);
+    border-radius: 50px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 5px rgba(255, 196, 214, 0.5);
+    transition: all 0.3s ease;
+}
+.skill-tag:hover {
+    background-color: var(--morning-gold);
+    color: var(--text-dark);
+    box-shadow: 0 4px 8px rgba(255, 159, 28, 0.5);
+}
+body.dark-mode .skill-tag {
+    background-color: rgba(255, 159, 28, 0.2);
+    color: var(--morning-gold);
+}
+
+/* ➡️ STRATEGIC IMAGE APPLICATION: CONTACT SECTION */
+#contact {
+    /* Set the hiring image */
+    background-image: var(--hiring-image);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+    position: relative;
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
+}
+
+/* Overlay to ensure text legibility against the new image (Light Mode) */
+#contact::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Reduced opacity slightly for light mode to show more image, but keep contrast */
+    background: rgba(255, 255, 255, 0.6); 
+    pointer-events: none;
+    z-index: 1; 
+}
+
+/* ❌ DARK MODE FIX: REMOVE OVERLAY for full image visibility */
+body.dark-mode #contact::before {
+    /* Setting background to transparent removes the dark overlay completely */
+    background: transparent; 
+}
+
+/* ✅ DARK MODE FIX: ENSURE TEXT AND INPUTS ARE LEGIBLE AGAINST THE IMAGE */
+body.dark-mode #contact h2, 
+body.dark-mode #contact form {
+    color: var(--text-dark) !important; /* Forces text to white/light grey */
+}
+
+/* REFINED INPUT FIX: Use a darker, semi-transparent background for inputs in Dark Mode 
+   to allow the main background image to show through slightly, while maintaining contrast. */
+body.dark-mode #contact .input-soft {
+    /* Use a dark, semi-transparent background to reveal the image */
+    background-color: rgba(31, 41, 55, 0.6) !important; /* Semi-transparent dark bg */
+    color: var(--text-dark) !important; /* Light text for legibility */
+    border-color: var(--morning-gold) !important;
+}
+
+/* Adjust the button's color scheme for contrast */
+body.dark-mode #contact .button-soft {
+    border-color: var(--text-dark) !important;
+    color: var(--text-dark) !important;
+}
+body.dark-mode #contact .button-soft:hover {
+    color: var(--text-light) !important;
+}
+
+/* Adjust the title's unique color to maintain visibility */
+body.dark-mode #contact .text-glow[data-text="COLLABORATE"] {
+    color: var(--morning-gold) !important; 
+}
+
+
+/* Ensure Contact section content is above the overlay */
+#contact h2, #contact form {
+    position: relative; 
+    z-index: 2;
+}
+
+
+/* Shadow Glow for Modals */
+.shadow-soft-glow {
+    box-shadow: 0 0 30px rgba(255, 159, 28, 0.3),
+                0 0 50px rgba(163, 217, 255, 0.3);
+}
+
+/* 🛠️ NEW: TIMELINE STYLING FOR #EXPERIENCE */
+.timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    border-left: 3px solid var(--mist-blue); /* Thicker, soft line */
+    margin-bottom: 2.5rem;
+    padding-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover {
+    border-left-color: var(--morning-gold);
+    transform: translateX(5px);
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -10px; /* Adjust to center dot over the line */
+    top: 0;
+    width: 18px;
+    height: 18px;
+    background-color: var(--morning-gold);
+    border-radius: 50%;
+    border: 3px solid var(--bg-light); /* Halo effect */
+    box-shadow: 0 0 0 4px rgba(255, 159, 28, 0.2);
+    transition: all 0.3s ease;
+}
+
+.timeline-item:hover::before {
+    box-shadow: 0 0 0 6px rgba(255, 159, 28, 0.4);
+    background-color: var(--mist-pink);
+}
+
+body.dark-mode .timeline-item {
+    border-left-color: var(--subtext-dark);
+}
+body.dark-mode .timeline-item::before {
+    border-color: var(--bg-dark);
+}
+
+/* Scrollbar (Subtle) */
+body::-webkit-scrollbar { width: 8px; }
+body::-webkit-scrollbar-track { background: var(--bg-light); }
+body::-webkit-scrollbar-thumb {
+    background: var(--morning-gold);
+    border-radius: 10px;
+}
+body.dark-mode::-webkit-scrollbar-track { background: var(--bg-dark); }
+body.dark-mode::-webkit-scrollbar-thumb {
+    background: var(--morning-gold);
+}
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .button-soft {
+        padding: 0.6em 1.2em;
+        font-size: 0.9rem;
+    }
+}
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+}
+/* End of style.css */
