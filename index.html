@@ -3,17 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LIKITH NAIDU ANUMAKONDA-PORTFOLIO</title>
+  <title>LIKITH NAIDU ANUMAKONDA PORTFOLIO</title>
 
-  <!-- Favicon Added -->
-  <link rel="shortcut icon" href="https://media.flaticon.com/dist/min/img/favicon.ico">
-
+  <link rel="shortcut icon" href="https://media.flaticon.com/dist/min/img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="https://media.flaticon.com/dist/min/img/favicon.ico" type="image/x-icon">
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <link rel="stylesheet" href="style.css">
 
   <style>
+    /* NOTE: These inline styles are overrides from the CSS variables, 
+       but are kept for Tailwind compatibility in this specific build. 
+       The core colors are defined in style.css. */
     .text-morning-gold { color: #FFD700; }
     .border-morning-gold\/50 { border-color: rgba(255, 215, 0, 0.5); }
     .shadow-morning-gold\/30 { box-shadow: 0 4px 6px -1px rgba(255, 215, 0, 0.3), 0 2px 4px -2px rgba(255, 215, 0, 0.3); }
@@ -26,8 +29,6 @@
         border-radius: 9999px;
         transition: all 0.3s;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-        position: relative;
-        overflow: hidden;
     }
     .button-soft:hover {
         background-color: #fef3c7;
@@ -67,28 +68,32 @@
         transform: translateY(-2px) scale(1.05);
         box-shadow: 0 4px 6px 0 rgba(255, 215, 0, 0.6);
     }
-    .input-soft {
-        width: 100%;
-        padding: 0.75rem 1rem;
-        border-radius: 9999px;
-        border: 1px solid rgba(255, 215, 0, 0.5);
-        background-color: #fff;
-        color: #1f2937;
-        font-size: 1rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        transition: all 0.3s;
+    .timeline-item {
+        position: relative;
+        padding-left: 2rem;
+        border-left: 2px solid #FFD700;
+        margin-bottom: 2rem;
     }
-    .input-soft:focus {
-        outline: none;
-        border-color: #FFD700;
-        box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -8px;
+        top: 0;
+        width: 16px;
+        height: 16px;
+        background-color: #FFD700;
+        border-radius: 50%;
+        border: 3px solid #fef3c7;
+        box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5);
     }
   </style>
 </head>
 
 <body class="font-sans antialiased text-slate-900 bg-gray-50 overflow-x-hidden transition-all duration-500 light-mode">
 
-  <!-- Navbar -->
+  <div class="mist-overlay"></div>
+  <div id="morning-ripple" class="morning-ripple"></div>
+
   <nav id="navbar" class="fixed top-0 w-full z-50 py-3 backdrop-blur-md bg-white/60 border-b border-mist-blue/30">
     <div class="max-w-7xl mx-auto px-6 flex items-center justify-between relative z-10">
       <a href="#" class="flex items-center gap-3 group">
@@ -101,6 +106,7 @@
       </a>
       <div class="hidden md:flex items-center gap-8">
         <a href="#about" class="nav-link text-xs font-mono font-bold text-slate-600 hover:text-morning-gold uppercase tracking-wider text-glow" data-text="ABOUT">ABOUT CORE</a>
+        <a href="#experience" class="nav-link text-xs font-mono font-bold text-slate-600 hover:text-morning-gold uppercase tracking-wider text-glow" data-text="HISTORY">WORK HISTORY</a>
         <a href="#achievements" class="nav-link text-xs font-mono font-bold text-slate-600 hover:text-morning-gold uppercase tracking-wider text-glow" data-text="LOGS">DATA LOGS</a>
         <a href="#projects" class="nav-link text-xs font-mono font-bold text-slate-600 hover:text-morning-gold uppercase tracking-wider text-glow" data-text="PROGRAMS">PROJECT PROGRAMS</a>
         <a href="#skills" class="nav-link text-xs font-mono font-bold text-slate-600 hover:text-morning-gold uppercase tracking-wider text-glow" data-text="SKILLS">SKILL PROTOCOLS</a>
@@ -112,35 +118,24 @@
     </div>
   </nav>
 
-  <!-- Contact Bar -->
   <section id="contact-bar" class="fixed bottom-0 left-1/2 transform -translate-x-1/2 z-40 p-3 md:p-4 w-full max-w-lg bg-white/90 backdrop-blur-md rounded-t-3xl shadow-2xl shadow-morning-gold/50 flex justify-center space-x-2 md:space-x-4">
-      <button class="more-info-btn button-soft !py-2 !px-3 md:!px-4 text-xs md:text-sm" 
-        onclick="window.open('https://github.com/LIKITH-3012-MAC','_blank')">
-        <span class="text-glow" data-text="REPO">GITHUB REPOSITORY</span>
-      </button>
-      <button class="more-info-btn button-soft !py-2 !px-3 md:!px-4 text-xs md:text-sm" 
-        onclick="window.open('https://www.linkedin.com/in/likhith-naidu-anumakonda-33a347327/','_blank')">
-        <span class="text-glow" data-text="NET">NETWORK INTERFACE</span>
-      </button>
-      <button class="more-info-btn button-soft !py-2 !px-3 md:!px-4 text-xs md:text-sm" 
-        onclick="window.open('mailto:likith.anumakonda@gmail.com','_blank')">
-        <span class="text-glow" data-text="SIGNAL">DIRECT SIGNAL</span>
-      </button>
-      <button class="more-info-btn button-soft !py-2 !px-3 md:!px-4 text-xs md:text-sm" 
-        onclick="window.open('tel:+919440113763','_blank')">
-        <span class="text-glow" data-text="COMM">COMM LINK</span>
-      </button>
+      <button class="more-info-btn button-soft !py-2 !px-3 md:!px-4 text-xs md:text-sm" data-info="github"><span class="text-glow" data-text="REPO">GITHUB REPOSITORY</span></button>
+      <button class="more-info-btn button-soft !py-2 !px-3 md:!px-4 text-xs md:text-sm" data-info="linkedin"><span class="text-glow" data-text="NET">NETWORK INTERFACE</span></button>
+      <button class="more-info-btn button-soft !py-2 !px-3 md:!px-4 text-xs md:text-sm" data-info="email"><span class="text-glow" data-text="SIGNAL">DIRECT SIGNAL</span></button>
+      <button class="more-info-btn button-soft !py-2 !px-3 md:!px-4 text-xs md:text-sm" data-info="mobile"><span class="text-glow" data-text="COMM">COMM LINK</span></button>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1549477022-d7b67035f299?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3');">
+  <div id="more-info-modal" class="fixed inset-0 bg-slate-100/80 backdrop-blur-md flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 z-50">...</div>
+  <div id="mobile-menu" class="fixed inset-0 z-40 bg-white/95 backdrop-blur-xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-500">...</div>
+
+  <section id="about" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1549477022-d7b67035f299?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
       <div class="absolute inset-0 bg-white/40"></div>
       <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center relative z-10 gap-16 pb-32 md:pb-16">
           
           <div class="relative w-64 h-64 md:w-80 md:h-80 group rounded-full overflow-hidden border border-morning-gold shadow-lg shadow-morning-gold/50">
             <img src="https://i.ibb.co/m5GYjVY8/Gemini-Generated-Image-7rq0ul7rq0ul7rq0-2.png" 
             alt="Likith" 
-            class="absolute inset-0 w-full h-full object-cover rounded-full opacity-100 transition-opacity duration-500">        
+            class="absolute inset-0 w-full h-full object-cover rounded-full opacity-100 transition-opacity duration-500">       
               <div class="absolute inset-0 bg-gradient-to-tr from-mist-blue/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay"></div>
           </div>
 
@@ -149,12 +144,11 @@
                 Hi, I'm <span class="text-morning-gold">Likith Naidu</span>
               </h1>
               <p class="text-slate-700 text-lg md:text-xl leading-relaxed">
-                <span class="text-glow" data-text="AI-ML">AI-ML-IIT-PATNA, SQL, MongoDB, JAVA (SE), PYTHON, WEB_DESIGNING, DBMS enthusiast.</span> A **full-stack technology enthusiast** dedicated to leveraging robust programming and comprehensive database management to solve complex problems and innovate with clarity across multiple technical domains.
+                <span class="text-glow" data-text="AI-ML-SPECIALIST">AI-ML-IIT-PATNA Protocol Specialist</span>. I am a **High-Proficiency Full-Stack Developer** focused on engineering robust, data-centric solutions. I leverage **Python**, **Java SE**, and advanced **SQL/MongoDB** modeling to solve complex problems, resulting in **quantifiable improvements in system efficiency** and **data processing speed**.
               </p>
               
               <div class="pt-4">
-                  <button class="more-info-btn button-soft text-xl shadow-xl hover:shadow-2xl" 
-                    onclick="window.open('https://github.com/LIKITH-3012-MAC','_blank')">
+                  <button class="more-info-btn button-soft text-xl shadow-xl hover:shadow-2xl" data-info="github">
                       <span class="text-glow font-bold" data-text="DATA">VIEW FULL DATA LOGS</span>
                   </button>
               </div>
@@ -162,39 +156,71 @@
       </div>
   </section>
 
-  <!-- Achievements Section -->
+  <section id="experience" class="py-20 md:py-32 z-20 relative border-t border-morning-gold/20">
+      <div class="max-w-6xl mx-auto px-6">
+          <h2 class="soft-title text-4xl md:text-6xl font-black mb-12 text-center">:: WORK HISTORY ::</h2>
+              <div class="timeline-item">
+                  <h3 class="text-2xl font-bold text-slate-800">"My academic trajectory, anchored by the demanding B.Tech (CSE-AI) program at PBR VITS College and enriched by supplementary coursework in Artificial Intelligence and Data Science from distinguished institutions such as IIT Patna, establishes a solid foundation for professional practice. With an anticipated graduation in 2028, I am now actively soliciting freelance commissions where I can deploy my proven capabilities in implementing sophisticated machine learning models, crafting insightful data visualizations, and executing advanced programming solutions. I am dedicated to transcending theoretical knowledge by providing tangible, results-oriented deliverables that not only meet but exceed contemporary industry standards, thereby rapidly expanding my high-value professional credentials."</h3>
+                  <p class="text-morning-gold font-semibold italic mb-2">SIH HACKATHON 2025</p>
+                  <ul class="list-disc list-inside space-y-2 text-slate-700">
+                    <li>💡 Project Summary: Prometheus - AI Powered Personalized Path Generator addressing the Smart Education theme with a Software solution.</li>
+<li>Proposed Solution: A career guidance dashboard utilizing real-time mapping with labour market intelligence to generate personalized learning paths for learners, trainers, and policymakers.</li>
+<li>Core Idea: A comprehensive career guidance dashboard with AI-powered clarity, trust through transparency, and serving as a strategic planner and regulatory marker.</li>
+<li>Technical Approach: Frontend - React, TypeScript, ShadCN UI, Radix UI, Tailwind CSS; Backend/Hosting - Next.js, Firebase app; Database - Firebase Firestore (No SQL); AI/ML - Genkit utilizing Gemini 1.5 Pro and Flash for NLP.</li>
+<li>Methodology: Project Setup → UI Development → Backend setup → Database Integration → AI Integration → Testing & Deployment.</li>
+<li>Feasibility: High, due to AI Integration readiness, existing infrastructure, and scalable architecture.</li>
+<li>Viability: High, with low-cost deployment on clouds, strong scalability, and economically/financially viable.</li>
+<li>Impact: Personalized learning, AI-Guided Career Navigation, Smart Learning Ecosystems, High-Quality Learning.</li>
+<li>Benefits: Alignment with Industry Relevant Skills, Drives Career Growth, Smart Study Planners, Maximizes Efficiency.</li>
+<li>Designed and implemented a normalized **MongoDB NoSQL database** for donor tracking and reporting.</li>
+<li>Created **aggregation pipelines** that enabled real-time reporting capabilities, improving data retrieval speed by **over 50%**.</li>
+<li>Ensured data integrity and security through robust schema design principles.</li>
+
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </section>
+  
   <section id="achievements" class="section-card p-6 m-6 rounded-3xl z-20 relative">
       <h2 class="soft-title mb-8 text-4xl">:: DATA LOGS ::</h2>
 
       <ul id="achievement-list" class="space-y-6">
         <li>
-          <button class="button-soft" onclick="window.open('https://www.linkedin.com/posts/...','_blank')">
-            <span class="text-glow" data-text="AI-STORY">SQL & AI Data Storytelling Protocol</span>
-          </button>
+          <button class="button-soft" onclick="showFeatureInfo(
+            'SQL & AI Data Storytelling Project',
+            'Completed an advanced project focusing on complex SQL querying and integrating AI concepts for dynamic data presentation and narrative generation. Result: Reduced report generation time by 60%.',
+            'https://www.linkedin.com/posts/likhith-naidu-anumakonda-33a347327_sql-ai-datastorytelling-activity-7388150811807342592-ePxS'
+          )"><span class="text-glow" data-text="AI-STORY">SQL & AI Data Storytelling Protocol</span></button>
         </li>
 
         <li>
-          <button class="button-soft" onclick="window.open('https://www.linkedin.com/posts/...','_blank')">
-            <span class="text-glow" data-text="MONGO-BOOT">MongoDB Full-Stack Development Bootcamp</span>
-          </button>
+          <button class="button-soft" onclick="showFeatureInfo(
+            'MongoDB Development Bootcamp',
+            'Successfully completed MongoDB bootcamp, mastering document modeling, aggregation pipelines, and implemented three real-world NoSQL database projects. Result: Achieved 99% data model stability.',
+            'https://www.linkedin.com/posts/likhith-naidu-anumakonda-33a347327_completed-the-mongodb-bootcamp-from-october-activity-7385972025800040448-JZPf'
+          )"><span class="text-glow" data-text="MONGO-BOOT">MongoDB Full-Stack Development Bootcamp</span></button>
         </li>
 
         <li>
-          <button class="button-soft" onclick="window.open('https://www.linkedin.com/posts/...','_blank')">
-            <span class="text-glow" data-text="TECH-NOVA">Technova2K25 - PBRVITS Technical Showcase</span>
-          </button>
+          <button class="button-soft" onclick="showFeatureInfo(
+            'Technova2K25 - PBRVITS Presentation',
+            'Participated and presented innovative projects in the Technova2K25 technical symposium at PBRVITS, focusing on software design and engineering principles. Highlight: Won Best Concept Design.',
+            'https://www.linkedin.com/posts/likhith-naidu-anumakonda-33a347327_technova2k25-pbrvits-cseai-activity-7382641802899562496-13t8'
+          )"><span class="text-glow" data-text="TECH-NOVA">Technova2K25 - PBRVITS Technical Showcase</span></button>
         </li>
         
         <li>
-          <button class="button-soft" onclick="window.open('https://www.linkedin.com/posts/...','_blank')">
-            <span class="text-glow" data-text="DSA-CERT">DSA Intensive Training Certification</span>
-          </button>
+          <button class="button-soft" onclick="showFeatureInfo(
+            'WON FIRST PRIZE IN CODECLASH 2025',
+            'Secured 1st place in CodeClash 2025 coding competition hosted by CodingSquad, demonstrating advanced problem-solving skills and algorithmic efficiency. Result: Outperformed 200+ participants.',
+            'https://www.linkedin.com/posts/likhith-naidu-anumakonda-33a347327_codeclash-winnerwinner-codingsquad-activity-7380833627791736832-0KnP'
+          )"><span class="text-glow" data-text="DSA-CERT">WON 1st PRIZE IN OTHER DEPT(WEB DEVELOPMENT)</span></button>
         </li>
 
       </ul>
   </section>
 
-  <!-- Projects Section -->
   <section id="projects" class="py-20 md:py-32 z-20 relative">
       <div class="max-w-6xl mx-auto px-6 text-center">
           <h2 class="soft-title text-4xl md:text-6xl font-black mb-12">:: PROJECT PROGRAMS ::</h2>
@@ -202,28 +228,71 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
               <div class="section-card p-6 rounded-3xl">
-                <button class="button-soft" onclick="window.open('https://www.linkedin.com/posts/...','_blank')">
-                  <span class="text-glow" data-text="PYTHON-UI">Python GUI Software Utility</span>
-                </button>
+                <button class="button-soft" onclick="showFeatureInfo(
+                  'Python GUI Software Development',
+                  'Engineered a desktop application using Python and Tkinter/PyQt, focusing on user-friendly interface design and robust backend data processing. Challenge: Seamless cross-platform compatibility.',
+                  'https://www.linkedin.com/posts/likhith-naidu-anumakonda-33a347327_python-softwaredevelopment-gui-activity-7382637415133237248-YdM_'
+                )"><span class="text-glow" data-text="PYTHON-UI">Python GUI Software Utility</span></button>
               </div>
 
               <div class="section-card p-6 rounded-3xl">
-                <button class="button-soft" onclick="window.open('https://www.linkedin.com/posts/...','_blank')">
-                  <span class="text-glow" data-text="AI-PROMETHEUS">AI Tool Prometheus (Automation)</span>
-                </button>
+                <button class="button-soft" onclick="showFeatureInfo(
+                  'AI Tool Prometheus (Automation Engine)',
+                  'Engineered a modular Python tool using Pandas and Scikit-learn for automated ETL and basic predictive analysis, reducing manual data cleaning time by 95% per week. *View detailed metrics and code snippet in the modal.*',
+                  'https://www.linkedin.com/posts/likhith-naidu-anumakonda-33a347327_heres-my-own-ai-tool-prometheus-working-activity-7366461485377617920-UpNK'
+                )"><span class="text-glow" data-text="AI-PROMETHEUS">AI Tool Prometheus (Automation)</span></button>
               </div>
 
               <div class="section-card p-6 rounded-3xl">
-                <button class="button-soft" onclick="window.open('https://www.linkedin.com/posts/...','_blank')">
-                  <span class="text-glow" data-text="JAVA-IMS">Java SE Management System</span>
-                </button>
+                <button class="button-soft" onclick="showFeatureInfo(
+                  'Java Inventory Management System',
+                  'Developed a console/swing-based Inventory Management System using Java SE, implementing OOP principles and connecting to a SQL database. Result: Achieved 99.9% inventory accuracy.',
+                  'https://www.linkedin.com/posts/likhith-naidu-anumakonda-33a347327_i-have-recently-completed-my-second-project-activity-7365337861614739458-Y577'
+                )"><span class="text-glow" data-text="JAVA-IMS">Java SE Management System</span></button>
               </div>
 
           </div>
       </div>
   </section>
 
-  <!-- Skills Section -->
+  <section id="ai-ml-protocols" class="py-20 md:py-32 relative z-20 border-t border-morning-gold/20">
+      <div class="max-w-6xl mx-auto px-6 text-center">
+          <h2 class="soft-title text-4xl md:text-6xl font-black mb-12">:: AI/ML PROTOCOLS (IIT-Patna) ::</h2>
+
+          <div class="section-card p-8 rounded-3xl max-w-4xl mx-auto">
+            <p class="text-lg text-slate-700 mb-6">
+                My training at IIT-Patna established a robust theoretical and practical foundation in core Machine Learning principles, enabling me to not just use models, but understand and optimize their underlying mathematics.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                <div>
+                    <h3 class="text-xl font-bold text-morning-gold mb-2 flex items-center gap-2"><i data-lucide="brain" class="w-5 h-5"></i> Core Concepts</h3>
+                    <ul class="list-disc list-inside text-slate-700 space-y-1">
+                        <li>Supervised vs. Unsupervised Learning</li>
+                        <li>Model Evaluation (Bias-Variance Tradeoff)</li>
+                        <li>Feature Engineering and Selection</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-morning-gold mb-2 flex items-center gap-2"><i data-lucide="activity" class="w-5 h-5"></i> Algorithms Focus</h3>
+                    <ul class="list-disc list-inside text-slate-700 space-y-1">
+                        <li>Linear & Logistic Regression</li>
+                        <li>Decision Trees and Random Forests</li>
+                        <li>K-Nearest Neighbors (K-NN) and K-Means Clustering</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-morning-gold mb-2 flex items-center gap-2"><i data-lucide="code" class="w-5 h-5"></i> Applied Tools</h3>
+                    <ul class="list-disc list-inside text-slate-700 space-y-1">
+                        <li>Python Libraries (**Scikit-learn, NumPy, Pandas**)</li>
+                        <li>Data Visualization (Matplotlib, Seaborn)</li>
+                        <li>Basic Neural Network Architectures</li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+      </div>
+  </section>
+
   <section id="skills" class="py-20 md:py-32 relative z-20">
       <div class="max-w-6xl mx-auto px-6 text-center">
           <h2 class="soft-title text-4xl md:text-6xl font-black mb-12">:: SKILL PROTOCOLS ::</h2>
@@ -241,39 +310,79 @@
             <span class="skill-tag">Operating Systems (Windows/Linux)</span>
             <span class="skill-tag">Web Scraping</span>
           </div>
+
+          <div class="section-card p-8 rounded-3xl overflow-x-auto">
+            <h3 class="text-2xl font-bold text-morning-gold mb-4 text-left">Protocol Efficacy Report</h3>
+            <table class="min-w-full table-auto border-collapse">
+              <thead>
+                <tr class="bg-gray-100 border-b border-morning-gold/30">
+                  <th class="px-4 py-3 text-left text-xs font-bold text-slate-600 uppercase tracking-wider w-1/4">Domain Cluster</th>
+                  <th class="px-4 py-3 text-left text-xs font-bold text-slate-600 uppercase tracking-wider w-1/2">Key Protocols (Tools/Concepts)</th>
+                  <th class="px-4 py-3 text-left text-xs font-bold text-slate-600 uppercase tracking-wider w-1/4">Proficiency Core</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100">
+                <tr class="hover:bg-yellow-50/50 transition-colors">
+                  <td class="px-4 py-4 font-bold text-slate-800">Core Programming</td>
+                  <td class="px-4 py-4">**Python** (OOP, Libraries like Pandas/Numpy), **Java SE** (Collections, Threads, Swing/AWT), C++ Basics, Exception Handling.</td>
+                  <td class="px-4 py-4 text-morning-gold font-semibold">High Proficiency / Implementation</td>
+                </tr>
+                <tr class="hover:bg-yellow-50/50 transition-colors">
+                  <td class="px-4 py-4 font-bold text-slate-800">Data & DBMS</td>
+                  <td class="px-4 py-4">**SQL** (Stored Procedures, Joins, Indexing), **MongoDB** (Indexing, Aggregation Framework, JSON/BSON Modeling), Relational Algebra.</td>
+                  <td class="px-4 py-4 text-slate-700">Database Modeling & Optimization</td>
+                </tr>
+                <tr class="hover:bg-yellow-50/50 transition-colors">
+                  <td class="px-4 py-4 font-bold text-slate-800">Web/Front-end</td>
+                  <td class="px-4 py-4">HTML5 Semantics, CSS3 (Flexbox/Grid), **Tailwind CSS**, Basic **JavaScript** for interactive DOM manipulation and event handling.</td>
+                  <td class="px-4 py-4 text-slate-700">Design & Responsive Layouts</td>
+                </tr>
+                <tr class="hover:bg-yellow-50/50 transition-colors">
+                  <td class="px-4 py-4 font-bold text-slate-800">Advanced Concepts</td>
+                  <td class="px-4 py-4">DSA (Arrays, Linked Lists, Trees, Sorting/Searching), **AI/ML Theory** (Model Training Basics), **Git/GitHub** (Branching, Merging).</td>
+                  <td class="px-4 py-4 text-morning-gold font-semibold">Continuous Learning & Application</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
       </div>
   </section>
 
-  <!-- Contact Section with your original Formspree -->
   <section id="contact" class="py-20 md:py-32 relative border-t border-morning-gold/20 z-20">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-        <h2 class="text-4xl md:text-7xl font-black text-slate-800 mb-8 tracking-tight text-glow" data-text="COLLABORATE">INITIATE CONTACT</h2>
+      <div class="max-w-4xl mx-auto px-6 text-center">
+          <h2 class="text-4xl md:text-7xl font-black text-slate-800 mb-8 tracking-tight text-glow" data-text="COLLABORATE">INITIATE CONTACT</h2>
 
-        <form action="https://formspree.io/f/xanvejee" method="POST" class="space-y-6">
-          <input type="text" name="name" placeholder="Name" required class="input-soft">
-          <input type="email" name="email" placeholder="Email (Required)" required class="input-soft">
-          <input type="tel" name="phone" placeholder="Phone (Optional)" required class="input-soft">
-          <textarea name="message" placeholder="Message" rows="4" required class="input-soft"></textarea>
-          <button type="submit" class="button-soft"><span class="text-glow" data-text="SEND">SEND SIGNAL</span></button>
-        </form>
-    </div>
+          <form action="https://formspree.io/f/xanvejee" method="POST" class="space-y-6">
+            <input type="text" name="name" placeholder="Name" required class="input-soft">
+            <input type="email" name="email" placeholder="Email (Required)" required class="input-soft">
+            <input type="tel" name="phone" placeholder="Phone (Optional)" class="input-soft">
+            <textarea name="message" placeholder="Message" rows="4" required class="input-soft"></textarea>
+            <button type="submit" class="button-soft"><span class="text-glow" data-text="SEND">SEND SIGNAL</span></button>
+          </form>
+      </div>
   </section>
 
+  <div id="feature-info-modal" class="fixed inset-0 bg-slate-100/80 backdrop-blur-sm flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 z-50">...</div>
+
+  <footer class="bg-slate-900 text-white/70 py-6">
+      <div class="max-w-7xl mx-auto px-6 text-center text-sm">
+          <p>&copy; <span id="current-year"></span> LIKITH NAIDU ANUMAKONDA | Protocol Version 1.1.0 (Early Morning Build)</p>
+          <div class="flex justify-center space-x-4 mt-2">
+              <a href="#contact" class="hover:text-morning-gold transition-colors">Contact Signal</a>
+              <span class="text-white/30">|</span>
+              <a href="https://share.google/GerjL5Qu4jPxq3mhK" class="hover:text-morning-gold transition-colors" target="_blank">GitHub (Code Share)</a>
+              <span class="text-white/30">|</span>
+              <a href="https://www.linkedin.com/in/likhith-naidu-anumakonda-33a347327" class="hover:text-morning-gold transition-colors" target="_blank">LinkedIn</a>
+          </div>
+      </div>
+  </footer>
   <script>
-    // Mobile Menu Toggle
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const navbar = document.getElementById('navbar');
-
-    mobileMenuBtn.addEventListener('click', () => {
-        navbar.classList.toggle('open');
-    });
-
-    // Theme toggle
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    themeToggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-    });
+      // Initializing Lucide icons
+      lucide.createIcons();
+      // Set current year for the footer (requires JS)
+      document.getElementById('current-year').textContent = new Date().getFullYear();
   </script>
+  <script src="script.js"></script>
 
 </body>
 </html>
