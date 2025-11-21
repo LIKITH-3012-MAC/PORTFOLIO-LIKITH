@@ -348,19 +348,29 @@
       </div>
   </section>
 
-  <section id="contact" class="py-20 md:py-32 relative border-t border-morning-gold/20 z-20">
-      <div class="max-w-4xl mx-auto px-6 text-center">
-          <h2 class="text-4xl md:text-7xl font-black text-slate-800 mb-8 tracking-tight text-glow" data-text="COLLABORATE">INITIATE CONTACT</h2>
+ <section id="contact" class="py-20 md:py-32 relative border-t border-morning-gold/20 z-20">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <h2 class="text-4xl md:text-7xl font-black text-slate-800 mb-8 tracking-tight text-glow" data-text="COLLABORATE">
+      READY TO COLLABORATE
+    </h2>
 
-          <form action="https://formspree.io/f/xanvejee" method="POST" class="space-y-6">
-            <input type="text" name="name" placeholder="Name" required class="input-soft">
-            <input type="email" name="email" placeholder="Email (Required)" required class="input-soft">
-            <input type="tel" name="phone" placeholder="Phone (Optional)" class="input-soft">
-            <textarea name="message" placeholder="Message" rows="4" required class="input-soft"></textarea>
-            <button type="submit" class="button-soft"><span class="text-glow" data-text="SEND">SEND SIGNAL</span></button>
-          </form>
-      </div>
-  </section>
+    <form action="https://formspree.io/f/xanvejee" method="POST" class="space-y-6">
+      <input type="text" name="name" placeholder="Name" required class="input-soft">
+      <input type="email" name="email" placeholder="Email (Required)" required class="input-soft">
+      <input type="tel" name="phone" placeholder="Phone (Optional)" class="input-soft">
+      <textarea name="message" placeholder="Message" rows="4" required class="input-soft"></textarea>
+      
+      <!-- Hidden fields for Formspree -->
+      <input type="hidden" name="_replyto" value="likith.anumakonda@gmail.com">
+      <input type="hidden" name="_subject" value="New Contact from Portfolio">
+      <input type="hidden" name="_next" value="https://likith-portfolio.online/thank-you.html">
+
+      <button type="submit" class="button-soft">
+        <span class="text-glow" data-text="SEND">SEND SIGNAL</span>
+      </button>
+    </form>
+  </div>
+</section>
 
   <div id="feature-info-modal" class="fixed inset-0 bg-slate-100/80 backdrop-blur-sm flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 z-50">...</div>
 
