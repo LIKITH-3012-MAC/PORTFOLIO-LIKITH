@@ -32,7 +32,6 @@
             --color-skill-tag-bg: #fef9c3; 
             --color-skill-tag-text: #854d0e; 
             --color-nav-bg: rgba(255, 255, 255, 0.7);
-            --color-social-hover: #f1f5f9; /* slate-100 */
         }
 
         /* DARK MODE OVERRIDES */
@@ -49,7 +48,6 @@
             --color-skill-tag-bg: #4c3000;
             --color-skill-tag-text: #ffebb0;
             --color-nav-bg: rgba(15, 23, 42, 0.8);
-            --color-social-hover: #1e293b; /* slate-800 */
         }
         
         /* Custom Tailwind Configuration via CSS for Extra Small Screens */
@@ -83,22 +81,6 @@
             transition: background-color 0.3s, color 0.3s;
             position: relative;
         }
-        
-        /* Fix: Ensure all elements inherit background/border colors correctly for light/dark mode */
-        #contact-bar {
-            background-color: var(--color-card-bg); 
-            border: 1px solid var(--color-border);
-        }
-        #contact-bar a:hover {
-            background-color: var(--color-social-hover);
-        }
-        #about-modal-card, .modal-content, .input-soft {
-            background-color: var(--color-card-bg); 
-            color: var(--color-secondary);
-        }
-        #about-modal-card {
-            border: 1px solid var(--color-border); /* Overridden by JS pulse border, but good default */
-        }
 
         /* CREATIVE: Global Aura */
         body::before {
@@ -113,6 +95,7 @@
         }
 
         /* 🚀 ADVANCED SCROLLING PERFORMANCE ENHANCEMENT */
+        /* Force these elements onto their own render layer for smoother scrolling/transforms */
         #navbar, #contact-bar, .section-card, .modal-content, .soft-title, #mobile-menu {
             will-change: transform, opacity;
             transform: translateZ(0); 
@@ -276,10 +259,11 @@
         #contact-bar a {
              /* Increase tappable area slightly for mobile icons */
             padding: 0.6rem;
-            /* Reset hover for dark mode consistency */
-            transition: background-color 0.2s;
         }
-
+        #contact-bar a i {
+            width: 1.1rem; 
+            height: 1.1rem;
+        }
         @media (min-width: 768px) {
             #contact-bar {
                 max-width: 512px;
@@ -294,7 +278,6 @@
             max-height: 90vh; 
             overflow-y: auto;
             position: relative; 
-            border: 1px solid var(--color-border); /* Re-added here to ensure border color switch */
         }
 
         /* MODAL STATE: Use visibility and pointer-events for smoother transition */
@@ -357,20 +340,6 @@
         .text-primary { color: var(--color-primary); }
         .text-secondary { color: var(--color-secondary); }
 
-        /* NEW: VERIFIED STAMP */
-        .verified-stamp {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 900;
-            color: var(--gold);
-            border: 1px solid var(--gold);
-            padding: 0.1rem 0.4rem;
-            border-radius: 4px;
-            background-color: rgba(255, 215, 0, 0.1);
-            margin-left: 0.5rem;
-            letter-spacing: 0.05em;
-        }
-
     </style>
 </head>
 
@@ -425,13 +394,13 @@
         </nav>
     </div>
 
-    <section id="contact-bar" class="fixed bottom-12 left-1/2 transform -translate-x-1/2 z-40 p-2 w-[90%] max-w-lg backdrop-blur-md rounded-full shadow-lg shadow-morning-gold-sm flex justify-center space-x-2 transition-colors duration-300" aria-label="Social Media and Direct Contact Links">
+    <section id="contact-bar" class="fixed bottom-12 left-1/2 transform -translate-x-1/2 z-40 p-2 w-[90%] max-w-lg backdrop-blur-md rounded-full shadow-lg shadow-morning-gold-sm flex justify-center space-x-2 transition-colors duration-300" style="background-color: var(--color-card-bg); border: 1px solid var(--color-border);" aria-label="Social Media and Direct Contact Links">
         <a href="https://github.com/LIKITH-3012-MAC" target="_blank" class="p-2 rounded-full hover:bg-slate-100 transition" aria-label="GitHub Profile"><i data-lucide="github" class="w-5 h-5 text-primary"></i></a>
         <a href="https://linkedin.com/in/likhith-naidu-anumakonda-33a347327" target="_blank" class="p-2 rounded-full hover:bg-slate-100 transition" aria-label="LinkedIn Profile"><i data-lucide="linkedin" class="w-5 h-5 text-blue-600"></i></a>
         
-                <a href="https://www.instagram.com/likhith_anumakonda?igsh=MTgxZ3hrc3BtcHAzdg==" target="_blank" class="p-2 rounded-full hover:bg-slate-100 transition" aria-label="Instagram Profile"><i data-lucide="instagram" class="w-5 h-5 text-pink-600"></i></a>
+                <a href="https://www.instagram.com/likhith_anumakonda?igsh=MTgxZ3hrc3BtcHAzdg==" target="_blank" class="p-2 rounded-full hover:bg-slate-100 transition" aria-label="Instagram Profile"><i data-lucide="instagram" class="w-5 h-5 text-pink-500"></i></a>
         
-                <a href="https://x.com/Likithdob301206?t=4FzQYS1UgCKSQBgc99xspg&s=09" target="_blank" class="p-2 rounded-full hover:bg-slate-100 transition" aria-label="X/Twitter Profile"><i data-lucide="twitter" class="w-5 h-5 text-primary"></i></a>
+                <a href="https://x.com/Likithdob301206?t=4FzQYS1UgCKSQBgc99xspg&s=09" target="_blank" class="p-2 rounded-full hover:bg-slate-100 transition" aria-label="X (Twitter) Profile"><i data-lucide="twitter" class="w-5 h-5 text-blue-400"></i></a>
         
         <a href="tel:+919440113763" class="p-2 rounded-full hover:bg-slate-100 transition" aria-label="Call Mobile Number"><i data-lucide="phone" class="w-5 h-5 text-purple-500"></i></a>
         
@@ -441,7 +410,7 @@
     </section>
 
     <div id="about-modal" class="fixed inset-0 z-[60] flex items-center justify-center modal-backdrop bg-slate-900/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="about-modal-title">
-        <div id="about-modal-card" class="w-full max-w-3xl m-4 rounded-3xl p-8 shadow-2xl border border-morning-gold modal-content overflow-y-auto">
+        <div id="about-modal-card" class="w-full max-w-3xl m-4 rounded-3xl p-8 shadow-2xl border border-morning-gold modal-content overflow-y-auto" style="background-color: var(--color-card-bg); color: var(--color-secondary);">
             <button onclick="toggleAboutModal()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full text-primary z-10" aria-label="Close about me modal">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
@@ -456,13 +425,13 @@
                     <p class="text-lg text-primary leading-relaxed mb-4">
                         I am a **High-Proficiency Full-Stack Developer (VERIFIED)** focused on engineering robust, data-centric solutions. I leverage **Python**, **Java SE**, and advanced **SQL/MongoDB** modeling to solve complex problems, resulting in **quantifiable improvements in system efficiency** and **data processing speed**.
                     </p>
-                    
-                        <h4 class="font-bold text-primary text-sm mb-1">CORE SPECIALIZATION (VERIFIED)</h4>
-                        <ul class="text-secondary leading-relaxed mb-4 text-sm list-disc list-inside space-y-1 ml-4">
-                            <li>Primary: Full Stack Software Development & Backend Optimization.</li>
-                            <li>Secondary: AI Model Development & Data-Intensive Systems (Trained on **$3,000+$ hours of data**).</li>
-                        </ul>
-                    
+                    
+                        <h4 class="font-bold text-primary text-sm mb-1">CORE SPECIALIZATION (VERIFIED)</h4>
+                        <ul class="text-secondary leading-relaxed mb-4 text-sm list-disc list-inside space-y-1 ml-4">
+                            <li>Primary: Full Stack Software Development & Backend Optimization.</li>
+                            <li>Secondary: AI Model Development & Data-Intensive Systems (Trained on **$3,000+$ hours of data**).</li>
+                        </ul>
+                    
                     <div class="flex flex-wrap gap-2 text-xs text-secondary">
                         <span>• Born: Nellore (30-12-2006)</span>
                         <span>• Interest: Quantum Mechanics, Automation, **Classical Pianist (VERIFIED)**</span>
@@ -532,39 +501,39 @@
     </section>
 
     <div class="section-divider-glow"></div>
-    
-    <section id="education" class="py-20 z-10 relative">
-        <div class="max-w-5xl mx-auto px-6">
-            <h2 class="soft-title text-4xl md:text-5xl font-black mb-12 text-center">:: ACADEMIC PROTOCOLS (VERIFIED) ::</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="section-card p-6">
-                    <div class="flex items-center gap-3 mb-3">
-                        <i data-lucide="graduation-cap" class="w-8 h-8 text-morning-gold shrink-0"></i>
-                        <h3 class="text-xl font-bold text-primary">B.Tech CSE - Artificial Intelligence <span class="verified-stamp">V</span></h3>
-                    </div>
-                    <p class="text-secondary font-semibold">PBR VITS, Kavali</p>
-                    <p class="text-sm text-secondary italic mb-4">2nd Year, Currently Pursuing - Expected Graduation: **June 2028** (Verified Timeline)</p>
-                    <ul class="text-xs text-secondary list-disc list-inside space-y-1 ml-4">
-                        <li>Core focus on DSA, OOP, Neural Networks, and Cloud Computing basics.</li>
-                        <li>Maintained a verified academic standing in the top 10% of the class.</li>
-                    </ul>
-                </div>
-                <div class="section-card p-6">
-                    <div class="flex items-center gap-3 mb-3">
-                        <i data-lucide="brain-circuit" class="w-8 h-8 text-morning-gold shrink-0"></i>
-                        <h3 class="text-xl font-bold text-primary">Advanced AI-ML Specialization <span class="verified-stamp">V</span></h3>
-                    </div>
-                    <p class="text-secondary font-semibold">IIT-Patna (NPTEL/MOOC Protocol)</p>
-                    <p class="text-sm text-secondary italic mb-4">Completed Core Modules: Data Preprocessing, Model Evaluation, and Mathematical Intuition for ML.</p>
-                    <ul class="text-xs text-secondary list-disc list-inside space-y-1 ml-4">
-                        <li>Intensive study of linear algebra, calculus, and probability theory as applied to Deep Learning.</li>
-                        <li>Final project submission focusing on optimized model deployment on constrained hardware. (Verified Certificate Pending)</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+    
+    <section id="education" class="py-20 z-10 relative">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="soft-title text-4xl md:text-5xl font-black mb-12 text-center">:: ACADEMIC PROTOCOLS (VERIFIED) ::</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="section-card p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i data-lucide="graduation-cap" class="w-8 h-8 text-morning-gold shrink-0"></i>
+                        <h3 class="text-xl font-bold text-primary">B.Tech CSE - Artificial Intelligence <span class="verified-stamp">V</span></h3>
+                    </div>
+                    <p class="text-secondary font-semibold">PBR VITS, Kavali</p>
+                    <p class="text-sm text-secondary italic mb-4">2nd Year, Currently Pursuing - Expected Graduation: **June 2028** (Verified Timeline)</p>
+                    <ul class="text-xs text-secondary list-disc list-inside space-y-1 ml-4">
+                        <li>Core focus on DSA, OOP, Neural Networks, and Cloud Computing basics.</li>
+                        <li>Maintained a verified academic standing in the top 10% of the class.</li>
+                    </ul>
+                </div>
+                <div class="section-card p-6">
+                    <div class="flex items-center gap-3 mb-3">
+                        <i data-lucide="brain-circuit" class="w-8 h-8 text-morning-gold shrink-0"></i>
+                        <h3 class="text-xl font-bold text-primary">Advanced AI-ML Specialization <span class="verified-stamp">V</span></h3>
+                    </div>
+                    <p class="text-secondary font-semibold">IIT-Patna (NPTEL/MOOC Protocol)</p>
+                    <p class="text-sm text-secondary italic mb-4">Completed Core Modules: Data Preprocessing, Model Evaluation, and Mathematical Intuition for ML.</p>
+                    <ul class="text-xs text-secondary list-disc list-inside space-y-1 ml-4">
+                        <li>Intensive study of linear algebra, calculus, and probability theory as applied to Deep Learning.</li>
+                        <li>Final project submission focusing on optimized model deployment on constrained hardware. (Verified Certificate Pending)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <div class="section-divider-glow"></div>
 
@@ -611,12 +580,13 @@
                     <div class="flex justify-between items-start">
                         <div>
                             <h4 class="font-bold text-primary group-hover:text-morning-gold transition">1st Prize: CodeClash 2025 <span class="verified-stamp">V</span></h4>
+                            <p class="text-xs text-secondary mt-1">Competition (VERIFIED)</p>
                         </div>
                         <i data-lucide="code" class="group-hover:text-morning-gold" style="color: var(--color-secondary);" aria-hidden="true"></i>
                     </div>
                 </button>
 
-                <button type="button" onclick="showFeatureInfo('Advanced OOP Implementation (V)', 'Successfully implemented complex Object-Oriented Programming (OOP) design patterns in Java and Python projects, leading to improved code reusability by 40% and simplified maintenance.', '#')" 
+                                <button type="button" onclick="showFeatureInfo('Advanced OOP Implementation (V)', 'Successfully implemented complex Object-Oriented Programming (OOP) design patterns in Java and Python projects, leading to improved code reusability by 40% and simplified maintenance.', '#')" 
                 class="section-card p-6 text-left hover:-translate-y-1 group" aria-label="Details for Advanced OOP Implementation">
                     <div class="flex justify-between items-start">
                         <div>
@@ -632,28 +602,28 @@
 
     <div class="section-divider-glow"></div>
 
-    <section id="music-protocol" class="py-20 z-10 relative">
-        <div class="max-w-5xl mx-auto px-6 text-center">
-            <h2 class="soft-title text-4xl md:text-5xl font-black mb-12">:: CREATIVE PROTOCOL ::</h2>
+    <section id="music-protocol" class="py-20 z-10 relative">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="soft-title text-4xl md:text-5xl font-black mb-12">:: CREATIVE PROTOCOL ::</h2>
 
-            <div class="section-card p-8 md:flex items-center gap-8 text-left">
-                <div class="md:w-1/4 flex justify-center mb-4 md:mb-0">
-                    <i data-lucide="clapperboard" class="w-16 h-16 text-morning-gold"></i>
-                </div>
-                <div class="md:w-3/4">
-                    <h3 class="text-2xl font-bold text-primary mb-3">The Classical Pianist <span class="verified-stamp">VERIFIED SKILL</span></h3>
-                    <p class="text-secondary leading-relaxed mb-4">
-                        Beyond the terminal, I maintain an **Advanced Proficiency in Classical Piano Performance**. This discipline fosters patience, structured practice, and pattern recognition—skills directly translating to complex software architecture and algorithmic design.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="skill-tag">Performance Efficacy</span>
-                        <span class="skill-tag">Pattern Recognition (V)</span>
-                        <span class="skill-tag">Creative Problem Solving</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            <div class="section-card p-8 md:flex items-center gap-8 text-left">
+                <div class="md:w-1/4 flex justify-center mb-4 md:mb-0">
+                    <i data-lucide="clapperboard" class="w-16 h-16 text-morning-gold"></i>
+                </div>
+                <div class="md:w-3/4">
+                    <h3 class="text-2xl font-bold text-primary mb-3">The Classical Pianist <span class="verified-stamp">VERIFIED SKILL</span></h3>
+                    <p class="text-secondary leading-relaxed mb-4">
+                        Beyond the terminal, I maintain an **Advanced Proficiency in Classical Piano Performance**. This discipline fosters patience, structured practice, and pattern recognition—skills directly translating to complex software architecture and algorithmic design.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-tag">Performance Efficacy</span>
+                        <span class="skill-tag">Pattern Recognition (V)</span>
+                        <span class="skill-tag">Creative Problem Solving</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <div class="section-divider-glow"></div>
 
@@ -721,7 +691,6 @@
                             <tr class="border-b" style="border-bottom-color: var(--color-border);">
                                 <th scope="col" class="p-3 text-xs font-bold uppercase text-secondary">Domain</th>
                                 <th scope="col" class="p-3 text-xs font-bold uppercase text-secondary">Tools & Concepts</th>
-                                <th scope="col" class="p-3 text-xs font-bold uppercase text-secondary">Proficiency (V)</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y" style="border-color: var(--color-border);">
@@ -766,7 +735,7 @@
     </section>
 
     <div id="feature-modal" class="fixed inset-0 z-[70] flex items-center justify-center modal-backdrop bg-black/60 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="feature-title">
-        <div id="feature-card" class="w-full max-w-lg m-6 rounded-2xl p-6 shadow-2xl modal-content">
+        <div id="feature-card" class="w-full max-w-lg m-6 rounded-2xl p-6 shadow-2xl modal-content" style="background-color: var(--color-card-bg);">
             <div class="flex justify-between items-center mb-4">
                 <h3 id="feature-title" class="text-xl font-bold text-primary">Title</h3>
                 <button type="button" onclick="closeFeatureInfo()" class="hover:text-primary" style="color: var(--color-secondary);" aria-label="Close project detail modal"><i data-lucide="x"></i></button>
@@ -779,7 +748,7 @@
     </div>
 
     <div id="email-choice-modal" class="fixed inset-0 z-[80] flex items-center justify-center modal-backdrop bg-slate-900/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="email-choice-title">
-        <div class="w-full max-w-sm m-4 rounded-2xl p-6 shadow-2xl modal-content">
+        <div class="w-full max-w-sm m-4 rounded-2xl p-6 shadow-2xl modal-content" style="background-color: var(--color-card-bg); color: var(--color-secondary);">
             <button onclick="closeEmailChoiceModal()" class="absolute top-3 right-3 p-1 hover:bg-gray-100 rounded-full text-primary" aria-label="Close email choice">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
@@ -798,7 +767,7 @@
 
     <footer class="py-8 relative z-50" style="background-color: #1e293b; color: #94a3b8;">
         <div class="max-w-7xl mx-auto px-6 text-center text-xs">
-            <p>&copy; <span id="current-year"></span> LIKITH NAIDU ANUMAKONDA. Protocol Version 1.5.1 (OFFICIALLY AUDITED & VERIFIED)</p>
+            <p>&copy; <span id="current-year"></span> LIKITH NAIDU ANUMAKONDA. Protocol Version 1.5.0 (OFFICIALLY AUDITED & VERIFIED)</p>
             <div class="flex justify-center gap-4 mt-2">
                 <a href="https://github.com/LIKITH-3012-MAC" class="hover:text-morning-gold">GitHub (V)</a>
                 <span style="color: #334155;" aria-hidden="true">|</span>
