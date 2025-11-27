@@ -279,14 +279,14 @@
         }
 
         /* MODAL STATE: Use visibility and pointer-events for smoother transition */
-        #about-modal, #feature-modal, #email-choice-modal {
+        #about-modal, #feature-modal, #email-choice-modal, #resume-modal {
             visibility: hidden; 
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease-out, visibility 0s 0.3s;
         }
         /* State when active */
-        #about-modal.active, #feature-modal.active, #email-choice-modal.active {
+        #about-modal.active, #feature-modal.active, #email-choice-modal.active, #resume-modal.active {
             visibility: visible; 
             opacity: 1;
             pointer-events: auto;
@@ -298,7 +298,7 @@
             transition: transform 0.3s ease-out, opacity 0.3s ease-out;
             transform: scale(0.95) translateZ(0); /* Optimized transform */
         }
-        #about-modal.active .modal-content, #feature-modal.active .modal-content, #email-choice-modal.active .modal-content {
+        #about-modal.active .modal-content, #feature-modal.active .modal-content, #email-choice-modal.active .modal-content, #resume-modal.active .modal-content {
             transform: scale(1) translateZ(0); /* Optimized transform */
         }
 
@@ -453,10 +453,15 @@
                 B.Tech CSE (AI) Student | AI-ML Specialization @ IIT-Patna | Full-Stack Development <span class="verified-stamp">100% VERIFIED</span>
             </p>
             
-            <div class="flex justify-center gap-4 pt-4">
+            <div class="flex flex-wrap justify-center gap-4 pt-4">
                 <a href="#projects" class="button-soft shadow-xl hover:shadow-2xl">
                     <span class="text-glow font-bold" data-text="VIEW LOGS">VIEW PROJECT LOGS (VERIFIED)</span>
                 </a>
+                
+                <button onclick="openResumeModal()" class="button-soft shadow-xl hover:shadow-2xl" style="border-color: var(--gold); color: var(--gold);">
+                    <i data-lucide="globe" class="w-4 h-4 inline mr-1"></i> RESUME WEB (V)
+                </button>
+
                 <a href="#about" role="button" onclick="toggleAboutModal()" class="px-6 py-3 rounded-full font-bold transition" style="color: var(--color-primary); border: 1px solid var(--color-border); background-color: var(--color-card-bg);">
                     Detailed Bio (V)
                 </a>
@@ -728,6 +733,32 @@
         </div>
     </section>
 
+    <div id="resume-modal" class="fixed inset-0 z-[85] flex items-center justify-center modal-backdrop bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300" onclick="closeResumeModal()">
+        <div class="w-full max-w-md m-4 rounded-2xl p-8 shadow-2xl modal-content border border-morning-gold relative" style="background-color: var(--color-card-bg);" onclick="event.stopPropagation()">
+             <button onclick="closeResumeModal()" class="absolute top-4 right-4 p-2 hover:bg-slate-100 rounded-full text-primary">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="globe" class="w-8 h-8 text-morning-gold"></i>
+                </div>
+                <h3 class="text-2xl font-black text-primary mb-2">RESUME WEB PORTAL</h3>
+                <p class="text-secondary mb-6 text-sm">Secure protocol link generated. Click the terminal link below to access the Cyberpunk Resume interface.</p>
+
+                <div class="bg-slate-900 p-4 rounded-lg mb-6 border border-slate-700 text-left overflow-hidden">
+                    <p class="text-[10px] text-gray-500 font-mono mb-1">// LINK_DESTINATION:</p>
+                    <a href="https://likith-3012-mac.github.io/RESUME_WEB/" target="_blank" class="text-morning-gold font-mono text-sm break-all hover:underline flex items-center gap-2">
+                         https://likith-3012-mac.github.io/RESUME_WEB/ <i data-lucide="external-link" class="w-3 h-3"></i>
+                    </a>
+                </div>
+
+                <a href="https://likith-3012-mac.github.io/RESUME_WEB/" target="_blank" class="button-soft w-full font-bold bg-morning-gold text-black border-none hover:bg-yellow-400">
+                    INITIATE JUMP
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div id="feature-modal" class="fixed inset-0 z-[70] flex items-center justify-center modal-backdrop bg-black/60 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="feature-title" onclick="closeFeatureInfo()">
         <div id="feature-card" class="w-full max-w-lg m-6 rounded-2xl p-6 shadow-2xl modal-content" style="background-color: var(--color-card-bg);" onclick="event.stopPropagation()">
             <div class="flex justify-between items-center mb-4">
@@ -872,10 +903,13 @@
             // --- Keydown Listener ---
             window.addEventListener('keydown', (e) => {
                 const emailChoiceModal = document.getElementById('email-choice-modal'); // Define here for scope
+                const resumeModal = document.getElementById('resume-modal'); // Define here for scope
+
                 if (e.key === 'Escape') {
                     if (aboutModal.classList.contains('active')) toggleAboutModal();
                     if (featureModal.classList.contains('active')) closeFeatureInfo();
                     if (emailChoiceModal && emailChoiceModal.classList.contains('active')) closeEmailChoiceModal();
+                    if (resumeModal && resumeModal.classList.contains('active')) closeResumeModal();
                 }
             });
         });
@@ -892,6 +926,22 @@
             emailChoiceModal.classList.remove('active');
             document.body.style.overflow = '';
         }
+
+        // --- RESUME WEB MODAL LOGIC (NEW) ---
+        const resumeModal = document.getElementById('resume-modal');
+
+        window.openResumeModal = function() {
+            resumeModal.classList.add('active');
+            resumeModal.classList.remove('opacity-0', 'pointer-events-none'); // Ensure tailwind classes are removed
+            document.body.style.overflow = 'hidden';
+        }
+
+        window.closeResumeModal = function() {
+            resumeModal.classList.remove('active');
+            resumeModal.classList.add('opacity-0', 'pointer-events-none'); // Re-add tailwind classes
+            document.body.style.overflow = '';
+        }
+
 
         // --- 4. PARTICLE SYSTEM (Background) ---
         const canvas = document.getElementById('about-particles');
