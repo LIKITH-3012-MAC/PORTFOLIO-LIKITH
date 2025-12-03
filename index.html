@@ -31,9 +31,9 @@
             --color-skill-tag-text: #854d0e; 
             --color-nav-bg: rgba(255, 255, 255, 0.7);
 
-            /* ROCKET MODAL VARS */
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --modal-bg: rgba(15, 23, 42, 0.95); /* Dark Glass for contrast */
+            /* ROCKET MODAL SPECIFIC */
+            --modal-glass-bg: rgba(15, 23, 42, 0.85);
+            --modal-overlay-bg: rgba(0, 0, 0, 0.7);
         }
 
         /* DARK MODE OVERRIDES */
@@ -70,6 +70,31 @@
             0%, 100% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.01); opacity: 0.98; }
         }
+
+        /* ROCKET ANIMATIONS */
+        @keyframes rocket-shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px) rotate(-3deg); }
+            75% { transform: translateX(3px) rotate(3deg); }
+        }
+
+        @keyframes rocket-fly {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-300px) scale(0.5); opacity: 0; }
+        }
+
+        @keyframes fade-in-check {
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        @keyframes draw-check {
+            to { stroke-dashoffset: 0; }
+        }
+        
+        @keyframes text-slide-up {
+            to { opacity: 1; transform: translateY(0); }
+        }
         
 
         /* ------------------------------------------------------------------------------------------------ */
@@ -97,6 +122,7 @@
         }
 
         /* 🚀 ADVANCED SCROLLING PERFORMANCE ENHANCEMENT */
+        /* Force these elements onto their own render layer for smoother scrolling/transforms */
         #navbar, #contact-bar, .section-card, .modal-content, .soft-title, #mobile-menu {
             will-change: transform, opacity;
             transform: translateZ(0); 
@@ -341,19 +367,17 @@
         .text-primary { color: var(--color-primary); }
         .text-secondary { color: var(--color-secondary); }
 
-        /* =======================================================
-           ROCKET SUCCESS MODAL STYLES (NEW)
-           ======================================================= */
-
-        /* 1. THE MODAL OVERLAY */
+        /* ======================================================== */
+        /* ROCKET MODAL STYLES (INTEGRATED)                         */
+        /* ======================================================== */
         .success-modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(12px); /* Glassmorphism Blur */
+            background: var(--modal-overlay-bg);
+            backdrop-filter: blur(12px); 
             z-index: 9999;
             display: flex;
             justify-content: center;
@@ -368,10 +392,9 @@
             visibility: visible;
         }
 
-        /* 2. THE CARD */
         .success-card {
-            background: var(--modal-bg);
-            border: 1px solid var(--glass-border);
+            background: var(--modal-glass-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 0 40px rgba(255, 215, 0, 0.1);
             width: 90%;
             max-width: 380px;
@@ -381,14 +404,13 @@
             transform: translateY(50px) scale(0.9);
             transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
-            overflow: hidden; /* Clips the rocket when it flies too high */
+            overflow: hidden;
         }
 
         .success-modal-overlay.active .success-card {
             transform: translateY(0) scale(1);
         }
 
-        /* 3. ANIMATION STAGE (Rocket Area) */
         .animation-stage {
             height: 100px;
             position: relative;
@@ -398,7 +420,6 @@
             margin-bottom: 20px;
         }
 
-        /* ROCKET SVG */
         .rocket-svg {
             width: 60px;
             height: 60px;
@@ -408,26 +429,12 @@
             z-index: 10;
         }
 
-        /* Rocket Launch Animation */
         .success-modal-overlay.active .rocket-svg {
             animation: 
                 rocket-shake 0.4s ease-in-out,
-                rocket-fly 1s ease-in forwards 0.4s; /* Waits 0.4s then flies */
+                rocket-fly 1s ease-in forwards 0.4s;
         }
 
-        @keyframes rocket-shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-3px) rotate(-3deg); }
-            75% { transform: translateX(3px) rotate(3deg); }
-        }
-
-        @keyframes rocket-fly {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            50% { opacity: 1; }
-            100% { transform: translateY(-300px) scale(0.5); opacity: 0; }
-        }
-
-        /* 4. THE CHECKMARK (Appears after rocket flies) */
         .checkmark-container {
             position: absolute;
             top: 50%;
@@ -445,17 +452,13 @@
         }
 
         .success-modal-overlay.active .checkmark-container {
-            animation: fade-in-check 0.5s ease forwards 1s; /* Delays until rocket is gone */
-        }
-
-        @keyframes fade-in-check {
-            to { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+            animation: fade-in-check 0.5s ease forwards 1s; 
         }
 
         .checkmark-svg {
             width: 40px;
             height: 40px;
-            stroke: #2ecc71; /* Green */
+            stroke: #2ecc71;
             stroke-width: 4;
             stroke-linecap: round;
             stroke-linejoin: round;
@@ -468,11 +471,6 @@
             animation: draw-check 0.6s ease forwards 1.2s;
         }
 
-        @keyframes draw-check {
-            to { stroke-dashoffset: 0; }
-        }
-
-        /* 5. TEXT & BUTTON */
         .success-title {
             color: white;
             font-weight: 900;
@@ -490,16 +488,11 @@
             transform: translateY(20px);
         }
 
-        /* Text Animations */
         .success-modal-overlay.active .success-title {
             animation: text-slide-up 0.6s ease forwards 1.2s;
         }
         .success-modal-overlay.active .success-desc {
             animation: text-slide-up 0.6s ease forwards 1.3s;
-        }
-
-        @keyframes text-slide-up {
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .success-btn {
@@ -522,7 +515,6 @@
             box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
         }
 
-        /* 6. CONFETTI (Color Paper Pieces) */
         .confetti {
             position: absolute;
             width: 8px;
@@ -810,6 +802,7 @@
                     <p class="text-secondary leading-relaxed mb-4">
                         Beyond the terminal, I maintain an **Advanced Proficiency in Classical Piano Performance**. This discipline fosters patience, structured practice, and pattern recognition—skills directly translating to complex software architecture and algorithmic design.
                     </p>
+                    
                     <div class="flex flex-wrap gap-2">
                         <span class="skill-tag">Performance Efficacy</span>
                         <span class="skill-tag">Pattern Recognition (V)</span>
@@ -921,15 +914,11 @@
         <div class="max-w-xl mx-auto px-6 text-center">
             <h2 class="text-4xl md:text-6xl font-black mb-8 tracking-tight text-primary text-glow" data-text="COLLABORATE">INITIATE CONTACT (SECURE)</h2>
 
-            <form id="contactForm" class="space-y-4">
-                <input type="text" id="name" placeholder="Name Protocol" required class="input-soft" aria-label="Name" />
-                <input type="email" id="email" placeholder="Email Signal (Required)" required class="input-soft" aria-label="Email" />
-                <input type="text" id="mobile" placeholder="Mobile Frequency (Optional)" class="input-soft" aria-label="Mobile Number" />
-                
-                <textarea id="message" placeholder="Transmission Message..." rows="4" required class="input-soft" aria-label="Message"></textarea>
-                
-                <button type="submit" id="submitBtn" class="button-soft w-full font-bold">SEND SIGNAL (ENCRYPTED)</button>
-                <p id="formStatus" class="text-center text-xs font-mono mt-2 opacity-0 transition-opacity duration-300"></p>
+            <form id="contact-form" action="https://formspree.io/f/xanvejee" method="POST" class="space-y-4">
+                <input type="text" name="name" placeholder="Name Protocol" required class="input-soft" aria-label="Name" />
+                <input type="email" name="email" placeholder="Email Signal (Required)" required class="input-soft" aria-label="Email" />
+                <textarea name="message" placeholder="Transmission Message..." rows="4" required class="input-soft" aria-label="Message"></textarea>
+                <button type="submit" class="button-soft w-full font-bold">SEND SIGNAL (ENCRYPTED)</button>
             </form>
         </div>
     </section>
@@ -991,18 +980,14 @@
         </div>
     </div>
 
-    <!-- NEW ROCKET SUCCESS MODAL -->
-    <div id="success-modal" class="success-modal-overlay">
+    <div id="rocket-success-modal" class="success-modal-overlay">
         <div class="success-card">
             
-            <!-- Confetti Container (Pieces inject here) -->
             <div id="confetti-wrapper"></div>
 
             <div class="animation-stage">
-                <!-- 1. The Rocket -->
                 <i data-lucide="rocket" class="rocket-svg"></i>
                 
-                <!-- 2. The Checkmark (Hidden initially) -->
                 <div class="checkmark-container">
                     <svg class="checkmark-svg" viewBox="0 0 52 52">
                         <path d="M14 27 L22 36 L38 16" />
@@ -1139,126 +1124,49 @@
                     if (resumeModal && resumeModal.classList.contains('active')) closeResumeModal();
                 }
             });
-
-            // --- DATABASE CONNECTION LOGIC (Added) ---
-            document.getElementById('contactForm').addEventListener('submit', async function(e) {
-                e.preventDefault(); // Stop page reload
-
-                const submitBtn = document.getElementById('submitBtn');
-                const statusText = document.getElementById('formStatus');
+            
+            // ========================================================
+            // ADDED: AJAX FORM SUBMISSION FOR ROCKET ANIMATION
+            // ========================================================
+            const form = document.getElementById('contact-form');
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault(); // STOP THE PAGE RELOAD
                 
-                // UI Feedback: Sending state
-                submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin inline mr-2"></i> TRANSMITTING...';
-                lucide.createIcons(); // Refresh icons
+                const status = document.createElement('div');
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = 'Sending...';
                 submitBtn.disabled = true;
 
-                // Data to send
-                const formData = {
-                    name: document.getElementById('name').value,
-                    email: document.getElementById('email').value,
-                    mobile: document.getElementById('mobile').value, // Added Mobile
-                    message: document.getElementById('message').value
-                };
-
+                const formData = new FormData(form);
+                
                 try {
-                    // Send to local server
-                    const response = await fetch('http://localhost:5000/submit-contact', {
+                    const response = await fetch(form.action, {
                         method: 'POST',
+                        body: formData,
                         headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(formData)
+                            'Accept': 'application/json'
+                        }
                     });
-
-                    const result = await response.json();
-
-                    if (result.success) {
-                        // --- UPDATED: TRIGGER ROCKET SUCCESS MODAL ---
-                        const successModal = document.getElementById('success-modal');
-                        const wrapper = document.getElementById('confetti-wrapper');
-                        
-                        successModal.style.display = 'flex'; // Make it visible
-                        
-                        // Slight delay to allow display:flex to apply before adding class for animation
-                        setTimeout(() => {
-                            successModal.classList.add('active');
-                            // Trigger Confetti after modal opens (timed with rocket launch approx 0.5s)
-                            setTimeout(() => {
-                                createConfetti(wrapper);
-                            }, 500); 
-                        }, 10);
-
-                        // Clear the form
-                        document.getElementById('contactForm').reset();
-                        
-                        // Clear any old text status
-                        statusText.textContent = "";
-                    } else {
-                        throw new Error('Server rejected protocol.');
-                    }
-
-                } catch (error) {
-                    console.error('Error:', error);
-                    statusText.textContent = "CONNECTION FAILED: SERVER OFFLINE.";
-                    statusText.style.color = "#ef4444"; // Red
-                    statusText.classList.remove('opacity-0');
-                    setTimeout(() => statusText.classList.add('opacity-0'), 5000);
-                } finally {
-                    // Reset button
-                    setTimeout(() => {
-                        submitBtn.innerHTML = 'SEND SIGNAL (ENCRYPTED)';
+                    
+                    if (response.ok) {
+                        form.reset();
+                        submitBtn.innerHTML = originalBtnText;
                         submitBtn.disabled = false;
-                    }, 2000);
+                        openSuccessModal(); // TRIGGER ROCKET
+                    } else {
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                        alert("Transmission failed. Please check your signal.");
+                    }
+                } catch (error) {
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                    alert("Network error. Signal lost.");
                 }
             });
         });
-
-        // --- ADDED: CLOSE SUCCESS MODAL FUNCTION ---
-        function closeSuccessModal() {
-            const modal = document.getElementById('success-modal');
-            const wrapper = document.getElementById('confetti-wrapper');
-            
-            modal.classList.remove('active');
-            
-            // Clean up
-            setTimeout(() => {
-                modal.style.display = 'none'; 
-                wrapper.innerHTML = ''; // Remove confetti DOM elements
-            }, 500);
-        }
-
-        // --- ADDED: CONFETTI FUNCTION ---
-        function createConfetti(wrapper) {
-            const colors = ['#FFD700', '#ff0000', '#2ecc71', '#3498db', '#f39c12', '#9b59b6'];
-            const confettiCount = 60;
-
-            for (let i = 0; i < confettiCount; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                
-                // Random Properties
-                const bg = colors[Math.floor(Math.random() * colors.length)];
-                const x = (Math.random() - 0.5) * 400; // Spread X
-                const y = (Math.random() - 1) * 400;   // Spread Y (Upwards mostly)
-                const rotate = Math.random() * 360;
-                const delay = Math.random() * 0.2;
-                const duration = 0.8 + Math.random() * 0.8;
-
-                // Apply Styles
-                confetti.style.backgroundColor = bg;
-                confetti.style.transform = `translate(-50%, -50%) rotate(${rotate}deg)`;
-                confetti.style.transition = `all ${duration}s cubic-bezier(0.25, 1, 0.5, 1)`;
-                confetti.style.transitionDelay = `${delay}s`;
-
-                wrapper.appendChild(confetti);
-
-                // Trigger Animation (Next Frame)
-                requestAnimationFrame(() => {
-                    confetti.style.opacity = '1';
-                    confetti.style.transform = `translate(${x}px, ${y}px) rotate(${rotate + 720}deg) scale(0)`;
-                });
-            }
-        }
 
         // --- EMAIL CHOICE MODAL LOGIC (Improved UX) ---
         const emailChoiceModal = document.getElementById('email-choice-modal');
@@ -1347,6 +1255,66 @@
             requestAnimationFrame(animateParticles);
         }
         animateParticles();
+        
+        // ========================================================
+        // ADDED: ROCKET ANIMATION LOGIC
+        // ========================================================
+        function openSuccessModal() {
+            const modal = document.getElementById('rocket-success-modal');
+            const wrapper = document.getElementById('confetti-wrapper');
+            
+            // 1. Show Modal
+            modal.classList.add('active');
+
+            // 2. Trigger Confetti Explosion (Timed with rocket launch ~ 0.5s)
+            setTimeout(() => {
+                createConfetti(wrapper);
+            }, 500); 
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('rocket-success-modal');
+            const wrapper = document.getElementById('confetti-wrapper');
+            
+            modal.classList.remove('active');
+            
+            // Clean up confetti after closing to keep DOM light
+            setTimeout(() => {
+                wrapper.innerHTML = ''; 
+            }, 500);
+        }
+
+        function createConfetti(wrapper) {
+            const colors = ['#FFD700', '#ff0000', '#2ecc71', '#3498db', '#f39c12', '#9b59b6'];
+            const confettiCount = 60;
+
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                // Random Properties
+                const bg = colors[Math.floor(Math.random() * colors.length)];
+                const x = (Math.random() - 0.5) * 400; // Spread X
+                const y = (Math.random() - 1) * 400;   // Spread Y (Upwards mostly)
+                const rotate = Math.random() * 360;
+                const delay = Math.random() * 0.2;
+                const duration = 0.8 + Math.random() * 0.8;
+
+                // Apply Styles
+                confetti.style.backgroundColor = bg;
+                confetti.style.transform = `translate(-50%, -50%) rotate(${rotate}deg)`;
+                confetti.style.transition = `all ${duration}s cubic-bezier(0.25, 1, 0.5, 1)`;
+                confetti.style.transitionDelay = `${delay}s`;
+
+                wrapper.appendChild(confetti);
+
+                // Trigger Animation (Next Frame)
+                requestAnimationFrame(() => {
+                    confetti.style.opacity = '1';
+                    confetti.style.transform = `translate(${x}px, ${y}px) rotate(${rotate + 720}deg) scale(0)`;
+                });
+            }
+        }
     </script>
 </body>
 </html>
