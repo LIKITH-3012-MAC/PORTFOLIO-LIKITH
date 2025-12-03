@@ -914,7 +914,7 @@
         <div class="max-w-xl mx-auto px-6 text-center">
             <h2 class="text-4xl md:text-6xl font-black mb-8 tracking-tight text-primary text-glow" data-text="COLLABORATE">INITIATE CONTACT (SECURE)</h2>
 
-            <form id="contact-form" action="https://formspree.io/f/xanvejee" method="POST" class="space-y-4">
+            <form id="contact-form" action="https://formspree.io/f/mgvgyqwb" method="POST" class="space-y-4">
                 <input type="text" name="name" placeholder="Name Protocol" required class="input-soft" aria-label="Name" />
                 <input type="email" name="email" placeholder="Email Signal (Required)" required class="input-soft" aria-label="Email" />
                 <textarea name="message" placeholder="Transmission Message..." rows="4" required class="input-soft" aria-label="Message"></textarea>
@@ -1124,48 +1124,6 @@
                     if (resumeModal && resumeModal.classList.contains('active')) closeResumeModal();
                 }
             });
-            
-            // ========================================================
-            // ADDED: AJAX FORM SUBMISSION FOR ROCKET ANIMATION
-            // ========================================================
-            const form = document.getElementById('contact-form');
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault(); // STOP THE PAGE RELOAD
-                
-                const status = document.createElement('div');
-                const submitBtn = form.querySelector('button[type="submit"]');
-                const originalBtnText = submitBtn.innerHTML;
-                
-                submitBtn.innerHTML = 'Sending...';
-                submitBtn.disabled = true;
-
-                const formData = new FormData(form);
-                
-                try {
-                    const response = await fetch(form.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
-                    
-                    if (response.ok) {
-                        form.reset();
-                        submitBtn.innerHTML = originalBtnText;
-                        submitBtn.disabled = false;
-                        openSuccessModal(); // TRIGGER ROCKET
-                    } else {
-                        submitBtn.innerHTML = originalBtnText;
-                        submitBtn.disabled = false;
-                        alert("Transmission failed. Please check your signal.");
-                    }
-                } catch (error) {
-                    submitBtn.innerHTML = originalBtnText;
-                    submitBtn.disabled = false;
-                    alert("Network error. Signal lost.");
-                }
-            });
         });
 
         // --- EMAIL CHOICE MODAL LOGIC (Improved UX) ---
@@ -1257,8 +1215,59 @@
         animateParticles();
         
         // ========================================================
-        // ADDED: ROCKET ANIMATION LOGIC
+        // UPDATED: AJAX LOGIC FOR ID mgvgyqwb + ROCKET
         // ========================================================
+        const form = document.getElementById('contact-form');
+
+        async function handleSubmit(event) {
+            event.preventDefault(); // STOP THE PAGE RELOAD
+            
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            
+            // 1. Change button text to indicate processing
+            submitBtn.innerHTML = 'Transmitting...';
+            submitBtn.disabled = true;
+
+            const data = new FormData(event.target);
+            
+            try {
+                const response = await fetch(event.target.action, {
+                    method: form.method,
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // 2. SUCCESS: Reset form and FIRE THE ROCKET
+                    form.reset();
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                    openSuccessModal(); // <--- TRIGGERS THE ROCKET
+                } else {
+                    // 3. FAILURE: specific error from Formspree
+                    const errorData = await response.json();
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                    
+                    if (Object.hasOwn(errorData, 'errors')) {
+                        const messages = errorData["errors"].map(error => error["message"]).join(", ");
+                        alert("Transmission Error: " + messages);
+                    } else {
+                        alert("Transmission failed. Please check your signal.");
+                    }
+                }
+            } catch (error) {
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+                alert("Network error. Please check your internet connection.");
+            }
+        }
+
+        form.addEventListener("submit", handleSubmit);
+
         function openSuccessModal() {
             const modal = document.getElementById('rocket-success-modal');
             const wrapper = document.getElementById('confetti-wrapper');
