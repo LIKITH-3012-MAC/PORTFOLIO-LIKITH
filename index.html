@@ -8,6 +8,7 @@
      <link rel="icon" type="image/png" href="https://i.ibb.co/m5GYjVY8/Gemini-Generated-Image-7rq0ul7rq0ul7rq0-2.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.39/build/spline-viewer.js"></script>
 
     <style>
         /* ------------------------------------------------------------------------------------------------ */
@@ -71,6 +72,20 @@
             50% { transform: scale(1.01); opacity: 0.98; }
         }
 
+        /* NEW ANIMATIONS FOR PROFILE PICTURE AND TYPING */
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--gold); }
+        }
+
         /* ROCKET ANIMATIONS */
         @keyframes rocket-shake {
             0%, 100% { transform: translateX(0); }
@@ -122,7 +137,6 @@
         }
 
         /* 🚀 ADVANCED SCROLLING PERFORMANCE ENHANCEMENT */
-        /* Force these elements onto their own render layer for smoother scrolling/transforms */
         #navbar, #contact-bar, .section-card, .modal-content, .soft-title, #mobile-menu {
             will-change: transform, opacity;
             transform: translateZ(0); 
@@ -300,7 +314,7 @@
 
         /* MODAL */
         #about-modal-card {
-            animation: pulse-border 5s infinite;
+            /* animation: pulse-border 5s infinite;  REMOVED PULSE TO FOCUS ON CONTENT */
             transition: background-color 0.3s;
             max-height: 90vh; 
             overflow-y: auto;
@@ -363,9 +377,25 @@
             text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
         }
 
-        /* --- Utility Class Fixes --- */
+        /* UTILS */
         .text-primary { color: var(--color-primary); }
         .text-secondary { color: var(--color-secondary); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(156, 163, 175, 0.5); border-radius: 20px; }
+        
+        /* TYPING EFFECT CLASS */
+        .typing-effect {
+            overflow: hidden;
+            border-right: .15em solid var(--gold);
+            white-space: nowrap;
+            margin: 0;
+            letter-spacing: .05em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+            max-width: fit-content;
+        }
+        .animate-spin-slow {
+            animation: spin-slow 8s linear infinite;
+        }
 
         /* ======================================================== */
         /* ROCKET MODAL STYLES (INTEGRATED)                         */
@@ -596,35 +626,94 @@
         <a href="#contact" class="p-2 rounded-full hover:bg-slate-100 transition" aria-label="Contact Form"><i data-lucide="message-square" class="w-5 h-5 text-green-500"></i></a>
     </section>
 
-    <div id="about-modal" class="fixed inset-0 z-[60] flex items-center justify-center modal-backdrop bg-slate-900/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="about-modal-title">
-        <div class="w-full h-full flex items-center justify-center" onclick="toggleAboutModal()">
-            <div id="about-modal-card" class="w-full max-w-3xl m-4 rounded-3xl p-8 shadow-2xl border border-morning-gold modal-content overflow-y-auto" style="background-color: var(--color-card-bg); color: var(--color-secondary);" onclick="event.stopPropagation()">
-                <button onclick="toggleAboutModal()" class="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full text-primary z-10" aria-label="Close about me modal">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
+    <div id="about-modal" class="fixed inset-0 z-[60] flex items-center justify-center modal-backdrop bg-slate-900/90 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="about-modal-title">
+      <div class="w-full h-full flex items-center justify-center p-4" onclick="toggleAboutModal()">
+        
+        <div id="about-modal-card" class="w-full max-w-5xl rounded-3xl overflow-hidden shadow-2xl border border-morning-gold modal-content flex flex-col md:flex-row relative" style="background-color: var(--color-card-bg); max-height: 85vh;" onclick="event.stopPropagation()">
+          
+          <button onclick="toggleAboutModal()" class="absolute top-4 right-4 z-50 p-2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-primary border border-morning-gold transition-colors" aria-label="Close about me modal">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+
+          <div class="relative w-full md:w-1/2 h-[300px] md:h-auto bg-black/5 border-b md:border-b-0 md:border-r border-morning-gold">
+            <div class="absolute inset-0 flex items-center justify-center text-morning-gold text-xs font-mono tracking-widest z-0 animate-pulse">
+                INITIALIZING 3D CORE...
+            </div>
+            
+            <spline-viewer 
+              loading-anim-type="spinner-small-dark" 
+              url="https://prod.spline.design/jpCPm24RW3OmPpmD/scene.splinecode"
+              class="w-full h-full relative z-10"
+              style="width: 100%; height: 100%;">
+            </spline-viewer>
+            
+            <div class="absolute inset-0 pointer-events-none border-[6px] border-transparent border-l-morning-gold/20 opacity-50"></div>
+          </div>
+
+          <div class="w-full md:w-1/2 p-6 md:p-10 overflow-y-auto custom-scrollbar flex flex-col justify-start relative">
+            
+            <div class="flex items-start justify-between gap-4 mb-6">
+                <div class="flex-1">
+                    <div class="mb-1">
+                       <span class="text-[10px] font-mono text-morning-gold uppercase tracking-widest border border-morning-gold px-2 py-1 rounded">System Identity</span>
+                    </div>
+                    <h2 id="about-modal-title" class="text-3xl md:text-4xl font-black text-primary leading-tight">
+                      LIKITH <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">NAIDU</span>
+                      <span class="verified-stamp align-middle text-sm ml-1">V</span>
+                    </h2>
+                </div>
                 
-                <div class="flex flex-col md:flex-row gap-8 items-center">
-                    <div class="w-40 h-40 flex-shrink-0 rounded-full overflow-hidden border-4 border-morning-gold shadow-xl">
-                        <img src="https://i.ibb.co/jvNpx6jX/Whats-App-Image-2025-11-30-at-10-58-26.jpg" alt="Likith Naidu Profile Picture" class="w-full h-full object-cover">
+                <div class="relative w-24 h-24 flex-shrink-0 group">
+                    <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-600 opacity-75 blur-sm group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-spin-slow"></div>
+                    <div class="relative w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-slate-800">
+                        <img src="https://i.ibb.co/jvNpx6jX/Whats-App-Image-2025-11-30-at-10-58-26.jpg" alt="Likith Naidu Portrait" class="w-full h-full object-cover transform transition duration-500 hover:scale-110">
                     </div>
-                    <div>
-                        <h2 id="about-modal-title" class="text-3xl font-black mb-2 text-primary">Hi, I'm Likith Naidu Anumakonda <span class="verified-stamp">VERIFIED</span></h2>
-                        <p class="text-morning-gold font-bold mb-4">AI-ML-IIT-PATNA Protocol Specialist (AUDITED)</p>
-                        <p class="text-lg text-primary leading-relaxed mb-4">
-                            I am a AIML ENGINEER AND (Frontend and  backend) ,NODE.JS ,NEXT.JS Developer (VERIFIED)focused on engineering robust, data-centric solutions. I leverage **Python**, **Java SE**, and advanced **SQL/MongoDB** modeling to solve complex problems, resulting in **quantifiable improvements in system efficiency** and **data processing speed**.
-                        </p>
-                        
-                        <div class="flex flex-wrap gap-2 text-xs text-secondary">
-                            <span>• Born: Nellore (30-12-2006)</span>
-                            <span>• Interest: Quantum Mechanics, Automation, **Classical Pianist (VERIFIED)**</span>
-                            <span>• Goal: AI Technology Founder</span>
-                        </div>
-                    </div>
+                    <div class="absolute bottom-1 right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full z-10" title="System Online"></div>
                 </div>
             </div>
-        </div>
-    </div>
+            
+            <div class="mb-6 font-mono text-xs md:text-sm font-bold text-morning-gold">
+                <div class="typing-effect">
+                    > AI-ML PROTOCOL SPECIALIST (AUDITED)
+                </div>
+            </div>
+            
+            <div class="space-y-4 text-secondary text-sm md:text-base leading-relaxed border-l-2 border-gray-200 dark:border-gray-700 pl-4">
+              <p>
+                I am a <strong class="text-primary">AIML ENGINEER</strong> and Full Stack Developer (Node.js/Next.js) focused on engineering robust, data-centric solutions.
+              </p>
+              <p>
+                I leverage <strong class="text-primary">Python, Java SE, and advanced SQL/MongoDB</strong> modeling to solve complex problems, resulting in quantifiable improvements in system efficiency and data processing speed.
+              </p>
+            </div>
 
+            <div class="mt-8 pt-6 border-t border-dashed border-gray-300 dark:border-gray-700">
+              <div class="grid grid-cols-1 gap-3 text-xs font-mono text-secondary">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="map-pin" class="w-4 h-4 text-morning-gold"></i>
+                  <span>Origin: Nellore (30-12-2006)</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i data-lucide="cpu" class="w-4 h-4 text-morning-gold"></i>
+                  <span>Core: Quantum Mechanics, Automation</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i data-lucide="music" class="w-4 h-4 text-morning-gold"></i>
+                  <span>Art: Classical Pianist (VERIFIED)</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-8">
+               <button onclick="toggleAboutModal(); window.location.href='#contact'" class="button-soft w-full text-center">
+                 INITIATE DIRECT CONNECTION
+               </button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
     <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-20 pb-40 md:pb-60">
         <div class="absolute inset-0 bg-cover bg-center z-[-1] opacity-10" style="background-image: url('https://images.unsplash.com/photo-1549477022-d7b67035f299?auto=format&fit=crop&q=80');" aria-hidden="true"></div>
         
@@ -701,7 +790,7 @@
                         <h3 class="text-xl font-bold text-primary">B.Tech CSE - Artificial Intelligence <span class="verified-stamp">V</span></h3>
                     </div>
                     <p class="text-secondary font-semibold">PBR VITS, Kavali</p>
-                    <p class="text-sm text-secondary italic mb-4">2nd Year, Currently Pursuing - Expected Graduation: **June 2028** (Verified Timeline)</p>
+                    <p class="text-sm text-secondary italic mb-4">2nd Year, Currently Pursuing - Expected Graduation: ** 2028** (Verified Timeline)</p>
                     <ul class="text-xs text-secondary list-disc list-inside space-y-1 ml-4">
                         <li>Core focus on DSA, OOP, Neural Networks, and Cloud Computing basics.</li>
                     </ul>
@@ -1013,6 +1102,14 @@
         </div>
     </footer>
 
+    <audio id="rocket-sound" preload="auto">
+        <source src="https://media.vocaroo.com/mp3/1271nAyv6E80" type="audio/mpeg">
+    </audio>
+
+    <audio id="about-sound" preload="auto">
+        <source src="https://media.vocaroo.com/mp3/1gKlNQO2DJzt" type="audio/mpeg">
+    </audio>
+
     <script>
         // --- 1. THEME TOGGLING SETUP (must run early) ---
         const body = document.body;
@@ -1024,18 +1121,26 @@
             }
         })();
         
-        // --- 2. ABOUT MODAL LOGIC (Toggles body overflow for mobile UX) ---
+        // --- 2. ABOUT MODAL LOGIC (UPDATED WITH SOUND TRIGGER) ---
         const aboutModal = document.getElementById('about-modal');
 
         function toggleAboutModal() {
+            const sound = document.getElementById('about-sound');
             if (aboutModal.classList.contains('active')) {
                 // Hide Modal
                 aboutModal.classList.remove('active');
                 document.body.style.overflow = '';
+                // Optional: Stop sound if closing?
+                // if(sound) { sound.pause(); sound.currentTime = 0; }
             } else {
                 // Show Modal
                 aboutModal.classList.add('active'); 
                 document.body.style.overflow = 'hidden'; 
+                // Play Sound Logic
+                if(sound) {
+                    sound.currentTime = 0;
+                    sound.play().catch(e => console.log("Audio play blocked (click needed):", e));
+                }
             }
         }
         window.toggleAboutModal = toggleAboutModal; // Make accessible globally
@@ -1047,6 +1152,7 @@
                     aboutModal.classList.add('active'); 
                     document.body.style.overflow = 'hidden';
                     localStorage.setItem('hasVisited', 'true');
+                    // Note: Auto-play sound here will likely be blocked by browser policy without click
                 }, 100); 
             }
         })();
@@ -1271,11 +1377,18 @@
         function openSuccessModal() {
             const modal = document.getElementById('rocket-success-modal');
             const wrapper = document.getElementById('confetti-wrapper');
-            
+            const sound = document.getElementById('rocket-sound'); // GET AUDIO
+
             // 1. Show Modal
             modal.classList.add('active');
 
-            // 2. Trigger Confetti Explosion (Timed with rocket launch ~ 0.5s)
+            // 2. Play Sound (UPDATED LOGIC)
+            if (sound) {
+                sound.currentTime = 0;
+                sound.play().catch(e => console.log("Audio play blocked by browser:", e));
+            }
+
+            // 3. Trigger Confetti Explosion (Timed with rocket launch ~ 0.5s)
             setTimeout(() => {
                 createConfetti(wrapper);
             }, 500); 
