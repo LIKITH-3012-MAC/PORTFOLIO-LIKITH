@@ -724,11 +724,15 @@
         <div class="max-w-xl mx-auto px-6 text-center">
             <h2 class="text-4xl md:text-6xl font-black mb-8 tracking-tight text-primary text-glow" data-text="COLLABORATE">INITIATE CONTACT (SECURE)</h2>
 
-            <form action="https://formspree.io/f/xanvejee" method="POST" class="space-y-4">
-                <input type="text" name="name" placeholder="Name Protocol" required class="input-soft" aria-label="Name" />
-                <input type="email" name="email" placeholder="Email Signal (Required)" required class="input-soft" aria-label="Email" />
-                <textarea name="message" placeholder="Transmission Message..." rows="4" required class="input-soft" aria-label="Message"></textarea>
-                <button type="submit" class="button-soft w-full font-bold">SEND SIGNAL (ENCRYPTED)</button>
+            <form id="contactForm" class="space-y-4">
+                <input type="text" id="name" placeholder="Name Protocol" required class="input-soft" aria-label="Name" />
+                <input type="email" id="email" placeholder="Email Signal (Required)" required class="input-soft" aria-label="Email" />
+                <input type="text" id="mobile" placeholder="Mobile Frequency (Optional)" class="input-soft" aria-label="Mobile Number" />
+                
+                <textarea id="message" placeholder="Transmission Message..." rows="4" required class="input-soft" aria-label="Message"></textarea>
+                
+                <button type="submit" id="submitBtn" class="button-soft w-full font-bold">SEND SIGNAL (ENCRYPTED)</button>
+                <p id="formStatus" class="text-center text-xs font-mono mt-2 opacity-0 transition-opacity duration-300"></p>
             </form>
         </div>
     </section>
@@ -748,7 +752,7 @@
                 <div class="bg-slate-900 p-4 rounded-lg mb-6 border border-slate-700 text-left overflow-hidden">
                     <p class="text-[10px] text-gray-500 font-mono mb-1">// LINK_DESTINATION:</p>
                     <a href="https://likith-3012-mac.github.io/RESUME_WEB/" target="_blank" class="text-morning-gold font-mono text-sm break-all hover:underline flex items-center gap-2">
-                         https://likith-3012-mac.github.io/RESUME_WEB/ <i data-lucide="external-link" class="w-3 h-3"></i>
+                          https://likith-3012-mac.github.io/RESUME_WEB/ <i data-lucide="external-link" class="w-3 h-3"></i>
                     </a>
                 </div>
 
@@ -910,6 +914,62 @@
                     if (featureModal.classList.contains('active')) closeFeatureInfo();
                     if (emailChoiceModal && emailChoiceModal.classList.contains('active')) closeEmailChoiceModal();
                     if (resumeModal && resumeModal.classList.contains('active')) closeResumeModal();
+                }
+            });
+
+            // --- DATABASE CONNECTION LOGIC (Added) ---
+            document.getElementById('contactForm').addEventListener('submit', async function(e) {
+                e.preventDefault(); // Stop page reload
+
+                const submitBtn = document.getElementById('submitBtn');
+                const statusText = document.getElementById('formStatus');
+                
+                // UI Feedback: Sending state
+                submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin inline mr-2"></i> TRANSMITTING...';
+                lucide.createIcons(); // Refresh icons
+                submitBtn.disabled = true;
+
+                // Data to send
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    mobile: document.getElementById('mobile').value, // Added Mobile
+                    message: document.getElementById('message').value
+                };
+
+                try {
+                    // Send to local server
+                    const response = await fetch('http://localhost:5000/submit-contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        statusText.textContent = "SIGNAL ESTABLISHED: LOGGED TO DATABASE.";
+                        statusText.style.color = "#4ade80"; // Green
+                        statusText.classList.remove('opacity-0');
+                        document.getElementById('contactForm').reset();
+                    } else {
+                        throw new Error('Server rejected protocol.');
+                    }
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    statusText.textContent = "CONNECTION FAILED: SERVER OFFLINE.";
+                    statusText.style.color = "#ef4444"; // Red
+                    statusText.classList.remove('opacity-0');
+                } finally {
+                    // Reset button
+                    setTimeout(() => {
+                        submitBtn.innerHTML = 'SEND SIGNAL (ENCRYPTED)';
+                        submitBtn.disabled = false;
+                        setTimeout(() => statusText.classList.add('opacity-0'), 5000);
+                    }, 2000);
                 }
             });
         });
