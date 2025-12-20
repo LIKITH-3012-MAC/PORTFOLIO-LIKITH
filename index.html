@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>LIKITH NAIDU ANUMAKONDA | LIKITH Portfolio (OFFICIALLY VERIFIED)</title>
+    <href rel="stylesheet" href="styles.css">
+     <script src="script.js" defer></script>
     <meta name="description" content="Portfolio of Likith Naidu Anumakonda - B.Tech CSE-AI Student (PBR-VITS) & Full Stack Developer (Verified Protocol)">
      <link rel="icon" type="image/png" href="https://i.ibb.co/m5GYjVY8/Gemini-Generated-Image-7rq0ul7rq0ul7rq0-2.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -1524,5 +1526,182 @@
             }
         }
     </script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+<section id="contact" class="py-20 mb-20 z-10 relative">
+    <div class="max-w-xl mx-auto px-6 text-center">
+        <h2 class="text-4xl md:text-6xl font-black mb-8 tracking-tight text-primary text-glow" data-text="COLLABORATE">INITIATE CONTACT (SECURE)</h2>
+
+        <form id="contact-form" class="space-y-4">
+            <input type="text" id="name" name="name" placeholder="Name Protocol" required class="input-soft" aria-label="Name" />
+            
+            <input type="email" id="email" name="email" placeholder="Email Signal (Required)" required class="input-soft" aria-label="Email" />
+            
+            <input type="tel" id="phone" name="phone" placeholder="Mobile Frequency (e.g. +91...)" class="input-soft" aria-label="Mobile Number" />
+
+            <textarea id="message" name="message" placeholder="Transmission Message..." rows="4" required class="input-soft" aria-label="Message"></textarea>
+            
+            <button type="submit" id="submit-btn" class="button-soft w-full font-bold">SEND SIGNAL (TO CLOUD)</button>
+        </form>
+    </div>
+</section>
+
+<div id="rocket-success-modal" class="success-modal-overlay">
+    <div class="success-card">
+        
+        <div id="confetti-wrapper"></div>
+
+        <div class="animation-stage">
+            <i data-lucide="rocket" class="rocket-svg"></i>
+            
+            <div class="checkmark-container">
+                <svg class="checkmark-svg" viewBox="0 0 52 52">
+                    <path d="M14 27 L22 36 L38 16" />
+                </svg>
+            </div>
+        </div>
+
+        <h2 class="success-title">SIGNAL TRANSMITTED!</h2>
+        <p class="success-desc">Protocol accepted. The rocket has landed in our server. We will establish contact shortly.</p>
+        
+        <button class="success-btn" onclick="closeSuccessModal()">ACKNOWLEDGE</button>
+    </div>
+</div>
+
+<audio id="rocket-sound" preload="auto" style="display:none;">
+    <source src="https://media.vocaroo.com/mp3/1271nAyv6E80" type="audio/mpeg">
+</audio>
+    <script>
+    // ==========================================
+    // 1. SUPABASE CONFIGURATION
+    // ==========================================
+    const SUPABASE_URL = 'https://ldmsrfbktjyojvhhdzgn.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_YFcdLF9gFyc47oUtIL958w_c36TifHw';
+
+    // Initialize Client
+    const { createClient } = supabase;
+    const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // ==========================================
+    // 2. FORM SUBMISSION LOGIC
+    // ==========================================
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Stop page reload
+
+            // A. Set Loading State
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = "Transmitting...";
+            submitBtn.disabled = true;
+
+            // B. Collect Data from Inputs
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                message: document.getElementById('message').value
+            };
+
+            try {
+                // C. Send to Supabase Cloud
+                // Ensure your table name is 'contact_messages'
+                const { data, error } = await _supabase
+                    .from('contact_messages')
+                    .insert([formData]);
+
+                if (error) throw error;
+
+                // D. SUCCESS: Reset UI
+                form.reset();
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+
+                // E. TRIGGER ROCKET EFFECT 🚀
+                openSuccessModal(); 
+
+            } catch (err) {
+                console.error('Supabase Error:', err);
+                alert("Transmission Failed: " + err.message);
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+    }
+
+    // ==========================================
+    // 3. ROCKET ANIMATION & SOUND EFFECTS
+    // ==========================================
+    function openSuccessModal() {
+        const modal = document.getElementById('rocket-success-modal');
+        const wrapper = document.getElementById('confetti-wrapper');
+        const sound = document.getElementById('rocket-sound');
+
+        // Show Modal
+        if(modal) modal.classList.add('active');
+
+        // Play Sound
+        if (sound) {
+            sound.currentTime = 0;
+            // Note: Browsers may block audio if user hasn't interacted with page yet
+            sound.play().catch(e => console.log("Audio play blocked:", e));
+        }
+
+        // Trigger Confetti
+        if(wrapper) {
+            setTimeout(() => {
+                createConfetti(wrapper);
+            }, 500); 
+        }
+    }
+
+    function closeSuccessModal() {
+        const modal = document.getElementById('rocket-success-modal');
+        const wrapper = document.getElementById('confetti-wrapper');
+        
+        if(modal) modal.classList.remove('active');
+        
+        // Clean up confetti
+        if(wrapper) {
+            setTimeout(() => {
+                wrapper.innerHTML = ''; 
+            }, 500);
+        }
+    }
+
+    function createConfetti(wrapper) {
+        const colors = ['#FFD700', '#ff0000', '#2ecc71', '#3498db', '#f39c12', '#9b59b6'];
+        const confettiCount = 60;
+
+        for (let i = 0; i < confettiCount; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            
+            // Random Properties
+            const bg = colors[Math.floor(Math.random() * colors.length)];
+            const x = (Math.random() - 0.5) * 400; 
+            const y = (Math.random() - 1) * 400; 
+            const rotate = Math.random() * 360;
+            const delay = Math.random() * 0.2;
+            const duration = 0.8 + Math.random() * 0.8;
+
+            // Apply Styles
+            confetti.style.backgroundColor = bg;
+            confetti.style.transform = `translate(-50%, -50%) rotate(${rotate}deg)`;
+            confetti.style.transition = `all ${duration}s cubic-bezier(0.25, 1, 0.5, 1)`;
+            confetti.style.transitionDelay = `${delay}s`;
+
+            wrapper.appendChild(confetti);
+
+            // Animate
+            requestAnimationFrame(() => {
+                confetti.style.opacity = '1';
+                confetti.style.transform = `translate(${x}px, ${y}px) rotate(${rotate + 720}deg) scale(0)`;
+            });
+        }
+    }
+</script>
 </body>
 </html>
