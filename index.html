@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     
     <title>LIKITH NAIDU ANUMAKONDA | LIKITH Portfolio (OFFICIALLY VERIFIED)</title>
-    <meta name="description" content="Portfolio of Likith Naidu Anumakonda - Architect of PROMETHEUS AI V2.0 (Local Llama 3.2 System). B.Tech CSE-AI Student & Full Stack Developer specializing in FastAPI, Streamlit, and Local LLMs.">
-    <meta name="keywords" content="Likith Naidu, Prometheus AI, Llama 3.2, Local LLM, Streamlit Chatbot, FastAPI, Ollama, AI Portfolio, CSE Student, PBR VITS">
+    <meta name="description" content="Portfolio of Likith Naidu Anumakonda - Architect of PROMETHEUS AI V2.0. B.Tech CSE-AI Student & Full Stack Developer. Verified Visual Archives included.">
+    <meta name="keywords" content="Likith Naidu, Prometheus AI, Llama 3.2, Local LLM, Streamlit Chatbot, FastAPI, Ollama, AI Portfolio, CSE Student, PBR VITS, IIT Patna, Visual Archives">
     
     <link rel="icon" type="image/png" href="https://i.ibb.co/m5GYjVY8/Gemini-Generated-Image-7rq0ul7rq0ul7rq0-2.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,69 +18,20 @@
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Likith Naidu Anumakonda",
-      "alternateName": ["Likith Naidu", "Likith Anumakonda"],
       "url": "https://likith-portfolio.online/",
-      "image": [
-        "https://i.postimg.cc/q700yhQp/LIKITH-NAIDU-ANUMAKONDA.jpg",
-        "https://i.postimg.cc/GhGmDCr2/LIKITH-NAIDU-ANUMAKONDA.jpg",
-        "https://i.postimg.cc/XvJWsSMT/LIKITH-NAIDU-ANUMAKONDA.png"
-      ],
       "jobTitle": "AIML Student & AI Architect",
-      "description": "B.Tech CSE (AI) Student specializing in Local LLMs (Ollama/Llama 3.2), Python, and Full Stack Development.",
-      "birthDate": "2006-12-30",
-      "gender": "Male",
-      "nationality": "Indian",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "PBR VITS / IIT-Patna (Course)"
-      },
-      "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "PBR Visvodaya Institute of Technology & Science"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Kavali",
-        "addressRegion": "Andhra Pradesh",
-        "addressCountry": "IN"
-      },
-      "sameAs": [
-        "https://www.linkedin.com/in/likhith-naidu-anumakonda-33a347327",
-        "https://github.com/LIKITH-3012-MAC",
-        "https://www.instagram.com/likhithnaidu_anumakonda",
-        "https://x.com/Likithdob301206",
-        "https://likith-portfolio.online/"
-      ],
-      "knowsAbout": [
-        "Prometheus AI",
-        "Ollama",
-        "FastAPI",
-        "Streamlit",
-        "Python", 
-        "Artificial Intelligence", 
-        "Web Development", 
-        "Computer Vision", 
-        "Classical Piano"
-      ],
-      "hasPart": {
-        "@type": "SoftwareApplication",
-        "name": "Prometheus AI // System V2.0",
-        "operatingSystem": "macOS (Apple Silicon)",
-        "applicationCategory": "AI Chatbot",
-        "description": "A private, local-host AI chatbot running Llama 3.2 via Ollama with a Crystal Glass UI.",
-        "url": "https://www.prometheuslikiths-ai.online/"
-      }
+      "alumniOf": [
+        { "@type": "CollegeOrUniversity", "name": "PBR VITS" },
+        { "@type": "CollegeOrUniversity", "name": "IIT Patna (Course)" }
+      ]
     }
     </script>
     <style>
         /* ------------------------------------------------------------------------------------------------ */
-        /* CORE VARIABLES: Centralized Theme Colors */
+        /* CORE VARIABLES */
         /* ------------------------------------------------------------------------------------------------ */
         :root {
-            /* Base Colors */
             --gold: #FFD700;
-            
-            /* LIGHT MODE DEFAULTS */
             --color-primary: #1e293b; 
             --color-secondary: #475569; 
             --color-bg: #f8fafc; 
@@ -92,11 +43,9 @@
             --color-timeline-border: rgba(255, 215, 0, 0.3);
             --color-skill-tag-bg: #fef9c3; 
             --color-skill-tag-text: #854d0e; 
-            --color-nav-bg: rgba(255, 255, 255, 0.7);
-
-            /* ROCKET MODAL SPECIFIC */
-            --modal-glass-bg: rgba(15, 23, 42, 0.85);
-            --modal-overlay-bg: rgba(0, 0, 0, 0.7);
+            --color-nav-bg: rgba(255, 255, 255, 0.85);
+            --modal-glass-bg: rgba(15, 23, 42, 0.95);
+            --modal-overlay-bg: rgba(0, 0, 0, 0.85);
         }
 
         /* DARK MODE OVERRIDES */
@@ -112,29 +61,107 @@
             --color-timeline-border: rgba(255, 215, 0, 0.1);
             --color-skill-tag-bg: #4c3000;
             --color-skill-tag-text: #ffebb0;
-            --color-nav-bg: rgba(15, 23, 42, 0.8);
+            --color-nav-bg: rgba(15, 23, 42, 0.9);
         }
         
-        /* Custom Tailwind Configuration via CSS for Extra Small Screens */
         @media (min-width: 480px) { 
             .xs\:text-5xl { font-size: 3rem; line-height: 1; }
         }
 
         /* ------------------------------------------------------------------------------------------------ */
-        /* KEYFRAMES */
+        /* INTRO & LOADING ANIMATIONS */
+        /* ------------------------------------------------------------------------------------------------ */
+        
+        /* SYSTEM BOOT OVERLAY */
+        #system-boot-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000;
+            z-index: 99999; /* Highest priority */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--gold);
+            transition: opacity 1s ease-in-out, visibility 1s;
+        }
+
+        .boot-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 0.2em;
+            text-shadow: 0 0 10px var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .loading-bar-container {
+            width: 300px;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loading-bar-progress {
+            width: 0%;
+            height: 100%;
+            background: var(--gold);
+            box-shadow: 0 0 15px var(--gold);
+            animation: loadProgress 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .system-status {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        @keyframes loadProgress {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            80% { width: 85%; }
+            100% { width: 100%; }
+        }
+
+        /* GALLERY SPECIFIC INTRO */
+        .gallery-boot-screen {
+            position: absolute;
+            inset: 0;
+            background: #000;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: cyan;
+            font-family: monospace;
+        }
+        .gallery-scan-line {
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 255, 255, 0.5);
+            position: absolute;
+            top: 0;
+            animation: scanDown 1.5s linear infinite;
+        }
+        @keyframes scanDown {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* ------------------------------------------------------------------------------------------------ */
+        /* STANDARD STYLES */
         /* ------------------------------------------------------------------------------------------------ */
 
-        @keyframes pulse-border {
-            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
-        }
         @keyframes title-ripple {
             0%, 100% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.01); opacity: 0.98; }
         }
-
-        /* NEW ANIMATIONS FOR PROFILE PICTURE AND TYPING */
         @keyframes spin-slow {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -148,35 +175,26 @@
             50% { border-color: var(--gold); }
         }
 
-        /* ROCKET ANIMATIONS */
+        /* Rocket Animations */
         @keyframes rocket-shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-3px) rotate(-3deg); }
             75% { transform: translateX(3px) rotate(3deg); }
         }
-
         @keyframes rocket-fly {
             0% { transform: translateY(0) scale(1); opacity: 1; }
             50% { opacity: 1; }
             100% { transform: translateY(-300px) scale(0.5); opacity: 0; }
         }
-
         @keyframes fade-in-check {
             to { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
         }
-
         @keyframes draw-check {
             to { stroke-dashoffset: 0; }
         }
-        
         @keyframes text-slide-up {
             to { opacity: 1; transform: translateY(0); }
         }
-        
-
-        /* ------------------------------------------------------------------------------------------------ */
-        /* GENERAL & TAILWIND UTILITY REPLACEMENT */
-        /* ------------------------------------------------------------------------------------------------ */
 
         body {
             font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -184,9 +202,9 @@
             color: var(--color-secondary);
             transition: background-color 0.3s, color 0.3s;
             position: relative;
+            overflow-x: hidden;
         }
 
-        /* CREATIVE: Global Aura */
         body::before {
             content: '';
             position: fixed;
@@ -198,18 +216,10 @@
             opacity: 0.7;
         }
 
-        /* 🚀 ADVANCED SCROLLING PERFORMANCE ENHANCEMENT */
-        #navbar, #contact-bar, .section-card, .modal-content, .soft-title, #mobile-menu {
-            will-change: transform, opacity;
-            transform: translateZ(0); 
-        }
-
-        /* CUSTOM TAILWIND EXTENSIONS VIA CSS */
         .text-morning-gold { color: var(--gold); }
         .border-morning-gold { border-color: var(--gold); }
         .shadow-morning-gold-sm { box-shadow: 0 4px 6px -1px rgba(255, 215, 0, 0.3); }
 
-        /* SOFT BUTTON STYLES (Enhanced Glow) */
         .button-soft {
             background-color: var(--color-soft-button-bg);
             border: 1px solid rgba(255, 215, 0, 0.5);
@@ -229,16 +239,14 @@
         .button-soft:hover {
             background-color: var(--gold);
             color: #1f2937;
-            transform: translateY(-2px) translateZ(0); /* Optimized transform */
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 10px 15px -3px rgba(255, 215, 0, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
         }
         body.dark .button-soft:hover {
             background-color: var(--gold);
             color: #1f2937;
         }
 
-
-        /* GLOW TEXT EFFECT */
         .text-glow { position: relative; display: inline-block; }
         .text-glow::after {
             content: attr(data-text);
@@ -250,7 +258,6 @@
             pointer-events: none;
         }
 
-        /* SECTION CARDS */
         .section-card {
             background-color: var(--color-card-bg);
             border-radius: 1.5rem;
@@ -260,11 +267,9 @@
         }
         .section-card:hover {
             border-color: rgba(255, 215, 0, 0.8);
-            transform: scale(1.01) translateZ(0); /* Better 3D effect */
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.15);
+            transform: scale(1.01);
         }
 
-        /* TITLES (Added subtle animation) */
         .soft-title {
             color: var(--color-primary);
             font-weight: 900;
@@ -273,11 +278,8 @@
             transition: color 0.3s, text-shadow 0.3s;
             animation: title-ripple 8s infinite ease-in-out;
         }
-        body.dark .soft-title { 
-            text-shadow: 2px 2px 0 rgba(255,215,0,0.2); 
-        }
+        body.dark .soft-title { text-shadow: 2px 2px 0 rgba(255,215,0,0.2); }
 
-        /* SKILL TAGS */
         .skill-tag {
             display: inline-block;
             padding: 0.4rem 0.8rem;
@@ -293,10 +295,9 @@
         .skill-tag:hover {
             background-color: var(--gold);
             color: var(--color-primary); 
-            transform: scale(1.1) translateZ(0); /* Optimized transform */
+            transform: scale(1.1);
         }
 
-        /* NEW: VERIFIED STAMP */
         .verified-stamp {
             display: inline-block;
             font-size: 0.7rem;
@@ -310,7 +311,6 @@
             letter-spacing: 0.05em;
         }
 
-        /* TIMELINE */
         .timeline-item {
             position: relative;
             padding-left: 2rem;
@@ -331,7 +331,6 @@
             transition: border-color 0.3s;
         }
 
-        /* INPUTS */
         .input-soft {
             width: 100%;
             padding: 0.9rem 1rem;
@@ -347,67 +346,41 @@
             box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.5);
         }
 
-        /* NAVBAR */
         #navbar {
             background-color: var(--color-nav-bg); 
             border-bottom: 1px solid var(--color-border);
         }
         
-        /* CONTACT BAR OPTIMIZATION FOR MOBILE */
         #contact-bar {
             width: 95%; 
             max-width: 400px;
             padding: 0.5rem 1rem;
         }
-        #contact-bar a {
-             /* Increase tappable area slightly for mobile icons */
-            padding: 0.6rem;
-        }
-        #contact-bar a i {
-            width: 1.1rem; 
-            height: 1.1rem;
-        }
         @media (min-width: 768px) {
-            #contact-bar {
-                max-width: 512px;
-                padding: 0.5rem;
-            }
+            #contact-bar { max-width: 512px; padding: 0.5rem; }
         }
 
-        /* MODAL */
-        #about-modal-card {
-            /* animation: pulse-border 5s infinite;  REMOVED PULSE TO FOCUS ON CONTENT */
-            transition: background-color 0.3s;
-            max-height: 90vh; 
-            overflow-y: auto;
-            position: relative; 
-        }
-
-        /* MODAL STATE: Use visibility and pointer-events for smoother transition */
-        #about-modal, #feature-modal, #email-choice-modal, #resume-modal {
+        /* MODAL COMMON STYLES */
+        #about-modal, #feature-modal, #email-choice-modal, #resume-modal, #gallery-modal {
             visibility: hidden; 
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease-out, visibility 0s 0.3s;
         }
-        /* State when active */
-        #about-modal.active, #feature-modal.active, #email-choice-modal.active, #resume-modal.active {
+        #about-modal.active, #feature-modal.active, #email-choice-modal.active, #resume-modal.active, #gallery-modal.active {
             visibility: visible; 
             opacity: 1;
             pointer-events: auto;
             transition: opacity 0.3s ease-out, visibility 0s;
         }
-        
-        /* MODAL TRANSITIONS */
         .modal-content {
-            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-            transform: scale(0.95) translateZ(0); /* Optimized transform */
+            transition: transform 0.3s ease-out;
+            transform: scale(0.95);
         }
-        #about-modal.active .modal-content, #feature-modal.active .modal-content, #email-choice-modal.active .modal-content, #resume-modal.active .modal-content {
-            transform: scale(1) translateZ(0); /* Optimized transform */
+        .active .modal-content {
+            transform: scale(1);
         }
 
-        /* CREATIVE: Glowing Section Divider */
         .section-divider-glow {
             position: relative;
             height: 1px;
@@ -426,8 +399,7 @@
         .section-divider-glow::after {
             content: '// PROTOCOL BREAKPOINT :: AUDITED LOG //';
             position: absolute;
-            top: -12px;
-            left: 50%;
+            top: -12px; left: 50%;
             transform: translateX(-50%);
             font-size: 0.7rem;
             font-weight: bold;
@@ -436,16 +408,13 @@
             padding: 0 1rem;
             letter-spacing: 0.1em;
             z-index: 10;
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
         }
 
-        /* UTILS */
         .text-primary { color: var(--color-primary); }
         .text-secondary { color: var(--color-secondary); }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(156, 163, 175, 0.5); border-radius: 20px; }
         
-        /* TYPING EFFECT CLASS */
         .typing-effect {
             overflow: hidden;
             border-right: .15em solid var(--gold);
@@ -459,170 +428,90 @@
             animation: spin-slow 8s linear infinite;
         }
 
-        /* ======================================================== */
-        /* ROCKET MODAL STYLES (INTEGRATED)                         */
-        /* ======================================================== */
+        /* ROCKET MODAL */
         .success-modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--modal-overlay-bg);
             backdrop-filter: blur(12px); 
             z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden;
             transition: all 0.4s ease;
         }
-
-        .success-modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .success-modal-overlay.active { opacity: 1; visibility: visible; }
 
         .success-card {
             background: var(--modal-glass-bg);
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 0 40px rgba(255, 215, 0, 0.1);
-            width: 90%;
-            max-width: 380px;
-            padding: 40px;
-            border-radius: 24px;
-            text-align: center;
+            width: 90%; max-width: 380px; padding: 40px;
+            border-radius: 24px; text-align: center;
             transform: translateY(50px) scale(0.9);
             transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative; overflow: hidden;
+        }
+        .success-modal-overlay.active .success-card { transform: translateY(0) scale(1); }
+
+        .animation-stage { height: 100px; position: relative; display: flex; justify-content: center; align-items: flex-end; margin-bottom: 20px; }
+        .rocket-svg { width: 60px; height: 60px; color: white; filter: drop-shadow(0 0 10px var(--gold)); position: relative; z-index: 10; }
+        .success-modal-overlay.active .rocket-svg { animation: rocket-shake 0.4s ease-in-out, rocket-fly 1s ease-in forwards 0.4s; }
+        .checkmark-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(46, 204, 113, 0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 0; z-index: 5; }
+        .success-modal-overlay.active .checkmark-container { animation: fade-in-check 0.5s ease forwards 1s; }
+        .checkmark-svg { width: 40px; height: 40px; stroke: #2ecc71; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; fill: none; stroke-dasharray: 100; stroke-dashoffset: 100; }
+        .success-modal-overlay.active .checkmark-svg { animation: draw-check 0.6s ease forwards 1.2s; }
+        .success-title { color: white; font-weight: 900; font-size: 24px; margin: 0 0 10px 0; opacity: 0; transform: translateY(20px); }
+        .success-desc { color: #94a3b8; font-size: 14px; margin: 0 0 30px 0; opacity: 0; transform: translateY(20px); }
+        .success-modal-overlay.active .success-title { animation: text-slide-up 0.6s ease forwards 1.2s; }
+        .success-modal-overlay.active .success-desc { animation: text-slide-up 0.6s ease forwards 1.3s; }
+        .success-btn { background: var(--gold); color: #000; font-weight: 700; border: none; padding: 12px 40px; border-radius: 50px; cursor: pointer; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
+        .success-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5); }
+        .confetti { position: absolute; width: 8px; height: 8px; background-color: #f00; top: 50%; left: 50%; opacity: 0; z-index: 1; pointer-events: none; }
+
+        /* GALLERY STYLES */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .gallery-item {
             position: relative;
+            border-radius: 1rem;
             overflow: hidden;
+            border: 1px solid var(--morning-gold);
+            aspect-ratio: 1 / 1;
+            background: #000;
         }
-
-        .success-modal-overlay.active .success-card {
-            transform: translateY(0) scale(1);
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
-
-        .animation-stage {
-            height: 100px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            margin-bottom: 20px;
+        .gallery-item:hover img {
+            transform: scale(1.1);
         }
-
-        .rocket-svg {
-            width: 60px;
-            height: 60px;
-            color: white;
-            filter: drop-shadow(0 0 10px var(--gold));
-            position: relative;
-            z-index: 10;
-        }
-
-        .success-modal-overlay.active .rocket-svg {
-            animation: 
-                rocket-shake 0.4s ease-in-out,
-                rocket-fly 1s ease-in forwards 0.4s;
-        }
-
-        .checkmark-container {
+        .gallery-loader {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background: rgba(46, 204, 113, 0.1);
-            border-radius: 50%;
+            inset: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            opacity: 0;
-            z-index: 5;
-        }
-
-        .success-modal-overlay.active .checkmark-container {
-            animation: fade-in-check 0.5s ease forwards 1s; 
-        }
-
-        .checkmark-svg {
-            width: 40px;
-            height: 40px;
-            stroke: #2ecc71;
-            stroke-width: 4;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            fill: none;
-            stroke-dasharray: 100;
-            stroke-dashoffset: 100;
-        }
-
-        .success-modal-overlay.active .checkmark-svg {
-            animation: draw-check 0.6s ease forwards 1.2s;
-        }
-
-        .success-title {
-            color: white;
-            font-weight: 900;
-            font-size: 24px;
-            margin: 0 0 10px 0;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .success-desc {
-            color: #94a3b8;
-            font-size: 14px;
-            margin: 0 0 30px 0;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .success-modal-overlay.active .success-title {
-            animation: text-slide-up 0.6s ease forwards 1.2s;
-        }
-        .success-modal-overlay.active .success-desc {
-            animation: text-slide-up 0.6s ease forwards 1.3s;
-        }
-
-        .success-btn {
-            background: var(--gold);
-            color: #000;
-            font-weight: 700;
-            border: none;
-            padding: 12px 40px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-        }
-
-        .success-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
-        }
-
-        .confetti {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background-color: #f00;
-            top: 50%;
-            left: 50%;
-            opacity: 0;
-            z-index: 1;
-            pointer-events: none;
+            background: #0f172a;
+            z-index: 10;
         }
 
     </style>
 </head>
 
 <body class="font-sans antialiased overflow-x-hidden selection:bg-yellow-200 selection:text-black">
+
+    <div id="system-boot-overlay">
+        <div class="boot-text">INITIALIZING SYSTEM...</div>
+        <div class="loading-bar-container">
+            <div class="loading-bar-progress"></div>
+        </div>
+        <div class="system-status" id="boot-status">Loading Core Protocols...</div>
+    </div>
 
     <div class="mist-overlay" aria-hidden="true"></div>
     <div id="morning-ripple" class="morning-ripple" aria-hidden="true"></div>
@@ -641,20 +530,27 @@
                 </div>
             </a>
 
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#about" role="button" onclick="toggleAboutModal()" class="text-xs font-mono font-bold text-secondary hover:text-morning-gold uppercase tracking-wider transition-colors">ABOUT CORE (V)</a>
-                <a href="#experience" class="text-xs font-mono font-bold text-secondary hover:text-morning-gold uppercase tracking-wider transition-colors">WORK HISTORY (V)</a>
-                <a href="#projects" class="text-xs font-mono font-bold text-secondary hover:text-morning-gold uppercase tracking-wider transition-colors">PROJECTS (V)</a>
-                <a href="#education" class="text-xs font-mono font-bold text-secondary hover:text-morning-gold uppercase tracking-wider transition-colors">EDUCATION (V)</a>
-                <a href="#skills" class="text-xs font-mono font-bold text-secondary hover:text-morning-gold uppercase tracking-wider transition-colors">SKILLS (V)</a>
-                <button id="theme-toggle" class="px-3 py-1 font-bold text-[10px] uppercase tracking-widest rounded-full transition-colors" aria-label="Toggle Dark/Light Theme">
-                    <i data-lucide="moon" class="w-3 h-3 inline mr-1"></i>Theme
+            <div class="hidden xl:flex items-center gap-5">
+                <a href="#about" role="button" onclick="toggleAboutModal()" class="text-[10px] font-mono font-bold text-secondary hover:text-morning-gold uppercase tracking-wider transition-colors">ABOUT (V)</a>
+                <a href="#experience" class="text-[10px] font-mono font-bold text-secondary hover:text-morning-gold uppercase tracking-wider transition-colors">WORK (V)</a>
+                <a href="#projects" class="text-[10px] font-mono font-bold text-secondary hover:text-morning-gold uppercase tracking-wider transition-colors">PROJECTS (V)</a>
+                <a href="#education" class="text-[10px] font-mono font-bold text-secondary hover:text-morning-gold uppercase tracking-wider transition-colors">EDUCATION (V)</a>
+                <a href="#achievements" class="text-[10px] font-mono font-bold text-secondary hover:text-morning-gold uppercase tracking-wider transition-colors">ACHIEVEMENTS (V)</a>
+                <a href="#skills" class="text-[10px] font-mono font-bold text-secondary hover:text-morning-gold uppercase tracking-wider transition-colors">SKILLS (V)</a>
+                <button onclick="openGallery()" class="text-[10px] font-mono font-bold text-morning-gold border border-morning-gold px-2 py-1 rounded hover:bg-yellow-400 hover:text-black uppercase tracking-wider transition-colors">
+                    <i data-lucide="image" class="w-3 h-3 inline mr-1"></i>GALLERY (V)
                 </button>
             </div>
 
-            <button id="mobile-menu-btn" class="md:hidden text-primary p-2" aria-label="Open mobile menu">
-                <i data-lucide="menu" class="w-6 h-6"></i>
-            </button>
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle" class="px-3 py-1 font-bold text-[10px] uppercase tracking-widest rounded-full transition-colors border border-gray-300 dark:border-gray-700" aria-label="Toggle Dark/Light Theme">
+                    <i data-lucide="moon" class="w-3 h-3 inline mr-1"></i>Theme
+                </button>
+
+                <button id="mobile-menu-btn" class="xl:hidden text-primary p-2" aria-label="Open mobile menu">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -664,99 +560,43 @@
             <i data-lucide="x" class="w-8 h-8"></i>
         </button>
         <nav class="space-y-6 text-center">
-            <a href="#about" role="button" onclick="toggleAboutModal(); toggleMobileMenu()" class="block text-2xl font-bold text-primary">About Core (V)</a>
-            <a href="#experience" onclick="toggleMobileMenu()" class="block text-2xl font-bold text-primary">Experience (V)</a>
-            <a href="#projects" onclick="toggleMobileMenu()" class="block text-2xl font-bold text-primary">Projects (V)</a>
-            <a href="#education" onclick="toggleMobileMenu()" class="block text-2xl font-bold text-primary">Education (V)</a>
-            <a href="#skills" onclick="toggleMobileMenu()" class="block text-2xl font-bold text-primary">Skills (V)</a>
-            <a href="#contact" onclick="toggleMobileMenu()" class="block text-2xl font-bold text-primary">Contact</a>
+            <a href="#about" role="button" onclick="toggleAboutModal(); toggleMobileMenu()" class="block text-xl font-bold text-primary">About Core (V)</a>
+            <a href="#experience" onclick="toggleMobileMenu()" class="block text-xl font-bold text-primary">Experience (V)</a>
+            <a href="#projects" onclick="toggleMobileMenu()" class="block text-xl font-bold text-primary">Projects (V)</a>
+            <a href="#education" onclick="toggleMobileMenu()" class="block text-xl font-bold text-primary">Education (V)</a>
+            <a href="#achievements" onclick="toggleMobileMenu()" class="block text-xl font-bold text-primary">Achievements (V)</a>
+            <a href="#skills" onclick="toggleMobileMenu()" class="block text-xl font-bold text-primary">Skills (V)</a>
+            <button onclick="openGallery(); toggleMobileMenu()" class="block text-xl font-bold text-morning-gold w-full">Visual Archives (V)</button>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block text-xl font-bold text-primary">Contact</a>
         </nav>
     </div>
-<section 
-    id="contact-bar" 
-    class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 p-3 w-auto max-w-[95vw] backdrop-blur-xl rounded-full shadow-2xl flex items-center justify-center gap-3 sm:gap-5 transition-all duration-300 border border-white/20" 
-    style="background-color: var(--color-card-bg);" 
-    aria-label="Social Media and Direct Contact Links">
 
-    <a href="https://github.com/LIKITH-3012-MAC" target="_blank" 
-       class="p-2.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 hover:scale-110 transition-all duration-300 group" 
-       aria-label="GitHub Profile">
-        <i data-lucide="github" class="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-200 group-hover:text-black dark:group-hover:text-white"></i>
-    </a>
-
-    <a href="https://linkedin.com/in/likhith-naidu-anumakonda-33a347327" target="_blank" 
-       class="p-2.5 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:scale-110 transition-all duration-300 group" 
-       aria-label="LinkedIn Profile">
-        <i data-lucide="linkedin" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600"></i>
-    </a>
-    
-    <a href="https://www.instagram.com/likhithnaidu_anumakonda?igsh=MTgxZ3hrc3BtcHAzdg==" target="_blank" 
-       class="p-2.5 rounded-full hover:bg-pink-50 dark:hover:bg-pink-900/30 hover:scale-110 transition-all duration-300 group" 
-       aria-label="Instagram Profile">
-        <i data-lucide="instagram" class="w-5 h-5 sm:w-6 sm:h-6 text-pink-500"></i>
-    </a>
-    
-    <a href="https://x.com/Likithdob301206?t=4FzQYS1UgCKSQBgc99xspg&s=09" target="_blank" 
-       class="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 hover:scale-110 transition-all duration-300 group" 
-       aria-label="X (Twitter) Profile">
-        <i data-lucide="twitter" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-400"></i>
-    </a>
-    
-    <a href="tel:+919440113763" 
-       class="p-2.5 rounded-full hover:bg-purple-50 dark:hover:bg-purple-900/30 hover:scale-110 transition-all duration-300 group" 
-       aria-label="Call Mobile Number">
-        <i data-lucide="phone" class="w-5 h-5 sm:w-6 sm:h-6 text-purple-500"></i>
-    </a>
-    
-    <a href="javascript:void(0)" onclick="openEmailChoiceModal()" 
-       class="p-2.5 rounded-full hover:bg-red-50 dark:hover:bg-red-900/30 hover:scale-110 transition-all duration-300 group" 
-       aria-label="Choose Email Address">
-        <i data-lucide="mail" class="w-5 h-5 sm:w-6 sm:h-6 text-red-500"></i>
-    </a>
-    
-    <a href="#contact" 
-       class="p-2.5 rounded-full hover:bg-green-50 dark:hover:bg-green-900/30 hover:scale-110 transition-all duration-300 group" 
-       aria-label="Contact Form">
-        <i data-lucide="message-square" class="w-5 h-5 sm:w-6 sm:h-6 text-green-500"></i>
-    </a>
-</section>
+    <section id="contact-bar" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 p-3 w-auto max-w-[95vw] backdrop-blur-xl rounded-full shadow-2xl flex items-center justify-center gap-3 sm:gap-5 transition-all duration-300 border border-white/20" style="background-color: var(--color-card-bg);" aria-label="Social Media and Direct Contact Links">
+        <a href="https://github.com/LIKITH-3012-MAC" target="_blank" class="p-2.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 hover:scale-110 transition-all duration-300 group"><i data-lucide="github" class="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 dark:text-gray-200"></i></a>
+        <a href="https://linkedin.com/in/likhith-naidu-anumakonda-33a347327" target="_blank" class="p-2.5 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:scale-110 transition-all duration-300 group"><i data-lucide="linkedin" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600"></i></a>
+        <a href="https://www.instagram.com/likhithnaidu_anumakonda?igsh=MTgxZ3hrc3BtcHAzdg==" target="_blank" class="p-2.5 rounded-full hover:bg-pink-50 dark:hover:bg-pink-900/30 hover:scale-110 transition-all duration-300 group"><i data-lucide="instagram" class="w-5 h-5 sm:w-6 sm:h-6 text-pink-500"></i></a>
+        <a href="https://x.com/Likithdob301206?t=4FzQYS1UgCKSQBgc99xspg&s=09" target="_blank" class="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 hover:scale-110 transition-all duration-300 group"><i data-lucide="twitter" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-400"></i></a>
+        <a href="tel:+919440113763" class="p-2.5 rounded-full hover:bg-purple-50 dark:hover:bg-purple-900/30 hover:scale-110 transition-all duration-300 group"><i data-lucide="phone" class="w-5 h-5 sm:w-6 sm:h-6 text-purple-500"></i></a>
+        <a href="javascript:void(0)" onclick="openEmailChoiceModal()" class="p-2.5 rounded-full hover:bg-red-50 dark:hover:bg-red-900/30 hover:scale-110 transition-all duration-300 group"><i data-lucide="mail" class="w-5 h-5 sm:w-6 sm:h-6 text-red-500"></i></a>
+        <a href="#contact" class="p-2.5 rounded-full hover:bg-green-50 dark:hover:bg-green-900/30 hover:scale-110 transition-all duration-300 group"><i data-lucide="message-square" class="w-5 h-5 sm:w-6 sm:h-6 text-green-500"></i></a>
+    </section>
 
     <div id="about-modal" class="fixed inset-0 z-[60] flex items-center justify-center modal-backdrop bg-slate-900/90 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="about-modal-title">
       <div class="w-full h-full flex items-center justify-center p-4" onclick="toggleAboutModal()">
-        
         <div id="about-modal-card" class="w-full max-w-5xl rounded-3xl overflow-hidden shadow-2xl border border-morning-gold modal-content flex flex-col md:flex-row relative" style="background-color: var(--color-card-bg); max-height: 85vh;" onclick="event.stopPropagation()">
-          
-          <button onclick="toggleAboutModal()" class="absolute top-4 right-4 z-50 p-2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-primary border border-morning-gold transition-colors" aria-label="Close about me modal">
-            <i data-lucide="x" class="w-6 h-6"></i>
-          </button>
+          <button onclick="toggleAboutModal()" class="absolute top-4 right-4 z-50 p-2 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-primary border border-morning-gold transition-colors" aria-label="Close about me modal"><i data-lucide="x" class="w-6 h-6"></i></button>
 
           <div class="relative w-full md:w-1/2 h-[300px] md:h-auto bg-black/5 border-b md:border-b-0 md:border-r border-morning-gold">
-            <div class="absolute inset-0 flex items-center justify-center text-morning-gold text-xs font-mono tracking-widest z-0 animate-pulse">
-            </div>
-            
-            <spline-viewer 
-              loading-anim-type="spinner-small-dark" 
-              url="https://prod.spline.design/jpCPm24RW3OmPpmD/scene.splinecode"
-              class="w-full h-full relative z-10"
-              style="width: 100%; height: 100%;">
-            </spline-viewer>
-            
+            <spline-viewer loading-anim-type="spinner-small-dark" url="https://prod.spline.design/jpCPm24RW3OmPpmD/scene.splinecode" class="w-full h-full relative z-10" style="width: 100%; height: 100%;"></spline-viewer>
             <div class="absolute inset-0 pointer-events-none border-[6px] border-transparent border-l-morning-gold/20 opacity-50"></div>
           </div>
 
           <div class="w-full md:w-1/2 p-6 md:p-10 overflow-y-auto custom-scrollbar flex flex-col justify-start relative">
-            
             <div class="flex items-start justify-between gap-4 mb-6">
                 <div class="flex-1">
-                    <div class="mb-1">
-                       <span class="text-[10px] font-mono text-morning-gold uppercase tracking-widest border border-morning-gold px-2 py-1 rounded">System Identity</span>
-                    </div>
-                    <h2 id="about-modal-title" class="text-3xl md:text-4xl font-black text-primary leading-tight">
-                      LIKITH <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">NAIDU</span>
-                      <span class="verified-stamp align-middle text-sm ml-1">V</span>
-                    </h2>
+                    <div class="mb-1"><span class="text-[10px] font-mono text-morning-gold uppercase tracking-widest border border-morning-gold px-2 py-1 rounded">System Identity</span></div>
+                    <h2 id="about-modal-title" class="text-3xl md:text-4xl font-black text-primary leading-tight">LIKITH <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">NAIDU</span> <span class="verified-stamp align-middle text-sm ml-1">V</span></h2>
                 </div>
-                
                 <div class="relative w-24 h-24 flex-shrink-0 group">
                     <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-yellow-400 via-yellow-200 to-yellow-600 opacity-75 blur-sm group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-spin-slow"></div>
                     <div class="relative w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-slate-800">
@@ -766,48 +606,29 @@
                 </div>
             </div>
             
-            <div class="mb-6 font-mono text-xs md:text-sm font-bold text-morning-gold">
-                <div class="typing-effect">
-                    > AI-ML PROTOCOL SPECIALIST (AUDITED)
-                </div>
-            </div>
+            <div class="mb-6 font-mono text-xs md:text-sm font-bold text-morning-gold"><div class="typing-effect">> AI-ML PROTOCOL SPECIALIST (AUDITED)</div></div>
             
             <div class="space-y-4 text-secondary text-sm md:text-base leading-relaxed border-l-2 border-gray-200 dark:border-gray-700 pl-4">
-              <p>
-                I am a <strong class="text-primary">AIML ENGINEER</strong> and Full Stack Developer (Node.js/Next.js) focused on engineering robust, data-centric solutions.
-              </p>
-              <p>
-                I leverage <strong class="text-primary">Python, Java SE, and advanced SQL/MongoDB</strong> modeling to solve complex problems, resulting in quantifiable improvements in system efficiency and data processing speed.
-              </p>
+              <p>I am a <strong class="text-primary">AIML ENGINEER</strong> and Full Stack Developer (Node.js/Next.js) focused on engineering robust, data-centric solutions.</p>
+              <p>I leverage <strong class="text-primary">Python, Java SE, and advanced SQL/MongoDB</strong> modeling to solve complex problems, resulting in quantifiable improvements in system efficiency.</p>
             </div>
 
             <div class="mt-8 pt-6 border-t border-dashed border-gray-300 dark:border-gray-700">
               <div class="grid grid-cols-1 gap-3 text-xs font-mono text-secondary">
-                <div class="flex items-center gap-2">
-                  <i data-lucide="map-pin" class="w-4 h-4 text-morning-gold"></i>
-                  <span>Origin: Nellore (30-12-2006)</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <i data-lucide="cpu" class="w-4 h-4 text-morning-gold"></i>
-                  <span>Core: AIML,FULL-STACK,JAVA,PYTHON</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <i data-lucide="music" class="w-4 h-4 text-morning-gold"></i>
-                  <span>Art: Classical Pianist (VERIFIED)</span>
-                </div>
+                <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-morning-gold"></i><span>Origin: Nellore (30-12-2006)</span></div>
+                <div class="flex items-center gap-2"><i data-lucide="cpu" class="w-4 h-4 text-morning-gold"></i><span>Core: AIML,FULL-STACK,JAVA,PYTHON</span></div>
+                <div class="flex items-center gap-2"><i data-lucide="music" class="w-4 h-4 text-morning-gold"></i><span>Art: Classical Pianist (VERIFIED)</span></div>
               </div>
             </div>
             
             <div class="mt-8">
-               <button onclick="toggleAboutModal(); window.location.href='#contact'" class="button-soft w-full text-center">
-                 INITIATE DIRECT CONNECTION
-               </button>
+               <button onclick="toggleAboutModal(); window.location.href='#contact'" class="button-soft w-full text-center">INITIATE DIRECT CONNECTION</button>
             </div>
           </div>
-          
         </div>
       </div>
     </div>
+
     <section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-20 pb-40 md:pb-60">
         <div class="absolute inset-0 bg-cover bg-center z-[-1] opacity-10" style="background-image: url('https://images.unsplash.com/photo-1549477022-d7b67035f299?auto=format&fit=crop&q=80');" aria-hidden="true"></div>
         
@@ -818,7 +639,7 @@
             
             <h1 class="text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-black tracking-tight leading-snug text-primary">
                Hello<span class="text-morning-gold text-glow" data-text="Intelligent">Buddy</span><br>
-                Systems & Data Logic
+               Systems & Data Logic
             </h1>
             
             <p class="text-base md:text-xl max-w-2xl mx-auto leading-relaxed text-secondary">
@@ -833,10 +654,14 @@
                 <button onclick="openResumeModal()" class="button-soft shadow-xl hover:shadow-2xl" style="border-color: var(--gold); color: var(--gold);">
                     <i data-lucide="globe" class="w-4 h-4 inline mr-1"></i> RESUME WEB (V)
                 </button>
+                
+                <button onclick="toggleAboutModal()" class="button-soft shadow-xl hover:shadow-2xl bg-white text-primary border border-gray-300">
+                     <i data-lucide="user" class="w-4 h-4 inline mr-1"></i> DETAILED BIO (V)
+                </button>
 
-                <a href="#about" role="button" onclick="toggleAboutModal()" class="px-6 py-3 rounded-full font-bold transition" style="color: var(--color-primary); border: 1px solid var(--color-border); background-color: var(--color-card-bg);">
-                    Detailed Bio (V)
-                </a>
+                <button onclick="openGallery()" class="button-soft shadow-xl hover:shadow-2xl bg-slate-900 text-white border-none">
+                    <i data-lucide="camera" class="w-4 h-4 inline mr-1"></i> VISUAL ARCHIVES (V)
+                </button>
             </div>
         </div>
     </section>
@@ -862,9 +687,6 @@
                         <li class="flex gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-morning-gold shrink-0" aria-hidden="true"></i> 
                             <span>**Database Engineering:** Designed normalized MongoDB/NoSQL schemas improving **data retrieval latency by >50%** compared to baseline relational modeling. (Verified Metrics)</span>
                         </li>
-                        <li class="flex gap-2"><i data-lucide="check-circle-2" class="w-5 h-5 text-morning-gold shrink-0" aria-hidden="true"></i> 
-                            <span>**AI Integration:** Developed custom prompts within Genkit to optimize the generation of personalized career paths based on user input and real-time labor data. (Verified Process)</span>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -873,135 +695,6 @@
 
     <div class="section-divider-glow"></div>
     
-    <section id="education" class="py-20 z-10 relative">
-        <div class="max-w-5xl mx-auto px-6">
-            <h2 class="soft-title text-4xl md:text-5xl font-black mb-12 text-center">:: ACADEMIC PROTOCOLS (VERIFIED) ::</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="section-card p-6">
-                    <div class="flex items-center gap-3 mb-3">
-                        <i data-lucide="graduation-cap" class="w-8 h-8 text-morning-gold shrink-0"></i>
-                        <h3 class="text-xl font-bold text-primary">B.Tech CSE - Artificial Intelligence <span class="verified-stamp">V</span></h3>
-                    </div>
-                    <p class="text-secondary font-semibold">PBR VITS, Kavali</p>
-                    <p class="text-sm text-secondary italic mb-4">2nd Year, Currently Pursuing - Expected Graduation: ** 2028** (Verified Timeline)</p>
-                    <ul class="text-xs text-secondary list-disc list-inside space-y-1 ml-4">
-                        <li>Core focus on DSA, OOP, Neural Networks, and Cloud Computing basics.</li>
-                    </ul>
-                </div>
-                <div class="section-card p-6">
-                    <div class="flex items-center gap-3 mb-3">
-                        <i data-lucide="brain-circuit" class="w-8 h-8 text-morning-gold shrink-0"></i>
-                        <h3 class="text-xl font-bold text-primary">Advanced AI-ML Specialization <span class="verified-stamp">V</span></h3>
-                    </div>
-                    <p class="text-secondary font-semibold">IIT-Patna I-HUB VISHLESHAN</p>
-                    <p class="text-sm text-secondary italic mb-4">Completed Core Modules: Data Preprocessing, Model Evaluation, and Mathematical Intuition for ML.</p>
-                    <ul class="text-xs text-secondary list-disc list-inside space-y-1 ml-4">
-                        <li>Intensive study of linear algebra, calculus, and probability theory as applied to Deep Learning.</li>
-                        <li>Final project submission focusing on optimized model deployment on constrained hardware. (Verified Certificate Pending)</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="section-divider-glow"></div>
-
-    <section id="achievements" class="py-10 z-10 relative">
-        <div class="max-w-5xl mx-auto px-6">
-            <h2 class="soft-title mb-8 text-3xl font-black">:: DATA LOGS & ACHIEVEMENTS (OFFICIALLY VERIFIED) ::</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <button type="button" onclick="showFeatureInfo('SQL & AI Data Storytelling (V)', 'Completed advanced project querying complex SQL and integrating AI concepts. Reduced report time by 60% (VERIFIED METRIC). Focus on stored procedures and query optimization.', 'https://www.linkedin.com/posts/likhith-naidu-anumakonda-33a347327_sql-ai-datastorytelling-activity-7388150811807342592-ePxS')" 
-                class="section-card p-6 text-left hover:-translate-y-1 group" aria-label="Details for SQL & AI Data Storytelling achievement">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h4 class="font-bold text-primary group-hover:text-morning-gold transition">SQL & AI Data Storytelling <span class="verified-stamp">V</span></h4>
-                            <p class="text-xs text-secondary mt-1">Optimization Protocol (VERIFIED)</p>
-                        </div>
-                        <i data-lucide="database" class="group-hover:text-morning-gold" style="color: var(--color-secondary);" aria-hidden="true"></i>
-                    </div>
-                </button>
-
-                <button type="button" onclick="showFeatureInfo('MongoDB Bootcamp (V)', 'Mastered document modeling, aggregation pipelines, and implemented 3 real-world NoSQL projects. 99% model stability (VERIFIED). Focused on highly available, distributed database modeling.', 'https://www.linkedin.com/posts/likhith-naidu-anumakonda-33a347327_completed-the-mongodb-bootcamp-from-october-activity-7385972025800040448-JZPf')" 
-                class="section-card p-6 text-left hover:-translate-y-1 group" aria-label="Details for MongoDB Full-Stack Bootcamp certification">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h4 class="font-bold text-primary group-hover:text-morning-gold transition">MongoDB Full-Stack Bootcamp <span class="verified-stamp">V</span></h4>
-                            <p class="text-xs text-secondary mt-1">Certification (VERIFIED)</p>
-                        </div>
-                        <i data-lucide="server" class="group-hover:text-morning-gold" style="color: var(--color-secondary);" aria-hidden="true"></i>
-                    </div>
-                </button>
-
-                <button type="button" onclick="showFeatureInfo('Technova2K25 Winner (V)', 'Won Best Concept Design at PBRVITS technical symposium for innovative software engineering principles. Awarded for developing a predictive modeling framework with verified low resource utilization.', 'https://www.linkedin.com/posts/likhith-naidu-anumakonda-33a347327_technova2k25-pbrvits-cseai-activity-7382641802899562496-13t8')" 
-                class="section-card p-6 text-left hover:-translate-y-1 group" aria-label="Details for Technova2K25 Best Concept award">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h4 class="font-bold text-primary group-hover:text-morning-gold transition">Technova2K25 Best Concept <span class="verified-stamp">V</span></h4>
-                            <p class="text-xs text-secondary mt-1">Award (VERIFIED)</p>
-                        </div>
-                        <i data-lucide="award" class="group-hover:text-morning-gold" style="color: var(--color-secondary);" aria-hidden="true"></i>
-                    </div>
-                </button>
-                
-                <button type="button" onclick="showFeatureInfo('CodeClash 2025 Winner (V)', 'Secured 1st place in CodeClash 2025 outperforming 200+ participants. Solved challenging algorithmic problems with 99.8% test coverage and optimal time complexity.', 'https://www.linkedin.com/posts/likhith-naidu-anumakonda-33a347327_codeclash-winnerwinner-codingsquad-activity-7380833627791736832-0KnP')" 
-                class="section-card p-6 text-left hover:-translate-y-1 group" aria-label="Details for 1st Prize: CodeClash 2025 competition">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h4 class="font-bold text-primary group-hover:text-morning-gold transition">1st Prize: CodeClash 2025 <span class="verified-stamp">V</span></h4>
-                            <p class="text-xs text-secondary mt-1">Competition (VERIFIED)</p>
-                        </div>
-                        <i data-lucide="code" class="group-hover:text-morning-gold" style="color: var(--color-secondary);" aria-hidden="true"></i>
-                    </div>
-                </button>
-
-                <button type="button" onclick="showFeatureInfo('Advanced OOP Implementation (V)', 'Successfully implemented complex Object-Oriented Programming (OOP) design patterns in Java and Python projects, leading to improved code reusability by 40% and simplified maintenance.', '#')" 
-                class="section-card p-6 text-left hover:-translate-y-1 group" aria-label="Details for Advanced OOP Implementation">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h4 class="font-bold text-primary group-hover:text-morning-gold transition">Advanced OOP Implementation <span class="verified-stamp">V</span></h4>
-                            <p class="text-xs text-secondary mt-1">Efficiency Metric (VERIFIED)</p>
-                        </div>
-                        <i data-lucide="blocks" class="group-hover:text-morning-gold" style="color: var(--color-secondary);" aria-hidden="true"></i>
-                    </div>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <div class="section-divider-glow"></div>
-
-    <section id="music-protocol" class="py-20 z-10 relative">
-        <div class="max-w-5xl mx-auto px-6 text-center">
-            <h2 class="soft-title text-4xl md:text-5xl font-black mb-12">:: CREATIVE PROTOCOL ::</h2>
-
-            <div class="section-card p-8 md:flex items-center gap-8 text-left">
-                <div class="md:w-1/4 flex justify-center mb-4 md:mb-0">
-                    <i data-lucide="clapperboard" class="w-16 h-16 text-morning-gold"></i>
-                </div>
-                <div class="md:w-3/4">
-                    <h3 class="text-2xl font-bold text-primary mb-3">The Classical Pianist <span class="verified-stamp">VERIFIED SKILL</span></h3>
-                    <p class="text-secondary leading-relaxed mb-4">
-                        Beyond the terminal, I maintain an **Advanced Proficiency in Classical Piano Performance**. This discipline fosters patience, structured practice, and pattern recognition—skills directly translating to complex software architecture and algorithmic design.
-                    </p>
-                    
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="skill-tag">Performance Efficacy</span>
-                        <span class="skill-tag">Pattern Recognition (V)</span>
-                        <span class="skill-tag">Creative Problem Solving</span>
-                    </div>
-
-                    <a href="https://www.instagram.com/reel/DTCmIfqEkJG/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==" target="_blank" class="button-soft text-xs mt-2">
-                        <i data-lucide="play-circle" class="w-4 h-4 inline mr-1"></i> WATCH PERFORMANCE (V)
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="section-divider-glow"></div>
-
     <section id="projects" class="py-20 z-10 relative" style="background-color: var(--color-bg);">
         <div class="max-w-6xl mx-auto px-6 text-center">
             <h2 class="soft-title text-4xl md:text-5xl font-black mb-12">:: PROJECT PROGRAMS (AUDITED) ::</h2>
@@ -1013,92 +706,219 @@
                         <i data-lucide="bot" class="w-6 h-6" aria-hidden="true"></i>
                     </div>
                     <h3 class="font-bold text-lg mb-2 text-primary">PROMETHEUS AI V2.0 (V)</h3>
-                    <p class="text-sm text-secondary mb-6 flex-grow">
-                        Local-First Gen-AI System (Llama 3.2).<br>
-                        **Privacy-Centric & Voice Enabled**
-                    </p>
+                    <p class="text-sm text-secondary mb-6 flex-grow">Local-First Gen-AI System (Llama 3.2).<br>**Privacy-Centric & Voice Enabled**</p>
                     <div class="flex gap-2 justify-center w-full">
                          <a href="https://www.prometheuslikiths-ai.online/" target="_blank" class="button-soft text-xs bg-yellow-400/20 hover:bg-yellow-400 border border-yellow-500">LIVE SYSTEM</a>
-                         <button onclick="showFeatureInfo('PROMETHEUS AI // SYSTEM V2.0', 'Architected a private, local-host AI using Ollama (Llama 3.2) & Apple MLX. \n\n// TECH STACK:\n• Brain: Llama 3.2 (3B) on Apple Silicon\n• Backend: FastAPI (Python) Middleware\n• Frontend: Streamlit with Custom Crystal Glass UI\n• Voice: Integrated TTS (Samantha) & STT\n• Features: PDF Archiving, Session Memory, Ngrok Tunneling.\n\nStatus: OPERATIONAL (Host + Web Tunneling).', 'https://github.com/LIKITH-3012-MAC/my_chatbot.git')" class="button-soft text-xs">LOGS (V)</button>
+                         <button onclick="showFeatureInfo('PROMETHEUS AI // SYSTEM V2.0', 'Architected a private, local-host AI using Ollama (Llama 3.2) & Apple MLX.', 'https://github.com/LIKITH-3012-MAC/my_chatbot.git')" class="button-soft text-xs">LOGS (V)</button>
                     </div>
-                    <a href="https://github.com/LIKITH-3012-MAC/my_chatbot.git" target="_blank" class="text-[10px] text-gray-400 mt-2 hover:text-morning-gold font-mono">:: VIEW SOURCE ::</a>
                 </div>
 
                 <div class="section-card p-6 flex flex-col items-center text-center">
-                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mb-4 text-morning-gold">
-                        <i data-lucide="monitor" class="w-6 h-6" aria-hidden="true"></i>
-                    </div>
+                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mb-4 text-morning-gold"><i data-lucide="monitor" class="w-6 h-6"></i></div>
                     <h3 class="font-bold text-lg mb-2 text-primary">Python GUI Utility (V)</h3>
-                    <p class="text-sm text-secondary mb-6 flex-grow">Desktop app using Tkinter/PyQt with robust backend processing. **Reduced processing time by 12%** compared to CLI tools. (VERIFIED)</p>
-                    <a role="button" class="button-soft text-xs" onclick="showFeatureInfo('Python GUI Software (V)', 'Engineered a desktop application focusing on UX and backend efficiency. Implemented multi-threading for asynchronous data handling.', 'https://www.linkedin.com/posts/likhith-naidu-anumakonda-33a347327_python-softwaredevelopment-gui-activity-7382637415133237248-YdM_?utm_source=share&utm_medium=member_android&rcm=ACoAAFJ0SR4B07s_UcD08YSRW3iIQCJcKF1he1o')" aria-label="Access data for Python GUI Utility project">ACCESS DATA (V)</a>
+                    <p class="text-sm text-secondary mb-6 flex-grow">Desktop app using Tkinter/PyQt with robust backend processing. **Reduced processing time by 12%** compared to CLI tools.</p>
+                    <a role="button" class="button-soft text-xs" onclick="showFeatureInfo('Python GUI Software (V)', 'Engineered a desktop application focusing on UX and backend efficiency.', '#')">ACCESS DATA (V)</a>
                 </div>
 
                 <div class="section-card p-6 flex flex-col items-center text-center">
-                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mb-4 text-morning-gold">
-                        <i data-lucide="package" class="w-6 h-6" aria-hidden="true"></i>
-                    </div>
+                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mb-4 text-morning-gold"><i data-lucide="package" class="w-6 h-6"></i></div>
                     <h3 class="font-bold text-lg mb-2 text-primary">MOVIE REVIEW WEB (V)</h3>
                     <p class="text-sm text-secondary mb-6 flex-grow">Interactive Movie Review Platform (VERIFIED ACCURACY)</p>
-                    <a role="button" class="button-soft text-xs" onclick="showFeatureInfo('MOVIE REVIEW (V)', 'Console/Swing based Java SE application with SQL integration. Designed with SOLID principles for maintenance and scalability.', 'https://www.linkedin.com/posts/likhith-naidu-anumakonda-33a347327_i-have-recently-completed-my-second-project-activity-7365337861614739458-Y577?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFJ0SR4B07s_UcD08YSRW3iIQCJcKF1he1o')" aria-label="Access data for Java Inventory System project">ACCESS DATA (V)</a>
+                    <a role="button" class="button-soft text-xs" onclick="showFeatureInfo('MOVIE REVIEW (V)', 'Console/Swing based Java SE application with SQL integration.', '#')">ACCESS DATA (V)</a>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <div class="section-divider-glow"></div>
 
+    <section id="education" class="py-20 z-10 relative">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="soft-title text-4xl md:text-5xl font-black mb-12 text-center">:: ACADEMIC PROTOCOLS (VERIFIED) ::</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="section-card p-8 transition hover:border-morning-gold group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 group-hover:bg-morning-gold group-hover:text-black transition-colors">
+                            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-primary">PBR VITS, KAVALI</h3>
+                            <p class="text-xs font-mono text-morning-gold tracking-widest">PRIMARY INSTITUTION</p>
+                        </div>
+                    </div>
+                    <h4 class="text-lg font-bold text-secondary mb-2">B.Tech CSE - Artificial Intelligence</h4>
+                    <ul class="text-sm text-secondary space-y-2 list-disc list-inside">
+                        <li>Focus: **CSE-AI Specialization**</li>
+                        <li>Status: 2nd Year (Current)</li>
+                        <li>Key Modules: Data Structures (Python), Java OOPs, Neural Networks.</li>
+                        <li><span class="verified-stamp">VERIFIED STUDENT</span></li>
+                    </ul>
+                </div>
+
+                <div class="section-card p-8 transition hover:border-morning-gold group">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 group-hover:bg-morning-gold group-hover:text-black transition-colors">
+                            <i data-lucide="brain-circuit" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-primary">IIT-PATNA (I-HUB)</h3>
+                            <p class="text-xs font-mono text-morning-gold tracking-widest">ADVANCED CERTIFICATION</p>
+                        </div>
+                    </div>
+                    <h4 class="text-lg font-bold text-secondary mb-2">AIML Specialization Course</h4>
+                    <ul class="text-sm text-secondary space-y-2 list-disc list-inside">
+                        <li>Focus: **Advanced AI/ML Algorithms**</li>
+                        <li>Curriculum: Deep Learning, Natural Language Processing (NLP), Computer Vision.</li>
+                        <li>Project: Real-time predictive modeling.</li>
+                        <li><span class="verified-stamp">VERIFIED COURSE</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider-glow"></div>
+
+    <section id="achievements" class="py-20 z-10 relative">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="soft-title mb-12 text-3xl font-black text-center">:: DATA LOGS & ACHIEVEMENTS (OFFICIALLY VERIFIED) ::</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="section-card p-6 text-left hover:-translate-y-1 group cursor-pointer transition">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-primary group-hover:text-morning-gold transition">SQL & AI Data Storytelling <span class="verified-stamp">V</span></h4>
+                            <p class="text-xs text-secondary mt-1 font-mono">Optimization Protocol (VERIFIED)</p>
+                            <p class="text-sm text-secondary mt-3">Completed advanced project querying complex SQL and integrating AI concepts. Reduced report time by 60%.</p>
+                        </div>
+                        <i data-lucide="database" class="group-hover:text-morning-gold text-secondary w-6 h-6"></i>
+                    </div>
+                </div>
+
+                <div class="section-card p-6 text-left hover:-translate-y-1 group cursor-pointer transition">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-primary group-hover:text-morning-gold transition">MongoDB Full-Stack Bootcamp <span class="verified-stamp">V</span></h4>
+                            <p class="text-xs text-secondary mt-1 font-mono">Certification (VERIFIED)</p>
+                            <p class="text-sm text-secondary mt-3">Mastered document modeling, aggregation pipelines, and implemented 3 real-world NoSQL projects.</p>
+                        </div>
+                        <i data-lucide="server" class="group-hover:text-morning-gold text-secondary w-6 h-6"></i>
+                    </div>
+                </div>
+
+                <div class="section-card p-6 text-left hover:-translate-y-1 group cursor-pointer transition">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-primary group-hover:text-morning-gold transition">Technova2K25 Best Concept <span class="verified-stamp">V</span></h4>
+                            <p class="text-xs text-secondary mt-1 font-mono">Award (VERIFIED)</p>
+                            <p class="text-sm text-secondary mt-3">Won Best Concept Design at PBRVITS technical symposium for innovative software engineering principles.</p>
+                        </div>
+                        <i data-lucide="award" class="group-hover:text-morning-gold text-secondary w-6 h-6"></i>
+                    </div>
+                </div>
+                
+                <div class="section-card p-6 text-left hover:-translate-y-1 group cursor-pointer transition">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-primary group-hover:text-morning-gold transition">1st Prize: CodeClash 2025 <span class="verified-stamp">V</span></h4>
+                            <p class="text-xs text-secondary mt-1 font-mono">Competition (VERIFIED)</p>
+                            <p class="text-sm text-secondary mt-3">Secured 1st place in CodeClash 2025 outperforming participants. Solved challenging algorithmic problems.</p>
+                        </div>
+                        <i data-lucide="code" class="group-hover:text-morning-gold text-secondary w-6 h-6"></i>
+                    </div>
+                </div>
+
+                <div class="section-card p-6 text-left hover:-translate-y-1 group cursor-pointer transition md:col-span-2">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-bold text-primary group-hover:text-morning-gold transition">Advanced OOP Implementation <span class="verified-stamp">V</span></h4>
+                            <p class="text-xs text-secondary mt-1 font-mono">Efficiency Metric (VERIFIED)</p>
+                            <p class="text-sm text-secondary mt-3">Successfully implemented complex Object-Oriented Programming (OOP) design patterns in Java/Python projects.</p>
+                        </div>
+                        <i data-lucide="blocks" class="group-hover:text-morning-gold text-secondary w-6 h-6"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider-glow"></div>
+
+    <section id="creative-protocol" class="py-20 z-10 relative">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="soft-title text-4xl md:text-5xl font-black mb-12">:: CREATIVE PROTOCOL ::</h2>
+
+            <div class="section-card p-8 md:flex items-center gap-8 text-left border border-morning-gold/30">
+                <div class="md:w-1/4 flex justify-center mb-4 md:mb-0">
+                    <div class="w-20 h-20 rounded-full bg-yellow-100 flex items-center justify-center text-morning-gold">
+                        <i data-lucide="music" class="w-10 h-10"></i>
+                    </div>
+                </div>
+                <div class="md:w-3/4">
+                    <h3 class="text-2xl font-bold text-primary mb-3">The Classical Pianist <span class="verified-stamp">VERIFIED SKILL</span></h3>
+                    <p class="text-secondary leading-relaxed mb-6">
+                        Beyond the terminal, I maintain an **Advanced Proficiency in Classical Piano Performance**. This discipline fosters patience, structured practice, and pattern recognition—skills directly translating to complex software architecture and algorithmic design.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="skill-tag">PERFORMANCE EFFICACY</span>
+                        <span class="skill-tag">PATTERN RECOGNITION (V)</span>
+                        <span class="skill-tag">CREATIVE PROBLEM SOLVING</span>
+                    </div>
+
+                    <a href="https://www.instagram.com/reel/DTCmIfqEkJG/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==" target="_blank" class="button-soft text-xs bg-black text-white border-none hover:bg-morning-gold hover:text-black">
+                        <i data-lucide="play-circle" class="w-4 h-4 inline mr-1"></i> WATCH PERFORMANCE (V)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider-glow"></div>
 
     <section id="skills" class="py-20 z-10 relative">
         <div class="max-w-5xl mx-auto px-6 text-center">
             <h2 class="soft-title text-4xl md:text-5xl font-black mb-10">:: SKILL PROTOCOLS (VERIFIED CORE) ::</h2>
-
-            <div class="flex flex-wrap justify-center gap-2 mb-12" aria-label="Technical and Soft Skills">
-                <span class="skill-tag">Python & OOP (V)</span>
-                <span class="skill-tag">Ollama LLMs (V)</span>
-                <span class="skill-tag">FastAPI (V)</span>
-                <span class="skill-tag">Java SE (V)</span>
-                <span class="skill-tag">Advanced SQL (V)</span>
-                <span class="skill-tag">MongoDB NoSQL (V)</span>
-                <span class="skill-tag">Tailwind CSS (V)</span>
-                <span class="skill-tag">Next.js / React (V)</span>
-                <span class="skill-tag">AI/ML (IIT-Patna V)</span>
-                <span class="skill-tag">DSA (V)</span>
-                <span class="skill-tag">Git Version Control (V)</span>
-                <span class="skill-tag">Classical Piano (V)</span>
+            
+            <div class="flex flex-wrap justify-center gap-2 mb-12">
+                <span class="skill-tag">Python (Pandas/NumPy) (V)</span>
+                <span class="skill-tag">Java SE (OOPs) (V)</span>
+                <span class="skill-tag">Ollama / Llama 3.2 (V)</span>
+                <span class="skill-tag">FastAPI (Backend) (V)</span>
+                <span class="skill-tag">Streamlit (UI) (V)</span>
+                <span class="skill-tag">MySQL & MongoDB (V)</span>
+                <span class="skill-tag">HTML/CSS/Tailwind (V)</span>
+                <span class="skill-tag">Git/GitHub (V)</span>
+                <span class="skill-tag">Classical Piano (Creative) (V)</span>
             </div>
 
-            <div class="section-card p-8 rounded-3xl overflow-hidden">
-                <h3 class="text-xl font-bold text-morning-gold mb-6 text-left">Protocol Efficacy Table (AUDITED)</h3>
+            <div class="section-card p-8 rounded-3xl overflow-hidden text-left">
+                <h3 class="text-xl font-bold text-morning-gold mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">Technical Proficiency Matrix</h3>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse skills-table">
-                        <caption class="sr-only">Detailed technical skills table</caption>
                         <thead>
-                            <tr class="border-b" style="border-bottom-color: var(--color-border);">
-                                <th scope="col" class="p-3 text-xs font-bold uppercase text-secondary">Domain</th>
-                                <th scope="col" class="p-3 text-xs font-bold uppercase text-secondary">Tools & Concepts</th>
-                                <th scope="col" class="p-3 text-xs font-bold uppercase text-secondary">Efficacy</th>
+                            <tr class="border-b border-gray-200 dark:border-gray-700">
+                                <th class="p-3 text-xs font-bold uppercase text-secondary">Domain</th>
+                                <th class="p-3 text-xs font-bold uppercase text-secondary">Technologies</th>
+                                <th class="p-3 text-xs font-bold uppercase text-secondary">Level</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y" style="border-color: var(--color-border);">
-                            <tr class="transition" style="border-bottom-color: var(--color-border); background-color: var(--color-card-bg);">
-                                <th scope="row" class="p-3 font-bold text-primary">Core Prog.</th>
-                                <td class="p-3 text-secondary">Python (Pandas/Numpy), Java SE (Swing/Threads), DSA</td>
-                                <td class="p-3 text-morning-gold font-bold">High <span class="verified-stamp">V</span></td>
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                            <tr>
+                                <td class="p-3 font-bold text-primary">AI & ML</td>
+                                <td class="p-3 text-secondary">Ollama, Llama 3.2, Scikit-Learn, TensorFlow Basics</td>
+                                <td class="p-3 text-morning-gold font-bold">Advanced (V)</td>
                             </tr>
-                            <tr class="transition" style="border-bottom-color: var(--color-border); background-color: var(--color-card-bg);">
-                                <th scope="row" class="p-3 font-bold text-primary">Data Eng.</th>
-                                <td class="p-3 text-secondary">SQL (Stored Procs/Optimization), MongoDB (Sharding/Aggregations)</td>
-                                <td class="p-3 text-morning-gold font-bold">High <span class="verified-stamp">V</span></td>
+                            <tr>
+                                <td class="p-3 font-bold text-primary">Backend</td>
+                                <td class="p-3 text-secondary">Python (FastAPI), Java (Spring Boot Basics), Node.js</td>
+                                <td class="p-3 text-morning-gold font-bold">Intermediate (V)</td>
                             </tr>
-                            <tr class="transition" style="border-bottom-color: var(--color-border); background-color: var(--color-card-bg);">
-                                <th scope="row" class="p-3 font-bold text-primary">Web Stack</th>
-                                <td class="p-3 text-secondary">HTML5, Tailwind, JS, React/Next.js (State Management), Firebase</td>
-                                <td class="p-3 text-secondary">Intermediate <span class="verified-stamp">V</span></td>
-                            </tr>
-                            <tr class="transition" style="border-bottom-color: var(--color-border); background-color: var(--color-card-bg);">
-                                <th scope="row" class="p-3 font-bold text-primary">AI/ML Core</th>
-                                <td class="p-3 text-secondary">Ollama, Llama 3.2, Scikit-learn, Model Tuning, Data Visualisation (Matplotlib)</td>
-                                <td class="p-3 text-secondary">Intermediate <span class="verified-stamp">V</span></td>
+                            <tr>
+                                <td class="p-3 font-bold text-primary">Database</td>
+                                <td class="p-3 text-secondary">MySQL (Relational), MongoDB (NoSQL), Firestore</td>
+                                <td class="p-3 text-morning-gold font-bold">High (V)</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1110,7 +930,6 @@
     <section id="contact" class="py-20 mb-20 z-10 relative">
         <div class="max-w-xl mx-auto px-6 text-center">
             <h2 class="text-4xl md:text-6xl font-black mb-8 tracking-tight text-primary text-glow" data-text="COLLABORATE">INITIATE CONTACT (SECURE)</h2>
-
             <form id="contact-form" action="https://formspree.io/f/mgvgyqwb" method="POST" class="space-y-4">
                 <input type="text" name="name" placeholder="Name Protocol" required class="input-soft" aria-label="Name" />
                 <input type="email" name="email" placeholder="Email Signal (Required)" required class="input-soft" aria-label="Email" />
@@ -1122,172 +941,219 @@
 
     <div id="resume-modal" class="fixed inset-0 z-[85] flex items-center justify-center modal-backdrop bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300" onclick="closeResumeModal()">
         <div class="w-full max-w-md m-4 rounded-2xl p-8 shadow-2xl modal-content border border-morning-gold relative" style="background-color: var(--color-card-bg);" onclick="event.stopPropagation()">
-             <button onclick="closeResumeModal()" class="absolute top-4 right-4 p-2 hover:bg-slate-100 rounded-full text-primary">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
+             <button onclick="closeResumeModal()" class="absolute top-4 right-4 p-2 hover:bg-slate-100 rounded-full text-primary"><i data-lucide="x" class="w-6 h-6"></i></button>
             <div class="text-center">
-                <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i data-lucide="globe" class="w-8 h-8 text-morning-gold"></i>
-                </div>
+                <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4"><i data-lucide="globe" class="w-8 h-8 text-morning-gold"></i></div>
                 <h3 class="text-2xl font-black text-primary mb-2">RESUME WEB PORTAL</h3>
-                <p class="text-secondary mb-6 text-sm">Secure protocol link generated. Click the terminal link below to access the Cyberpunk Resume interface.</p>
-
-                <div class="bg-slate-900 p-4 rounded-lg mb-6 border border-slate-700 text-left overflow-hidden">
-                    <p class="text-[10px] text-gray-500 font-mono mb-1">// LINK_DESTINATION:</p>
-                    <a href="https://likith-3012-mac.github.io/RESUME_WEB/" target="_blank" class="text-morning-gold font-mono text-sm break-all hover:underline flex items-center gap-2">
-                          https://likith-3012-mac.github.io/RESUME_WEB/ <i data-lucide="external-link" class="w-3 h-3"></i>
-                    </a>
-                </div>
-
-                <a href="https://likith-3012-mac.github.io/RESUME_WEB/" target="_blank" class="button-soft w-full font-bold bg-morning-gold text-black border-none hover:bg-yellow-400">
-                    INITIATE JUMP
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div id="feature-modal" class="fixed inset-0 z-[70] flex items-center justify-center modal-backdrop bg-black/60 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="feature-title" onclick="closeFeatureInfo()">
-        <div id="feature-card" class="w-full max-w-lg m-6 rounded-2xl p-6 shadow-2xl modal-content" style="background-color: var(--color-card-bg);" onclick="event.stopPropagation()">
-            <div class="flex justify-between items-center mb-4">
-                <h3 id="feature-title" class="text-xl font-bold text-primary">Title</h3>
-                <button type="button" onclick="closeFeatureInfo()" class="hover:text-primary" style="color: var(--color-secondary);" aria-label="Close project detail modal"><i data-lucide="x"></i></button>
-            </div>
-            <p id="feature-body" class="mb-6 text-secondary whitespace-pre-line">Description content...</p>
-            <div class="text-right">
-                <a id="feature-link" href="#" target="_blank" class="button-soft inline-block" rel="noopener noreferrer">External Link</a>
+                <p class="text-secondary mb-6 text-sm">Secure protocol link generated.</p>
+                <a href="https://likith-3012-mac.github.io/RESUME_WEB/" target="_blank" class="button-soft w-full font-bold bg-morning-gold text-black border-none hover:bg-yellow-400">INITIATE JUMP</a>
             </div>
         </div>
     </div>
 
     <div id="email-choice-modal" class="fixed inset-0 z-[80] flex items-center justify-center modal-backdrop bg-slate-900/80 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="email-choice-title" onclick="closeEmailChoiceModal()">
         <div class="w-full max-w-sm m-4 rounded-2xl p-6 shadow-2xl modal-content" style="background-color: var(--color-card-bg); color: var(--color-secondary);" onclick="event.stopPropagation()">
-            <button onclick="closeEmailChoiceModal()" class="absolute top-3 right-3 p-1 hover:bg-gray-100 rounded-full text-primary" aria-label="Close email choice">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
             <h3 id="email-choice-title" class="text-xl font-bold text-primary mb-6 text-center">Select Contact Protocol</h3>
-            
             <div class="space-y-4">
-                <a href="mailto:likith.anumakonda@gmail.com" class="button-soft w-full flex items-center justify-center border-2 border-green-500 hover:bg-green-500 hover:text-white transition-all" onclick="closeEmailChoiceModal()">
-                    <i data-lucide="send" class="w-4 h-4 mr-2"></i> likith.anumakonda@gmail.com
-                </a>
-                <a href="mailto:likith.naidu@icloud.com" class="button-soft w-full flex items-center justify-center border-2 border-blue-500 hover:bg-blue-500 hover:text-white transition-all" onclick="closeEmailChoiceModal()">
-                    <i data-lucide="message-square" class="w-4 h-4 mr-2"></i> likith.naidu@icloud.com
-                </a>
+                <a href="mailto:likith.anumakonda@gmail.com" class="button-soft w-full flex items-center justify-center border-2 border-green-500 hover:bg-green-500 hover:text-white transition-all"><i data-lucide="send" class="w-4 h-4 mr-2"></i> likith.anumakonda@gmail.com</a>
+                <a href="mailto:likith.naidu@icloud.com" class="button-soft w-full flex items-center justify-center border-2 border-blue-500 hover:bg-blue-500 hover:text-white transition-all"><i data-lucide="message-square" class="w-4 h-4 mr-2"></i> likith.naidu@icloud.com</a>
             </div>
+        </div>
+    </div>
+
+    <div id="feature-modal" class="fixed inset-0 z-[70] flex items-center justify-center modal-backdrop bg-black/60 backdrop-blur-sm" onclick="closeFeatureInfo()">
+        <div id="feature-card" class="w-full max-w-lg m-6 rounded-2xl p-6 shadow-2xl modal-content" style="background-color: var(--color-card-bg);" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="feature-title" class="text-xl font-bold text-primary">Title</h3>
+                <button onclick="closeFeatureInfo()"><i data-lucide="x"></i></button>
+            </div>
+            <p id="feature-body" class="mb-6 text-secondary whitespace-pre-line">Description content...</p>
+            <div class="text-right"><a id="feature-link" href="#" target="_blank" class="button-soft inline-block">External Link</a></div>
         </div>
     </div>
 
     <div id="rocket-success-modal" class="success-modal-overlay">
         <div class="success-card">
-            
             <div id="confetti-wrapper"></div>
-
             <div class="animation-stage">
                 <i data-lucide="rocket" class="rocket-svg"></i>
-                
-                <div class="checkmark-container">
-                    <svg class="checkmark-svg" viewBox="0 0 52 52">
-                        <path d="M14 27 L22 36 L38 16" />
-                    </svg>
-                </div>
+                <div class="checkmark-container"><svg class="checkmark-svg" viewBox="0 0 52 52"><path d="M14 27 L22 36 L38 16" /></svg></div>
             </div>
-
             <h2 class="success-title">SIGNAL TRANSMITTED!</h2>
-            <p class="success-desc">Protocol accepted. The rocket has landed in our server. We will establish contact shortly.</p>
-            
+            <p class="success-desc">Protocol accepted. The rocket has landed in our server.</p>
             <button class="success-btn" onclick="closeSuccessModal()">ACKNOWLEDGE</button>
         </div>
     </div>
 
+    <div id="gallery-modal" class="fixed inset-0 z-[90] flex items-center justify-center bg-black/90 backdrop-blur-xl" onclick="closeGallery()">
+        <div id="gallery-intro-sequence" class="gallery-boot-screen" style="display: none;">
+            <div class="gallery-scan-line"></div>
+            <div class="text-3xl font-bold tracking-widest text-cyan-400 mb-2">ACCESSING VAULT</div>
+            <div class="text-xs text-cyan-700 animate-pulse">DECRYPTING VISUAL ASSETS...</div>
+        </div>
+
+        <div class="w-full max-w-4xl h-[80vh] p-6 rounded-2xl border border-morning-gold/30 bg-black/40 relative overflow-hidden flex flex-col" onclick="event.stopPropagation()">
+            <button onclick="closeGallery()" class="absolute top-4 right-4 z-20 p-2 bg-black/50 text-white rounded-full hover:text-morning-gold hover:bg-black/80 transition"><i data-lucide="x" class="w-6 h-6"></i></button>
+            
+            <div class="mb-6 border-b border-morning-gold/20 pb-4">
+                <h2 class="text-2xl font-bold text-white tracking-widest"><i data-lucide="folder-lock" class="inline w-6 h-6 mr-2 text-morning-gold"></i>SECURE VISUAL ARCHIVES</h2>
+                <p class="text-xs text-gray-400 font-mono mt-1">// STATUS: DECLASSIFIED</p>
+            </div>
+
+            <div class="overflow-y-auto custom-scrollbar flex-1 pr-2">
+                <div class="gallery-grid">
+                    <div class="gallery-item group">
+                        <div class="gallery-loader text-morning-gold"><i data-lucide="loader-2" class="w-8 h-8 animate-spin"></i></div>
+                        <img 
+                            data-src="https://raw.githubusercontent.com/LIKITH-3012-MAC/MY-PIC-GALLERY/main/Gemini_Generated_Image_ltizrcltizrcltiz.png" 
+                            alt="Gemini Generated" 
+                            class="lazy-image opacity-0 transition-opacity duration-500"
+                            onload="this.classList.remove('opacity-0'); this.parentElement.querySelector('.gallery-loader').style.display='none';"
+                            onerror="this.src='https://placehold.co/400x400/000000/FFD700?text=IMAGE+CORRUPTED'; this.classList.remove('opacity-0'); this.parentElement.querySelector('.gallery-loader').style.display='none';"
+                        >
+                    </div>
+                    <div class="gallery-item group">
+                         <div class="gallery-loader text-morning-gold"><i data-lucide="loader-2" class="w-8 h-8 animate-spin"></i></div>
+                        <img 
+                            data-src="https://raw.githubusercontent.com/LIKITH-3012-MAC/MY-PIC-GALLERY/main/LIKITH-NAIDU_ANUMAKONDA.jpeg" 
+                            alt="Likith Naidu" 
+                            class="lazy-image opacity-0 transition-opacity duration-500"
+                            onload="this.classList.remove('opacity-0'); this.parentElement.querySelector('.gallery-loader').style.display='none';"
+                             onerror="this.src='https://placehold.co/400x400/000000/FFD700?text=IMAGE+CORRUPTED'; this.classList.remove('opacity-0'); this.parentElement.querySelector('.gallery-loader').style.display='none';"
+                        >
+                    </div>
+                    <div class="gallery-item group">
+                         <div class="gallery-loader text-morning-gold"><i data-lucide="loader-2" class="w-8 h-8 animate-spin"></i></div>
+                        <img 
+                            data-src="https://raw.githubusercontent.com/LIKITH-3012-MAC/MY-PIC-GALLERY/4861a6bcd60f43deb8159379d9c7db0b24fea1cc/LIKITH-NAIDU.jpeg" 
+                            alt="WhatsApp Asset" 
+                            class="lazy-image opacity-0 transition-opacity duration-500"
+                            onload="this.classList.remove('opacity-0'); this.parentElement.querySelector('.gallery-loader').style.display='none';"
+                            onerror="this.src='https://placehold.co/400x400/000000/FFD700?text=DATA+FRAGMENT+LOST'; this.classList.remove('opacity-0'); this.parentElement.querySelector('.gallery-loader').style.display='none';"
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <footer class="py-8 relative z-50" style="background-color: #1e293b; color: #94a3b8;">
         <div class="max-w-7xl mx-auto px-6 text-center text-xs">
-            <p>&copy; <span id="current-year"></span> LIKITH NAIDU ANUMAKONDA. Protocol Version 1.5.1 (AUDITED & VERIFIED)</p>
+            <p>&copy; <span id="current-year"></span> LIKITH NAIDU ANUMAKONDA. Protocol Version 2.0.0 (AUDITED)</p>
             <div class="flex justify-center gap-4 mt-2">
                 <a href="https://github.com/LIKITH-3012-MAC" class="hover:text-morning-gold">GitHub (V)</a>
-                <span style="color: #334155;" aria-hidden="true">|</span>
+                <span style="color: #334155;">|</span>
                 <a href="https://linkedin.com/in/likhith-naidu-anumakonda-33a347327" class="hover:text-morning-gold">LinkedIn (V)</a>
             </div>
         </div>
     </footer>
 
-    <audio id="rocket-sound" preload="auto">
-        <source src="https://media.vocaroo.com/mp3/1271nAyv6E80" type="audio/mpeg">
-    </audio>
-
-    <audio id="about-sound" preload="auto">
-        <source src="https://media.vocaroo.com/mp3/1gKlNQO2DJzt" type="audio/mpeg">
-    </audio>
+    <audio id="rocket-sound" preload="auto"><source src="https://media.vocaroo.com/mp3/1271nAyv6E80" type="audio/mpeg"></audio>
+    <audio id="about-sound" preload="auto"><source src="https://media.vocaroo.com/mp3/1gKlNQO2DJzt" type="audio/mpeg"></audio>
 
     <script>
-        // --- 1. THEME TOGGLING SETUP (must run early) ---
+        // --- 1. SYSTEM BOOT SEQUENCE (Intro) ---
+        window.addEventListener('load', () => {
+            const bootOverlay = document.getElementById('system-boot-overlay');
+            const bootStatus = document.getElementById('boot-status');
+            
+            // Wait 2.5 seconds simulating load
+            setTimeout(() => {
+                bootStatus.textContent = "ACCESS GRANTED. WELCOME.";
+                bootStatus.style.color = "#0f0"; // Green
+                
+                setTimeout(() => {
+                    bootOverlay.style.opacity = '0';
+                    bootOverlay.style.visibility = 'hidden';
+                    // Trigger "Has Visited" logic for the about modal if needed
+                    if (!localStorage.getItem('hasVisited')) {
+                        setTimeout(() => toggleAboutModal(), 500);
+                        localStorage.setItem('hasVisited', 'true');
+                    }
+                }, 800);
+            }, 2500);
+        });
+
+        // --- 2. GALLERY LOGIC & "LOAD BALANCER" (Preloading) ---
+        const galleryModal = document.getElementById('gallery-modal');
+        const galleryIntro = document.getElementById('gallery-intro-sequence');
+        let galleryLoaded = false;
+
+        function openGallery() {
+            galleryModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Show the "Pretending to load" intro for the gallery
+            galleryIntro.style.display = 'flex';
+            
+            // Simulate Load Balancer / Decryption Time (1.5s)
+            setTimeout(() => {
+                galleryIntro.style.display = 'none';
+                loadGalleryImages(); // Trigger the actual image load
+            }, 1500);
+        }
+
+        function closeGallery() {
+            galleryModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // "Load Balancer" logic: Lazy load images only when needed to save bandwidth/stabilize initial load
+        function loadGalleryImages() {
+            if (galleryLoaded) return; // Already loaded
+            
+            const images = document.querySelectorAll('.lazy-image');
+            images.forEach(img => {
+                const src = img.getAttribute('data-src');
+                if (src) {
+                    img.src = src;
+                }
+            });
+            galleryLoaded = true;
+        }
+
+        // --- 3. THEME & GENERAL JS (Existing) ---
         const body = document.body;
-        
         (function initializeTheme() {
             const isDarkMode = localStorage.getItem('theme') === 'dark';
-            if (isDarkMode) {
-                body.classList.add('dark');
-            }
+            if (isDarkMode) body.classList.add('dark');
         })();
         
-        // --- 2. ABOUT MODAL LOGIC (UPDATED WITH SOUND TRIGGER) ---
+        // --- 4. ABOUT MODAL LOGIC ---
         const aboutModal = document.getElementById('about-modal');
-
         function toggleAboutModal() {
             const sound = document.getElementById('about-sound');
             if (aboutModal.classList.contains('active')) {
-                // Hide Modal
                 aboutModal.classList.remove('active');
                 document.body.style.overflow = '';
-                // Optional: Stop sound if closing?
-                // if(sound) { sound.pause(); sound.currentTime = 0; }
             } else {
-                // Show Modal
                 aboutModal.classList.add('active'); 
                 document.body.style.overflow = 'hidden'; 
-                // Play Sound Logic
-                if(sound) {
-                    sound.currentTime = 0;
-                    sound.play().catch(e => console.log("Audio play blocked (click needed):", e));
-                }
+                if(sound) { sound.currentTime = 0; sound.play().catch(e => {}); }
             }
         }
-        window.toggleAboutModal = toggleAboutModal; // Make accessible globally
+        window.toggleAboutModal = toggleAboutModal; 
 
-        // NEW LOGIC: Instant modal initialization on first load.
-        (function initializeAboutModalInstantly() {
-            if (!localStorage.getItem('hasVisited')) {
-                setTimeout(() => {
-                    aboutModal.classList.add('active'); 
-                    document.body.style.overflow = 'hidden';
-                    localStorage.setItem('hasVisited', 'true');
-                    // Note: Auto-play sound here will likely be blocked by browser policy without click
-                }, 100); 
-            }
-        })();
-        
-        // --- 3. RUNTIME INITIALIZATION (DOM loaded) ---
+        // --- 5. RUNTIME INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Icons and Year ---
             lucide.createIcons();
             document.getElementById('current-year').textContent = new Date().getFullYear();
 
-            // --- Theme Toggle Handler ---
+            // Theme Toggle
             const themeToggle = document.getElementById('theme-toggle');
-            
             function updateThemeToggleIcon(isDark) {
                 themeToggle.innerHTML = isDark 
                     ? '<i data-lucide="sun" class="w-3 h-3 inline mr-1"></i>Light' 
                     : '<i data-lucide="moon" class="w-3 h-3 inline mr-1"></i>Theme';
                 lucide.createIcons();
                 
-                // CRITICAL FIX: Ensure the dynamic styles are applied after the icon is updated
                 const computedStyle = getComputedStyle(document.body);
                 themeToggle.style.backgroundColor = computedStyle.getPropertyValue('--color-soft-button-bg');
                 themeToggle.style.color = computedStyle.getPropertyValue('--color-soft-button-text');
                 themeToggle.style.borderColor = computedStyle.getPropertyValue('--color-border');
             }
-            
-            updateThemeToggleIcon(body.classList.contains('dark')); // Initial call
+            updateThemeToggleIcon(body.classList.contains('dark'));
 
             themeToggle.addEventListener('click', () => {
                 body.classList.toggle('dark');
@@ -1296,17 +1162,17 @@
                 updateThemeToggleIcon(isDark);
             });
             
-            // --- Mobile Menu Handler ---
+            // Mobile Menu
             const mobileMenu = document.getElementById('mobile-menu');
             function toggleMobileMenu() {
                 mobileMenu.classList.toggle('opacity-0');
                 mobileMenu.classList.toggle('pointer-events-none');
             }
-            window.toggleMobileMenu = toggleMobileMenu; // Make accessible globally
+            window.toggleMobileMenu = toggleMobileMenu;
             document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
             document.getElementById('mobile-close').addEventListener('click', toggleMobileMenu);
 
-            // --- Feature Modal Handlers ---
+            // Feature Modal
             const featureModal = document.getElementById('feature-modal');
             const fTitle = document.getElementById('feature-title');
             const fBody = document.getElementById('feature-body');
@@ -1316,229 +1182,119 @@
                 fTitle.textContent = title;
                 fBody.textContent = bodyText;
                 fLink.href = linkUrl;
-                
                 featureModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
-
             window.closeFeatureInfo = () => {
                 featureModal.classList.remove('active');
                 document.body.style.overflow = '';
             }
 
-            // --- Keydown Listener ---
+            // Keydown Listener
             window.addEventListener('keydown', (e) => {
-                const emailChoiceModal = document.getElementById('email-choice-modal'); // Define here for scope
-                const resumeModal = document.getElementById('resume-modal'); // Define here for scope
-
                 if (e.key === 'Escape') {
                     if (aboutModal.classList.contains('active')) toggleAboutModal();
                     if (featureModal.classList.contains('active')) closeFeatureInfo();
-                    if (emailChoiceModal && emailChoiceModal.classList.contains('active')) closeEmailChoiceModal();
-                    if (resumeModal && resumeModal.classList.contains('active')) closeResumeModal();
+                    if (document.getElementById('email-choice-modal').classList.contains('active')) closeEmailChoiceModal();
+                    if (document.getElementById('resume-modal').classList.contains('active')) closeResumeModal();
+                    if (document.getElementById('gallery-modal').classList.contains('active')) closeGallery();
                 }
             });
         });
 
-        // --- EMAIL CHOICE MODAL LOGIC (Improved UX) ---
+        // --- EMAIL CHOICE & RESUME MODALS ---
         const emailChoiceModal = document.getElementById('email-choice-modal');
+        window.openEmailChoiceModal = function() { emailChoiceModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        window.closeEmailChoiceModal = function() { emailChoiceModal.classList.remove('active'); document.body.style.overflow = ''; }
 
-        window.openEmailChoiceModal = function() {
-            emailChoiceModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        window.closeEmailChoiceModal = function() {
-            emailChoiceModal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // --- RESUME WEB MODAL LOGIC (NEW) ---
         const resumeModal = document.getElementById('resume-modal');
+        window.openResumeModal = function() { resumeModal.classList.add('active'); resumeModal.classList.remove('opacity-0', 'pointer-events-none'); document.body.style.overflow = 'hidden'; }
+        window.closeResumeModal = function() { resumeModal.classList.remove('active'); resumeModal.classList.add('opacity-0', 'pointer-events-none'); document.body.style.overflow = ''; }
 
-        window.openResumeModal = function() {
-            resumeModal.classList.add('active');
-            resumeModal.classList.remove('opacity-0', 'pointer-events-none'); // Ensure tailwind classes are removed
-            document.body.style.overflow = 'hidden';
-        }
-
-        window.closeResumeModal = function() {
-            resumeModal.classList.remove('active');
-            resumeModal.classList.add('opacity-0', 'pointer-events-none'); // Re-add tailwind classes
-            document.body.style.overflow = '';
-        }
-
-
-        // --- 4. PARTICLE SYSTEM (Background) ---
+        // --- PARTICLE SYSTEM ---
         const canvas = document.getElementById('about-particles');
         const ctx = canvas.getContext('2d');
         let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
 
         class Particle {
-            constructor() {
-                this.reset();
-            }
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 2 + 0.5;
                 this.speedX = Math.random() * 0.5 - 0.25;
                 this.speedY = Math.random() * 0.5 - 0.25;
-                this.color = 'rgba(255, 215, 0, 0.2)'; // Goldish
+                this.color = 'rgba(255, 215, 0, 0.2)';
             }
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                
-                // Wrap around edges
-                if (this.x < 0) this.x = canvas.width;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.y < 0) this.y = canvas.height;
-                if (this.y > canvas.height) this.y = 0;
+                this.x += this.speedX; this.y += this.speedY;
+                if (this.x < 0) this.x = canvas.width; if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height; if (this.y > canvas.height) this.y = 0;
             }
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+            draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
         }
-
-        function initParticles() {
-            for (let i = 0; i < 50; i++) {
-                particles.push(new Particle());
-            }
-        }
+        function initParticles() { for (let i = 0; i < 50; i++) particles.push(new Particle()); }
         initParticles();
-
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-            }
+            for (let i = 0; i < particles.length; i++) { particles[i].update(); particles[i].draw(); }
             requestAnimationFrame(animateParticles);
         }
         animateParticles();
         
-        // ========================================================
-        // UPDATED: AJAX LOGIC FOR ID mgvgyqwb + ROCKET
-        // ========================================================
+        // --- FORM SUBMIT AJAX ---
         const form = document.getElementById('contact-form');
-
         async function handleSubmit(event) {
-            event.preventDefault(); // STOP THE PAGE RELOAD
-            
+            event.preventDefault();
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.innerHTML;
-            
-            // 1. Change button text to indicate processing
-            submitBtn.innerHTML = 'Transmitting...';
-            submitBtn.disabled = true;
-
+            submitBtn.innerHTML = 'Transmitting...'; submitBtn.disabled = true;
             const data = new FormData(event.target);
-            
             try {
-                const response = await fetch(event.target.action, {
-                    method: form.method,
-                    body: data,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                
+                const response = await fetch(event.target.action, { method: form.method, body: data, headers: { 'Accept': 'application/json' } });
                 if (response.ok) {
-                    // 2. SUCCESS: Reset form and FIRE THE ROCKET
-                    form.reset();
-                    submitBtn.innerHTML = originalBtnText;
-                    submitBtn.disabled = false;
-                    openSuccessModal(); // <--- TRIGGERS THE ROCKET
+                    form.reset(); submitBtn.innerHTML = originalBtnText; submitBtn.disabled = false;
+                    openSuccessModal();
                 } else {
-                    // 3. FAILURE: specific error from Formspree
                     const errorData = await response.json();
-                    submitBtn.innerHTML = originalBtnText;
-                    submitBtn.disabled = false;
-                    
-                    if (Object.hasOwn(errorData, 'errors')) {
-                        const messages = errorData["errors"].map(error => error["message"]).join(", ");
-                        alert("Transmission Error: " + messages);
-                    } else {
-                        alert("Transmission failed. Please check your signal.");
-                    }
+                    submitBtn.innerHTML = originalBtnText; submitBtn.disabled = false;
+                    alert("Transmission Error");
                 }
-            } catch (error) {
-                submitBtn.innerHTML = originalBtnText;
-                submitBtn.disabled = false;
-                alert("Network error. Please check your internet connection.");
-            }
+            } catch (error) { submitBtn.innerHTML = originalBtnText; submitBtn.disabled = false; alert("Network Error"); }
         }
-
         form.addEventListener("submit", handleSubmit);
 
         function openSuccessModal() {
             const modal = document.getElementById('rocket-success-modal');
             const wrapper = document.getElementById('confetti-wrapper');
-            const sound = document.getElementById('rocket-sound'); // GET AUDIO
-
-            // 1. Show Modal
+            const sound = document.getElementById('rocket-sound');
             modal.classList.add('active');
-
-            // 2. Play Sound (UPDATED LOGIC)
-            if (sound) {
-                sound.currentTime = 0;
-                sound.play().catch(e => console.log("Audio play blocked by browser:", e));
-            }
-
-            // 3. Trigger Confetti Explosion (Timed with rocket launch ~ 0.5s)
-            setTimeout(() => {
-                createConfetti(wrapper);
-            }, 500); 
+            if (sound) { sound.currentTime = 0; sound.play().catch(e=>{}); }
+            setTimeout(() => { createConfetti(wrapper); }, 500); 
         }
 
         function closeSuccessModal() {
             const modal = document.getElementById('rocket-success-modal');
             const wrapper = document.getElementById('confetti-wrapper');
-            
             modal.classList.remove('active');
-            
-            // Clean up confetti after closing to keep DOM light
-            setTimeout(() => {
-                wrapper.innerHTML = ''; 
-            }, 500);
+            setTimeout(() => { wrapper.innerHTML = ''; }, 500);
         }
 
         function createConfetti(wrapper) {
             const colors = ['#FFD700', '#ff0000', '#2ecc71', '#3498db', '#f39c12', '#9b59b6'];
-            const confettiCount = 60;
-
-            for (let i = 0; i < confettiCount; i++) {
+            for (let i = 0; i < 60; i++) {
                 const confetti = document.createElement('div');
                 confetti.classList.add('confetti');
-                
-                // Random Properties
                 const bg = colors[Math.floor(Math.random() * colors.length)];
-                const x = (Math.random() - 0.5) * 400; // Spread X
-                const y = (Math.random() - 1) * 400;   // Spread Y (Upwards mostly)
-                const rotate = Math.random() * 360;
-                const delay = Math.random() * 0.2;
-                const duration = 0.8 + Math.random() * 0.8;
-
-                // Apply Styles
+                const x = (Math.random() - 0.5) * 400; const y = (Math.random() - 1) * 400;
+                const rotate = Math.random() * 360; const delay = Math.random() * 0.2; const duration = 0.8 + Math.random() * 0.8;
                 confetti.style.backgroundColor = bg;
                 confetti.style.transform = `translate(-50%, -50%) rotate(${rotate}deg)`;
                 confetti.style.transition = `all ${duration}s cubic-bezier(0.25, 1, 0.5, 1)`;
                 confetti.style.transitionDelay = `${delay}s`;
-
                 wrapper.appendChild(confetti);
-
-                // Trigger Animation (Next Frame)
                 requestAnimationFrame(() => {
                     confetti.style.opacity = '1';
                     confetti.style.transform = `translate(${x}px, ${y}px) rotate(${rotate + 720}deg) scale(0)`;
