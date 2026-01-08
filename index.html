@@ -23,246 +23,13 @@
     <meta name="twitter:image" content="https://raw.githubusercontent.com/LIKITH-3012-MAC/MY-PIC-GALLERY/main/LIKITH-NAIDU_ANUMAKONDA.jpeg">
 
     <link rel="canonical" href="https://likith-portfolio.online">
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Likith Naidu",
-      "jobTitle": "AI Architect & Full Stack Engineer",
-      "email": "mailto:likith.naidu@icloud.com",
-      "url": "https://likith-portfolio.online",
-      "sameAs": [
-        "https://github.com/LIKITH-3012-MAC",
-        "https://linkedin.com/in/likhith-naidu"
-      ],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Kavali",
-        "addressRegion": "Andhra Pradesh",
-        "addressCountry": "India"
-      },
-      "knowsAbout": [
-        "Artificial Intelligence",
-        "Machine Learning",
-        "Local LLMs",
-        "Python Architecture",
-        "Java SE",
-        "Data Optimization",
-        "React",
-        "Next.js",
-        "SQL",
-        "MongoDB",
-        "Ollama"
-      ],
-      "alumniOf": [
-        {
-          "@type": "CollegeOrUniversity",
-          "name": "PBR VITS, Kavali",
-          "description": "B.Tech CSE - Artificial Intelligence (2024–2028)"
-        },
-        {
-          "@type": "EducationalOrganization",
-          "name": "IIT-Patna I-HUB VISHLESHAN",
-          "description": "Advanced AI-ML Specialization"
-        }
-      ],
-      "award": [
-        "1st Prize - CodeClash 2025 (Algorithmic Excellence)",
-        "Best Concept - Technova2K25",
-        "MongoDB Certified - Data Modeling Associate"
-      ],
-      "hasOccupation": {
-        "@type": "Occupation",
-        "name": "AI Architect",
-        "skills": [
-          "Python",
-          "Java SE",
-          "AI/ML",
-          "System Architecture",
-          "Data Engineering",
-          "Full Stack Development"
-        ]
-      },
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Independent / Open Source"
-      },
-      "makesOffer": [
-        {
-          "@type": "CreativeWork",
-          "name": "Prometheus AI Protocol",
-          "description": "Modular automation engine for data processing with 95% ETL optimization."
-        }
-      ]
-    }
-    </script>
-
     <link rel="icon" type="image/png" href="https://i.ibb.co/m5GYjVY8/Gemini-Generated-Image-7rq0ul7rq0ul7rq0-2.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.39/build/spline-viewer.js"></script>
 
-    <style>
-        /* ------------------------------------------------------------------------------------------------ */
-        /* CORE VARIABLES */
-        /* ------------------------------------------------------------------------------------------------ */
-        :root {
-            --gold: #FFD700;
-            --color-primary: #1e293b; 
-            --color-secondary: #475569; 
-            --color-bg: #f8fafc; 
-            --color-card-bg: #ffffff;
-            --color-border: #e2e8f0; 
-            --color-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-            --color-soft-button-bg: #ffffff;
-            --color-soft-button-text: #1f2937;
-            --color-timeline-border: rgba(255, 215, 0, 0.3);
-            --color-skill-tag-bg: #fef9c3; 
-            --color-skill-tag-text: #854d0e; 
-            --color-nav-bg: rgba(255, 255, 255, 0.85);
-            --modal-glass-bg: rgba(15, 23, 42, 0.95);
-            --modal-overlay-bg: rgba(0, 0, 0, 0.85);
-        }
-
-        /* DARK MODE OVERRIDES */
-        body.dark {
-            --color-primary: #e2e8f0; 
-            --color-secondary: #94a3b8; 
-            --color-bg: #071025; 
-            --color-card-bg: #0f172a; 
-            --color-border: #334155; 
-            --color-shadow: none; 
-            --color-soft-button-bg: #1e293b; 
-            --color-soft-button-text: #ffffff;
-            --color-timeline-border: rgba(255, 215, 0, 0.1);
-            --color-skill-tag-bg: #4c3000;
-            --color-skill-tag-text: #ffebb0;
-            --color-nav-bg: rgba(15, 23, 42, 0.9);
-        }
-        
-        @media (min-width: 480px) { 
-            .xs\:text-5xl { font-size: 3rem; line-height: 1; }
-        }
-
-        /* ------------------------------------------------------------------------------------------------ */
-        /* INTRO & LOADING ANIMATIONS */
-        /* ------------------------------------------------------------------------------------------------ */
-        
-        #system-boot-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #000; z-index: 99999; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            font-family: 'Courier New', Courier, monospace; color: var(--gold);
-            transition: opacity 1s ease-in-out, visibility 1s;
-        }
-        .boot-text { font-size: 1.5rem; font-weight: bold; letter-spacing: 0.2em; text-shadow: 0 0 10px var(--gold); margin-bottom: 20px; }
-        .loading-bar-container { width: 300px; height: 4px; background: #333; border-radius: 2px; overflow: hidden; position: relative; }
-        .loading-bar-progress { width: 0%; height: 100%; background: var(--gold); box-shadow: 0 0 15px var(--gold); animation: loadProgress 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-        .system-status { margin-top: 10px; font-size: 0.8rem; color: #666; text-transform: uppercase; }
-        @keyframes loadProgress { 0% { width: 0%; } 50% { width: 70%; } 80% { width: 85%; } 100% { width: 100%; } }
-
-        /* GALLERY BOOT SCREEN */
-        .gallery-boot-screen { position: absolute; inset: 0; background: #000; z-index: 50; display: flex; flex-direction: column; justify-content: center; align-items: center; color: cyan; font-family: monospace; }
-        .gallery-scan-line { width: 100%; height: 2px; background: rgba(0, 255, 255, 0.5); position: absolute; top: 0; animation: scanDown 1.5s linear infinite; }
-        @keyframes scanDown { 0% { top: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
-
-        /* ------------------------------------------------------------------------------------------------ */
-        /* STANDARD STYLES */
-        /* ------------------------------------------------------------------------------------------------ */
-
-        @keyframes title-ripple { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.01); opacity: 0.98; } }
-        @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--gold); } }
-        @keyframes rocket-shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-3px) rotate(-3deg); } 75% { transform: translateX(3px) rotate(3deg); } }
-        @keyframes rocket-fly { 0% { transform: translateY(0) scale(1); opacity: 1; } 50% { opacity: 1; } 100% { transform: translateY(-300px) scale(0.5); opacity: 0; } }
-        @keyframes fade-in-check { to { opacity: 1; transform: translate(-50%, -50%) scale(1.1); } }
-        @keyframes draw-check { to { stroke-dashoffset: 0; } }
-        @keyframes text-slide-up { to { opacity: 1; transform: translateY(0); } }
-
-        body { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: var(--color-bg); color: var(--color-secondary); transition: background-color 0.3s, color 0.3s; position: relative; overflow-x: hidden; }
-        body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -2; background: radial-gradient(circle at 10% 10%, rgba(255, 215, 0, 0.03) 0%, transparent 20%), radial-gradient(circle at 90% 90%, rgba(30, 144, 255, 0.03) 0%, transparent 20%); pointer-events: none; opacity: 0.7; }
-
-        .text-morning-gold { color: var(--gold); }
-        .border-morning-gold { border-color: var(--gold); }
-        .shadow-morning-gold-sm { box-shadow: 0 4px 6px -1px rgba(255, 215, 0, 0.3); }
-
-        .button-soft { background-color: var(--color-soft-button-bg); border: 1px solid rgba(255, 215, 0, 0.5); color: var(--color-soft-button-text); padding: 0.75rem 1.5rem; border-radius: 9999px; transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: relative; overflow: hidden; cursor: pointer; display: inline-block; font-weight: 600; font-size: 0.875rem; text-align: center; }
-        .button-soft:hover { background-color: var(--gold); color: #1f2937; transform: translateY(-2px); box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
-        body.dark .button-soft:hover { background-color: var(--gold); color: #1f2937; }
-
-        .text-glow { position: relative; display: inline-block; }
-        .text-glow::after { content: attr(data-text); position: absolute; left: 0; top: 0; filter: blur(4px); color: var(--gold); opacity: 0.4; pointer-events: none; }
-
-        .section-card { background-color: var(--color-card-bg); border-radius: 1.5rem; border: 1px solid var(--color-border); box-shadow: var(--color-shadow); transition: transform 0.3s ease, border-color 0.3s, background-color 0.3s; }
-        .section-card:hover { border-color: rgba(255, 215, 0, 0.8); transform: scale(1.01); }
-
-        .soft-title { color: var(--color-primary); font-weight: 900; letter-spacing: -0.05em; text-shadow: 2px 2px 0 #fef3c7; transition: color 0.3s, text-shadow 0.3s; animation: title-ripple 8s infinite ease-in-out; }
-        body.dark .soft-title { text-shadow: 2px 2px 0 rgba(255,215,0,0.2); }
-
-        .skill-tag { display: inline-block; padding: 0.4rem 0.8rem; border-radius: 9999px; background-color: var(--color-skill-tag-bg); color: var(--color-skill-tag-text); font-weight: 700; font-size: 0.7rem; text-transform: uppercase; transition: all 0.2s; margin-bottom: 0.4rem; }
-        .skill-tag:hover { background-color: var(--gold); color: var(--color-primary); transform: scale(1.1); }
-
-        .verified-stamp { display: inline-block; font-size: 0.7rem; font-weight: 900; color: var(--gold); border: 1px solid var(--gold); padding: 0.1rem 0.4rem; border-radius: 4px; background-color: rgba(255, 215, 0, 0.1); margin-left: 0.5rem; letter-spacing: 0.05em; }
-
-        .timeline-item { position: relative; padding-left: 2rem; border-left: 2px solid var(--color-timeline-border); margin-bottom: 2rem; }
-        .timeline-item::before { content: ''; position: absolute; left: -9px; top: 0.25rem; width: 16px; height: 16px; background-color: var(--gold); border-radius: 50%; border: 3px solid var(--color-bg); box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3); transition: border-color 0.3s; }
-
-        .input-soft { width: 100%; padding: 0.9rem 1rem; border-radius: 12px; border: 1px solid var(--color-border); background: var(--color-card-bg); color: var(--color-primary); outline: none; transition: all 0.3s; }
-        .input-soft:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.5); }
-
-        #navbar { background-color: var(--color-nav-bg); border-bottom: 1px solid var(--color-border); }
-        #contact-bar { width: 95%; max-width: 400px; padding: 0.5rem 1rem; }
-        @media (min-width: 768px) { #contact-bar { max-width: 512px; padding: 0.5rem; } }
-
-        #about-modal, #feature-modal, #email-choice-modal, #resume-modal, #gallery-modal, #security-modal { visibility: hidden; opacity: 0; pointer-events: none; transition: opacity 0.3s ease-out, visibility 0s 0.3s; }
-        #about-modal.active, #feature-modal.active, #email-choice-modal.active, #resume-modal.active, #gallery-modal.active, #security-modal.active { visibility: visible; opacity: 1; pointer-events: auto; transition: opacity 0.3s ease-out, visibility 0s; }
-        .modal-content { transition: transform 0.3s ease-out; transform: scale(0.95); }
-        .active .modal-content { transform: scale(1); }
-
-        .section-divider-glow { position: relative; height: 1px; background: transparent; margin: 4rem 0; }
-        .section-divider-glow::before { content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.6; filter: blur(1px); }
-        .section-divider-glow::after { content: '// PROTOCOL BREAKPOINT :: AUDITED LOG //'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); font-size: 0.7rem; font-weight: bold; color: var(--gold); background-color: var(--color-bg); padding: 0 1rem; letter-spacing: 0.1em; z-index: 10; }
-
-        .text-primary { color: var(--color-primary); }
-        .text-secondary { color: var(--color-secondary); }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background-color: rgba(156, 163, 175, 0.5); border-radius: 20px; }
-        .typing-effect { overflow: hidden; border-right: .15em solid var(--gold); white-space: nowrap; margin: 0; letter-spacing: .05em; animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite; max-width: fit-content; }
-        .animate-spin-slow { animation: spin-slow 8s linear infinite; }
-
-        /* ROCKET MODAL */
-        .success-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-overlay-bg); backdrop-filter: blur(12px); z-index: 9999; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.4s ease; }
-        .success-modal-overlay.active { opacity: 1; visibility: visible; }
-        .success-card { background: var(--modal-glass-bg); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 0 40px rgba(255, 215, 0, 0.1); width: 90%; max-width: 380px; padding: 40px; border-radius: 24px; text-align: center; transform: translateY(50px) scale(0.9); transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden; }
-        .success-modal-overlay.active .success-card { transform: translateY(0) scale(1); }
-        .animation-stage { height: 100px; position: relative; display: flex; justify-content: center; align-items: flex-end; margin-bottom: 20px; }
-        .rocket-svg { width: 60px; height: 60px; color: white; filter: drop-shadow(0 0 10px var(--gold)); position: relative; z-index: 10; }
-        .success-modal-overlay.active .rocket-svg { animation: rocket-shake 0.4s ease-in-out, rocket-fly 1s ease-in forwards 0.4s; }
-        .checkmark-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: rgba(46, 204, 113, 0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; opacity: 0; z-index: 5; }
-        .success-modal-overlay.active .checkmark-container { animation: fade-in-check 0.5s ease forwards 1s; }
-        .checkmark-svg { width: 40px; height: 40px; stroke: #2ecc71; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; fill: none; stroke-dasharray: 100; stroke-dashoffset: 100; }
-        .success-modal-overlay.active .checkmark-svg { animation: draw-check 0.6s ease forwards 1.2s; }
-        .success-title { color: white; font-weight: 900; font-size: 24px; margin: 0 0 10px 0; opacity: 0; transform: translateY(20px); }
-        .success-desc { color: #94a3b8; font-size: 14px; margin: 0 0 30px 0; opacity: 0; transform: translateY(20px); }
-        .success-modal-overlay.active .success-title { animation: text-slide-up 0.6s ease forwards 1.2s; }
-        .success-modal-overlay.active .success-desc { animation: text-slide-up 0.6s ease forwards 1.3s; }
-        .success-btn { background: var(--gold); color: #000; font-weight: 700; border: none; padding: 12px 40px; border-radius: 50px; cursor: pointer; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
-        .success-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5); }
-        .confetti { position: absolute; width: 8px; height: 8px; background-color: #f00; top: 50%; left: 50%; opacity: 0; z-index: 1; pointer-events: none; }
-
-        /* GALLERY STYLES */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-        .gallery-item { position: relative; border-radius: 1rem; overflow: hidden; border: 1px solid var(--morning-gold); aspect-ratio: 1 / 1; background: #000; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .gallery-item:hover img { transform: scale(1.1); }
-        .gallery-loader { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; background: #0f172a; z-index: 10; }
-
-        /* SECURITY MODAL STYLES */
-        .shake { animation: shake 0.5s; }
-        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); } }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="font-sans antialiased overflow-x-hidden selection:bg-yellow-200 selection:text-black">
@@ -281,7 +48,6 @@
 
     <nav id="navbar" class="fixed top-0 w-full z-50 py-3 backdrop-blur-md transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
-            
             <a href="#" class="flex items-center gap-3 group" aria-label="Home / Likith Naidu Portfolio">
                 <div class="relative w-10 h-10 rounded-full overflow-hidden border border-morning-gold shadow-md">
                     <img src="https://i.ibb.co/4wdQxJyy/Likith-image.jpg" alt="Likith Naidu Profile Avatar" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=L+N&background=FFD700&color=fff'"/>
@@ -308,7 +74,6 @@
                 <button id="theme-toggle" class="px-3 py-1 font-bold text-[10px] uppercase tracking-widest rounded-full transition-colors flex items-center border border-gray-300" aria-label="Toggle Dark/Light Theme">
                     <i data-lucide="moon" class="w-3 h-3 inline mr-1"></i> Theme
                 </button>
-
                 <button id="mobile-menu-btn" class="xl:hidden text-primary p-2" aria-label="Open mobile menu">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
@@ -400,8 +165,8 @@
             </div>
             
             <h1 class="text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-black tracking-tight leading-snug text-primary">
-               Hello<span class="text-morning-gold text-glow" data-text="Intelligent">Buddy</span><br>
-               Systems & Data Logic
+                Hello<span class="text-morning-gold text-glow" data-text="Intelligent">Buddy</span><br>
+                Systems & Data Logic
             </h1>
             
             <p class="text-base md:text-xl max-w-2xl mx-auto leading-relaxed text-secondary">
@@ -418,7 +183,7 @@
                 </button>
                 
                 <button onclick="toggleAboutModal()" class="button-soft shadow-xl hover:shadow-2xl bg-white text-primary border border-gray-300">
-                     <i data-lucide="user" class="w-4 h-4 inline mr-1"></i> DETAILED BIO (V)
+                      <i data-lucide="user" class="w-4 h-4 inline mr-1"></i> DETAILED BIO (V)
                 </button>
 
                 <button onclick="openSecurityCheck()" class="button-soft shadow-xl hover:shadow-2xl bg-slate-900 text-white border-none">
@@ -542,6 +307,8 @@
 
     <div class="section-divider-glow"></div>
 
+    <div class="section-divider-glow"></div>
+
     <section id="achievements" class="py-20 z-10 relative">
         <div class="max-w-5xl mx-auto px-6">
             <h2 class="soft-title mb-12 text-3xl font-black text-center">:: DATA LOGS & ACHIEVEMENTS (OFFICIALLY VERIFIED) ::</h2>
@@ -604,7 +371,7 @@
             </div>
         </div>
     </section>
-
+    
     <div class="section-divider-glow"></div>
 
     <section id="creative-protocol" class="py-20 z-10 relative">
@@ -692,7 +459,7 @@
     <section id="contact" class="py-20 mb-20 z-10 relative">
         <div class="max-w-xl mx-auto px-6 text-center">
             <h2 class="text-4xl md:text-6xl font-black mb-8 tracking-tight text-primary text-glow" data-text="COLLABORATE">INITIATE CONTACT (SECURE)</h2>
-            <form id="contact-form" action="https://formspree.io/f/mgvgyqwb" method="POST" class="space-y-4">
+            <form id="contact-form" class="space-y-4">
                 <input type="text" name="name" placeholder="Name Protocol" required class="input-soft" aria-label="Name" />
                 <input type="email" name="email" placeholder="Email Signal (Required)" required class="input-soft" aria-label="Email" />
                 <textarea name="message" placeholder="Transmission Message..." rows="4" required class="input-soft" aria-label="Message"></textarea>
@@ -817,7 +584,6 @@
         </div>
     </div>
 
-
     <footer class="py-8 relative z-50" style="background-color: #1e293b; color: #94a3b8;">
         <div class="max-w-7xl mx-auto px-6 text-center text-xs">
             <p>&copy; <span id="current-year"></span> LIKITH NAIDU ANUMAKONDA. Protocol Version 2.0.0 (AUDITED)</p>
@@ -832,294 +598,6 @@
     <audio id="rocket-sound" preload="auto"><source src="https://media.vocaroo.com/mp3/1271nAyv6E80" type="audio/mpeg"></audio>
     <audio id="about-sound" preload="auto"><source src="https://media.vocaroo.com/mp3/1gKlNQO2DJzt" type="audio/mpeg"></audio>
 
-    <script>
-        // --- 1. SYSTEM BOOT SEQUENCE (Intro) ---
-        window.addEventListener('load', () => {
-            const bootOverlay = document.getElementById('system-boot-overlay');
-            const bootStatus = document.getElementById('boot-status');
-            
-            setTimeout(() => {
-                bootStatus.textContent = "ACCESS GRANTED. WELCOME.";
-                bootStatus.style.color = "#0f0"; // Green
-                
-                setTimeout(() => {
-                    bootOverlay.style.opacity = '0';
-                    bootOverlay.style.visibility = 'hidden';
-                    if (!localStorage.getItem('hasVisited')) {
-                        setTimeout(() => toggleAboutModal(), 500);
-                        localStorage.setItem('hasVisited', 'true');
-                    }
-                }, 800);
-            }, 2500);
-        });
-
-        // --- 2. GALLERY LOGIC WITH SECURITY CHECK ---
-        const galleryModal = document.getElementById('gallery-modal');
-        const galleryIntro = document.getElementById('gallery-intro-sequence');
-        const securityModal = document.getElementById('security-modal');
-        let galleryLoaded = false;
-        let correctAnswer = 0;
-
-        function openSecurityCheck() {
-            // Generate Random Math Problem
-            const num1 = Math.floor(Math.random() * 10) + 1;
-            const num2 = Math.floor(Math.random() * 10) + 1;
-            correctAnswer = num1 + num2;
-            
-            document.getElementById('math-problem').textContent = `${num1} + ${num2} = ?`;
-            document.getElementById('security-answer').value = ''; // Clear previous
-            
-            securityModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeSecurityCheck() {
-            securityModal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function checkSecurityAnswer() {
-            const userAnswer = parseInt(document.getElementById('security-answer').value);
-            const inputField = document.getElementById('security-answer');
-            
-            if (userAnswer === correctAnswer) {
-                // Correct!
-                closeSecurityCheck();
-                openGallery();
-            } else {
-                // Incorrect - Shake Animation
-                inputField.classList.add('shake');
-                inputField.style.borderColor = 'red';
-                setTimeout(() => {
-                    inputField.classList.remove('shake');
-                    inputField.style.borderColor = '';
-                }, 500);
-            }
-        }
-
-        function openGallery() {
-            galleryModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // Show the "Pretending to load" intro for the gallery
-            galleryIntro.style.display = 'flex';
-            
-            // Simulate Load Balancer / Decryption Time (1.5s)
-            setTimeout(() => {
-                galleryIntro.style.display = 'none';
-                loadGalleryImages(); // Trigger the actual image load
-            }, 1500);
-        }
-
-        function closeGallery() {
-            galleryModal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // "Load Balancer" logic: Lazy load images only when needed
-        function loadGalleryImages() {
-            if (galleryLoaded) return; 
-            const images = document.querySelectorAll('.lazy-image');
-            images.forEach(img => {
-                const src = img.getAttribute('data-src');
-                if (src) img.src = src;
-            });
-            galleryLoaded = true;
-        }
-
-        // --- 3. THEME & GENERAL JS (Existing) ---
-        const body = document.body;
-        (function initializeTheme() {
-            const isDarkMode = localStorage.getItem('theme') === 'dark';
-            if (isDarkMode) body.classList.add('dark');
-        })();
-        
-        // --- 4. ABOUT MODAL LOGIC ---
-        const aboutModal = document.getElementById('about-modal');
-        function toggleAboutModal() {
-            const sound = document.getElementById('about-sound');
-            if (aboutModal.classList.contains('active')) {
-                aboutModal.classList.remove('active');
-                document.body.style.overflow = '';
-            } else {
-                aboutModal.classList.add('active'); 
-                document.body.style.overflow = 'hidden'; 
-                if(sound) { sound.currentTime = 0; sound.play().catch(e => {}); }
-            }
-        }
-        window.toggleAboutModal = toggleAboutModal; 
-
-        // --- 5. RUNTIME INITIALIZATION ---
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-
-            // Theme Toggle
-            const themeToggle = document.getElementById('theme-toggle');
-            function updateThemeToggleIcon(isDark) {
-                themeToggle.innerHTML = isDark 
-                    ? '<i data-lucide="sun" class="w-3 h-3 inline mr-1"></i>Light' 
-                    : '<i data-lucide="moon" class="w-3 h-3 inline mr-1"></i>Theme';
-                lucide.createIcons();
-                
-                const computedStyle = getComputedStyle(document.body);
-                themeToggle.style.backgroundColor = computedStyle.getPropertyValue('--color-soft-button-bg');
-                themeToggle.style.color = computedStyle.getPropertyValue('--color-soft-button-text');
-                themeToggle.style.borderColor = computedStyle.getPropertyValue('--color-border');
-            }
-            updateThemeToggleIcon(body.classList.contains('dark'));
-
-            themeToggle.addEventListener('click', () => {
-                body.classList.toggle('dark');
-                const isDark = body.classList.contains('dark');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                updateThemeToggleIcon(isDark);
-            });
-            
-            // Mobile Menu
-            const mobileMenu = document.getElementById('mobile-menu');
-            function toggleMobileMenu() {
-                mobileMenu.classList.toggle('opacity-0');
-                mobileMenu.classList.toggle('pointer-events-none');
-            }
-            window.toggleMobileMenu = toggleMobileMenu;
-            document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
-            document.getElementById('mobile-close').addEventListener('click', toggleMobileMenu);
-
-            // Feature Modal
-            const featureModal = document.getElementById('feature-modal');
-            const fTitle = document.getElementById('feature-title');
-            const fBody = document.getElementById('feature-body');
-            const fLink = document.getElementById('feature-link');
-
-            window.showFeatureInfo = (title, bodyText, linkUrl) => {
-                fTitle.textContent = title;
-                fBody.textContent = bodyText;
-                fLink.href = linkUrl;
-                featureModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-            window.closeFeatureInfo = () => {
-                featureModal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-
-            // Keydown Listener
-            window.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    if (aboutModal.classList.contains('active')) toggleAboutModal();
-                    if (featureModal.classList.contains('active')) closeFeatureInfo();
-                    if (document.getElementById('email-choice-modal').classList.contains('active')) closeEmailChoiceModal();
-                    if (document.getElementById('resume-modal').classList.contains('active')) closeResumeModal();
-                    if (document.getElementById('gallery-modal').classList.contains('active')) closeGallery();
-                    if (document.getElementById('security-modal').classList.contains('active')) closeSecurityCheck();
-                }
-                // Allow Enter key for Security Modal
-                if (e.key === 'Enter' && document.getElementById('security-modal').classList.contains('active')) {
-                    checkSecurityAnswer();
-                }
-            });
-        });
-
-        // --- EMAIL CHOICE & RESUME MODALS ---
-        const emailChoiceModal = document.getElementById('email-choice-modal');
-        window.openEmailChoiceModal = function() { emailChoiceModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
-        window.closeEmailChoiceModal = function() { emailChoiceModal.classList.remove('active'); document.body.style.overflow = ''; }
-
-        const resumeModal = document.getElementById('resume-modal');
-        window.openResumeModal = function() { resumeModal.classList.add('active'); resumeModal.classList.remove('opacity-0', 'pointer-events-none'); document.body.style.overflow = 'hidden'; }
-        window.closeResumeModal = function() { resumeModal.classList.remove('active'); resumeModal.classList.add('opacity-0', 'pointer-events-none'); document.body.style.overflow = ''; }
-
-        // --- PARTICLE SYSTEM ---
-        const canvas = document.getElementById('about-particles');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.addEventListener('resize', resizeCanvas); resizeCanvas();
-
-        class Particle {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.color = 'rgba(255, 215, 0, 0.2)';
-            }
-            update() {
-                this.x += this.speedX; this.y += this.speedY;
-                if (this.x < 0) this.x = canvas.width; if (this.x > canvas.width) this.x = 0;
-                if (this.y < 0) this.y = canvas.height; if (this.y > canvas.height) this.y = 0;
-            }
-            draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
-        }
-        function initParticles() { for (let i = 0; i < 50; i++) particles.push(new Particle()); }
-        initParticles();
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) { particles[i].update(); particles[i].draw(); }
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
-        
-        // --- FORM SUBMIT AJAX ---
-        const form = document.getElementById('contact-form');
-        async function handleSubmit(event) {
-            event.preventDefault();
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.innerHTML;
-            submitBtn.innerHTML = 'Transmitting...'; submitBtn.disabled = true;
-            const data = new FormData(event.target);
-            try {
-                const response = await fetch(event.target.action, { method: form.method, body: data, headers: { 'Accept': 'application/json' } });
-                if (response.ok) {
-                    form.reset(); submitBtn.innerHTML = originalBtnText; submitBtn.disabled = false;
-                    openSuccessModal();
-                } else {
-                    const errorData = await response.json();
-                    submitBtn.innerHTML = originalBtnText; submitBtn.disabled = false;
-                    alert("Transmission Error");
-                }
-            } catch (error) { submitBtn.innerHTML = originalBtnText; submitBtn.disabled = false; alert("Network Error"); }
-        }
-        form.addEventListener("submit", handleSubmit);
-
-        function openSuccessModal() {
-            const modal = document.getElementById('rocket-success-modal');
-            const wrapper = document.getElementById('confetti-wrapper');
-            const sound = document.getElementById('rocket-sound');
-            modal.classList.add('active');
-            if (sound) { sound.currentTime = 0; sound.play().catch(e=>{}); }
-            setTimeout(() => { createConfetti(wrapper); }, 500); 
-        }
-
-        function closeSuccessModal() {
-            const modal = document.getElementById('rocket-success-modal');
-            const wrapper = document.getElementById('confetti-wrapper');
-            modal.classList.remove('active');
-            setTimeout(() => { wrapper.innerHTML = ''; }, 500);
-        }
-
-        function createConfetti(wrapper) {
-            const colors = ['#FFD700', '#ff0000', '#2ecc71', '#3498db', '#f39c12', '#9b59b6'];
-            for (let i = 0; i < 60; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                const bg = colors[Math.floor(Math.random() * colors.length)];
-                const x = (Math.random() - 0.5) * 400; const y = (Math.random() - 1) * 400;
-                const rotate = Math.random() * 360; const delay = Math.random() * 0.2; const duration = 0.8 + Math.random() * 0.8;
-                confetti.style.backgroundColor = bg;
-                confetti.style.transform = `translate(-50%, -50%) rotate(${rotate}deg)`;
-                confetti.style.transition = `all ${duration}s cubic-bezier(0.25, 1, 0.5, 1)`;
-                confetti.style.transitionDelay = `${delay}s`;
-                wrapper.appendChild(confetti);
-                requestAnimationFrame(() => {
-                    confetti.style.opacity = '1';
-                    confetti.style.transform = `translate(${x}px, ${y}px) rotate(${rotate + 720}deg) scale(0)`;
-                });
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
