@@ -421,17 +421,50 @@
         </div>
     </div>
 
-    <div id="chat-widget" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+ <section id="contact-bar" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 p-2 w-auto max-w-[95vw] backdrop-blur-xl rounded-full shadow-2xl flex items-center justify-center gap-2 sm:gap-4 transition-all duration-300 border border-white/20" style="background-color: rgba(15, 23, 42, 0.8);">
+        <a href="https://github.com/LIKITH-3012-MAC" target="_blank" class="p-2 rounded-full hover:bg-white/10 hover:scale-110 transition-all duration-300 group">
+            <i data-lucide="github" class="w-5 h-5 text-white"></i>
+        </a>
+        <a href="https://linkedin.com/in/likhith-naidu-anumakonda-33a347327" target="_blank" class="p-2 rounded-full hover:bg-blue-600/30 hover:scale-110 transition-all duration-300 group">
+            <i data-lucide="linkedin" class="w-5 h-5 text-blue-400"></i>
+        </a>
+        <a href="https://www.instagram.com/likhithnaidu_anumakonda?igsh=MTgxZ3hrc3BtcHAzdg==" target="_blank" class="p-2 rounded-full hover:bg-pink-600/30 hover:scale-110 transition-all duration-300 group">
+            <i data-lucide="instagram" class="w-5 h-5 text-pink-400"></i>
+        </a>
+        <a href="https://x.com/Likithdob301206?t=4FzQYS1UgCKSQBgc99xspg&s=09" target="_blank" class="p-2 rounded-full hover:bg-sky-600/30 hover:scale-110 transition-all duration-300 group">
+            <i data-lucide="twitter" class="w-5 h-5 text-sky-400"></i>
+        </a>
+        <a href="tel:+919440113763" class="p-2 rounded-full hover:bg-green-600/30 hover:scale-110 transition-all duration-300 group">
+            <i data-lucide="phone" class="w-5 h-5 text-green-400"></i>
+        </a>
+        <a href="mailto:likith.anumakonda@gmail.com" class="p-2 rounded-full hover:bg-red-600/30 hover:scale-110 transition-all duration-300 group">
+            <i data-lucide="mail" class="w-5 h-5 text-red-400"></i>
+        </a>
+    </section>
+
+    <div id="chat-widget" class="fixed bottom-24 right-4 sm:bottom-6 sm:right-6 z-[60] flex flex-col items-end">
         <div id="chat-window" class="hidden mb-4 w-80 bg-white dark:bg-slate-900 border border-morning-gold rounded-2xl shadow-2xl overflow-hidden flex flex-col h-96 transition-all transform scale-95 origin-bottom-right">
             <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 p-4 flex justify-between items-center">
-                <h3 class="text-white font-bold font-mono text-sm"><i data-lucide="bot" class="inline w-4 h-4 mr-1"></i>PROMETHEUS AI v2</h3>
+                <h3 class="text-white font-bold font-mono text-sm"><i data-lucide="bot" class="inline w-4 h-4 mr-1"></i>PROMETHEUS AI</h3>
                 <button onclick="toggleChat()" class="text-white hover:text-black"><i data-lucide="x" class="w-4 h-4"></i></button>
             </div>
             <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs">
                 <div class="bg-slate-100 dark:bg-slate-800 p-2 rounded-lg rounded-tl-none self-start max-w-[85%]">
-                    Hello. I am SAKRA-VISION. Ask me about Likith's projects.
+                    Hello. I am Prometheus. Ask me about Likith's projects.
                 </div>
             </div>
+            <div class="p-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-slate-900">
+                <form id="chat-form" class="flex gap-2" onsubmit="handleChat(event)">
+                    <input type="text" id="chat-input" placeholder="Ask something..." class="flex-1 bg-transparent text-sm outline-none text-primary" required>
+                    <button type="submit" class="text-morning-gold hover:scale-110 transition"><i data-lucide="send" class="w-4 h-4"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <button onclick="toggleChat()" class="w-14 h-14 bg-morning-gold rounded-full shadow-lg flex items-center justify-center text-black hover:scale-110 transition-transform border-4 border-white dark:border-slate-800 animate-bounce">
+            <i data-lucide="message-square-code" class="w-7 h-7"></i>
+        </button>
+    </div>
             <div class="p-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-slate-900">
                 <form id="chat-form" class="flex gap-2" onsubmit="handleChat(event)">
                     <input type="text" id="chat-input" placeholder="Ask something..." class="flex-1 bg-transparent text-sm outline-none text-primary" required>
