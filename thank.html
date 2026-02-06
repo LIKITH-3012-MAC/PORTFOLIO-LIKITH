@@ -1,209 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Review Sent 🚀</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Sent 🚀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+        }
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+        /* Overlay UI */
+        .ui {
+            position: absolute;
+            bottom: 10%; /* Moved to bottom to let the 3D art shine */
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+        }
 
-<style>
-body {
-  margin: 0;
-  overflow: hidden;
-  background: radial-gradient(circle at bottom, #0f2027, #203a43, #2c5364);
-  font-family: 'Poppins', sans-serif;
-  color: #fff;
-}
+        h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            background: linear-gradient(to right, #fff, #ffd369);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeUp 1s ease-out forwards;
+        }
 
-/* Center text overlay */
-.ui {
-  position: absolute;
-  top: 55%;
-  width: 100%;
-  text-align: center;
-  z-index: 10;
-}
+        p {
+            font-size: 1.1rem;
+            opacity: 0;
+            animation: fadeUp 1s ease-out 0.5s forwards;
+        }
 
-h1 {
-  font-size: 2.6rem;
-  margin: 0.4rem 0;
-  animation: fadeUp 1.5s ease forwards;
-}
+        .author {
+            margin-top: 15px;
+            font-weight: 600;
+            color: #ffd369;
+            text-shadow: 0 0 10px rgba(255, 211, 105, 0.5);
+            animation: pulse 2s infinite alternate;
+        }
 
-p {
-  font-size: 1.3rem;
-  opacity: 0.9;
-  animation: fadeUp 2s ease forwards;
-}
+        /* Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-.author {
-  margin-top: 10px;
-  font-weight: 600;
-  color: #ffd369;
-  animation: glow 2s infinite alternate;
-}
+        @keyframes pulse {
+            from { opacity: 0.7; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1.05); }
+        }
 
-/* Rocket */
-.rocket {
-  position: absolute;
-  top: 15%;
-  width: 100%;
-  text-align: center;
-  font-size: 6rem;
-  animation: launch 2s ease forwards, shake 0.5s infinite alternate;
-  text-shadow: 0 0 20px #ff4, 0 0 50px #f0f;
-  z-index: 10;
-}
-
-/* Animations */
-@keyframes launch {
-  0% { transform: translateY(80px) scale(0.5); opacity: 0; }
-  100% { transform: translateY(-60px) scale(1); opacity: 1; }
-}
-
-@keyframes shake {
-  from { transform: rotate(-4deg); }
-  to { transform: rotate(4deg); }
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 10px #ffd369; }
-  to { text-shadow: 0 0 25px #ff9f1c; }
-}
-
-/* Canvas full screen */
-canvas {
-  display: block;
-}
-</style>
+        canvas { display: block; }
+    </style>
 </head>
 <body>
 
-<div class="rocket">🚀</div>
-
 <div class="ui">
-  <h1>Review Sent Successfully!</h1>
-  <p>Thank you for sharing your feelings ❤️</p>
-  <div class="author">🧸 Thank you from author Likith</div>
+    <h1>Review Sent Successfully!</h1>
+    <p>Thank you for sharing your feelings ❤️</p>
+    <div class="author">🧸 Thank you from author Likith</div>
 </div>
 
-<!-- Three.js -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
 <script>
-/* Scene setup */
-const scene = new THREE.Scene();
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 7;
 
-const camera = new THREE.PerspectiveCamera(
-  60,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-camera.position.z = 6;
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    document.body.appendChild(renderer.domElement);
 
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
+    /* Lights */
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(ambientLight);
+    const pointLight = new THREE.PointLight(0xffcc88, 2);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
 
-/* Lights */
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-scene.add(ambientLight);
+    /* Teddy Bear Construction */
+    const teddy = new THREE.Group();
+    const brown = new THREE.MeshStandardMaterial({ color: 0x8d5524, roughness: 0.8 });
+    const darkBrown = new THREE.MeshStandardMaterial({ color: 0x4d2d12 });
 
-const pointLight = new THREE.PointLight(0xffcc88, 1.5);
-pointLight.position.set(5, 5, 5);
-scene.add(pointLight);
+    const body = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 32), brown);
+    body.scale.set(1, 1.1, 0.9);
+    teddy.add(body);
 
-/* Teddy Bear (built with shapes) */
-const teddy = new THREE.Group();
-const brown = new THREE.MeshStandardMaterial({ color: 0x8d5524 });
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.75, 32, 32), brown);
+    head.position.y = 1.4;
+    teddy.add(head);
 
-/* Body */
-const body = new THREE.Mesh(
-  new THREE.SphereGeometry(1.1, 32, 32),
-  brown
-);
-teddy.add(body);
+    // Ears
+    const earGeo = new THREE.SphereGeometry(0.25, 32, 32);
+    const earL = new THREE.Mesh(earGeo, brown);
+    const earR = new THREE.Mesh(earGeo, brown);
+    earL.position.set(-0.6, 1.9, 0);
+    earR.position.set(0.6, 1.9, 0);
+    teddy.add(earL, earR);
 
-/* Head */
-const head = new THREE.Mesh(
-  new THREE.SphereGeometry(0.8, 32, 32),
-  brown
-);
-head.position.y = 1.5;
-teddy.add(head);
+    // Arms
+    const armGeo = new THREE.SphereGeometry(0.3, 32, 32);
+    const armL = new THREE.Mesh(armGeo, brown);
+    const armR = new THREE.Mesh(armGeo, brown);
+    armL.position.set(-1.1, 0.5, 0);
+    armR.position.set(1.1, 0.5, 0);
+    teddy.add(armL, armR);
 
-/* Ears */
-const earGeo = new THREE.SphereGeometry(0.3, 32, 32);
-const earL = new THREE.Mesh(earGeo, brown);
-const earR = new THREE.Mesh(earGeo, brown);
-earL.position.set(-0.6, 2.1, 0);
-earR.position.set(0.6, 2.1, 0);
-teddy.add(earL, earR);
+    // Legs
+    const legGeo = new THREE.SphereGeometry(0.4, 32, 32);
+    const legL = new THREE.Mesh(legGeo, brown);
+    const legR = new THREE.Mesh(legGeo, brown);
+    legL.position.set(-0.5, -1, 0.2);
+    legR.position.set(0.5, -1, 0.2);
+    teddy.add(legL, legR);
 
-/* Arms */
-const armGeo = new THREE.SphereGeometry(0.35, 32, 32);
-const armL = new THREE.Mesh(armGeo, brown);
-const armR = new THREE.Mesh(armGeo, brown);
-armL.position.set(-1.2, 0.4, 0);
-armR.position.set(1.2, 0.4, 0);
-teddy.add(armL, armR);
+    scene.add(teddy);
 
-/* Legs */
-const legGeo = new THREE.SphereGeometry(0.45, 32, 32);
-const legL = new THREE.Mesh(legGeo, brown);
-const legR = new THREE.Mesh(legGeo, brown);
-legL.position.set(-0.6, -1.2, 0);
-legR.position.set(0.6, -1.2, 0);
-teddy.add(legL, legR);
+    /* Floating Particles (Stars) */
+    const starGeo = new THREE.BufferGeometry();
+    const starCount = 400;
+    const posArray = new Float32Array(starCount * 3);
+    for(let i=0; i < starCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 20;
+    }
+    starGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    const starMat = new THREE.PointsMaterial({ size: 0.05, color: 0xffffff });
+    const starMesh = new THREE.Points(starGeo, starMat);
+    scene.add(starMesh);
 
-/* Position teddy */
-teddy.position.y = -0.5;
-scene.add(teddy);
+    /* Animation Loop */
+    let clock = new THREE.Clock();
 
-/* Stars */
-const stars = [];
-for (let i = 0; i < 150; i++) {
-  const star = new THREE.Mesh(
-    new THREE.SphereGeometry(0.02, 8, 8),
-    new THREE.MeshBasicMaterial({ color: 0xffffff })
-  );
-  star.position.set(
-    (Math.random() - 0.5) * 20,
-    (Math.random() - 0.5) * 20,
-    Math.random() * -10
-  );
-  stars.push(star);
-  scene.add(star);
-}
+    function animate() {
+        requestAnimationFrame(animate);
+        const elapsedTime = clock.getElapsedTime();
 
-/* Animate */
-let t = 0;
-function animate() {
-  requestAnimationFrame(animate);
-  t += 0.02;
+        // Teddy movement
+        teddy.rotation.y = Math.sin(elapsedTime * 0.5) * 0.3;
+        teddy.position.y = Math.sin(elapsedTime) * 0.2;
+        
+        // Waving
+        armR.rotation.z = Math.sin(elapsedTime * 2) * 0.5 + 0.5;
+        armL.rotation.z = -Math.sin(elapsedTime * 2) * 0.2;
 
-  teddy.rotation.y += 0.01;
-  armR.rotation.z = Math.sin(t) * 0.5; // waving
-  armL.rotation.z = -Math.sin(t) * 0.2;
+        starMesh.rotation.y = elapsedTime * 0.05;
 
-  renderer.render(scene, camera);
-}
-animate();
+        renderer.render(scene, camera);
+    }
+    animate();
 
-/* Resize */
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
 </script>
-
 </body>
 </html>
