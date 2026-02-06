@@ -12,7 +12,6 @@
   <style>
     :root {
       --primary-accent: #ffd369;
-      --transition-speed: 0.8s;
     }
 
     * {
@@ -25,107 +24,81 @@
       height: 100%;
       width: 100%;
       font-family: 'Poppins', sans-serif;
-      background-color: #121212; /* Fallback background color */
-      overflow: hidden;
-      color: #fff;
+      background-color: #000; /* Dark fallback */
+      overflow: hidden; /* Prevents bounce scrolling on mobile */
     }
 
-    /* Background Container */
+    /* THE FIX: Enhanced Background Logic */
     .bg-container {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      /* Layering: Gradient overlay + Image */
+      background: 
+        linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), 
+        url('https://raw.githubusercontent.com/LIKITH-3012-MAC/Echoes-of-an-Unsaid-Goodbye/main/happy-3d-cartoon-animal-outdoors-grassland.jpg');
+      
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
-      z-index: -1;
       
-      /* Initial State: Hidden and slightly scaled */
-      opacity: 0;
-      transform: scale(1.05);
-      transition: opacity var(--transition-speed) ease-out, transform var(--transition-speed) ease-out;
-      
-      /* Mobile fix: Force GPU rendering */
-      -webkit-transform: translateZ(0);
+      /* Mobile fix: iOS has issues with 'fixed' backgrounds. 
+         Using transform: translateZ(0) forces hardware acceleration. */
       transform: translateZ(0);
-    }
-
-    /* Class added via JavaScript once image is loaded */
-    .bg-loaded {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    /* Overlay for text contrast */
-    .bg-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 100%);
+      -webkit-transform: translateZ(0);
       z-index: -1;
     }
 
-    /* Main Flex Layout */
+    /* Main Flex Wrapper to handle positioning across devices */
     .content-wrapper {
       display: flex;
       height: 100%;
       width: 100%;
-      align-items: flex-end; 
-      justify-content: flex-start;
-      padding: 50px;
+      align-items: flex-end; /* Boxes start at bottom */
+      justify-content: flex-start; /* Boxes start at left */
+      padding: 40px;
     }
 
-    /* Glassmorphism UI Box */
     .ui-box {
-      width: 400px;
+      width: 380px;
       max-width: 100%;
       background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-radius: 28px;
+      backdrop-filter: blur(15px) saturate(180%);
+      -webkit-backdrop-filter: blur(15px) saturate(180%);
+      border-radius: 24px;
       border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 35px;
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
-      
-      /* Animation */
-      opacity: 0;
-      transform: translateY(30px);
-      animation: slideUp 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards 0.3s;
-    }
-
-    @keyframes slideUp {
-      to { opacity: 1; transform: translateY(0); }
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      animation: slideIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
     }
 
     h1 {
-      font-size: 2rem;
-      margin-bottom: 12px;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
       font-weight: 800;
-      background: linear-gradient(to right, #ffffff, var(--primary-accent));
+      color: #fff;
+      background: linear-gradient(to right, #fff, var(--primary-accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     p {
-      font-size: 1rem;
-      line-height: 1.6;
-      margin-bottom: 25px;
-      color: rgba(255, 255, 255, 0.85);
-      font-weight: 300;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      color: rgba(255, 255, 255, 0.9);
     }
 
     .author-tag {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       font-weight: 600;
       color: var(--primary-accent);
-      font-size: 0.9rem;
-      padding: 8px 18px;
+      font-size: 0.85rem;
+      padding: 6px 14px;
       background: rgba(255, 211, 105, 0.1);
       border-radius: 50px;
       border: 1px solid rgba(255, 211, 105, 0.2);
@@ -133,75 +106,57 @@
 
     .btn-back {
       display: block;
-      margin-top: 30px;
+      margin-top: 25px;
       text-align: center;
-      padding: 15px;
+      padding: 12px;
       background: #fff;
       color: #000;
       text-decoration: none;
-      border-radius: 16px;
+      border-radius: 12px;
       font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      transition: all 0.3s ease;
     }
 
     .btn-back:hover {
       background: var(--primary-accent);
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(255, 211, 105, 0.3);
+      transform: translateY(-2px);
     }
 
-    /* Mobile Responsive Logic */
-    @media (max-width: 768px) {
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Mobile-Specific Refinements */
+    @media (max-width: 600px) {
       .content-wrapper {
         padding: 20px;
-        justify-content: center;
-        align-items: flex-end;
+        justify-content: center; /* Center horizontally on mobile */
       }
       .ui-box {
-        margin-bottom: 20px;
+        margin-bottom: 20px; /* Space from bottom edge */
         padding: 25px;
-        width: 100%;
       }
-      h1 { font-size: 1.6rem; }
+      h1 { font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <div id="bg" class="bg-container"></div>
-  <div class="bg-overlay"></div>
+  <div class="bg-container"></div>
 
   <div class="content-wrapper">
-    <main class="ui-box">
+    <div class="ui-box">
       <h1>Review Sent!</h1>
-      <p>Thank you for sharing your journey through "Echoes of an Unsaid Goodbye." Your voice helps the story live on.</p>
+      <p>Thank you for sharing your journey through "Echoes of an Unsaid Goodbye." Your feedback means a lot.</p>
       
       <div class="author-tag">
-        <span>🧸</span> From Author Likith
+        🧸 From Author Likith
       </div>
 
       <a href="index.html" class="btn-back">Return to Home</a>
-    </main>
+    </div>
   </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const bgImage = "https://raw.githubusercontent.com/LIKITH-3012-MAC/Echoes-of-an-Unsaid-Goodbye/main/happy-3d-cartoon-animal-outdoors-grassland.jpg";
-      const bgContainer = document.getElementById('bg');
-      
-      // Create a temporary image object to "pre-load"
-      const img = new Image();
-      img.src = bgImage;
-      
-      img.onload = function() {
-        // Once the image is in browser cache, apply it to the div
-        bgContainer.style.backgroundImage = `url('${bgImage}')`;
-        // Trigger the fade-in animation
-        bgContainer.classList.add('bg-loaded');
-      };
-    });
-  </script>
 
 </body>
 </html>
