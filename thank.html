@@ -1,142 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Review Sent | Echoes of an Unsaid Goodbye</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-
-<style>
-  * {
-    box-sizing: border-box;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Sent | Echoes of an Unsaid Goodbye</title>
   
-  body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
-    color: #fff;
-  }
+  <meta name="description" content="Thank you for reviewing Echoes of an Unsaid Goodbye. Your feedback is appreciated.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-  /* Background Image */
-  .bg-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('https://raw.githubusercontent.com/LIKITH-3012-MAC/Echoes-of-an-Unsaid-Goodbye/main/happy-3d-cartoon-animal-outdoors-grassland.jpg');
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
-  }
-
-  /* Bottom-Left UI Box */
-  .ui-box {
-    position: absolute;
-    bottom: 40px;
-    left: 40px;
-    width: 380px;
-    max-width: 90%;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px) saturate(150%);
-    -webkit-backdrop-filter: blur(15px) saturate(150%);
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    animation: slideIn 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-    margin: 0 0 10px 0;
-    font-weight: 800;
-    background: linear-gradient(to right, #fff, #ffd369);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  p {
-    font-size: 1rem;
-    line-height: 1.5;
-    margin: 0 0 20px 0;
-    opacity: 0.9;
-  }
-
-  .author-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 600;
-    color: #ffd369;
-    font-size: 0.9rem;
-    padding: 6px 12px;
-    background: rgba(255, 211, 105, 0.1);
-    border-radius: 12px;
-  }
-
-  /* Back Button */
-  .btn-back {
-    display: block;
-    margin-top: 25px;
-    text-align: center;
-    padding: 12px;
-    background: #fff;
-    color: #000;
-    text-decoration: none;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-  }
-
-  .btn-back:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
-    background: #ffd369;
-  }
-
-  /* Entrance Animation */
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateX(-50px);
+  <style>
+    :root {
+      --primary-accent: #ffd369;
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --text-main: #ffffff;
     }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
 
-  /* Mobile adjustments */
-  @media (max-width: 600px) {
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden; /* Keeps the 'app-like' feel */
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-main);
+      background-color: #1a1a1a; /* Fallback color */
+    }
+
+    /* Background Image with Overlay for Readability */
+    .bg-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+                  url('https://raw.githubusercontent.com/LIKITH-3012-MAC/Echoes-of-an-Unsaid-Goodbye/main/happy-3d-cartoon-animal-outdoors-grassland.jpg');
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+    }
+
+    /* Main Container for Flex Alignment */
+    .viewport-wrapper {
+      display: flex;
+      align-items: flex-end; /* Mobile default */
+      justify-content: center;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    /* Bottom-Left UI Box */
     .ui-box {
-      left: 5%;
-      bottom: 20px;
-      width: 90%;
+      width: 100%;
+      max-width: 400px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border-radius: 24px;
+      border: 1px solid var(--glass-border);
+      padding: 35px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      animation: slideIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
-  }
-</style>
+
+    h1 {
+      font-size: 2rem;
+      margin: 0 0 12px 0;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #fff, var(--primary-accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0 0 25px 0;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    .author-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      color: var(--primary-accent);
+      font-size: 0.85rem;
+      padding: 8px 16px;
+      background: rgba(255, 211, 105, 0.15);
+      border-radius: 50px; /* Pill shape */
+      border: 1px solid rgba(255, 211, 105, 0.2);
+    }
+
+    /* Improved Back Button */
+    .btn-back {
+      display: block;
+      margin-top: 30px;
+      text-align: center;
+      padding: 14px;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-back:hover, .btn-back:focus {
+      outline: none;
+      transform: translateY(-3px);
+      background: var(--primary-accent);
+      box-shadow: 0 10px 20px rgba(255, 211, 105, 0.2);
+    }
+    
+    .btn-back:active {
+      transform: translateY(-1px);
+    }
+
+    /* Animations */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Desktop Viewport Logic */
+    @media (min-width: 768px) {
+      .viewport-wrapper {
+        justify-content: flex-start;
+        align-items: flex-end;
+        padding: 60px;
+      }
+      
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    }
+  </style>
 </head>
 <body>
 
-  <div class="bg-container"></div>
+  <div class="bg-container" role="img" aria-label="A scenic grassland background"></div>
 
-  <div class="ui-box">
-    <h1>Review Sent!</h1>
-    <p>Thank you for sharing your journey through "Echoes of an Unsaid Goodbye." Your feedback means a lot.</p>
-    
-    <div class="author-tag">
-      🧸 From Author Likith
-    </div>
+  <main class="viewport-wrapper">
+    <article class="ui-box">
+      <h1>Review Sent!</h1>
+      <p>Thank you for sharing your journey through <strong>"Echoes of an Unsaid Goodbye."</strong> Your feedback means a lot to the creative process.</p>
+      
+      <div class="author-tag">
+        <span role="img" aria-label="teddy bear">🧸</span> From Author Likith
+      </div>
 
-    <a href="index.html" class="btn-back">Return to Home</a>
-  </div>
+      <a href="index.html" class="btn-back">Return to Home</a>
+    </article>
+  </main>
 
 </body>
 </html>
