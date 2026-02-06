@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Review Sent | Echoes of an Unsaid Goodbye</title>
   
-  <meta name="description" content="Thank you for reviewing Echoes of an Unsaid Goodbye. Your feedback is appreciated.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -13,71 +12,100 @@
   <style>
     :root {
       --primary-accent: #ffd369;
-      --glass-bg: rgba(255, 255, 255, 0.1);
-      --glass-border: rgba(255, 255, 255, 0.2);
-      --text-main: #ffffff;
+      --transition-speed: 0.8s;
     }
 
     * {
       box-sizing: border-box;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      margin: 0;
+      padding: 0;
     }
     
     body, html {
-      margin: 0;
-      padding: 0;
       height: 100%;
       width: 100%;
-      overflow: hidden; /* Keeps the 'app-like' feel */
       font-family: 'Poppins', sans-serif;
-      color: var(--text-main);
-      background-color: #1a1a1a; /* Fallback color */
+      background-color: #121212; /* Fallback background color */
+      overflow: hidden;
+      color: #fff;
     }
 
-    /* Background Image with Overlay for Readability */
+    /* Background Container */
     .bg-container {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
-                  url('https://raw.githubusercontent.com/LIKITH-3012-MAC/Echoes-of-an-Unsaid-Goodbye/main/happy-3d-cartoon-animal-outdoors-grassland.jpg');
       background-size: cover;
-      background-position: center;
+      background-position: center center;
+      background-repeat: no-repeat;
+      z-index: -1;
+      
+      /* Initial State: Hidden and slightly scaled */
+      opacity: 0;
+      transform: scale(1.05);
+      transition: opacity var(--transition-speed) ease-out, transform var(--transition-speed) ease-out;
+      
+      /* Mobile fix: Force GPU rendering */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+
+    /* Class added via JavaScript once image is loaded */
+    .bg-loaded {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Overlay for text contrast */
+    .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 100%);
       z-index: -1;
     }
 
-    /* Main Container for Flex Alignment */
-    .viewport-wrapper {
+    /* Main Flex Layout */
+    .content-wrapper {
       display: flex;
-      align-items: flex-end; /* Mobile default */
-      justify-content: center;
-      height: 100vh;
-      padding: 20px;
+      height: 100%;
+      width: 100%;
+      align-items: flex-end; 
+      justify-content: flex-start;
+      padding: 50px;
     }
 
-    /* Bottom-Left UI Box */
+    /* Glassmorphism UI Box */
     .ui-box {
-      width: 100%;
-      max-width: 400px;
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px) saturate(160%);
-      -webkit-backdrop-filter: blur(20px) saturate(160%);
-      border-radius: 24px;
-      border: 1px solid var(--glass-border);
+      width: 400px;
+      max-width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
       padding: 35px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-      animation: slideIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
+      
+      /* Animation */
+      opacity: 0;
+      transform: translateY(30px);
+      animation: slideUp 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards 0.3s;
+    }
+
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
       font-size: 2rem;
-      margin: 0 0 12px 0;
+      margin-bottom: 12px;
       font-weight: 800;
-      letter-spacing: -0.5px;
-      background: linear-gradient(to right, #fff, var(--primary-accent));
+      background: linear-gradient(to right, #ffffff, var(--primary-accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -85,100 +113,95 @@
     p {
       font-size: 1rem;
       line-height: 1.6;
-      margin: 0 0 25px 0;
-      opacity: 0.9;
+      margin-bottom: 25px;
+      color: rgba(255, 255, 255, 0.85);
       font-weight: 300;
     }
 
     .author-tag {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       font-weight: 600;
       color: var(--primary-accent);
-      font-size: 0.85rem;
-      padding: 8px 16px;
-      background: rgba(255, 211, 105, 0.15);
-      border-radius: 50px; /* Pill shape */
+      font-size: 0.9rem;
+      padding: 8px 18px;
+      background: rgba(255, 211, 105, 0.1);
+      border-radius: 50px;
       border: 1px solid rgba(255, 211, 105, 0.2);
     }
 
-    /* Improved Back Button */
     .btn-back {
       display: block;
       margin-top: 30px;
       text-align: center;
-      padding: 14px;
+      padding: 15px;
       background: #fff;
       color: #000;
       text-decoration: none;
-      border-radius: 14px;
+      border-radius: 16px;
       font-weight: 600;
-      font-size: 0.95rem;
-      transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
-    .btn-back:hover, .btn-back:focus {
-      outline: none;
-      transform: translateY(-3px);
+    .btn-back:hover {
       background: var(--primary-accent);
-      box-shadow: 0 10px 20px rgba(255, 211, 105, 0.2);
-    }
-    
-    .btn-back:active {
-      transform: translateY(-1px);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(255, 211, 105, 0.3);
     }
 
-    /* Animations */
-    @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.98);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    /* Desktop Viewport Logic */
-    @media (min-width: 768px) {
-      .viewport-wrapper {
-        justify-content: flex-start;
+    /* Mobile Responsive Logic */
+    @media (max-width: 768px) {
+      .content-wrapper {
+        padding: 20px;
+        justify-content: center;
         align-items: flex-end;
-        padding: 60px;
       }
-      
-      @keyframes slideIn {
-        from {
-          opacity: 0;
-          transform: translateX(-40px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
+      .ui-box {
+        margin-bottom: 20px;
+        padding: 25px;
+        width: 100%;
       }
+      h1 { font-size: 1.6rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="bg-container" role="img" aria-label="A scenic grassland background"></div>
+  <div id="bg" class="bg-container"></div>
+  <div class="bg-overlay"></div>
 
-  <main class="viewport-wrapper">
-    <article class="ui-box">
+  <div class="content-wrapper">
+    <main class="ui-box">
       <h1>Review Sent!</h1>
-      <p>Thank you for sharing your journey through <strong>"Echoes of an Unsaid Goodbye."</strong> Your feedback means a lot to the creative process.</p>
+      <p>Thank you for sharing your journey through "Echoes of an Unsaid Goodbye." Your voice helps the story live on.</p>
       
       <div class="author-tag">
-        <span role="img" aria-label="teddy bear">🧸</span> From Author Likith
+        <span>🧸</span> From Author Likith
       </div>
 
       <a href="index.html" class="btn-back">Return to Home</a>
-    </article>
-  </main>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const bgImage = "https://raw.githubusercontent.com/LIKITH-3012-MAC/Echoes-of-an-Unsaid-Goodbye/main/happy-3d-cartoon-animal-outdoors-grassland.jpg";
+      const bgContainer = document.getElementById('bg');
+      
+      // Create a temporary image object to "pre-load"
+      const img = new Image();
+      img.src = bgImage;
+      
+      img.onload = function() {
+        // Once the image is in browser cache, apply it to the div
+        bgContainer.style.backgroundImage = `url('${bgImage}')`;
+        // Trigger the fade-in animation
+        bgContainer.classList.add('bg-loaded');
+      };
+    });
+  </script>
 
 </body>
 </html>
