@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Review Sent</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at bottom, #0f2027, #203a43, #2c5364);
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+  z-index: 2;
+}
+
+.rocket {
+  font-size: 6rem;
+  animation: launch 2s ease forwards, shake 0.5s ease infinite alternate;
+  text-shadow: 0 0 20px #ff4, 0 0 40px #ff4, 0 0 60px #f0f;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 0.5rem 0;
+  animation: fadeInUp 1.5s ease forwards;
+}
+
+p {
+  font-size: 1.2rem;
+  animation: fadeInUp 2s ease forwards;
+}
+
+/* Rocket launch animation */
+@keyframes launch {
+  0% { transform: translateY(80px) scale(0.5); opacity: 0; }
+  60% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+  100% { transform: translateY(-80px) scale(1); }
+}
+
+/* Shake effect for fun */
+@keyframes shake {
+  0% { transform: translateY(-80px) rotate(-5deg); }
+  100% { transform: translateY(-80px) rotate(5deg); }
+}
+
+/* Fade in text */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Star particles */
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.3; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1.2); }
+}
+
+/* Rocket trail */
+.trail {
+  position: absolute;
+  width: 4px;
+  height: 40px;
+  background: linear-gradient(to top, #ff0, transparent);
+  border-radius: 50%;
+  left: 50%;
+  bottom: 50%;
+  transform: translateX(-50%) translateY(50%);
+  animation: trailMove 2s ease forwards;
+}
+
+@keyframes trailMove {
+  0% { opacity: 1; transform: translateX(-50%) translateY(50%) scaleY(1); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-100px) scaleY(0.5); }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="rocket">🚀</div>
+  <h1>Review Sent Successfully!</h1>
+  <p>Thank you for sharing your feelings ❤️</p>
+</div>
+
+<!-- Rocket trail -->
+<div class="trail"></div>
+
+<!-- Stars background -->
+<script>
+const starCount = 80;
+for(let i=0;i<starCount;i++){
+  const star = document.createElement('div');
+  star.classList.add('star');
+  star.style.top = Math.random() * window.innerHeight + 'px';
+  star.style.left = Math.random() * window.innerWidth + 'px';
+  star.style.width = star.style.height = Math.random() * 3 + 1 + 'px';
+  star.style.animationDuration = (Math.random() * 2 + 1) + 's';
+  document.body.appendChild(star);
+}
+</script>
+
+</body>
+</html>
