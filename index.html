@@ -375,71 +375,165 @@
 
 
 <!-- ===================== CREATIVE PROTOCOL — ELITE EDITION ===================== -->
-<div class="section-divider-glow"></div>
+<!-- ===================== CREATIVE PROTOCOL — CINEMATIC ELITE ===================== -->
 
-<section id="creative-protocol" class="py-20 md:py-28 relative overflow-hidden">
+<section id="creative-protocol" class="py-24 relative overflow-hidden bg-black">
 
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,215,0,0.15),_transparent_70%)]"></div>
+    <!-- Background Glow -->
+    <div id="bgLayer" class="absolute inset-0 
+        bg-[radial-gradient(circle_at_center,_rgba(255,200,0,0.15),_transparent_70%)]
+        transition-all duration-700 ease-out">
+    </div>
 
     <div class="max-w-6xl mx-auto px-6 text-center relative z-10">
-        <h2 class="soft-title text-4xl md:text-6xl font-black mb-16 md:mb-20 tracking-[0.25em] md:tracking-[0.3em]">
-           __PIANO PERFORMANCE__
+        <h2 class="text-5xl md:text-6xl font-black mb-16 tracking-[0.3em] text-white">
+            :: CREATIVE PROTOCOL ::
         </h2>
 
-        <div class="relative p-[2px] rounded-[2rem] md:rounded-[2.5rem]
-                    bg-gradient-to-br from-yellow-300 via-orange-400 to-yellow-500
-                    shadow-[0_0_100px_rgba(255,200,0,0.25)]">
-
-            <div class="rounded-[2rem] md:rounded-[2.5rem] bg-black/60 backdrop-blur-2xl 
-                        p-8 md:p-12 md:flex gap-12 items-center">
-
-                <!-- Icon -->
-                <div class="md:w-1/4 flex justify-center mb-8 md:mb-0">
-                    <div class="w-24 h-24 md:w-28 md:h-28 rounded-full 
-                                bg-gradient-to-br from-yellow-200 via-yellow-400 to-orange-500
-                                flex items-center justify-center
-                                shadow-[0_0_60px_rgba(255,200,0,0.7)]">
-                        <i data-lucide="music" class="w-12 h-12 md:w-14 md:h-14 text-black"></i>
-                    </div>
-                </div>
-
-                <!-- Content -->
-                <div class="md:w-3/4 text-left">
-                    <h3 class="text-2xl md:text-4xl font-bold text-white mb-4 md:mb-6 tracking-wide">
-                        The Classical Pianist 
-                        <span class="verified-stamp ml-2 md:ml-3">VERIFIED SKILL</span>
-                    </h3>
-
-                    <p class="text-gray-300 leading-relaxed mb-8 md:mb-10 text-base md:text-lg">
-                        A mastery rooted in discipline and harmonic precision. 
-                        Classical piano sharpens structured cognition, emotional intelligence,
-                        and algorithmic intuition—transcending music into architectural thought.
-                    </p>
-
-                    <div class="flex flex-wrap gap-2 md:gap-3 mb-8 md:mb-10">
-                        <span class="skill-tag">PERFORMANCE EFFICACY</span>
-                        <span class="skill-tag">PATTERN RECOGNITION (V)</span>
-                        <span class="skill-tag">CREATIVE PROBLEM SOLVING</span>
-                    </div>
-
-                    <button onclick="openPerformance()"
-                        class="relative group w-full md:w-auto px-8 md:px-10 py-3 md:py-4 uppercase 
-                               tracking-widest text-xs md:text-sm font-bold
-                               bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400
-                               text-black rounded-full overflow-hidden
-                               shadow-[0_0_40px_rgba(255,200,0,0.6)]
-                               hover:scale-105 transition duration-500">
-
-                        <span class="relative z-10 flex items-center justify-center gap-3">
-                            <i data-lucide="play-circle" class="w-4 h-4 md:w-5 md:h-5"></i>
-                            Witness Performance
-                        </span>
-                    </button>
-                </div>
-            </div>
-        </div>
+        <button onclick="openPerformance()"
+            class="px-10 py-4 uppercase tracking-widest text-sm font-bold
+                   bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400
+                   text-black rounded-full
+                   shadow-[0_0_40px_rgba(255,200,0,0.6)]
+                   transition duration-500
+                   hover:scale-110 hover:rotate-1">
+            🎹 Witness Performance
+        </button>
     </div>
 </section>
+
+
+<!-- ===================== MODAL ===================== -->
+<div id="performanceModal"
+     class="fixed inset-0 hidden items-center justify-center
+            bg-black/95 backdrop-blur-xl z-50
+            opacity-0 transition-all duration-700">
+
+    <div onclick="fadeOutAndClose()" class="absolute inset-0"></div>
+
+    <div id="modalContent"
+         class="relative w-[95%] max-w-6xl
+                transform scale-90 translate-y-20
+                transition-all duration-700">
+
+        <button onclick="fadeOutAndClose()"
+            class="absolute -top-14 right-2 text-white text-4xl
+                   transition duration-500
+                   hover:rotate-180 hover:scale-125 hover:text-yellow-400">
+            ✕
+        </button>
+
+        <div class="rounded-2xl overflow-hidden shadow-[0_0_100px_rgba(255,200,0,0.7)]">
+            <div id="player"></div>
+        </div>
+
+        <div class="text-center mt-8 text-yellow-400 tracking-[0.4em] text-xs opacity-70">
+            IMMERSIVE PERFORMANCE EXPERIENCE
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ===================== YOUTUBE API ===================== -->
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+let player;
+let modal = document.getElementById('performanceModal');
+let modalContent = document.getElementById('modalContent');
+let bgLayer = document.getElementById('bgLayer');
+
+let touchStartY = 0;
+let touchEndY = 0;
+
+/* Create Player */
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        height: '600',
+        width: '100%',
+        videoId: 'GZNg2oT_8BU',
+        playerVars: {
+            autoplay: 0,
+            controls: 1,
+            modestbranding: 1,
+            rel: 0
+        }
+    });
+}
+
+/* OPEN */
+function openPerformance() {
+
+    modal.classList.remove("hidden");
+
+    setTimeout(() => {
+        modal.classList.add("opacity-100");
+        modalContent.classList.remove("scale-90","translate-y-20");
+        modalContent.classList.add("scale-100","translate-y-0");
+
+        // Background cinematic zoom
+        bgLayer.classList.add("scale-110","blur-xl","opacity-40");
+
+        player.playVideo();
+        player.setVolume(100);
+    }, 50);
+
+    document.body.style.overflow = "hidden";
+}
+
+/* TRUE AUDIO FADE OUT */
+function fadeOutAndClose() {
+
+    let currentVolume = player.getVolume();
+    let fade = setInterval(() => {
+        if (currentVolume > 0) {
+            currentVolume -= 5;
+            player.setVolume(currentVolume);
+        } else {
+            clearInterval(fade);
+            player.pauseVideo();
+            closePerformance();
+        }
+    }, 40);
+}
+
+/* CLOSE */
+function closePerformance() {
+
+    modal.classList.remove("opacity-100");
+    modalContent.classList.add("scale-90","translate-y-20");
+    modalContent.classList.remove("scale-100","translate-y-0");
+
+    bgLayer.classList.remove("scale-110","blur-xl","opacity-40");
+
+    setTimeout(() => {
+        modal.classList.add("hidden");
+    }, 600);
+
+    document.body.style.overflow = "auto";
+}
+
+/* ESC SUPPORT */
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        fadeOutAndClose();
+    }
+});
+
+/* SWIPE DOWN CLOSE */
+modalContent.addEventListener("touchstart", function(e) {
+    touchStartY = e.changedTouches[0].screenY;
+});
+
+modalContent.addEventListener("touchend", function(e) {
+    touchEndY = e.changedTouches[0].screenY;
+
+    if (touchEndY - touchStartY > 120) {
+        fadeOutAndClose();
+    }
+});
+</script>
 
 
 <!-- ===================== RESPONSIVE MODAL ===================== -->
