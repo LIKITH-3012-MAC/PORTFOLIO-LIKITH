@@ -132,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(collabForm);
         const data = Object.fromEntries(formData.entries());
 
-        // Standardize and Null-Safe Handling
         const payload = {
             full_name: data.full_name,
             phone_number: data.phone_number,
@@ -150,12 +149,12 @@ document.addEventListener('DOMContentLoaded', () => {
             preferred_contact_method: data.preferred_contact_method || null
         };
 
-        // Processing State
+        // Premium Loading State
         submitBtn.disabled = true;
         submitBtn.innerHTML = `
-            <div class="flex items-center gap-2">
-                <div class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                <span>Transmitting Data...</span>
+            <div class="flex items-center gap-3">
+                <div class="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
+                <span class="tracking-widest uppercase text-xs font-bold">Initiating Transmission...</span>
             </div>
         `;
 
@@ -166,29 +165,87 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(payload)
             });
 
-            if (!response.ok) throw new Error('API Rejection');
+            if (!response.ok) throw new Error('System Refusal');
 
             const result = await response.json();
 
             if (result.success) {
-                // Success State Transition
-                document.getElementById('success-state').classList.remove('hidden');
-                collabForm.classList.add('opacity-0', 'pointer-events-none');
-                if (window.lucide) lucide.createIcons();
+                triggerCinematicSuccess();
             } else {
                 throw new Error(result.message);
             }
         } catch (error) {
-            console.error('Submission Error Details:', error);
-            // Fallback: If it's a 404 on the API, don't just redirect, show alert first
-            if (error.message.includes('404')) {
-                alert('Backend API not found (404). Please ensure Render deployment is complete.');
-            } else {
-                window.location.href = '/problem.html';
-            }
+            console.error('Transmission Error:', error);
+            showPremiumError(error.message);
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnText;
         }
     });
+
+    function triggerCinematicSuccess() {
+        const stage = document.getElementById('cinematic-success');
+        const rocket = document.getElementById('rocket-unit');
+        const vapor = document.getElementById('rocket-vapor');
+        const content = document.getElementById('success-content');
+        const form = document.getElementById('collab-form');
+
+        // Phase 1: Form Dissolve
+        form.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
+        form.style.opacity = '0';
+        form.style.filter = 'blur(10px)';
+        form.style.transform = 'scale(0.95)';
+        
+        setTimeout(() => {
+            // Phase 2: Success Stage Reveal
+            stage.classList.add('active');
+            
+            setTimeout(() => {
+                // Phase 3: Rocket Arrival
+                rocket.classList.add('reveal');
+                
+                setTimeout(() => {
+                    // Phase 4: Pre-Launch Ignition
+                    vapor.classList.add('active');
+                    rocket.classList.add('launching');
+                    
+                    setTimeout(() => {
+                        // Phase 5: Cinematic Launch
+                        rocket.classList.add('launch');
+                        
+                        setTimeout(() => {
+                            // Phase 6: Delivery Confirmation
+                            content.classList.add('visible');
+                            if (window.lucide) lucide.createIcons();
+                        }, 1000);
+                    }, 1000);
+                }, 1200);
+            }, 800);
+        }, 800);
+    }
+
+    function showPremiumError(message) {
+        const submitBtn = document.getElementById('submit-btn');
+        const originalContent = submitBtn.innerHTML;
+        
+        submitBtn.classList.remove('btn-premium');
+        submitBtn.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+        submitBtn.style.borderColor = 'rgba(255, 255, 255, 0.4)';
+        submitBtn.style.color = '#ffffff';
+        
+        submitBtn.innerHTML = `
+            <div class="flex items-center gap-2">
+                <i data-lucide="alert-circle" class="w-4 h-4"></i>
+                <span class="text-[10px] uppercase font-bold tracking-widest">Transmission Failed: ${message || 'System Error'}</span>
+            </div>
+        `;
+        if (window.lucide) lucide.createIcons();
+
+        setTimeout(() => {
+            submitBtn.style = '';
+            submitBtn.classList.add('btn-premium');
+            submitBtn.innerHTML = originalContent;
+            if (window.lucide) lucide.createIcons();
+        }, 4000);
+    }
 });
