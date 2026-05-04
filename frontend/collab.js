@@ -161,8 +161,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(result.message);
             }
         } catch (error) {
-            console.error('Submission Error:', error);
-            window.location.href = 'problem.html';
+            console.error('Submission Error Details:', error);
+            // Fallback: If it's a 404 on the API, don't just redirect, show alert first
+            if (error.message.includes('404')) {
+                alert('Backend API not found (404). Please ensure Render deployment is complete.');
+            } else {
+                window.location.href = '/problem.html';
+            }
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
         }
     });
 });
