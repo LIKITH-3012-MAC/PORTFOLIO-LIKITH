@@ -76,16 +76,21 @@ kb_text = json.dumps(kb, indent=2)
 # 4. Database Setup
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-# Improved MySQL/Aiven compatibility
-if "mysql" in DATABASE_URL.lower():
+# Optimized for Aiven MySQL with pymysql
+if DATABASE_URL and "mysql" in DATABASE_URL.lower():
     engine = create_engine(
-        DATABASE_URL, 
-        connect_args={"ssl": {"ca": None}}, # Standard for many cloud providers, but let's refine
+        DATABASE_URL,
+        connect_args={
+            "ssl": {
+                "ssl_mode": "REQUIRED"  # Standard for Aiven/Managed MySQL
+            }
+        },
         pool_pre_ping=True,
         pool_recycle=3600
     )
 else:
-    engine = create_engine(DATABASE_URL, connect_args={"ssl": {"ca": None}})
+    # Fallback for PostgreSQL/SQLite
+    engine = create_engine(DATABASE_URL, connect_args={"ssl": {"ca": None}} if DATABASE_URL and "sqlite" not in DATABASE_URL else {})
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
@@ -110,13 +115,12 @@ class CollaborationRequest(Base):
     status = Column(String(50), default="pending")
     created_at = Column(DateTime, default=datetime.utcnow)
 
-# Ensure tables exist (Resetting for schema parity)
+# Startup Table Verification
 try:
-    # Optional: Base.metadata.drop_all(bind=engine) # Uncomment if schema mismatch persists
     Base.metadata.create_all(bind=engine)
-    logger.info("Database tables verified/created.")
+    logger.info("✅ Database tables verified/created successfully.")
 except Exception as e:
-    logger.error(f"Table Creation Error: {e}")
+    logger.error(f"❌ Table Creation Error: {str(e)}")
 
 # 5. Pydantic Models
 class ChatRequest(BaseModel):
@@ -195,7 +199,7 @@ async def chat(request: ChatRequest):
 async def create_collab(request: CollabRequest):
     db = SessionLocal()
     try:
-        logger.info(f"Received Collab Request from: {request.full_name}")
+        logger.info(f"📥 RECEIVED PAYLOAD: {request.dict()}")
         new_request = CollaborationRequest(
             full_name=request.full_name,
             phone_number=request.phone_number,
@@ -214,14 +218,26 @@ async def create_collab(request: CollabRequest):
         )
         db.add(new_request)
         db.commit()
-        logger.info("Collaboration request successfully committed to DB.")
+        logger.info("🚀 DATA STORED: Successfully committed to database.")
         return {"success": True, "message": "Collaboration logged successfully."}
     except Exception as e:
         db.rollback()
-        logger.error(f"FATAL DB ERROR: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Database submission failed: {str(e)}")
+        logger.error(f"❌ DB STORAGE ERROR: {str(e)}")
+        # Return exact error for user debugging
+        return JSONResponse(status_code=500, content={"success": False, "message": f"Database error: {str(e)}"})
     finally:
         db.close()
+
+@app.get("/api/debug-db")
+async def debug_db():
+    try:
+        # Test connection
+        db = SessionLocal()
+        db.execute("SELECT 1")
+        db.close()
+        return {"status": "connected", "database_type": "mysql" if "mysql" in DATABASE_URL.lower() else "other"}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
 
 @app.get("/api/health")
 async def health():
