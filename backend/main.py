@@ -75,7 +75,18 @@ kb_text = json.dumps(kb, indent=2)
 
 # 4. Database Setup
 DATABASE_URL = os.getenv("DATABASE_URL")
-engine = create_engine(DATABASE_URL, connect_args={"ssl": {"ca": None}})
+
+# Improved MySQL/Aiven compatibility
+if "mysql" in DATABASE_URL.lower():
+    engine = create_engine(
+        DATABASE_URL, 
+        connect_args={"ssl": {"ca": None}}, # Standard for many cloud providers, but let's refine
+        pool_pre_ping=True,
+        pool_recycle=3600
+    )
+else:
+    engine = create_engine(DATABASE_URL, connect_args={"ssl": {"ca": None}})
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
@@ -99,7 +110,12 @@ class CollaborationRequest(Base):
     status = Column(String(50), default="pending")
     created_at = Column(DateTime, default=datetime.utcnow)
 
-Base.metadata.create_all(bind=engine)
+# Ensure tables exist
+try:
+    Base.metadata.create_all(bind=engine)
+    logger.info("Database tables verified/created.")
+except Exception as e:
+    logger.error(f"Table Creation Error: {e}")
 
 # 5. Pydantic Models
 class ChatRequest(BaseModel):
@@ -178,6 +194,7 @@ async def chat(request: ChatRequest):
 async def create_collab(request: CollabRequest):
     db = SessionLocal()
     try:
+        logger.info(f"Received Collab Request from: {request.name}")
         new_request = CollaborationRequest(
             full_name=request.name,
             phone_number=request.phone,
@@ -196,11 +213,12 @@ async def create_collab(request: CollabRequest):
         )
         db.add(new_request)
         db.commit()
+        logger.info("Collaboration request successfully committed to DB.")
         return {"success": True, "message": "Collaboration logged successfully."}
     except Exception as e:
         db.rollback()
-        logger.error(f"Collab DB Error: {e}")
-        raise HTTPException(status_code=500, detail="Database submission failed.")
+        logger.error(f"FATAL DB ERROR: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Database submission failed: {str(e)}")
     finally:
         db.close()
 
