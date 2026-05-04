@@ -3,19 +3,13 @@
     {
       "degree": "B.Tech in Computer Science Engineering (Artificial Intelligence)",
       "institution": "PBR VITS",
-      "location": "Kavali, AP, India",
       "status": "Current",
-      "focus": "Complex data structures (Python), Java OOP, and Neural Networks."
+      "focus": "Complex data structures, Java OOP, and Neural Networks."
     },
     {
       "certification": "Advanced AIML Specialization",
-      "institution": "IIT Patna (I-HUB)",
+      "provider": "IIT Patna (I-HUB)",
       "focus": "Deep Learning, NLP, Computer Vision, and real-time predictive modeling."
     }
-  ],
-  "learning_path": [
-    "Technical learning path focused on AI/ML architecture",
-    "Deep dive into RAG and LLM systems",
-    "Architecture of scalable data logic"
   ]
 }

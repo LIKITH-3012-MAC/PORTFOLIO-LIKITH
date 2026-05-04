@@ -1,8 +1,29 @@
 {
-  "github": "https://github.com/LIKITH-3012-MAC",
-  "linkedin": "https://linkedin.com/in/likith-naidu-anumakonda-33a347327",
-  "instagram": "https://www.instagram.com/likhith_anumakonda?igsh=MTgxZ3hrc3BtcHAzdg==",
-  "twitter": "https://x.com/Likithdob301206?t=4FzQYS1UgCKSQBgc99xspg&s=09",
-  "x": "https://x.com/Likithdob301206?t=4FzQYS1UgCKSQBgc99xspg&s=09",
-  "portfolio": "https://likith-portfolio.online"
+  "social_links": [
+    {
+      "platform": "GitHub",
+      "url": "https://github.com/LIKITH-3012-MAC",
+      "username": "LIKITH-3012-MAC"
+    },
+    {
+      "platform": "LinkedIn",
+      "url": "https://linkedin.com/in/likith-naidu-anumakonda-33a347327",
+      "username": "Likith Naidu Anumakonda"
+    },
+    {
+      "platform": "Instagram",
+      "url": "https://www.instagram.com/likhith_anumakonda?igsh=MTgxZ3hrc3BtcHAzdg==",
+      "username": "likhith_anumakonda"
+    },
+    {
+      "platform": "X / Twitter",
+      "url": "https://x.com/Likithdob301206?t=4FzQYS1UgCKSQBgc99xspg&s=09",
+      "username": "Likithdob301206"
+    },
+    {
+      "platform": "YouTube",
+      "url": "https://youtube.com/@LIKITH_NAIDU_ANUMAKONDA",
+      "channel": "@LIKITH_NAIDU_ANUMAKONDA"
+    }
+  ]
 }

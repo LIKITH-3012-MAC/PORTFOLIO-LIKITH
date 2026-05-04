@@ -1,17 +1,12 @@
 {
-  "featured_projects": [
+  "projects": [
     {
       "name": "Resolvit AI",
       "description": "AI-powered civic issue tracking system with real-time priority scoring, blockchain audit trails, and authority performance accountability. Uses FastAPI for backend, vanilla JS/Leaflet for frontend, and PostgreSQL for storage.",
       "technologies": ["FastAPI", "PostgreSQL", "Leaflet", "Vanilla JS", "AI Simulation"],
       "status": "Production",
       "url": "https://www.resolvit-ai.online",
-      "category": "Civic Tech / AI",
-      "highlights": [
-        "Real-time priority scoring",
-        "Blockchain audit trails",
-        "Authority performance accountability"
-      ]
+      "category": "Civic Tech / AI"
     },
     {
       "name": "Prometheus AI V2.0",
@@ -19,12 +14,7 @@
       "technologies": ["Llama 3.2", "Apple MLX", "Python", "Local AI"],
       "status": "Featured",
       "url": "https://github.com/LIKITH-3012-MAC/my_chatbot.git",
-      "category": "GenAI / Privacy",
-      "highlights": [
-        "Local-first architecture",
-        "Privacy-centric design",
-        "Voice-enabled intelligence"
-      ]
+      "category": "GenAI / Privacy"
     },
     {
       "name": "BenchAI / Student Bench AI",
@@ -32,15 +22,8 @@
       "technologies": ["Offline LLM", "RAG Architecture", "Python", "Education Tech"],
       "status": "Active",
       "url": "https://likith-3012-mac.github.io/STUDENT-BENCH-AI/",
-      "category": "EdTech / AI",
-      "highlights": [
-        "Offline LLM support",
-        "RAG-powered smart classroom",
-        "Multilingual learning support"
-      ]
-    }
-  ],
-  "utility_projects": [
+      "category": "EdTech / AI"
+    },
     {
       "name": "Python GUI Utility",
       "description": "Desktop application using Tkinter/PyQt with robust backend processing, reducing processing latency by 12% vs CLI tools.",

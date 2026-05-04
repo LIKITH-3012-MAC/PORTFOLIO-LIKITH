@@ -1,0 +1,24 @@
+{
+  "faq": [
+    {
+      "question": "Who is Likith Naidu Anumakonda?",
+      "answer": "Likith Naidu Anumakonda is an AI/ML Engineer, Founder of SAKRA VISION, Author, and Classical Pianist based in Andhra Pradesh, India. He specializes in offline LLM architectures, RAG systems, and autonomous automation."
+    },
+    {
+      "question": "What is Resolvit AI?",
+      "answer": "Resolvit AI is a flagship project by Likith—an AI-powered civic issue tracking platform that uses FastAPI and PostgreSQL to streamline community problem-solving."
+    },
+    {
+      "question": "How can I contact Likith?",
+      "answer": "You can reach Likith via email at likith.anumakonda@gmail.com or through the Collaborate page on his portfolio website."
+    },
+    {
+      "question": "What are Likith's technical skills?",
+      "answer": "His technical stack includes Python (FastAPI), Java SE, Next.js, React, Node.js, and specialized AI/ML tools like Llama 3.2, Apple MLX, and RAG architectures."
+    },
+    {
+      "question": "Is Likith open to collaboration?",
+      "answer": "Yes, Likith is open to technical collaborations, especially in AI agent development, freelance projects, and startup partnerships."
+    }
+  ]
+}

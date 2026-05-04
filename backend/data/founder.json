@@ -1,11 +1,13 @@
 {
-  "organization": "SAKRA VISION",
-  "role": "Founder & CEO",
-  "mission": "Building AI infrastructure, automation systems, and product-driven technology with long-term impact.",
-  "focus_areas": [
-    "AI systems",
-    "computer vision automation",
-    "digital infrastructure",
-    "product innovation"
-  ]
+  "founder_profile": {
+    "company": "SAKRA VISION",
+    "role": "Founder & CEO",
+    "mission": "Driving innovation in computer vision automation and dedicated AI infrastructure.",
+    "vision": "Building highly efficient systems that bridge complex algorithms with real-world utility.",
+    "core_values": [
+      "Product-driven thinking",
+      "Rigorous engineering",
+      "Future-ready AI infrastructure"
+    ]
+  }
 }

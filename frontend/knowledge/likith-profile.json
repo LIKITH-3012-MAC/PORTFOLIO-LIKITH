@@ -1,0 +1,31 @@
+{
+  "identity": {
+    "fullName": "Likith Naidu Anumakonda",
+    "alternateNames": [
+      "Likith Anumakonda",
+      "Likith Naidu",
+      "Likith Naidu Anumakonda"
+    ],
+    "roles": [
+      "AI/ML Engineer",
+      "Full Stack Developer",
+      "Java Architect",
+      "Author",
+      "Classical Pianist",
+      "Founder"
+    ],
+    "tagline": "Engineering Intelligent Systems. Architecting the future of autonomous automation.",
+    "location": {
+      "city": "Kavali",
+      "district": "Nellore",
+      "state": "Andhra Pradesh",
+      "country": "India"
+    },
+    "founderVision": "Driving innovation in computer vision automation and dedicated AI infrastructure through SAKRA VISION."
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-05-04",
+    "author": "Likith Naidu Anumakonda"
+  }
+}

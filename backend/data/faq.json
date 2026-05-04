@@ -1,12 +1,24 @@
 {
   "faq": [
     {
-      "q": "Who is Likith?",
-      "a": "Likith Naidu Anumakonda is an AI/ML-focused engineer, builder, founder, author, and classical pianist."
+      "question": "Who is Likith Naidu Anumakonda?",
+      "answer": "Likith Naidu Anumakonda is an AI/ML Engineer, Founder of SAKRA VISION, Author, and Classical Pianist. He specializes in building intelligent systems, offline LLM architectures, and RAG systems."
     },
     {
-      "q": "How can I contact him?",
-      "a": "You can contact him through phone, email, LinkedIn, and GitHub from the contact section."
+      "question": "What is Resolvit AI?",
+      "answer": "Resolvit AI is Likith's AI-powered civic issue tracking platform that turns community feedback into actionable data for authorities."
+    },
+    {
+      "question": "What is SAKRA VISION?",
+      "answer": "SAKRA VISION is Likith's venture focused on computer vision automation and dedicated AI infrastructure."
+    },
+    {
+      "question": "Did Likith write a book?",
+      "answer": "Yes, Likith authored 'Echoes of an Unsaid Goodbye', which explores deep narrative resonance and unspoken emotions."
+    },
+    {
+      "question": "Is Likith open to collaboration?",
+      "answer": "Absolutely. He is open to AI agent development, full stack projects, freelance opportunities, and technical consultations."
     }
   ]
 }

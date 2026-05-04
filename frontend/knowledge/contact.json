@@ -1,10 +1,9 @@
 {
   "contact": {
-    "primary_email": "likith.anumakonda@gmail.com",
-    "secondary_email": "likith.naidu@icloud.com",
+    "primaryEmail": "likith.anumakonda@gmail.com",
+    "secondaryEmail": "likith.naidu@icloud.com",
     "phone": "+919440113763",
     "website": "https://likith-portfolio.online",
-    "collaboration_url": "https://likith-portfolio.online/collab.html",
     "availability": "Open to high-stakes technical collaborations, AI agent development, and founder-grade partnerships."
   }
 }

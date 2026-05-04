@@ -1,10 +1,15 @@
 {
-  "available_for": [
-    "AI/ML collaborations",
-    "portfolio-worthy product building",
-    "hackathons",
-    "software projects",
-    "technical partnerships"
-  ],
-  "message": "Likith is open to meaningful collaboration opportunities aligned with AI, software, product development, and innovation."
+  "collaboration_logic": {
+    "focus_areas": [
+      "AI Agent Development (Autonomous Systems)",
+      "Full Stack Product Architecture",
+      "Offline LLM & RAG Implementations",
+      "Computer Vision Automation",
+      "Civic Tech & Blockchain Integrations",
+      "High-Stakes Startup Partnerships"
+    ],
+    "process": "Requests are logged through the secure collaboration portal and reviewed for technical alignment and impact.",
+    "availability_status": "Active / Accepting Inquiries",
+    "consultation": "Available for technical architecture and AI implementation strategy."
+  }
 }

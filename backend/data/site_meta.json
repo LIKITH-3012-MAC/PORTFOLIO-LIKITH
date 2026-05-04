@@ -1,0 +1,26 @@
+{
+  "site_architecture": {
+    "pages": [
+      {
+        "page": "Home",
+        "url": "https://likith-portfolio.online/",
+        "purpose": "Main identity, projects, and founder showcase."
+      },
+      {
+        "page": "Collaborate",
+        "url": "https://likith-portfolio.online/collab.html",
+        "purpose": "Secure intake for partnerships and projects."
+      },
+      {
+        "page": "Media Hub",
+        "url": "https://likith-portfolio.online/likith-youtube.html",
+        "purpose": "Visual artifacts, AI demos, and piano performances."
+      },
+      {
+        "page": "Git Archive",
+        "url": "https://likith-portfolio.online/likith-git-profile.html",
+        "purpose": "Technical repository showcase and engineering logs."
+      }
+    ]
+  }
+}

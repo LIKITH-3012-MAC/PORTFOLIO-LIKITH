@@ -1,51 +1,39 @@
 {
-  "skill_groups": [
-    {
-      "category": "AI / ML",
-      "items": [
-        "Ollama",
-        "Llama 3.2",
-        "Scikit-Learn",
-        "TensorFlow Basics"
-      ]
-    },
-    {
-      "category": "Backend",
-      "items": [
-        "Python",
-        "FastAPI",
-        "Flask",
-        "Node.js",
-        "Spring Boot Basics"
-      ]
-    },
-    {
-      "category": "Database",
-      "items": [
-        "MySQL",
-        "MongoDB",
-        "Firestore"
-      ]
-    },
-    {
-      "category": "Frontend",
-      "items": [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "Tailwind",
-        "React Basics"
-      ]
-    },
-    {
-      "category": "Tools",
-      "items": [
-        "Git",
-        "GitHub",
-        "Pandas",
-        "NumPy",
-        "Streamlit"
-      ]
-    }
-  ]
+  "technical_stack": {
+    "ai_ml": [
+      "Offline LLM Architectures",
+      "RAG Systems",
+      "Ollama / Llama 3.2",
+      "Apple MLX",
+      "Scikit-Learn",
+      "TensorFlow",
+      "Predictive Modeling"
+    ],
+    "backend": [
+      "Python (FastAPI)",
+      "Java SE (OOP Architecture)",
+      "Node.js",
+      "RESTful API Design"
+    ],
+    "frontend": [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "Vanilla JS",
+      "Premium UI/UX Design"
+    ],
+    "databases": [
+      "PostgreSQL",
+      "MySQL (Aiven)",
+      "MongoDB",
+      "Firebase Firestore"
+    ],
+    "tools": [
+      "Git / GitHub",
+      "Vercel",
+      "Render",
+      "Streamlit",
+      "Neural Network Visualization"
+    ]
+  }
 }

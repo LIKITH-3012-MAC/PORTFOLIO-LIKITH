@@ -1,20 +1,23 @@
 {
-  "awards": [
+  "achievements": [
     {
-      "title": "Technova2K25 Best Concept Award",
-      "issuer": "PBR VITS Technical Symposium",
-      "summary": "Recognized for innovative software engineering and technical concept quality."
+      "title": "SIH Hackathon 2025 Team Lead",
+      "project": "Prometheus AI",
+      "impact": "Led 5 engineers, designed NoSQL schemas, improved data retrieval latency by >50%."
     },
     {
-      "title": "1st Prize CodeClash 2025",
-      "issuer": "Competition",
-      "summary": "Secured top position in algorithmic problem solving."
-    }
-  ],
-  "certifications": [
+      "title": "Technova2K25 Best Concept",
+      "awarded_by": "PBRVITS",
+      "description": "Awarded for innovative software engineering principles."
+    },
     {
-      "title": "MongoDB Full-Stack Bootcamp Certification",
-      "summary": "Document modeling, aggregation pipelines, and practical NoSQL applications."
+      "title": "1st Prize: CodeClash 2025",
+      "category": "Algorithmic Problem Solving",
+      "description": "Secured 1st place in competitive programming."
+    },
+    {
+      "title": "SQL & AI Data Storytelling",
+      "impact": "Optimized complex queries, reducing report generation time by 60%."
     }
   ]
 }

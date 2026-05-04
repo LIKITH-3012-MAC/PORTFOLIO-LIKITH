@@ -1,0 +1,33 @@
+{
+  "site": {
+    "name": "Likith Naidu Anumakonda Portfolio",
+    "baseUrl": "https://likith-portfolio.online",
+    "pages": [
+      {
+        "file": "index.html",
+        "title": "Likith Naidu Anumakonda | AI-ML Architect & Founder",
+        "description": "Personal portfolio homepage showcasing AI/ML engineering profile, projects, skills, and founder identity."
+      },
+      {
+        "file": "collab.html",
+        "title": "Collaborate | Likith Naidu Anumakonda",
+        "description": "Technical collaboration intake for AI, ML, and creative tech projects."
+      },
+      {
+        "file": "likith-youtube.html",
+        "title": "Media Hub | Likith Naidu Anumakonda",
+        "description": "Showcase of AI demos, piano performances, and featured video content."
+      },
+      {
+        "file": "likith-git-profile.html",
+        "title": "Engineering Archive | Likith Naidu Anumakonda",
+        "description": "Curated archive of 22+ public repositories and technical builds."
+      },
+      {
+        "file": "problem.html",
+        "title": "System Interruption | Likith Naidu",
+        "description": "Support and fallback page for error handling and contact guidance."
+      }
+    ]
+  }
+}
