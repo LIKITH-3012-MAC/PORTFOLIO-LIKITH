@@ -9,12 +9,13 @@ from typing import List, Optional
 from groq import Groq
 from dotenv import load_dotenv
 from datetime import datetime
-from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime
+from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # 1. Setup & Environment
-load_dotenv()
+env_path = os.path.join(os.path.dirname(__file__), ".env")
+load_dotenv(dotenv_path=env_path)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("API")
 
@@ -33,6 +34,7 @@ app.add_middleware(
         "https://likith-portfolio.vercel.app",
         "http://localhost:3000",
         "http://localhost:8080",
+        "null",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -233,9 +235,9 @@ async def debug_db():
     try:
         # Test connection
         db = SessionLocal()
-        db.execute("SELECT 1")
+        db.execute(text("SELECT 1"))
         db.close()
-        return {"status": "connected", "database_type": "mysql" if "mysql" in DATABASE_URL.lower() else "other"}
+        return {"status": "connected", "database_type": "mysql" if DATABASE_URL and "mysql" in DATABASE_URL.lower() else "other"}
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
