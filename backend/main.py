@@ -220,12 +220,12 @@ async def create_collab(request: CollabRequest):
         )
         db.add(new_request)
         db.commit()
-        logger.info("🚀 DATA STORED: Successfully committed to database.")
-        return {"success": True, "message": "Collaboration logged successfully."}
+        db.refresh(new_request)
+        logger.info(f"🚀 DATA STORED: Successfully committed ID {new_request.id}")
+        return {"success": True, "message": "Collaboration logged successfully.", "entry_id": new_request.id}
     except Exception as e:
         db.rollback()
         logger.error(f"❌ DB STORAGE ERROR: {str(e)}")
-        # Return exact error for user debugging
         return JSONResponse(status_code=500, content={"success": False, "message": f"Database error: {str(e)}"})
     finally:
         db.close()
@@ -233,11 +233,24 @@ async def create_collab(request: CollabRequest):
 @app.get("/api/debug-db")
 async def debug_db():
     try:
-        # Test connection
         db = SessionLocal()
+        # Check connection
         db.execute(text("SELECT 1"))
+        # Get last 3 entries
+        results = db.query(CollaborationRequest).order_by(CollaborationRequest.id.desc()).limit(3).all()
+        entries = []
+        for r in results:
+            entries.append({
+                "id": r.id,
+                "name": r.full_name,
+                "time": str(r.created_at)
+            })
         db.close()
-        return {"status": "connected", "database_type": "mysql" if DATABASE_URL and "mysql" in DATABASE_URL.lower() else "other"}
+        return {
+            "status": "connected",
+            "database_type": "mysql" if DATABASE_URL and "mysql" in DATABASE_URL.lower() else "other",
+            "recent_entries": entries
+        }
     except Exception as e:
         return {"status": "error", "message": str(e)}
 
