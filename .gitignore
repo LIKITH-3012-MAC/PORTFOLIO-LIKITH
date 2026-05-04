@@ -1,0 +1,19 @@
+# Local Environment Variables
+.env
+backend/.env
+frontend/.env
+
+# Dependencies
+node_modules/
+backend/__pycache__/
+.venv/
+env/
+venv/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/

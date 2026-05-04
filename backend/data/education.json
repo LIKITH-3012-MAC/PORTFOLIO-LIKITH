@@ -1,0 +1,25 @@
+{
+  "institutions": [
+    {
+      "name": "PBR VITS, Kavali",
+      "program": "B.Tech in CSE - Artificial Intelligence",
+      "status": "Current",
+      "highlights": [
+        "Data Structures",
+        "Java OOPs",
+        "Neural Networks"
+      ]
+    },
+    {
+      "name": "IIT Patna / I-HUB",
+      "program": "Advanced AIML Certification",
+      "status": "Ongoing / Completed based on latest data",
+      "highlights": [
+        "Deep Learning",
+        "NLP",
+        "Computer Vision",
+        "Real-time predictive modeling"
+      ]
+    }
+  ]
+}

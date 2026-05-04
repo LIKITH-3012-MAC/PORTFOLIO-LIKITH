@@ -1,0 +1,66 @@
+{
+  "projects": [
+    {
+      "id": "prometheus-ai-v2",
+      "name": "PROMETHEUS AI V2.0",
+      "category": "AI System",
+      "summary": "A privacy-centric local-first GenAI system powered by Llama 3.2, voice features, Ollama, and Apple MLX.",
+      "problem": "Enable private, local AI interaction with strong performance and a premium user experience.",
+      "stack": [
+        "Python",
+        "Ollama",
+        "Llama 3.2",
+        "Apple MLX"
+      ],
+      "keywords": [
+        "AI",
+        "local-first",
+        "privacy",
+        "voice",
+        "LLM"
+      ]
+    },
+    {
+      "id": "resolvit-ai",
+      "name": "Resolvit-AI",
+      "category": "Civic AI Platform",
+      "summary": "An AI-powered civic issue resolution platform with modern workflows, tracking, and authority-grade operations.",
+      "problem": "Improve reporting, routing, and resolution of civic issues using AI-enhanced workflows.",
+      "stack": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Python",
+        "FastAPI",
+        "PostgreSQL"
+      ],
+      "keywords": [
+        "civic tech",
+        "AI",
+        "workflow",
+        "tracking",
+        "public systems"
+      ]
+    },
+    {
+      "id": "benchai",
+      "name": "BenchAI",
+      "category": "Offline Education AI",
+      "summary": "An offline LLM + RAG-powered smart classroom assistant designed for multilingual learning support without internet dependency.",
+      "problem": "Deliver AI learning support in low-connectivity environments.",
+      "stack": [
+        "Python",
+        "RAG",
+        "LLM",
+        "offline AI"
+      ],
+      "keywords": [
+        "education",
+        "offline",
+        "RAG",
+        "classroom",
+        "multilingual"
+      ]
+    }
+  ]
+}

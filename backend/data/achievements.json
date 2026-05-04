@@ -1,0 +1,20 @@
+{
+  "awards": [
+    {
+      "title": "Technova2K25 Best Concept Award",
+      "issuer": "PBR VITS Technical Symposium",
+      "summary": "Recognized for innovative software engineering and technical concept quality."
+    },
+    {
+      "title": "1st Prize CodeClash 2025",
+      "issuer": "Competition",
+      "summary": "Secured top position in algorithmic problem solving."
+    }
+  ],
+  "certifications": [
+    {
+      "title": "MongoDB Full-Stack Bootcamp Certification",
+      "summary": "Document modeling, aggregation pipelines, and practical NoSQL applications."
+    }
+  ]
+}
