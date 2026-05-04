@@ -1,5 +1,5 @@
 const CONFIG = {
-    API_BASE_URL: "https://api.likith-portfolio.online",
+    API_BASE_URL: "https://portfolio-likith.onrender.com",
     SITE_URL: "https://likith-portfolio.online",
     CONTACT: {
         PRIMARY_EMAIL: "likith.anumakonda@gmail.com",
