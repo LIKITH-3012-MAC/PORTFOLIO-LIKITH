@@ -96,22 +96,23 @@ class CollaborationRequest(Base):
     full_name = Column(String(255), nullable=False)
     phone_number = Column(String(50), nullable=False)
     country = Column(String(100), nullable=False)
-    state = Column(String(100), nullable=False)
-    district = Column(String(100), nullable=False)
-    mandal_or_subregion = Column(String(100), nullable=False)
-    village_or_town = Column(String(100), nullable=False)
+    state = Column(String(100), nullable=True)
+    district = Column(String(100), nullable=True)
+    mandal_or_subregion = Column(String(100), nullable=True)
+    village_or_town = Column(String(100), nullable=True)
     purpose = Column(Text, nullable=False)
     collaboration_type = Column(String(100), nullable=False)
-    email = Column(String(255))
-    preferred_contact_method = Column(String(100))
-    budget_range = Column(String(100))
-    timeline = Column(String(100))
-    organization = Column(String(255))
+    email = Column(String(255), nullable=True)
+    preferred_contact_method = Column(String(100), nullable=True)
+    budget_range = Column(String(100), nullable=True)
+    timeline = Column(String(100), nullable=True)
+    organization = Column(String(255), nullable=True)
     status = Column(String(50), default="pending")
     created_at = Column(DateTime, default=datetime.utcnow)
 
-# Ensure tables exist
+# Ensure tables exist (Resetting for schema parity)
 try:
+    # Optional: Base.metadata.drop_all(bind=engine) # Uncomment if schema mismatch persists
     Base.metadata.create_all(bind=engine)
     logger.info("Database tables verified/created.")
 except Exception as e:
@@ -127,13 +128,13 @@ class ChatResponse(BaseModel):
     card_type: Optional[str] = "none"
 
 class CollabRequest(BaseModel):
-    name: str
-    phone: str
+    full_name: str
+    phone_number: str
     country: str
-    state: str
-    district: str
-    mandal_or_subregion: str
-    village_or_town: str
+    state: Optional[str] = None
+    district: Optional[str] = None
+    mandal_or_subregion: Optional[str] = None
+    village_or_town: Optional[str] = None
     purpose: str
     collaboration_type: str
     email: Optional[str] = None
@@ -194,22 +195,22 @@ async def chat(request: ChatRequest):
 async def create_collab(request: CollabRequest):
     db = SessionLocal()
     try:
-        logger.info(f"Received Collab Request from: {request.name}")
+        logger.info(f"Received Collab Request from: {request.full_name}")
         new_request = CollaborationRequest(
-            full_name=request.name,
-            phone_number=request.phone,
+            full_name=request.full_name,
+            phone_number=request.phone_number,
             country=request.country,
-            state=request.state,
-            district=request.district,
-            mandal_or_subregion=request.mandal_or_subregion,
-            village_or_town=request.village_or_town,
+            state=request.state if request.state else None,
+            district=request.district if request.district else None,
+            mandal_or_subregion=request.mandal_or_subregion if request.mandal_or_subregion else None,
+            village_or_town=request.village_or_town if request.village_or_town else None,
             purpose=request.purpose,
             collaboration_type=request.collaboration_type,
-            email=request.email,
-            preferred_contact_method=request.preferred_contact_method,
-            budget_range=request.budget_range,
-            timeline=request.timeline,
-            organization=request.organization
+            email=request.email if request.email else None,
+            preferred_contact_method=request.preferred_contact_method if request.preferred_contact_method else None,
+            budget_range=request.budget_range if request.budget_range else None,
+            timeline=request.timeline if request.timeline else None,
+            organization=request.organization if request.organization else None
         )
         db.add(new_request)
         db.commit()

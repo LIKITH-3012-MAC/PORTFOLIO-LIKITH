@@ -132,6 +132,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(collabForm);
         const data = Object.fromEntries(formData.entries());
 
+        // Standardize and Null-Safe Handling
+        const payload = {
+            full_name: data.full_name,
+            phone_number: data.phone_number,
+            country: data.country,
+            state: data.state || null,
+            district: data.district || null,
+            mandal_or_subregion: data.mandal_or_subregion || null,
+            village_or_town: data.village_or_town || null,
+            collaboration_type: data.collaboration_type,
+            purpose: data.purpose,
+            organization: data.organization || null,
+            timeline: data.timeline || null,
+            email: data.email || null,
+            budget_range: data.budget_range || null,
+            preferred_contact_method: data.preferred_contact_method || null
+        };
+
         // Processing State
         submitBtn.disabled = true;
         submitBtn.innerHTML = `
@@ -145,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`${window.APP_CONFIG.API_BASE_URL}/api/collab`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
+                body: JSON.stringify(payload)
             });
 
             if (!response.ok) throw new Error('API Rejection');
