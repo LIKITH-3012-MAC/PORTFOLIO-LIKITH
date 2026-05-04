@@ -1,5 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Smooth Scroll for Anchor Links
+    // 0. Initialize Lenis Smooth Scroll
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smoothHover: true,
+        smoothTouch: false,
+        touchMultiplier: 2,
+    });
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // 1. Smooth Scroll for Anchor Links (Powered by Lenis)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -7,9 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetId === '#') return;
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                lenis.scrollTo(targetElement, {
+                    offset: 0,
+                    duration: 1.5,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
                 });
                 // Close mobile menu if open
                 const mobileMenu = document.getElementById('mobile-menu');
@@ -75,6 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (yearSpan) {
         yearSpan.textContent = new Date().getFullYear();
     }
+
+    // Expose lenis to window for global access
+    window.lenis = lenis;
 });
 
 // 6. Performance Modal (YouTube)
@@ -88,6 +109,7 @@ function openPerformance() {
     if (perfModal) {
         perfModal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        if (window.lenis) window.lenis.stop();
     }
 }
 
@@ -95,6 +117,7 @@ function closePerformance() {
     if (perfModal) {
         perfModal.classList.remove('active');
         document.body.style.overflow = '';
+        if (window.lenis) window.lenis.start();
     }
     if (perfFrame) {
         setTimeout(() => {
@@ -106,12 +129,13 @@ function closePerformance() {
 window.openPerformance = openPerformance;
 window.closePerformance = closePerformance;
 
-// 8. Generic Modal Open/Close (for future contact/resume modals if needed)
+// 8. Generic Modal Open/Close
 function openModal(id) {
     const modal = document.getElementById(id);
     if(modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        if (window.lenis) window.lenis.stop();
     }
 }
 
@@ -120,6 +144,7 @@ function closeModal(id) {
     if(modal) {
         modal.classList.remove('active');
         document.body.style.overflow = '';
+        if (window.lenis) window.lenis.start();
     }
 }
 window.openModal = openModal;
