@@ -25,7 +25,8 @@
       "city": "Kavali",
       "district": "Nellore",
       "state": "Andhra Pradesh",
-      "country": "India"
+      "country": "India",
+      "date-of-birth(dob)":"30-12-2006"
     },
     "specialties": [
       "AI/ML Engineering",
