@@ -196,9 +196,14 @@ document.addEventListener('DOMContentLoaded', () => {
         form.style.filter = 'blur(10px)';
         form.style.transform = 'scale(0.95)';
         
-        setTimeout(() => {
-            // Phase 2: Success Stage Reveal
-            stage.classList.add('active');
+        // Phase 2: Success Stage Reveal
+        stage.classList.add('active');
+        
+        // Lock scroll
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        document.body.style.height = '100vh';
+        if (window.lenis) window.lenis.stop();
             
             setTimeout(() => {
                 // Phase 3: Rocket Arrival

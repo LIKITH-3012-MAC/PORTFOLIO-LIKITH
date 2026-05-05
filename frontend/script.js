@@ -134,18 +134,26 @@ window.closePerformance = closePerformance;
 // 8. Generic Modal Open/Close
 function openModal(id) {
     const modal = document.getElementById(id);
+    const html = document.documentElement;
+    const body = document.body;
     if(modal) {
         modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        html.style.overflow = 'hidden';
+        body.style.overflow = 'hidden';
+        body.style.height = '100vh';
         if (window.lenis) window.lenis.stop();
     }
 }
 
 function closeModal(id) {
     const modal = document.getElementById(id);
+    const html = document.documentElement;
+    const body = document.body;
     if(modal) {
         modal.classList.remove('active');
-        document.body.style.overflow = '';
+        html.style.overflow = '';
+        body.style.overflow = '';
+        body.style.height = '';
         if (window.lenis) window.lenis.start();
     }
 }

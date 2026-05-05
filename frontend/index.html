@@ -1363,7 +1363,7 @@
     <!-- ═══════════════════════════════════════════════════ -->
     <!-- CINEMATIC FOUNDER MESSAGE STAGE -->
     <!-- ═══════════════════════════════════════════════════ -->
-    <div id="founder-message-stage" class="founder-stage">
+    <div id="founder-message-stage" class="founder-stage" data-lenis-prevent>
         <button class="founder-close-btn" onclick="closeFounderMessage()">
             <i data-lucide="x" class="w-6 h-6"></i>
         </button>
@@ -1432,10 +1432,20 @@
         // Founder Message Logic
         function openFounderMessage() {
             const stage = document.getElementById('founder-message-stage');
+            const html = document.documentElement;
+            const body = document.body;
+            
             if (stage) {
                 stage.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                if (window.lenis) window.lenis.stop();
+                
+                // Block background scroll robustly
+                html.style.overflow = 'hidden';
+                body.style.overflow = 'hidden';
+                body.style.height = '100vh';
+                
+                if (window.lenis) {
+                    window.lenis.stop();
+                }
                 
                 // Close mobile menu if open
                 const mobileMenu = document.getElementById('mobile-menu');
@@ -1460,10 +1470,20 @@
 
         function closeFounderMessage() {
             const stage = document.getElementById('founder-message-stage');
+            const html = document.documentElement;
+            const body = document.body;
+            
             if (stage) {
                 stage.classList.remove('active');
-                document.body.style.overflow = '';
-                if (window.lenis) window.lenis.start();
+                
+                // Restore scroll behavior
+                html.style.overflow = '';
+                body.style.overflow = '';
+                body.style.height = '';
+                
+                if (window.lenis) {
+                    window.lenis.start();
+                }
             }
         }
 
