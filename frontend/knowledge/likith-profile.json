@@ -8,24 +8,48 @@
     ],
     "roles": [
       "AI/ML Engineer",
-      "Full Stack Developer",
-      "Java Architect",
-      "Author",
-      "Classical Pianist",
-      "Founder"
+      "AI Agents Developer",
+      "ML Model Developer",
+      "Full Stack Systems Architect",
+      "Python Full-Stack Specialist",
+      "Node.js Full-Stack Specialist",
+      "API Architecture Lead",
+      "Middleware & Integration Expert",
+      "Metadata Architect",
+      "Domain & Cloud Infrastructure Controller",
+      "Google Console Setup Specialist",
+      "End-to-End Product Execution Founder"
     ],
-    "tagline": "Engineering Intelligent Systems. Architecting the future of autonomous automation.",
+    "tagline": "Engineering Intelligent Systems. Architecting the intersection of autonomous AI and creative technical leadership.",
     "location": {
       "city": "Kavali",
       "district": "Nellore",
       "state": "Andhra Pradesh",
       "country": "India"
     },
-    "founderVision": "Driving innovation in computer vision automation and dedicated AI infrastructure through SAKRA VISION."
+    "specialties": [
+      "AI/ML Engineering",
+      "AI Agent Development",
+      "ML Model Development",
+      "Full-Stack Application Development",
+      "Python-based Backend and Full-Stack Systems",
+      "Node.js-based Backend and Full-Stack Systems",
+      "API Architecture and Controller Logic",
+      "Middleware Integration",
+      "OTP/Email/Communication System Integrations",
+      "Cloud Database Setup and Management",
+      "Deployment across Frontend and Backend Platforms",
+      "Metadata Architecture and Structured Web Systems",
+      "Domain Setup, Control, and Configuration",
+      "Google Console / Search Console Setup",
+      "End-to-End Technical Execution",
+      "Product Delivery based on Client Vision"
+    ],
+    "founderVision": "Driving innovation in computer vision automation and dedicated AI infrastructure through SAKRA VISION. Projects operate under the technical vision, discipline, and execution ecosystem of SAKRA VISION."
   },
   "metadata": {
-    "version": "1.0.0",
-    "lastUpdated": "2026-05-04",
+    "version": "1.1.0",
+    "lastUpdated": "2026-05-05",
     "author": "Likith Naidu Anumakonda"
   }
 }

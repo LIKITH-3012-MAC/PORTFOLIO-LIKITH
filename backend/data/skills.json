@@ -1,39 +1,39 @@
 {
-  "technical_stack": {
-    "ai_ml": [
+  "technical_capabilities": {
+    "ai_and_ml": [
+      "AI/ML Engineering",
+      "AI Agent Development",
+      "ML Model Development",
       "Offline LLM Architectures",
-      "RAG Systems",
-      "Ollama / Llama 3.2",
-      "Apple MLX",
-      "Scikit-Learn",
-      "TensorFlow",
-      "Predictive Modeling"
+      "RAG System Architecture",
+      "Computer Vision Automation"
     ],
-    "backend": [
-      "Python (FastAPI)",
-      "Java SE (OOP Architecture)",
-      "Node.js",
-      "RESTful API Design"
+    "full_stack": [
+      "Python Full-Stack Systems",
+      "Node.js Full-Stack Systems",
+      "FastAPI & Flask Backend Logic",
+      "Next.js & React Frontend Architecture",
+      "Middleware Development"
     ],
-    "frontend": [
-      "Next.js",
-      "React",
-      "Tailwind CSS",
-      "Vanilla JS",
-      "Premium UI/UX Design"
+    "logic_and_api": [
+      "API Architecture & Controller Logic",
+      "End-to-End API Integration",
+      "Middleware Systems (OTP, Twilio, Resend)",
+      "Metadata Architecture",
+      "Structured Data & Semantic SEO"
     ],
-    "databases": [
-      "PostgreSQL",
-      "MySQL (Aiven)",
-      "MongoDB",
-      "Firebase Firestore"
+    "infrastructure_and_deployment": [
+      "Domain Setup & Control",
+      "Google Search Console & Google Console Setup",
+      "Cloud Database Management (PostgreSQL, MongoDB)",
+      "Production Deployment Workflows",
+      "Server & Infrastructure Configuration"
     ],
-    "tools": [
-      "Git / GitHub",
-      "Vercel",
-      "Render",
-      "Streamlit",
-      "Neural Network Visualization"
+    "product_execution": [
+      "End-to-End Product Execution",
+      "Complete System Delivery",
+      "Technical Vision & Discipline",
+      "Client Requirement Translation to Architecture"
     ]
   }
 }

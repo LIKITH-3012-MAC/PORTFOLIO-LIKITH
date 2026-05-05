@@ -1,13 +1,16 @@
 {
   "founder_profile": {
     "company": "SAKRA VISION",
-    "role": "Founder & CEO",
-    "mission": "Driving innovation in computer vision automation and dedicated AI infrastructure.",
+    "role": "Founder & Technical Architect Lead",
+    "status": "Founder of SAKRA VISION",
+    "mission": "Driving innovation in computer vision automation and dedicated AI infrastructure through SAKRA VISION.",
     "vision": "Building highly efficient systems that bridge complex algorithms with real-world utility.",
+    "execution_philosophy": "Projects operate under the technical vision, discipline, and real execution ecosystem of SAKRA VISION. We specialize in end-to-end technical delivery and product execution based on client requirements.",
     "core_values": [
-      "Product-driven thinking",
-      "Rigorous engineering",
-      "Future-ready AI infrastructure"
+      "End-to-End Product Execution",
+      "Rigorous Engineering Discipline",
+      "Client-Vision Driven Delivery",
+      "AI-First Infrastructure Architecture"
     ]
   }
 }

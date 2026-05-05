@@ -2,31 +2,30 @@
   "site": {
     "name": "Likith Naidu Anumakonda Portfolio",
     "baseUrl": "https://likith-portfolio.online",
+    "core_identity": {
+      "primary": "AI/ML Engineer & Founder",
+      "specialties": "AI Agents, ML Models, Python & Node.js Full-Stack, API Architecture, Deployment Executor"
+    },
     "pages": [
       {
         "file": "index.html",
         "title": "Likith Naidu Anumakonda | AI-ML Architect & Founder",
-        "description": "Personal portfolio homepage showcasing AI/ML engineering profile, projects, skills, and founder identity."
+        "description": "Premium portfolio of Likith Naidu — AI/ML Engineer and Founder of SAKRA VISION. Specializing in AI agents, ML models, and complete full-stack system execution."
       },
       {
         "file": "collab.html",
         "title": "Collaborate | Likith Naidu Anumakonda",
-        "description": "Technical collaboration intake for AI, ML, and creative tech projects."
+        "description": "Technical collaboration for AI, ML, and end-to-end product delivery. Engage with the SAKRA VISION execution ecosystem."
       },
       {
         "file": "likith-youtube.html",
         "title": "Media Hub | Likith Naidu Anumakonda",
-        "description": "Showcase of AI demos, piano performances, and featured video content."
+        "description": "Showcase of AI system demos, piano performances, and the creative depth of the SAKRA VISION founder."
       },
       {
         "file": "likith-git-profile.html",
         "title": "Engineering Archive | Likith Naidu Anumakonda",
-        "description": "Curated archive of 22+ public repositories and technical builds."
-      },
-      {
-        "file": "problem.html",
-        "title": "System Interruption | Likith Naidu",
-        "description": "Support and fallback page for error handling and contact guidance."
+        "description": "A-to-Z technical builds including AI agents, middleware, and full-stack system architectures."
       }
     ]
   }

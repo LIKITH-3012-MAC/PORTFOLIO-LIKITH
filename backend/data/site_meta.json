@@ -1,26 +1,10 @@
 {
-  "site_architecture": {
-    "pages": [
-      {
-        "page": "Home",
-        "url": "https://likith-portfolio.online/",
-        "purpose": "Main identity, projects, and founder showcase."
-      },
-      {
-        "page": "Collaborate",
-        "url": "https://likith-portfolio.online/collab.html",
-        "purpose": "Secure intake for partnerships and projects."
-      },
-      {
-        "page": "Media Hub",
-        "url": "https://likith-portfolio.online/likith-youtube.html",
-        "purpose": "Visual artifacts, AI demos, and piano performances."
-      },
-      {
-        "page": "Git Archive",
-        "url": "https://likith-portfolio.online/likith-git-profile.html",
-        "purpose": "Technical repository showcase and engineering logs."
-      }
-    ]
+  "site_metadata": {
+    "name": "Likith Naidu Anumakonda Portfolio",
+    "founder": "Likith Naidu Anumakonda",
+    "company": "SAKRA VISION",
+    "primary_description": "Official Portfolio of Likith Naidu Anumakonda — AI/ML Engineer, Founder of SAKRA VISION, and Technical Architect specializing in AI Agents, ML Models, and complete full-stack systems.",
+    "capabilities": "AI/ML Engineering, AI Agents, ML Models, Python & Node.js Full-Stack, API/Middleware Architecture, Metadata Design, Domain Setup, Google Console Configuration, and End-to-End Product Execution.",
+    "vision": "Engineering Intelligent Systems. Architecting the future of autonomous automation through the SAKRA execution ecosystem."
   }
 }

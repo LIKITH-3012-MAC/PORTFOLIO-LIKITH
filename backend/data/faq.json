@@ -1,24 +1,36 @@
 {
   "faq": [
     {
-      "question": "Who is Likith Naidu Anumakonda?",
-      "answer": "Likith Naidu Anumakonda is an AI/ML Engineer, Founder of SAKRA VISION, Author, and Classical Pianist. He specializes in building intelligent systems, offline LLM architectures, and RAG systems."
+      "question": "What does Likith do?",
+      "answer": "Likith Naidu Anumakonda is an AI/ML Engineer and Founder of SAKRA VISION. He architectures complete digital ecosystems, specializing in AI agents, custom ML models, and full-stack systems built with Python and Node.js."
     },
     {
-      "question": "What is Resolvit AI?",
-      "answer": "Resolvit AI is Likith's AI-powered civic issue tracking platform that turns community feedback into actionable data for authorities."
+      "question": "Is Likith an AI/ML engineer?",
+      "answer": "Yes. Likith is a specialized AI/ML engineer with deep expertise in developing ML models, AI Agents, and autonomous automation. He builds intelligent systems from the ground up."
     },
     {
-      "question": "What is SAKRA VISION?",
-      "answer": "SAKRA VISION is Likith's venture focused on computer vision automation and dedicated AI infrastructure."
+      "question": "Can Likith build AI agents and ML models?",
+      "answer": "Absolutely. Likith develops sophisticated AI Agents and custom ML models tailored to specific technical requirements. He handles everything from algorithm design to production deployment."
     },
     {
-      "question": "Did Likith write a book?",
-      "answer": "Yes, Likith authored 'Echoes of an Unsaid Goodbye', which explores deep narrative resonance and unspoken emotions."
+      "question": "Does Likith do full-stack in Python or Node.js?",
+      "answer": "Likith is a strong full-stack developer in both Python (FastAPI/Flask) and Node.js environments. He manages both backend logic and premium frontend architectures."
     },
     {
-      "question": "Is Likith open to collaboration?",
-      "answer": "Absolutely. He is open to AI agent development, full stack projects, freelance opportunities, and technical consultations."
+      "question": "Does Likith handle APIs and Metadata?",
+      "answer": "Yes. Likith is an API controller and metadata expert. He designs robust API architectures, handles end-to-end integration, and builds structured metadata systems for web SEO and AI readability."
+    },
+    {
+      "question": "Does Likith handle domains and Google Console?",
+      "answer": "Yes. Likith is a domain controller and infrastructure setup specialist. He manages domain configuration, server setup, and Google Search Console/Google Console configuration for production systems."
+    },
+    {
+      "question": "Can Likith do deployment?",
+      "answer": "Likith handles the entire deployment workflow across both frontend and backend platforms. He manages cloud databases (PostgreSQL, MongoDB) and ensures production-grade delivery of every product."
+    },
+    {
+      "question": "What are Likith’s specialties?",
+      "answer": "Likith's specialties include AI/ML engineering, AI agent development, Python/Node.js full-stack systems, API/Middleware architecture, Metadata design, Domain/Infrastructure control, and end-to-end technical execution."
     }
   ]
 }

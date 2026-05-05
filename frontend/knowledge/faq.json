@@ -2,23 +2,39 @@
   "faq": [
     {
       "question": "Who is Likith Naidu Anumakonda?",
-      "answer": "Likith Naidu Anumakonda is an AI/ML Engineer, Founder of SAKRA VISION, Author, and Classical Pianist based in Andhra Pradesh, India. He specializes in offline LLM architectures, RAG systems, and autonomous automation."
+      "answer": "Likith Naidu Anumakonda is a high-performance AI/ML Engineer and Founder of SAKRA VISION. He is a multi-stack architect specializing in the end-to-end execution of intelligent systems, from AI Agent development to complex full-stack deployments."
     },
     {
-      "question": "What is Resolvit AI?",
-      "answer": "Resolvit AI is a flagship project by Likith—an AI-powered civic issue tracking platform that uses FastAPI and PostgreSQL to streamline community problem-solving."
+      "question": "Is Likith an AI/ML engineer?",
+      "answer": "Yes. Likith is a specialized AI/ML engineer with deep expertise in developing ML models, AI Agents, and autonomous systems. He bridges the gap between raw data logic and production-ready intelligent applications."
     },
     {
-      "question": "How can I contact Likith?",
-      "answer": "You can reach Likith via email at likith.anumakonda@gmail.com or through the Collaborate page on his portfolio website."
+      "question": "Can Likith build AI agents and ML models?",
+      "answer": "Absolutely. Likith develops sophisticated AI Agents and custom ML models tailored to specific industrial or commercial requirements. His work focuses on creating intelligent, autonomous logic that executes tasks with precision."
     },
     {
-      "question": "What are Likith's technical skills?",
-      "answer": "His technical stack includes Python (FastAPI), Java SE, Next.js, React, Node.js, and specialized AI/ML tools like Llama 3.2, Apple MLX, and RAG architectures."
+      "question": "Does Likith do full-stack in Python or Node.js?",
+      "answer": "Likith is proficient in both. He architects full-stack systems using Python (FastAPI/Flask) and Node.js ecosystems, ensuring scalable backends and premium frontend experiences."
     },
     {
-      "question": "Is Likith open to collaboration?",
-      "answer": "Yes, Likith is open to technical collaborations, especially in AI agent development, freelance projects, and startup partnerships."
+      "question": "Does Likith handle APIs and Middleware?",
+      "answer": "Yes. Likith is an API integration specialist. He designs robust API architectures and builds secure middleware systems, including communication integrations like Resend OTP, Twilio, and other third-party services."
+    },
+    {
+      "question": "Can Likith handle Metadata and SEO architecture?",
+      "answer": "Likith is a metadata expert who designs structured web systems and semantic SEO architectures to ensure technical platforms are AI-readable and search-optimized."
+    },
+    {
+      "question": "Does Likith handle Domain setup and Google Console?",
+      "answer": "Yes. Likith manages the entire technical launch cycle, including domain control, server configuration, and Google Search Console / Google Console setup for production-grade web systems."
+    },
+    {
+      "question": "Can Likith manage end-to-end deployment?",
+      "answer": "Likith handles end-to-end technical delivery. This includes cloud database management (PostgreSQL, MongoDB), backend logic, frontend architecture, and full-cycle deployment workflows."
+    },
+    {
+      "question": "What is SAKRA VISION?",
+      "answer": "SAKRA VISION is Likith's technical venture. Every project under his portfolio operates within the SAKRA VISION execution ecosystem, ensuring institutional-grade discipline and technical oversight."
     }
   ]
 }

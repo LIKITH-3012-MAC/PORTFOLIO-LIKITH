@@ -5,27 +5,47 @@
     "Likith Naidu",
     "Likith Naidu Anumakonda"
   ],
-  "headline": "AI/ML Engineer | Full Stack Developer | Java Architect | Author | Classical Pianist | Founder",
-  "tagline": "Engineering Intelligent Systems. Architecting the future of autonomous automation through design, logic, and ambition.",
+  "headline": "AI/ML Engineer | AI Agents & ML Model Developer | Full Stack Systems Architect | Founder of SAKRA VISION",
+  "tagline": "Engineering Intelligent Systems. Architecting the intersection of autonomous AI and creative technical leadership through SAKRA VISION.",
   "origin": {
     "city": "Kavali",
     "region": "Nellore",
     "state": "Andhra Pradesh",
     "country": "India"
   },
-  "current_status": "B.Tech CSE (AI) student at PBR VITS",
+  "current_status": "Founder & CEO at SAKRA VISION | AI-ML Architect",
   "summary": [
-    "Likith is an AI-focused engineer and builder with interests spanning AI/ML systems, full stack development, product architecture, entrepreneurship, and creative expression.",
-    "He combines technical depth, system design thinking, and artistic identity to build meaningful digital experiences.",
-    "He is the Founder & CEO of SAKRA VISION, driving innovation in computer vision automation and dedicated AI infrastructure."
+    "Likith is a premium AI/ML Engineer and technical founder specializing in the A-to-Z execution of intelligent products.",
+    "He architectures complete ecosystems, from custom AI Agents and ML models to robust Python and Node.js full-stack systems.",
+    "As the Founder of SAKRA VISION, he ensures all projects operate under a high-performance execution ecosystem and rigorous technical discipline."
   ],
   "roles": [
     "AI/ML Engineer",
-    "Full Stack Developer",
-    "Java Architect",
-    "Author",
-    "Classical Pianist",
-    "Founder"
+    "AI Agents Developer",
+    "ML Model Developer",
+    "Full Stack Developer (Python & Node.js)",
+    "API & Middleware Architect",
+    "Metadata & SEO Expert",
+    "Domain & Infrastructure Controller",
+    "Founder of SAKRA VISION"
   ],
-  "technical_philosophy": "Building elegant, high-performance solutions to complex data problems, bridging the gap between sophisticated algorithms and premium user experiences."
+  "technical_philosophy": "Beyond the code, I architect complete ecosystems. My focus is the absolute execution of the client’s vision through engineered excellence and production-grade system delivery.",
+  "specialties": [
+    "AI/ML Engineering",
+    "AI Agent Development",
+    "ML Model Development",
+    "Full-Stack Application Development",
+    "Python-based Backend and Full-Stack Systems",
+    "Node.js-based Backend and Full-Stack Systems",
+    "API Architecture and Controller Logic",
+    "Middleware Integration",
+    "OTP/Email/Communication System Integrations",
+    "Cloud Database Setup and Management",
+    "Deployment across Frontend and Backend Platforms",
+    "Metadata Architecture and Structured Web Systems",
+    "Domain Setup, Control, and Configuration",
+    "Google Console / Search Console Setup",
+    "End-to-End Technical Execution",
+    "Product Delivery based on Client Vision"
+  ]
 }
