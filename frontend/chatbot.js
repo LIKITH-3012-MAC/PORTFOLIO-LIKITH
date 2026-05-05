@@ -107,6 +107,27 @@ document.addEventListener('DOMContentLoaded', () => {
                         </a>
                     </div>
                 `;
+            case 'error':
+                return `
+                    <div class="space-y-3">
+                        <div class="p-3 rounded-xl bg-red-500/5 border border-red-500/20 text-center mb-4">
+                            <i data-lucide="alert-triangle" class="w-6 h-6 text-red-400 mx-auto mb-2 animate-pulse"></i>
+                            <p class="text-[10px] text-slate-400 leading-relaxed">The connection to my neural backend was interrupted.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <a href="./problem.html" class="w-full py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center justify-center gap-2 text-[10px] text-slate-300">
+                                <i data-lucide="life-buoy" class="w-3 h-3"></i> Support
+                            </a>
+                            <button onclick="document.getElementById('ai-chat-input').focus()" class="w-full py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center justify-center gap-2 text-[10px] text-slate-300">
+                                <i data-lucide="refresh-cw" class="w-3 h-3"></i> Retry
+                            </button>
+                        </div>
+                        <a href="collab.html" class="w-full btn-premium py-2 text-[10px] flex items-center justify-center gap-2 mt-2">
+                            <span>Contact Likith</span>
+                            <i data-lucide="mail" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                `;
             default:
                 return '';
         }
@@ -149,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Chat Error:', error);
             typingDiv.remove();
-            addMessage('assistant', "System interruption detected. You can find direct contact links on my <a href='problem.html' class='text-amber-500 underline'>support page</a>.");
+            addMessage('assistant', "I encountered a technical glitch. Please visit <a href='./problem.html' class='text-white underline hover:text-amber-400 transition-colors duration-300' style='text-underline-offset: 4px; text-decoration-color: rgba(255,255,255,0.5); font-weight: 500;'>support</a>.", 'error');
         }
     });
 

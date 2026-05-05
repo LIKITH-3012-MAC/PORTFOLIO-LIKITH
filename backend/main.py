@@ -183,7 +183,7 @@ Respond ONLY with this JSON structure:
 async def chat(request: ChatRequest):
     try:
         completion = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model="llama-3.1-8b-instant",
             messages=[{"role": "system", "content": SYSTEM_PROMPT}] + [
                 {"role": m["role"], "content": m["content"]} for m in request.history[-5:]
             ] + [{"role": "user", "content": request.message}],
@@ -195,7 +195,7 @@ async def chat(request: ChatRequest):
         return ChatResponse(**result)
     except Exception as e:
         logger.error(f"Chat Error: {e}")
-        return ChatResponse(reply_text="I encountered a technical glitch. Please visit /problem.html for support.", card_type="none")
+        return ChatResponse(reply_text="I encountered a technical glitch. Please visit <a href='./problem.html' class='text-white underline hover:text-amber-400 transition-colors duration-300' style='text-underline-offset: 4px; text-decoration-color: rgba(255,255,255,0.5); font-weight: 500;'>support</a>.", card_type="error")
 
 @app.post("/api/collab")
 async def create_collab(request: CollabRequest):
