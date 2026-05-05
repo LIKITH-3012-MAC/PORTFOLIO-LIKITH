@@ -440,3 +440,101 @@ spline-viewer::part(logo) {
   opacity: 1;
 }
 
+/* --- SUCCESS SYSTEM RESPONSIVENESS --- */
+
+@media (max-width: 1024px) {
+  .success-message-container h2 {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .rocket-container {
+    width: 90px;
+    height: 180px;
+  }
+  
+  .rocket-container svg {
+    width: 80px;
+    height: 160px;
+  }
+
+  .success-message-container h2 {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .success-message-container p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+
+  .btn-liquid-glass {
+    padding: 1rem 2rem;
+    font-size: 0.75rem;
+    width: 100%;
+  }
+
+  .success-message-container {
+    padding: 1.5rem;
+    width: 90%;
+  }
+
+  .success-message-container .mb-12 {
+    margin-bottom: 2rem;
+  }
+
+  .success-message-container .w-24 {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .success-message-container i {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .rocket-container {
+    width: 70px;
+    height: 140px;
+  }
+
+  .rocket-container svg {
+    width: 60px;
+    height: 120px;
+  }
+
+  .success-message-container h2 {
+    font-size: 2.2rem;
+  }
+
+  .success-message-container p {
+    font-size: 0.95rem;
+  }
+
+  .vapor-cloud {
+    width: 120px;
+    height: 80px;
+  }
+
+  .thruster-glow {
+    width: 30px;
+    height: 70px;
+    bottom: -60px;
+  }
+}
+
+@media (max-height: 700px) {
+  .success-message-container {
+    top: 55%;
+  }
+  .rocket-container {
+    transform: translateY(150px);
+  }
+  .success-message-container h2 {
+    margin-bottom: 1rem;
+  }
+}
+

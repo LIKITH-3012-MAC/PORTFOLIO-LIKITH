@@ -86,11 +86,260 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
     <script type="module" src="https://unpkg.com/@splinetool/viewer@latest/build/spline-viewer.js"></script>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Critical Intro CSS - Prevents flash, ensures black screen from first paint -->
+    <style>
+      html { background: #020408; }
+      body.intro-active { overflow: hidden; }
+
+      /* ═══ CINEMATIC INTRO OVERLAY ═══ */
+      #cinematic-intro {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: #020408;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        overflow: hidden;
+        will-change: opacity, transform;
+      }
+
+      /* Ambient atmospheric layers */
+      .intro-atmosphere {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .intro-atmosphere::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 120vmax;
+        height: 120vmax;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(
+          ellipse 60% 50% at 50% 50%,
+          rgba(255, 255, 255, 0.025) 0%,
+          rgba(255, 255, 255, 0.008) 30%,
+          transparent 70%
+        );
+        opacity: 0;
+        will-change: opacity;
+      }
+
+      .intro-atmosphere::after {
+        content: '';
+        position: absolute;
+        bottom: -20%;
+        left: 50%;
+        width: 80vw;
+        height: 40vh;
+        transform: translateX(-50%);
+        background: radial-gradient(
+          ellipse at center,
+          rgba(148, 163, 184, 0.04) 0%,
+          transparent 70%
+        );
+        filter: blur(80px);
+        opacity: 0;
+        will-change: opacity;
+      }
+
+      /* Subtle vignette */
+      .intro-vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse 70% 60% at 50% 50%,
+          transparent 20%,
+          rgba(2, 4, 8, 0.6) 100%
+        );
+        pointer-events: none;
+      }
+
+      /* Title container with perspective */
+      .intro-title-stage {
+        position: relative;
+        z-index: 10;
+        perspective: 1200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+      }
+
+      /* Title text styling */
+      .intro-title-line {
+        display: flex;
+        justify-content: center;
+        gap: 0;
+        overflow: visible;
+      }
+
+      .intro-char {
+        display: inline-block;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(248, 250, 252, 0.95);
+        opacity: 0;
+        transform: translateY(40px) rotateX(-15deg) scale(0.9);
+        transform-origin: center bottom;
+        will-change: opacity, transform;
+        text-shadow:
+          0 1px 2px rgba(0, 0, 0, 0.8),
+          0 4px 12px rgba(0, 0, 0, 0.4);
+      }
+
+      .intro-char.is-space {
+        width: 0.35em;
+      }
+
+      .intro-line-1 .intro-char {
+        font-size: clamp(0.65rem, 1.8vw, 1rem);
+        font-weight: 400;
+        letter-spacing: 0.35em;
+        color: rgba(148, 163, 184, 0.7);
+      }
+
+      .intro-line-2 .intro-char {
+        font-size: clamp(2rem, 6vw, 4.5rem);
+        font-weight: 200;
+        letter-spacing: 0.12em;
+        color: rgba(248, 250, 252, 0.95);
+      }
+
+      .intro-line-3 .intro-char {
+        font-size: clamp(0.6rem, 1.5vw, 0.85rem);
+        font-weight: 400;
+        letter-spacing: 0.5em;
+        color: rgba(148, 163, 184, 0.5);
+      }
+
+      /* Decorative accent line */
+      .intro-accent-line {
+        width: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.3) 20%,
+          rgba(255, 255, 255, 0.5) 50%,
+          rgba(255, 255, 255, 0.3) 80%,
+          transparent 100%
+        );
+        margin: 1.5rem 0;
+        opacity: 0;
+        will-change: width, opacity;
+      }
+
+      /* Light sweep effect */
+      .intro-light-sweep {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.03),
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.03),
+          transparent
+        );
+        transform: skewX(-15deg);
+        pointer-events: none;
+        opacity: 0;
+        will-change: left, opacity;
+      }
+
+      /* Ambient floating particles */
+      .intro-particle {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0;
+        will-change: transform, opacity;
+      }
+
+      /* Mobile refinements */
+      @media (max-width: 768px) {
+        .intro-accent-line {
+          margin: 1rem 0;
+        }
+        .intro-line-2 .intro-char {
+          letter-spacing: 0.06em;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .intro-title-stage {
+          padding: 0 1rem;
+        }
+        .intro-line-1 .intro-char {
+          letter-spacing: 0.2em;
+        }
+        .intro-line-3 .intro-char {
+          letter-spacing: 0.25em;
+        }
+      }
+    </style>
 </head>
 
-<body class="relative antialiased selection:bg-amber-500/30 selection:text-amber-200">
+<body class="relative antialiased selection:bg-amber-500/30 selection:text-amber-200 intro-active">
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- CINEMATIC INTRO — LUXURY PORTFOLIO ENTRY SEQUENCE  -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <div id="cinematic-intro">
+        <!-- Atmosphere -->
+        <div class="intro-atmosphere" id="intro-atmo"></div>
+        <div class="intro-vignette"></div>
+
+        <!-- Light Sweep -->
+        <div class="intro-light-sweep" id="intro-sweep"></div>
+
+        <!-- Ambient Particles -->
+        <div class="intro-particle" style="top:20%;left:15%"></div>
+        <div class="intro-particle" style="top:35%;left:78%"></div>
+        <div class="intro-particle" style="top:65%;left:25%"></div>
+        <div class="intro-particle" style="top:75%;left:82%"></div>
+        <div class="intro-particle" style="top:45%;left:50%"></div>
+        <div class="intro-particle" style="top:15%;left:60%"></div>
+        <div class="intro-particle" style="top:80%;left:45%"></div>
+        <div class="intro-particle" style="top:55%;left:10%"></div>
+
+        <!-- Title Stage -->
+        <div class="intro-title-stage" id="intro-title-stage">
+            <!-- Line 1: Pre-title -->
+            <div class="intro-title-line intro-line-1" id="intro-line-1"></div>
+
+            <!-- Accent Line -->
+            <div class="intro-accent-line" id="intro-accent"></div>
+
+            <!-- Line 2: Main Title -->
+            <div class="intro-title-line intro-line-2" id="intro-line-2"></div>
+
+            <!-- Accent Line -->
+            <div class="intro-accent-line" id="intro-accent-2"></div>
+
+            <!-- Line 3: Subtitle -->
+            <div class="intro-title-line intro-line-3" id="intro-line-3"></div>
+        </div>
+    </div>
 
     <!-- Global Background Elements -->
     <div class="fixed inset-0 z-[-2] bg-grid opacity-20 pointer-events-none"></div>
@@ -789,6 +1038,216 @@
     <script src="config.js"></script>
     <script src="script.js"></script>
     <script src="chatbot.js"></script>
+
+    <!-- ═══ CINEMATIC INTRO ENGINE ═══ -->
+    <script>
+    (function() {
+        'use strict';
+
+        const intro = document.getElementById('cinematic-intro');
+        if (!intro) return;
+
+        // Skip intro if already seen this session
+        if (sessionStorage.getItem('intro-seen')) {
+            intro.remove();
+            document.body.classList.remove('intro-active');
+            return;
+        }
+
+        // ── Split text into individual characters ──
+        function splitToChars(containerId, text) {
+            const container = document.getElementById(containerId);
+            if (!container) return [];
+            const chars = [];
+            for (let i = 0; i < text.length; i++) {
+                const span = document.createElement('span');
+                span.classList.add('intro-char');
+                if (text[i] === ' ') {
+                    span.classList.add('is-space');
+                    span.innerHTML = '&nbsp;';
+                } else {
+                    span.textContent = text[i];
+                }
+                container.appendChild(span);
+                chars.push(span);
+            }
+            return chars;
+        }
+
+        const line1Chars = splitToChars('intro-line-1', 'Welcome to');
+        const line2Chars = splitToChars('intro-line-2', "Likith's Portfolio");
+        const line3Chars = splitToChars('intro-line-3', 'AI-ML Architect & Founder');
+
+        // ── Particles ──
+        const particles = intro.querySelectorAll('.intro-particle');
+
+        // ── Master Timeline ──
+        const tl = gsap.timeline({
+            onComplete: function() {
+                sessionStorage.setItem('intro-seen', 'true');
+            }
+        });
+
+        // SCENE 1: Atmospheric Entry (0 → 0.6s)
+        tl.to('#intro-atmo', {
+            duration: 0.8,
+            onStart: function() {
+                gsap.to('#intro-atmo', {
+                    '--atmo-opacity': 1,
+                    duration: 0.8,
+                });
+                // Animate pseudo-elements via class
+                document.getElementById('intro-atmo').style.cssText = '';
+            }
+        })
+        .to('#intro-atmo::before, #intro-atmo::after', {
+            opacity: 1,
+            duration: 0.01,
+        }, 0)
+        // Fade in atmosphere manually
+        .call(function() {
+            const atmo = document.getElementById('intro-atmo');
+            if (atmo) {
+                atmo.style.setProperty('opacity', '1');
+                // Animate pseudo-element opacity via direct style on container
+            }
+        }, null, 0)
+
+        // Particles drift in
+        .to(particles, {
+            opacity: function() { return 0.1 + Math.random() * 0.2; },
+            duration: 2,
+            stagger: { each: 0.08, from: 'random' },
+            ease: 'power2.out',
+        }, 0.2)
+        .to(particles, {
+            y: function() { return -30 + Math.random() * -60; },
+            x: function() { return -10 + Math.random() * 20; },
+            duration: 6,
+            stagger: { each: 0.1, from: 'random' },
+            ease: 'none',
+            repeat: 0,
+        }, 0.2)
+
+        // SCENE 2: Line 1 Reveal — "Welcome to" (0.3s →)
+        .to(line1Chars, {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            scale: 1,
+            duration: 0.6,
+            stagger: { each: 0.04, from: 'start' },
+            ease: 'power3.out',
+        }, 0.4)
+
+        // Accent line 1 draws in
+        .to('#intro-accent', {
+            width: 'clamp(80px, 15vw, 200px)',
+            opacity: 0.6,
+            duration: 0.8,
+            ease: 'power2.inOut',
+        }, 0.7)
+
+        // SCENE 3: Line 2 Reveal — "Likith's Portfolio" (0.8s →)
+        .to(line2Chars, {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            scale: 1,
+            duration: 0.7,
+            stagger: { each: 0.035, from: 'center' },
+            ease: 'power4.out',
+        }, 0.9)
+
+        // Accent line 2 draws in
+        .to('#intro-accent-2', {
+            width: 'clamp(60px, 10vw, 140px)',
+            opacity: 0.4,
+            duration: 0.7,
+            ease: 'power2.inOut',
+        }, 1.3)
+
+        // SCENE 4: Line 3 Reveal — Subtitle (1.4s →)
+        .to(line3Chars, {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            scale: 1,
+            duration: 0.5,
+            stagger: { each: 0.02, from: 'start' },
+            ease: 'power3.out',
+        }, 1.5)
+
+        // SCENE 5: Light Sweep (1.8s →)
+        .to('#intro-sweep', {
+            opacity: 1,
+            left: '150%',
+            duration: 1.2,
+            ease: 'power2.inOut',
+        }, 2.0)
+
+        // SCENE 6: Subtle zoom + perspective drift (2.0s →)
+        .to('#intro-title-stage', {
+            scale: 1.02,
+            duration: 1.5,
+            ease: 'power1.inOut',
+        }, 2.0)
+
+        // SCENE 7: Signature Exit (3.2s →)
+        // Title dissolves upward
+        .to(line1Chars, {
+            opacity: 0,
+            y: -25,
+            filter: 'blur(6px)',
+            duration: 0.6,
+            stagger: { each: 0.015, from: 'end' },
+            ease: 'power2.in',
+        }, 3.3)
+        .to('#intro-accent, #intro-accent-2', {
+            width: 0,
+            opacity: 0,
+            duration: 0.5,
+            ease: 'power2.in',
+        }, 3.3)
+        .to(line2Chars, {
+            opacity: 0,
+            y: -30,
+            filter: 'blur(8px)',
+            duration: 0.7,
+            stagger: { each: 0.02, from: 'center' },
+            ease: 'power2.in',
+        }, 3.4)
+        .to(line3Chars, {
+            opacity: 0,
+            y: -20,
+            filter: 'blur(4px)',
+            duration: 0.5,
+            stagger: { each: 0.01, from: 'start' },
+            ease: 'power2.in',
+        }, 3.5)
+
+        // Particles fade
+        .to(particles, {
+            opacity: 0,
+            duration: 0.5,
+            ease: 'power2.in',
+        }, 3.4)
+
+        // SCENE 8: Overlay lifts away — reveal homepage
+        .to(intro, {
+            opacity: 0,
+            scale: 1.03,
+            filter: 'blur(20px)',
+            duration: 1.0,
+            ease: 'power3.inOut',
+            onComplete: function() {
+                intro.remove();
+                document.body.classList.remove('intro-active');
+            }
+        }, 3.8);
+
+    })();
+    </script>
 </body>
 
 </html>
