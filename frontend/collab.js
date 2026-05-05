@@ -74,8 +74,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Reset children
         districtSelect.innerHTML = '<option value="" disabled selected>Select District</option>';
         districtSelect.disabled = true;
+        mandalSelect.innerHTML = '<option value="" disabled selected>Select Mandal / Sub-Region</option>';
         mandalSelect.disabled = true;
+        villageSelect.innerHTML = '<option value="" disabled selected>Select Area</option>';
         villageSelect.disabled = true;
+        
+        districtSelect.classList.add('opacity-50');
+        mandalSelect.classList.add('opacity-50');
+        villageSelect.classList.add('opacity-50');
     });
 
     stateSelect.addEventListener('change', () => {
@@ -90,6 +96,14 @@ document.addEventListener('DOMContentLoaded', () => {
             option.textContent = dist;
             districtSelect.appendChild(option);
         });
+
+        // Reset deeper children
+        mandalSelect.innerHTML = '<option value="" disabled selected>Select Mandal / Sub-Region</option>';
+        mandalSelect.disabled = true;
+        mandalSelect.classList.add('opacity-50');
+        villageSelect.innerHTML = '<option value="" disabled selected>Select Area</option>';
+        villageSelect.disabled = true;
+        villageSelect.classList.add('opacity-50');
     });
 
     districtSelect.addEventListener('change', () => {
@@ -104,6 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
             option.textContent = mandal;
             mandalSelect.appendChild(option);
         });
+
+        // Reset deeper child
+        villageSelect.innerHTML = '<option value="" disabled selected>Select Area</option>';
+        villageSelect.disabled = true;
+        villageSelect.classList.add('opacity-50');
     });
 
     mandalSelect.addEventListener('change', () => {
@@ -226,7 +245,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }, 1000);
                 }, 1200);
             }, 800);
-        }, 800);
     }
 
     function showPremiumError(message) {
