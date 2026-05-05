@@ -9,6 +9,10 @@
       "answer": "Yes. Likith is a specialized AI/ML engineer with deep expertise in developing ML models, AI Agents, and autonomous automation. He builds intelligent systems from the ground up."
     },
     {
+      "question": "What is RESOLVIT?",
+      "answer": "RESOLVIT is Likith's flagship civic-tech platform—an AI-powered operations system designed for citizens, NGOs, and public authorities. It transforms community signals and complaints into structured, actionable workflows through AI clustering, real-time tracking, and geo-intelligence mapping."
+    },
+    {
       "question": "Can Likith build AI agents and ML models?",
       "answer": "Absolutely. Likith develops sophisticated AI Agents and custom ML models tailored to specific technical requirements. He handles everything from algorithm design to production deployment."
     },
@@ -29,8 +33,8 @@
       "answer": "Likith handles the entire deployment workflow across both frontend and backend platforms. He manages cloud databases (PostgreSQL, MongoDB) and ensures production-grade delivery of every product."
     },
     {
-      "question": "What are Likith’s specialties?",
-      "answer": "Likith's specialties include AI/ML engineering, AI agent development, Python/Node.js full-stack systems, API/Middleware architecture, Metadata design, Domain/Infrastructure control, and end-to-end technical execution."
+      "question": "What is Likith's role in the Solution Challenge 2026?",
+      "answer": "Likith is the founder and leader of Team SΛKRΛ in the GDG Solution Challenge 2026. He led the team in architecting RESOLVIT, an AI-powered civic operations platform, demonstrating high-level engineering leadership and innovation under the Google 'Build with AI' initiative."
     }
   ]
 }

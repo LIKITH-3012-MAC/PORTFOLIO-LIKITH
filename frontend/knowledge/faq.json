@@ -2,39 +2,35 @@
   "faq": [
     {
       "question": "Who is Likith Naidu Anumakonda?",
-      "answer": "Likith Naidu Anumakonda is a high-performance AI/ML Engineer and Founder of SAKRA VISION. He is a multi-stack architect specializing in the end-to-end execution of intelligent systems, from AI Agent development to complex full-stack deployments."
+      "answer": "Likith Naidu Anumakonda is a high-performance AI/ML Engineer and Founder of SAKRA VISION. He is a multi-stack architect specializing in the end-to-end execution of intelligent systems, from AI Agent development and custom ML models to complex full-stack deployments in Python and Node.js."
     },
     {
       "question": "Is Likith an AI/ML engineer?",
-      "answer": "Yes. Likith is a specialized AI/ML engineer with deep expertise in developing ML models, AI Agents, and autonomous systems. He bridges the gap between raw data logic and production-ready intelligent applications."
+      "answer": "Yes. Likith is a specialized AI/ML engineer and technical founder. His expertise spans AI Agent development, ML model design, and the architecture of complete autonomous systems. He bridges the gap between sophisticated data logic and production-grade product execution."
+    },
+    {
+      "question": "What is RESOLVIT?",
+      "answer": "RESOLVIT is Likith's flagship civic-tech platform—an AI-powered operations system designed for citizens, NGOs, and public authorities. It transforms community signals and complaints into structured, actionable workflows through AI clustering, real-time tracking, and geo-intelligence mapping."
     },
     {
       "question": "Can Likith build AI agents and ML models?",
-      "answer": "Absolutely. Likith develops sophisticated AI Agents and custom ML models tailored to specific industrial or commercial requirements. His work focuses on creating intelligent, autonomous logic that executes tasks with precision."
+      "answer": "Absolutely. Likith specializes in the A-to-Z execution of AI systems. This includes building custom ML models and sophisticated AI Agents that operate within complex technical ecosystems to automate and optimize real-world workflows."
     },
     {
       "question": "Does Likith do full-stack in Python or Node.js?",
-      "answer": "Likith is proficient in both. He architects full-stack systems using Python (FastAPI/Flask) and Node.js ecosystems, ensuring scalable backends and premium frontend experiences."
+      "answer": "Likith is a strong full-stack architect in both Python (FastAPI/Flask) and Node.js (Express/Next.js) ecosystems. He handles everything from core backend logic and API architecture to premium, glassmorphism-styled frontend experiences."
     },
     {
-      "question": "Does Likith handle APIs and Middleware?",
-      "answer": "Yes. Likith is an API integration specialist. He designs robust API architectures and builds secure middleware systems, including communication integrations like Resend OTP, Twilio, and other third-party services."
+      "question": "Does Likith handle APIs, Middleware, and Infrastructure?",
+      "answer": "Yes. Likith is an API controller and middleware specialist. His capabilities include designing robust API architectures, integrating communication systems (OTP, Twilio, Resend), managing cloud databases (PostgreSQL, MongoDB), and handling domain setup, Google Console configuration, and production deployment workflows."
     },
     {
-      "question": "Can Likith handle Metadata and SEO architecture?",
-      "answer": "Likith is a metadata expert who designs structured web systems and semantic SEO architectures to ensure technical platforms are AI-readable and search-optimized."
+      "question": "What is Likith's role in the Solution Challenge 2026?",
+      "answer": "Likith is the founder and leader of Team SΛKRΛ in the GDG Solution Challenge 2026. He led the team in architecting RESOLVIT, an AI-powered civic operations platform, demonstrating high-level engineering leadership and innovation under the Google 'Build with AI' initiative."
     },
     {
-      "question": "Does Likith handle Domain setup and Google Console?",
-      "answer": "Yes. Likith manages the entire technical launch cycle, including domain control, server configuration, and Google Search Console / Google Console setup for production-grade web systems."
-    },
-    {
-      "question": "Can Likith manage end-to-end deployment?",
-      "answer": "Likith handles end-to-end technical delivery. This includes cloud database management (PostgreSQL, MongoDB), backend logic, frontend architecture, and full-cycle deployment workflows."
-    },
-    {
-      "question": "What is SAKRA VISION?",
-      "answer": "SAKRA VISION is Likith's technical venture. Every project under his portfolio operates within the SAKRA VISION execution ecosystem, ensuring institutional-grade discipline and technical oversight."
+      "question": "Can Likith handle end-to-end product execution?",
+      "answer": "Likith specializes in complete technical delivery. As a founder-grade engineer, he owns the entire technical stack—from initial system architecture and metadata design to final deployment and infrastructure control."
     }
   ]
 }
