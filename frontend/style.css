@@ -13,6 +13,7 @@
 
 html {
   background-color: var(--color-bg);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -28,20 +29,32 @@ h1, h2, h3, h4, h5, h6, .font-display {
   font-family: 'Outfit', sans-serif;
 }
 
-/* Background Effects */
-.bg-grid {
-  background-size: 40px 40px;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 70%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000 70%, transparent 100%);
+/* Global Background System */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -3;
+  background-image: url("LIKITH's.jpeg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  filter: grayscale(100%) brightness(0.9); /* Premium monochrome treatment */
 }
 
-.glow-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  z-index: -1;
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  background: rgba(3, 7, 18, 0.6); /* Slightly more visible image */
   pointer-events: none;
 }
 
@@ -241,10 +254,7 @@ h1, h2, h3, h4, h5, h6, .font-display {
   transform: scale(1) translateY(0);
 }
 
-/* Hide Spline Logo */
-spline-viewer::part(logo) {
-  display: none !important;
-}
+
 
 /* AI Agent Utilities */
 .custom-scrollbar::-webkit-scrollbar {

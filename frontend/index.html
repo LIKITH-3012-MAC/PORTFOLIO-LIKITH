@@ -87,7 +87,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@latest/build/spline-viewer.js"></script>
+
     <link rel="stylesheet" href="style.css">
 
     <!-- Critical Intro CSS - Prevents flash, ensures black screen from first paint -->
@@ -341,17 +341,7 @@
         </div>
     </div>
 
-    <!-- Global Background Elements -->
-    <div class="fixed inset-0 z-[-2] bg-grid opacity-20 pointer-events-none"></div>
-    <div class="glow-orb w-[600px] h-[600px] bg-amber-500/10 top-[-200px] left-[-200px]"></div>
-    <div class="glow-orb w-[800px] h-[800px] bg-blue-500/5 bottom-[-200px] right-[-200px]"></div>
 
-    <!-- Global 3D Robot Background -->
-    <div class="fixed inset-0 z-[-1] pointer-events-none overflow-hidden opacity-40 md:opacity-100">
-        <iframe src="https://my.spline.design/robotfollowcursorforlandingpage-XEJ14t31Ic3xuBiTaX45t5FX/" 
-            frameborder="0" class="w-full h-full scale-110 md:scale-100 translate-x-0 md:translate-x-[25%]"></iframe>
-        <div class="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-[#030712] via-[#030712]/50 to-transparent"></div>
-    </div>
 
     <!-- Navigation -->
     <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 py-4 bg-transparent">
