@@ -1,12 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     // 0. Initialize Lenis Smooth Scroll
     const lenis = new Lenis({
-        duration: 1.2,
+        lerp: 0.08, // Lower value = smoother, more fluid movement
+        duration: 1.5,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         direction: 'vertical',
         gestureDirection: 'vertical',
-        smoothHover: true,
+        smoothWheel: true,
         smoothTouch: false,
+        wheelMultiplier: 1.1,
         touchMultiplier: 2,
     });
 
