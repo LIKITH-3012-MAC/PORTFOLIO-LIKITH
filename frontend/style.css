@@ -316,7 +316,9 @@ body::after {
   -webkit-backdrop-filter: blur(60px);
   opacity: 0;
   visibility: hidden;
-  transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 2rem;
+  overflow-y: auto;
 }
 
 .success-stage.active {
@@ -353,23 +355,38 @@ body::after {
 }
 
 .success-message-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -40%) scale(0.95);
+  position: relative;
   text-align: center;
-  width: 100%;
-  max-width: 800px;
-  padding: 2rem;
+  width: min(90vw, 800px);
+  padding: 4rem 2rem;
   opacity: 0;
   pointer-events: none;
-  transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 10;
+  margin: auto;
 }
 
 .success-message-container.visible {
   opacity: 1;
   pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1);
+  transform: scale(1);
+}
+
+.success-message-container h2 {
+  font-size: clamp(1.8rem, 6vw, 4.5rem);
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+  font-weight: 900;
+}
+
+.success-message-container p {
+  font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3.5rem;
+  opacity: 0.8;
 }
 
 .btn-liquid-glass {
@@ -378,17 +395,22 @@ body::after {
   -webkit-backdrop-filter: blur(30px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: white;
-  padding: 1.2rem 3rem;
+  padding: 1.2rem 2.5rem;
   border-radius: 100px;
   font-weight: 600;
   font-family: 'Outfit', sans-serif;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   font-size: 0.8rem;
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   box-shadow: 0 4px 30px rgba(0,0,0,0.5);
   position: relative;
   overflow: hidden;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
 }
 
 .btn-liquid-glass::before {
@@ -452,16 +474,11 @@ body::after {
 
 /* --- SUCCESS SYSTEM RESPONSIVENESS --- */
 
-@media (max-width: 1024px) {
-  .success-message-container h2 {
-    font-size: 4rem;
-  }
-}
-
 @media (max-width: 768px) {
   .rocket-container {
     width: 90px;
     height: 180px;
+    margin-bottom: 2rem;
   }
   
   .rocket-container svg {
@@ -469,43 +486,37 @@ body::after {
     height: 160px;
   }
 
-  .success-message-container h2 {
-    font-size: 3rem;
-    line-height: 1;
-  }
-
-  .success-message-container p {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-  }
-
   .btn-liquid-glass {
-    padding: 1rem 2rem;
+    padding: 1.1rem 2rem;
     font-size: 0.75rem;
     width: 100%;
+    min-width: unset;
   }
 
   .success-message-container {
-    padding: 1.5rem;
-    width: 90%;
+    width: 95%;
   }
 
   .success-message-container .mb-12 {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
   }
 
   .success-message-container .w-24 {
-    width: 4rem;
-    height: 4rem;
+    width: 4.5rem;
+    height: 4.5rem;
   }
 
   .success-message-container i {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.75rem;
+    height: 1.75rem;
   }
 }
 
 @media (max-width: 480px) {
+  .success-stage {
+    padding: 1rem;
+  }
+
   .rocket-container {
     width: 70px;
     height: 140px;
@@ -517,11 +528,7 @@ body::after {
   }
 
   .success-message-container h2 {
-    font-size: 2.2rem;
-  }
-
-  .success-message-container p {
-    font-size: 0.95rem;
+    line-height: 1;
   }
 
   .vapor-cloud {
@@ -536,15 +543,27 @@ body::after {
   }
 }
 
-@media (max-height: 700px) {
+@media (max-height: 750px) {
+  .success-message-container .mb-12 {
+    margin-bottom: 1.5rem;
+  }
+  .success-message-container p {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-height: 650px) {
   .success-message-container {
-    top: 55%;
+    top: 50%;
   }
   .rocket-container {
-    transform: translateY(150px);
+    transform: translateY(120px);
   }
   .success-message-container h2 {
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .success-message-container .mb-12 {
+    display: none; /* Hide icon on very short screens */
   }
 }
 

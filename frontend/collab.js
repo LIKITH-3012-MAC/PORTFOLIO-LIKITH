@@ -219,11 +219,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         setTimeout(() => {
                             // Phase 6: Delivery Confirmation
                             content.classList.add('visible');
+                            rocket.style.display = 'none'; // Clear stage for message
                             if (window.lucide) lucide.createIcons();
-                        }, 1000);
-                    }, 1000);
-                }, 1200);
-            }, 800);
+                        }, 600);
+                    }, 600);
+                }, 500);
+            }, 300);
     }
 
     function showPremiumError(message) {
