@@ -45,9 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const countrySelect = document.getElementById('country-select');
     const stateSelect = document.getElementById('state-select');
-    const districtSelect = document.getElementById('district-select');
-    const mandalSelect = document.getElementById('mandal-select');
-    const villageSelect = document.getElementById('village-select');
 
     // Init Countries
     countrySelect.innerHTML = '<option value="" disabled selected>Select Country</option>';
@@ -70,75 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
             option.textContent = state;
             stateSelect.appendChild(option);
         });
-        
-        // Reset children
-        districtSelect.innerHTML = '<option value="" disabled selected>Select District</option>';
-        districtSelect.disabled = true;
-        mandalSelect.innerHTML = '<option value="" disabled selected>Select Mandal / Sub-Region</option>';
-        mandalSelect.disabled = true;
-        villageSelect.innerHTML = '<option value="" disabled selected>Select Area</option>';
-        villageSelect.disabled = true;
-        
-        districtSelect.classList.add('opacity-50');
-        mandalSelect.classList.add('opacity-50');
-        villageSelect.classList.add('opacity-50');
-    });
-
-    stateSelect.addEventListener('change', () => {
-        const districts = GEOGRAPHY_DATA[countrySelect.value][stateSelect.value];
-        districtSelect.innerHTML = '<option value="" disabled selected>Select District</option>';
-        districtSelect.disabled = false;
-        districtSelect.classList.remove('opacity-50');
-
-        Object.keys(districts).forEach(dist => {
-            const option = document.createElement('option');
-            option.value = dist;
-            option.textContent = dist;
-            districtSelect.appendChild(option);
-        });
-
-        // Reset deeper children
-        mandalSelect.innerHTML = '<option value="" disabled selected>Select Mandal / Sub-Region</option>';
-        mandalSelect.disabled = true;
-        mandalSelect.classList.add('opacity-50');
-        villageSelect.innerHTML = '<option value="" disabled selected>Select Area</option>';
-        villageSelect.disabled = true;
-        villageSelect.classList.add('opacity-50');
-    });
-
-    districtSelect.addEventListener('change', () => {
-        const mandals = GEOGRAPHY_DATA[countrySelect.value][stateSelect.value][districtSelect.value];
-        mandalSelect.innerHTML = '<option value="" disabled selected>Select Mandal / Sub-Region</option>';
-        mandalSelect.disabled = false;
-        mandalSelect.classList.remove('opacity-50');
-
-        mandals.forEach(mandal => {
-            const option = document.createElement('option');
-            option.value = mandal;
-            option.textContent = mandal;
-            mandalSelect.appendChild(option);
-        });
-
-        // Reset deeper child
-        villageSelect.innerHTML = '<option value="" disabled selected>Select Area</option>';
-        villageSelect.disabled = true;
-        villageSelect.classList.add('opacity-50');
-    });
-
-    mandalSelect.addEventListener('change', () => {
-        // Mocking the final level for demo purposes
-        const selectedMandal = mandalSelect.value;
-        villageSelect.innerHTML = '<option value="" disabled selected>Select Area</option>';
-        villageSelect.disabled = false;
-        villageSelect.classList.remove('opacity-50');
-
-        const options = [`${selectedMandal} Main`, `${selectedMandal} North`, `${selectedMandal} South`, "Other Zone"];
-        options.forEach(area => {
-            const option = document.createElement('option');
-            option.value = area;
-            option.textContent = area;
-            villageSelect.appendChild(option);
-        });
     });
 
     // --- FORM SUBMISSION LOGIC ---
@@ -156,9 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
             phone_number: data.phone_number,
             country: data.country,
             state: data.state || null,
-            district: data.district || null,
-            mandal_or_subregion: data.mandal_or_subregion || null,
-            village_or_town: data.village_or_town || null,
             collaboration_type: data.collaboration_type,
             purpose: data.purpose,
             organization: data.organization || null,
