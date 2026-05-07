@@ -5,8 +5,7 @@ Allow: /
 # Prevent indexing of specific asset types if needed
 Disallow: /backend/
 Disallow: /data/
-Disallow: /db.html
-Disallow: /likith-response-db.html
+Disallow: /dataa.html
 Disallow: /analytics.js
 
 # Sitemap location

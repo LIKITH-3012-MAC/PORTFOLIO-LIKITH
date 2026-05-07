@@ -16,6 +16,18 @@ from fastapi import Header
 from core.router import IntentRouter
 from core.retrieval import RetrievalService
 from core.llm_service import LLMService
+import pytz
+
+# Timezone Configuration
+IST = pytz.timezone('Asia/Kolkata')
+
+def format_to_ist(dt: datetime):
+    if not dt:
+        return None
+    # Assume naive datetimes are UTC
+    if dt.tzinfo is None:
+        dt = pytz.utc.localize(dt)
+    return dt.astimezone(IST).strftime('%d/%m/%Y, %I:%M:%S %p')
 
 # 1. Setup & Environment
 env_path = os.path.join(os.path.dirname(__file__), ".env")
@@ -340,7 +352,7 @@ async def get_admin_responses(limit: int = 50, offset: int = 0, authenticated: b
                     "response": l.ai_response,
                     "intent": l.intent,
                     "latency": l.latency_ms,
-                    "time": l.created_at.isoformat()
+                    "time": format_to_ist(l.created_at)
                 } for l in logs
             ],
             "pagination": {"total": total, "limit": limit, "offset": offset}
@@ -364,7 +376,7 @@ async def get_admin_collabs(limit: int = 50, offset: int = 0, authenticated: boo
                     "phone": c.phone_number,
                     "type": c.collaboration_type,
                     "purpose": c.purpose,
-                    "time": c.created_at.isoformat() if c.created_at else None
+                    "time": format_to_ist(c.created_at)
                 } for c in collabs
             ],
             "pagination": {"total": total, "limit": limit, "offset": offset}
@@ -422,7 +434,7 @@ async def get_admin_visitors(limit: int = 50, offset: int = 0, authenticated: bo
                     "device": v.device_type,
                     "browser": v.browser_name,
                     "referrer": v.referrer,
-                    "time": v.created_at.isoformat()
+                    "time": format_to_ist(v.created_at)
                 } for v in visits
             ],
             "pagination": {"total": total, "limit": limit, "offset": offset}
@@ -462,7 +474,7 @@ async def debug_db():
             entries.append({
                 "id": r.id,
                 "name": r.full_name,
-                "time": str(r.created_at)
+                "time": format_to_ist(r.created_at)
             })
         db.close()
         return {
@@ -475,4 +487,4 @@ async def debug_db():
 
 @app.get("/api/health")
 async def health():
-    return {"status": "online", "timestamp": datetime.now()}
+    return {"status": "online", "timestamp": format_to_ist(datetime.utcnow())}
