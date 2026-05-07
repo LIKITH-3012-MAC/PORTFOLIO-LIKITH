@@ -61,7 +61,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 # 3. Knowledge Base Initialization
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-client = Groq(api_key=GROQ_API_KEY)
+client = Groq(api_key=GROQ_API_KEY, max_retries=1)
 
 data_dir = os.path.join(os.path.dirname(__file__), "data")
 kb = {}
@@ -73,7 +73,7 @@ try:
 except Exception as e:
     logger.error(f"KB Load Error: {e}")
 
-kb_text = json.dumps(kb, indent=2)
+kb_text = json.dumps(kb)
 
 # 4. Database Setup
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -173,6 +173,11 @@ CARD TAGS:
 Respond naturally. If a card is needed, append it at the end.
 """
 
+# 7. Endpoints
+@app.get("/")
+async def root():
+    return {"message": "Likith Portfolio API is active.", "status": "online"}
+
 @app.post("/api/chat")
 async def chat(request: ChatRequest):
     async def generate():
@@ -190,8 +195,11 @@ async def chat(request: ChatRequest):
                 if chunk.choices[0].delta.content:
                     yield chunk.choices[0].delta.content
         except Exception as e:
-            logger.error(f"Streaming Error: {e}")
-            yield "I encountered a technical glitch. Please visit <a href='./problem.html' class='text-white underline hover:text-amber-400 transition-colors duration-300'>support</a>."
+            if "rate_limit_exceeded" in str(e).lower() or "429" in str(e):
+                yield "I'm currently receiving too many requests. Please give me a few seconds to breathe and try again! [[CARD:none]]"
+            else:
+                logger.error(f"Streaming Error: {e}")
+                yield "I encountered a technical glitch. Please visit <a href='./problem.html' class='text-white underline hover:text-amber-400 transition-colors duration-300'>support</a>. [[CARD:error]]"
 
     return StreamingResponse(generate(), media_type="text/plain")
 
