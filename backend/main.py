@@ -65,7 +65,17 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 # 3. Knowledge Base Initialization
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-client = Groq(api_key=GROQ_API_KEY, max_retries=1)
+
+# Initialize client only if key exists, otherwise log warning
+client = None
+if GROQ_API_KEY and "YOUR_GROQ_API_KEY" not in GROQ_API_KEY:
+    try:
+        client = Groq(api_key=GROQ_API_KEY, max_retries=1)
+        logger.info("✅ Groq AI Client initialized.")
+    except Exception as e:
+        logger.error(f"❌ Failed to initialize Groq Client: {e}")
+else:
+    logger.warning("⚠️ GROQ_API_KEY is missing or invalid. AI features will be limited.")
 
 data_dir = os.path.join(os.path.dirname(__file__), "data")
 kb = {}
@@ -102,21 +112,30 @@ def get_admin_auth(x_admin_token: str = Header(None)):
 # 4. Database Setup
 DATABASE_URL = os.getenv("DATABASE_URL")
 
-# Optimized for Aiven MySQL with pymysql
-if DATABASE_URL and "mysql" in DATABASE_URL.lower():
-    engine = create_engine(
-        DATABASE_URL,
-        connect_args={
-            "ssl": {
-                "ssl_mode": "REQUIRED"  # Standard for Aiven/Managed MySQL
-            }
-        },
-        pool_pre_ping=True,
-        pool_recycle=3600
-    )
-else:
-    # Fallback for PostgreSQL/SQLite
-    engine = create_engine(DATABASE_URL, connect_args={"ssl": {"ca": None}} if DATABASE_URL and "sqlite" not in DATABASE_URL else {})
+# Optimized for Aiven MySQL with pymysql or SQLite fallback
+try:
+    if DATABASE_URL and "mysql" in DATABASE_URL.lower():
+        engine = create_engine(
+            DATABASE_URL,
+            connect_args={
+                "ssl": {
+                    "ssl_mode": "REQUIRED"
+                }
+            },
+            pool_pre_ping=True,
+            pool_recycle=3600
+        )
+        logger.info("✅ MySQL Engine initialized.")
+    else:
+        # Fallback to local SQLite if MySQL URL is missing or invalid
+        sqlite_path = os.path.join(os.path.dirname(__file__), "local.db")
+        engine = create_engine(f"sqlite:///{sqlite_path}", connect_args={"check_same_thread": False})
+        logger.warning(f"⚠️ DATABASE_URL missing or invalid. Falling back to local SQLite: {sqlite_path}")
+except Exception as e:
+    logger.error(f"❌ Failed to initialize database engine: {e}")
+    # Final fallback to memory SQLite
+    engine = create_engine("sqlite:///:memory:", connect_args={"check_same_thread": False})
+    logger.warning("⚠️ Using in-memory SQLite (DATA WILL NOT PERSIST).")
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()

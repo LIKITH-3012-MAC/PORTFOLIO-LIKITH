@@ -7,11 +7,20 @@ logger = logging.getLogger("LLMService")
 
 class LLMService:
     def __init__(self, api_key, system_prompt):
-        self.client = Groq(api_key=api_key, max_retries=1)
+        self.api_key = api_key
+        self.client = None
+        if api_key and "YOUR_GROQ_API_KEY" not in api_key:
+            try:
+                self.client = Groq(api_key=api_key, max_retries=1)
+            except Exception as e:
+                logger.error(f"Failed to init Groq client: {e}")
         self.system_prompt = system_prompt
 
     async def stream_chat(self, message, history, context=""):
-        """Streams a grounded response from Groq."""
+        if not self.client:
+            yield "The AI brain is currently offline (missing API key). Please contact Likith directly. [[CARD:contact]]"
+            return
+
         # Inject context into the system prompt for RAG effect
         grounded_prompt = self.system_prompt
         if context:
