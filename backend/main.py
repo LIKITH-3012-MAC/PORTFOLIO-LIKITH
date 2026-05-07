@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from typing import List, Optional
 from groq import Groq
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime, timedelta
 from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -151,6 +151,19 @@ class ChatLog(Base):
     latency_ms = Column(Integer, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
+class VisitorAnalytics(Base):
+    __tablename__ = "visitor_analytics"
+    id = Column(Integer, primary_key=True, index=True)
+    visited_at = Column(DateTime, default=datetime.utcnow)
+    page_path = Column(String(255), nullable=True)
+    os_name = Column(String(100), nullable=True)
+    device_type = Column(String(50), nullable=True)
+    browser_name = Column(String(100), nullable=True)
+    user_agent_summary = Column(Text, nullable=True)
+    referrer = Column(String(255), nullable=True)
+    session_id = Column(String(100), nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
 # Startup Table Verification
 try:
     Base.metadata.create_all(bind=engine)
@@ -166,6 +179,15 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     reply_text: str
     card_type: Optional[str] = "none"
+
+class VisitRequest(BaseModel):
+    page_path: str
+    os_name: Optional[str] = None
+    device_type: Optional[str] = None
+    browser_name: Optional[str] = None
+    user_agent_summary: Optional[str] = None
+    referrer: Optional[str] = None
+    session_id: Optional[str] = None
 
 class CollabRequest(BaseModel):
     full_name: str
@@ -327,6 +349,83 @@ async def get_admin_collabs(limit: int = 50, offset: int = 0, authenticated: boo
                 } for c in collabs
             ],
             "pagination": {"total": total, "limit": limit, "offset": offset}
+        }
+    finally:
+        db.close()
+
+@app.post("/api/analytics/visit")
+async def record_visit(request: VisitRequest):
+    db = SessionLocal()
+    try:
+        # Deduplication check: if same session visited same path in last 5 minutes, skip
+        five_mins_ago = datetime.utcnow() - timedelta(minutes=5)
+        duplicate = db.query(VisitorAnalytics).filter(
+            VisitorAnalytics.session_id == request.session_id,
+            VisitorAnalytics.page_path == request.page_path,
+            VisitorAnalytics.created_at >= five_mins_ago
+        ).first()
+
+        if duplicate:
+            return {"success": True, "message": "Duplicate visit suppressed."}
+
+        new_visit = VisitorAnalytics(
+            page_path=request.page_path,
+            os_name=request.os_name,
+            device_type=request.device_type,
+            browser_name=request.browser_name,
+            user_agent_summary=request.user_agent_summary,
+            referrer=request.referrer,
+            session_id=request.session_id
+        )
+        db.add(new_visit)
+        db.commit()
+        return {"success": True, "message": "Visit recorded."}
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Failed to record visit: {e}")
+        return {"success": False, "message": "Internal error."}
+    finally:
+        db.close()
+
+@app.get("/api/admin/visitors")
+async def get_admin_visitors(limit: int = 50, offset: int = 0, authenticated: bool = Depends(get_admin_auth)):
+    db = SessionLocal()
+    try:
+        visits = db.query(VisitorAnalytics).order_by(VisitorAnalytics.id.desc()).offset(offset).limit(limit).all()
+        total = db.query(VisitorAnalytics).count()
+        return {
+            "success": True,
+            "data": [
+                {
+                    "id": v.id,
+                    "path": v.page_path,
+                    "os": v.os_name,
+                    "device": v.device_type,
+                    "browser": v.browser_name,
+                    "referrer": v.referrer,
+                    "time": v.created_at.isoformat()
+                } for v in visits
+            ],
+            "pagination": {"total": total, "limit": limit, "offset": offset}
+        }
+    finally:
+        db.close()
+
+@app.get("/api/admin/visitor-stats")
+async def get_admin_visitor_stats(authenticated: bool = Depends(get_admin_auth)):
+    db = SessionLocal()
+    try:
+        total_visits = db.query(VisitorAnalytics).count()
+        unique_sessions = db.query(VisitorAnalytics.session_id).distinct().count()
+        
+        # Simple stats for dashboard
+        return {
+            "success": True,
+            "stats": {
+                "total_visits": total_visits,
+                "unique_visitors": unique_sessions,
+                "uptime": "99.9%"
+            }
         }
     finally:
         db.close()

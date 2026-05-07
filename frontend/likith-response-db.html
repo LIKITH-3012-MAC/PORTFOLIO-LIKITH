@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+    <title>Likith OS | Advanced Intelligence Console</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg: #020408;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --accent: #fbbf24;
+            --accent-muted: rgba(251, 191, 36, 0.2);
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg); 
+            color: #f8fafc;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .font-display { font-family: 'Outfit', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .glass { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); }
+        .glass-hover:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.15); }
+        
+        .text-gradient { background: linear-gradient(135deg, #fff 0%, #94a3b8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .accent-gradient { background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .glow-pulse { animation: glow 2s infinite alternate; }
+        @keyframes glow { 
+            from { box-shadow: 0 0 5px var(--accent-muted); } 
+            to { box-shadow: 0 0 20px var(--accent-muted); } 
+        }
+
+        .tab-active { color: var(--accent); border-bottom: 2px solid var(--accent); }
+        
+        /* Shimmer effect for loading */
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+        .sidebar-item-active { background: rgba(251, 191, 36, 0.1); border-right: 2px solid var(--accent); color: var(--accent); }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-amber-500/30 selection:text-amber-200">
+
+    <!-- Auth Overlay -->
+    <div id="auth-overlay" class="fixed inset-0 z-[200] bg-[#020408] flex items-center justify-center p-6 transition-opacity duration-500">
+        <div class="glass p-10 rounded-[2.5rem] w-full max-w-md text-center relative overflow-hidden">
+            <div class="absolute -top-20 -right-20 w-40 h-40 bg-amber-500/10 blur-[80px] rounded-full"></div>
+            <div class="w-20 h-20 bg-amber-500/10 border border-amber-500/20 rounded-3xl flex items-center justify-center mx-auto mb-8 glow-pulse">
+                <i data-lucide="shield-alert" class="w-10 h-10 text-amber-500"></i>
+            </div>
+            <h2 class="text-3xl font-display font-bold mb-3">System Access</h2>
+            <p class="text-slate-500 text-sm mb-10 leading-relaxed uppercase tracking-widest font-mono">Likith OS • Secure Protocol</p>
+            
+            <div class="relative group mb-6">
+                <i data-lucide="key" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500 group-focus-within:text-amber-500 transition-colors"></i>
+                <input type="password" id="admin-token" placeholder="Authorization Token" 
+                    class="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-4 text-white focus:outline-none focus:border-amber-500/50 transition-all font-mono">
+            </div>
+            
+            <button onclick="authenticate()" class="w-full bg-amber-500 text-gray-950 font-bold py-4 rounded-2xl hover:bg-amber-400 transition-all transform active:scale-95 shadow-xl shadow-amber-500/10">
+                Initialize Interface
+            </button>
+            <p class="mt-6 text-[10px] text-slate-600 font-mono tracking-tighter uppercase">Restricted access • Authorized personnel only</p>
+        </div>
+    </div>
+
+    <!-- Layout Container -->
+    <div id="main-interface" class="hidden opacity-0 flex min-h-screen transition-opacity duration-1000">
+        
+        <!-- Sidebar -->
+        <aside class="w-20 lg:w-64 border-r border-white/5 flex flex-col items-center lg:items-stretch py-8 sticky top-0 h-screen bg-black/20 backdrop-blur-3xl">
+            <div class="px-6 mb-12 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-black font-bold shrink-0">L</div>
+                <div class="hidden lg:block">
+                    <h1 class="font-display font-bold text-sm tracking-tight text-white leading-none uppercase">Likith OS</h1>
+                    <p class="text-[9px] text-slate-500 font-mono tracking-widest mt-1">V2.4 INTEL</p>
+                </div>
+            </div>
+
+            <nav class="flex-1 space-y-2">
+                <button onclick="switchTab('overview')" id="nav-overview" class="w-full flex items-center gap-4 px-6 py-4 text-slate-400 hover:text-white transition-all group sidebar-item-active">
+                    <i data-lucide="layout-grid" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block font-medium text-sm">Dashboard</span>
+                </button>
+                <button onclick="switchTab('signals')" id="nav-signals" class="w-full flex items-center gap-4 px-6 py-4 text-slate-400 hover:text-white transition-all group">
+                    <i data-lucide="zap" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block font-medium text-sm">AI Signals</span>
+                </button>
+                <button onclick="switchTab('collabs')" id="nav-collabs" class="w-full flex items-center gap-4 px-6 py-4 text-slate-400 hover:text-white transition-all group">
+                    <i data-lucide="users" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block font-medium text-sm">Collabs</span>
+                </button>
+                <button onclick="switchTab('visitors')" id="nav-visitors" class="w-full flex items-center gap-4 px-6 py-4 text-slate-400 hover:text-white transition-all group">
+                    <i data-lucide="globe" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block font-medium text-sm">Visitors</span>
+                </button>
+            </nav>
+
+            <div class="px-6 pt-6 border-t border-white/5 space-y-4">
+                <button onclick="logout()" class="w-full flex items-center gap-4 py-4 text-slate-500 hover:text-red-400 transition-all group">
+                    <i data-lucide="log-out" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+                    <span class="hidden lg:block font-medium text-sm">Secure Exit</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-6 lg:p-12 overflow-y-auto">
+            
+            <!-- Top Header -->
+            <header class="flex flex-wrap items-center justify-between gap-6 mb-12">
+                <div>
+                    <h2 id="page-title" class="text-3xl font-display font-bold text-white">System Overview</h2>
+                    <p id="page-subtitle" class="text-slate-500 text-sm font-mono mt-1 tracking-wider uppercase">Neural Network & Traffic Monitoring</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span class="text-[10px] text-green-400 font-bold uppercase tracking-widest font-mono">Backend Secure</span>
+                    </div>
+                    <button onclick="refreshData()" class="p-3 rounded-xl glass glass-hover transition-all text-slate-400 hover:text-white">
+                        <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Stats -->
+            <div id="stats-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="glass p-8 rounded-[2rem] relative overflow-hidden group">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-amber-500/5 blur-3xl rounded-full group-hover:bg-amber-500/10 transition-all"></div>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-500">
+                            <i data-lucide="message-square" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-500 tracking-widest uppercase">Signals</span>
+                    </div>
+                    <h3 id="stat-signals" class="text-4xl font-display font-bold">--</h3>
+                    <p class="text-xs text-slate-500 mt-2">Total AI interactions</p>
+                </div>
+
+                <div class="glass p-8 rounded-[2rem] relative overflow-hidden group">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-500/5 blur-3xl rounded-full group-hover:bg-blue-500/10 transition-all"></div>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="p-3 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400">
+                            <i data-lucide="globe" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-500 tracking-widest uppercase">Visits</span>
+                    </div>
+                    <h3 id="stat-visits" class="text-4xl font-display font-bold">--</h3>
+                    <p class="text-xs text-slate-500 mt-2">Total page views</p>
+                </div>
+
+                <div class="glass p-8 rounded-[2rem] relative overflow-hidden group">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-500/5 blur-3xl rounded-full group-hover:bg-purple-500/10 transition-all"></div>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="p-3 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400">
+                            <i data-lucide="zap" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-500 tracking-widest uppercase">Latency</span>
+                    </div>
+                    <h3 id="stat-latency" class="text-4xl font-display font-bold">--<span class="text-lg font-normal text-slate-500 ml-1">ms</span></h3>
+                    <p class="text-xs text-slate-500 mt-2">Average AI response</p>
+                </div>
+
+                <div class="glass p-8 rounded-[2rem] relative overflow-hidden group">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-green-500/5 blur-3xl rounded-full group-hover:bg-green-500/10 transition-all"></div>
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="p-3 rounded-2xl bg-green-500/10 border border-green-500/20 text-green-400">
+                            <i data-lucide="activity" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-[10px] font-mono text-slate-500 tracking-widest uppercase">Uptime</span>
+                    </div>
+                    <h3 class="text-4xl font-display font-bold">99.9%</h3>
+                    <p class="text-xs text-slate-500 mt-2">System reliability</p>
+                </div>
+            </div>
+
+            <!-- Main Data View -->
+            <div class="glass rounded-[2.5rem] overflow-hidden">
+                <div class="px-8 py-6 border-b border-white/5 flex flex-wrap items-center justify-between gap-6">
+                    <div class="flex items-center gap-4">
+                        <div class="relative group">
+                            <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 transition-colors"></i>
+                            <input type="text" id="data-search" placeholder="Search parameters..." 
+                                class="bg-white/5 border border-white/10 rounded-xl pl-12 pr-6 py-2.5 text-sm focus:outline-none focus:border-amber-500/30 transition-all w-64">
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button class="px-4 py-2 rounded-xl border border-white/10 text-xs font-bold text-slate-400 hover:text-white transition-all uppercase tracking-widest">Export JSON</button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead id="table-head" class="bg-white/[0.01] text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em] font-mono">
+                            <!-- Dynamic Head -->
+                        </thead>
+                        <tbody id="table-body" class="divide-y divide-white/[0.03]">
+                            <!-- Dynamic Body -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="hidden flex flex-col items-center justify-center py-32 text-center">
+                    <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-6">
+                        <i data-lucide="database-zap" class="w-8 h-8 text-slate-600"></i>
+                    </div>
+                    <h4 class="text-lg font-display font-bold text-slate-300">No Intelligence Data Found</h4>
+                    <p class="text-slate-500 text-sm mt-1">The secure stream is currently empty or pending sync.</p>
+                </div>
+
+                <!-- Footer / Pagination -->
+                <div class="px-8 py-6 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+                    <div id="pagination-info">Showing -- records of --</div>
+                    <div class="flex gap-4">
+                        <button onclick="changePage(-1)" class="hover:text-amber-500 transition-colors">Prev Protocol</button>
+                        <button onclick="changePage(1)" class="hover:text-amber-500 transition-colors">Next Protocol</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="detail-modal" class="fixed inset-0 z-[210] bg-[#020408]/95 backdrop-blur-xl hidden flex items-center justify-center p-6">
+        <div class="glass p-10 rounded-[3rem] w-full max-w-4xl max-h-[85vh] overflow-y-auto relative">
+            <div class="absolute -top-20 -right-20 w-60 h-60 bg-amber-500/5 blur-[100px] rounded-full"></div>
+            
+            <div class="flex justify-between items-start mb-10 relative z-10">
+                <div>
+                    <h2 id="modal-title" class="text-3xl font-display font-bold text-white">Record Analysis</h2>
+                    <p id="modal-subtitle" class="text-slate-500 text-xs font-mono mt-1 uppercase tracking-widest">Deep dive into data parameters</p>
+                </div>
+                <button onclick="closeModal()" class="p-3 rounded-2xl bg-white/5 hover:bg-white/10 transition-all group">
+                    <i data-lucide="x" class="w-6 h-6 text-slate-400 group-hover:text-white group-hover:rotate-90 transition-transform"></i>
+                </button>
+            </div>
+
+            <div id="modal-content" class="space-y-8 relative z-10">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        const API_BASE = window.APP_CONFIG?.API_BASE_URL || "https://portfolio-likith.onrender.com";
+        let activeTab = 'overview';
+        let currentPage = 0;
+        const limit = 20;
+
+        function switchTab(tab) {
+            activeTab = tab;
+            currentPage = 0;
+            
+            // Update Sidebar UI
+            document.querySelectorAll('aside nav button').forEach(btn => btn.classList.remove('sidebar-item-active', 'text-white'));
+            document.getElementById(`nav-${tab}`).classList.add('sidebar-item-active');
+            
+            // Update Page Header
+            const titles = {
+                overview: { main: "System Overview", sub: "Neural Network & Traffic Monitoring" },
+                signals: { main: "AI Signals", sub: "Conversational Intelligence Logs" },
+                collabs: { main: "Collaborations", sub: "Incoming Partnership Protocols" },
+                visitors: { main: "Visitor Logs", sub: "Global Traffic Intelligence" }
+            };
+            
+            document.getElementById('page-title').innerText = titles[tab].main;
+            document.getElementById('page-subtitle').innerText = titles[tab].sub;
+            
+            // Toggle Stats Grid
+            document.getElementById('stats-grid').classList.toggle('hidden', tab !== 'overview');
+            
+            fetchData();
+        }
+
+        function authenticate() {
+            const token = document.getElementById('admin-token').value.trim();
+            if (!token) return;
+            sessionStorage.setItem('admin_token', token);
+            initInterface();
+        }
+
+        function logout() {
+            sessionStorage.removeItem('admin_token');
+            location.reload();
+        }
+
+        function initInterface() {
+            const token = sessionStorage.getItem('admin_token');
+            if (token) {
+                document.getElementById('auth-overlay').classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => document.getElementById('auth-overlay').classList.add('hidden'), 500);
+                
+                const main = document.getElementById('main-interface');
+                main.classList.remove('hidden');
+                setTimeout(() => main.classList.add('opacity-100'), 50);
+                
+                switchTab('overview');
+                fetchStats();
+            }
+        }
+
+        async function fetchStats() {
+            const token = sessionStorage.getItem('admin_token');
+            try {
+                const response = await fetch(`${API_BASE}/api/admin/visitor-stats`, {
+                    headers: { 'X-Admin-Token': token }
+                });
+                const json = await response.json();
+                if (json.success) {
+                    document.getElementById('stat-visits').innerText = json.stats.total_visitors || json.stats.total_visits || 0;
+                    // For signals we might need another call or aggregate
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        async function fetchData() {
+            const token = sessionStorage.getItem('admin_token');
+            const tbody = document.getElementById('table-body');
+            const empty = document.getElementById('empty-state');
+            
+            tbody.innerHTML = Array(5).fill(0).map(() => `
+                <tr class="animate-pulse">
+                    <td colspan="6" class="px-8 py-6"><div class="h-4 bg-white/5 rounded-full w-full"></div></td>
+                </tr>
+            `).join('');
+            empty.classList.add('hidden');
+
+            let endpoint = '';
+            if (activeTab === 'overview' || activeTab === 'signals') endpoint = '/api/admin/responses';
+            else if (activeTab === 'collabs') endpoint = '/api/admin/collabs';
+            else if (activeTab === 'visitors') endpoint = '/api/admin/visitors';
+
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}?limit=${limit}&offset=${currentPage * limit}`, {
+                    headers: { 'X-Admin-Token': token }
+                });
+
+                if (response.status === 401) {
+                    logout();
+                    return;
+                }
+
+                const json = await response.json();
+                renderTable(json.data);
+                
+                document.getElementById('pagination-info').innerText = `Showing ${json.data.length} records of ${json.pagination.total}`;
+                
+                if (activeTab === 'overview' || activeTab === 'signals') {
+                    document.getElementById('stat-signals').innerText = json.pagination.total;
+                    const avg = json.data.length ? Math.round(json.data.reduce((acc, curr) => acc + (curr.latency || 0), 0) / json.data.length) : 0;
+                    document.getElementById('stat-latency').innerText = avg || '--';
+                }
+
+                if (json.data.length === 0) empty.classList.remove('hidden');
+
+            } catch (err) {
+                console.error(err);
+                tbody.innerHTML = '<tr><td colspan="6" class="p-12 text-center text-red-500 font-mono text-xs">COMMUNICATION_LINK_FAILURE: Check backend availability.</td></tr>';
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('table-body');
+            const thead = document.getElementById('table-head');
+
+            if (activeTab === 'overview' || activeTab === 'signals') {
+                thead.innerHTML = `<tr><th class="px-8 py-4">Status</th><th class="px-8 py-4">Intent</th><th class="px-8 py-4">Message Feed</th><th class="px-8 py-4">Latency</th><th class="px-8 py-4 text-right">Actions</th></tr>`;
+                tbody.innerHTML = data.map(item => `
+                    <tr class="glass-hover transition-all group border-l-2 border-transparent hover:border-amber-500/50">
+                        <td class="px-8 py-5"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(251,191,36,0.5)]"></span><span class="text-[9px] text-slate-500 font-bold tracking-widest uppercase">Live</span></div></td>
+                        <td class="px-8 py-5"><span class="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-[9px] text-amber-500 font-mono font-bold uppercase">${item.intent || 'NONE'}</span></td>
+                        <td class="px-8 py-5">
+                            <p class="text-[11px] text-slate-200 font-medium truncate max-w-[300px]">${item.message}</p>
+                            <p class="text-[9px] text-slate-500 font-mono mt-1">${new Date(item.time).toLocaleString()}</p>
+                        </td>
+                        <td class="px-8 py-5 text-slate-500 font-mono text-[10px]">${item.latency}ms</td>
+                        <td class="px-8 py-5 text-right"><button onclick='viewSignalDetails(${JSON.stringify(item).replace(/'/g, "&apos;")})' class="text-[9px] font-bold text-amber-500 hover:text-white transition-all uppercase tracking-[0.2em] bg-amber-500/5 hover:bg-amber-500 px-4 py-2 rounded-lg border border-amber-500/10">Analyze</button></td>
+                    </tr>
+                `).join('');
+            } else if (activeTab === 'collabs') {
+                thead.innerHTML = `<tr><th class="px-8 py-4">Protocol</th><th class="px-8 py-4">Category</th><th class="px-8 py-4">Contact Logic</th><th class="px-8 py-4">Timeline</th><th class="px-8 py-4 text-right">Actions</th></tr>`;
+                tbody.innerHTML = data.map(item => `
+                    <tr class="glass-hover transition-all group border-l-2 border-transparent hover:border-amber-500/50">
+                        <td class="px-8 py-5">
+                            <p class="text-[11px] text-white font-bold tracking-tight">${item.name}</p>
+                            <p class="text-[9px] text-slate-500 font-mono mt-1 uppercase">${new Date(item.time).toLocaleString()}</p>
+                        </td>
+                        <td class="px-8 py-5"><span class="px-2.5 py-1 rounded-lg bg-blue-500/10 border border-blue-500/20 text-[9px] text-blue-400 font-mono font-bold uppercase">${item.type}</span></td>
+                        <td class="px-8 py-5">
+                            <p class="text-[10px] text-slate-400 font-mono">${item.email || 'N/A'}</p>
+                            <p class="text-[10px] text-slate-500 font-mono mt-1">${item.phone}</p>
+                        </td>
+                        <td class="px-8 py-5 text-slate-500 font-mono text-[10px]">T-SYNC</td>
+                        <td class="px-8 py-5 text-right"><button onclick='viewCollabDetails(${JSON.stringify(item).replace(/'/g, "&apos;")})' class="text-[9px] font-bold text-blue-400 hover:text-white transition-all uppercase tracking-[0.2em] bg-blue-500/5 hover:bg-blue-500 px-4 py-2 rounded-lg border border-blue-500/10">Decipher</button></td>
+                    </tr>
+                `).join('');
+            } else if (activeTab === 'visitors') {
+                thead.innerHTML = `<tr><th class="px-8 py-4">System ID</th><th class="px-8 py-4">Pathway</th><th class="px-8 py-4">Environment</th><th class="px-8 py-4">Origin</th><th class="px-8 py-4 text-right">Timestamp</th></tr>`;
+                tbody.innerHTML = data.map(item => `
+                    <tr class="glass-hover transition-all group border-l-2 border-transparent hover:border-blue-500/50">
+                        <td class="px-8 py-5 text-slate-300 font-mono text-[10px]">#${item.id}</td>
+                        <td class="px-8 py-5"><span class="text-white font-medium text-[11px] font-mono tracking-tight">${item.path}</span></td>
+                        <td class="px-8 py-5">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[9px] text-slate-400 font-mono">${item.os}</span>
+                                <span class="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[9px] text-slate-400 font-mono">${item.browser}</span>
+                            </div>
+                            <p class="text-[9px] text-slate-600 mt-1 uppercase font-bold">${item.device}</p>
+                        </td>
+                        <td class="px-8 py-5 text-slate-500 text-[10px] font-mono">${item.referrer}</td>
+                        <td class="px-8 py-5 text-right font-mono text-[9px] text-slate-500 uppercase">${new Date(item.time).toLocaleString()}</td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        function refreshData() {
+            fetchStats();
+            fetchData();
+        }
+
+        function changePage(delta) {
+            currentPage = Math.max(0, currentPage + delta);
+            fetchData();
+        }
+
+        function viewSignalDetails(item) {
+            document.getElementById('modal-title').innerText = "Neural Signal Decryption";
+            document.getElementById('modal-subtitle').innerText = `ID: #${item.id} • Latency: ${item.latency}ms`;
+            document.getElementById('modal-content').innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <label class="text-[10px] text-slate-500 uppercase font-bold tracking-widest font-mono">Incoming Data</label>
+                        <div class="p-6 rounded-3xl bg-white/5 border border-white/10 text-slate-200 text-sm leading-relaxed">${item.message}</div>
+                    </div>
+                    <div class="space-y-4">
+                        <label class="text-[10px] text-slate-500 uppercase font-bold tracking-widest font-mono">AI Execution</label>
+                        <div class="p-6 rounded-3xl bg-amber-500/5 border border-amber-500/10 text-slate-200 text-sm leading-relaxed whitespace-pre-wrap">${item.response}</div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="p-6 rounded-3xl bg-white/5 border border-white/10">
+                        <label class="text-[10px] text-slate-500 uppercase font-bold mb-2 block font-mono">Protocol Intent</label>
+                        <span class="text-amber-500 font-mono font-bold uppercase">${item.intent || 'UNDETERMINED'}</span>
+                    </div>
+                    <div class="p-6 rounded-3xl bg-white/5 border border-white/10">
+                        <label class="text-[10px] text-slate-500 uppercase font-bold mb-2 block font-mono">Execution Time</label>
+                        <span class="text-white font-mono font-bold uppercase">${new Date(item.time).toLocaleString()}</span>
+                    </div>
+                    <div class="p-6 rounded-3xl bg-white/5 border border-white/10">
+                        <label class="text-[10px] text-slate-500 uppercase font-bold mb-2 block font-mono">Core Efficiency</label>
+                        <span class="text-green-500 font-mono font-bold uppercase">Optimized</span>
+                    </div>
+                </div>
+            `;
+            document.getElementById('detail-modal').classList.remove('hidden');
+        }
+
+        function viewCollabDetails(item) {
+            document.getElementById('modal-title').innerText = "Collaboration Intelligence";
+            document.getElementById('modal-subtitle').innerText = `Request Protocol ID: #${item.id}`;
+            document.getElementById('modal-content').innerHTML = `
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="p-6 rounded-3xl bg-blue-500/5 border border-blue-500/10">
+                        <label class="text-[10px] text-slate-500 uppercase font-bold mb-2 block font-mono">Requester Name</label>
+                        <span class="text-white font-bold text-lg">${item.name}</span>
+                    </div>
+                    <div class="p-6 rounded-3xl bg-white/5 border border-white/10">
+                        <label class="text-[10px] text-slate-500 uppercase font-bold mb-2 block font-mono">Mission Category</label>
+                        <span class="text-blue-400 font-mono font-bold uppercase">${item.type}</span>
+                    </div>
+                    <div class="p-6 rounded-3xl bg-white/5 border border-white/10">
+                        <label class="text-[10px] text-slate-500 uppercase font-bold mb-2 block font-mono">Status</label>
+                        <span class="text-amber-500 font-mono font-bold uppercase">Pending Analysis</span>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <label class="text-[10px] text-slate-500 uppercase font-bold tracking-widest font-mono">Strategic Goal / Vision</label>
+                    <div class="p-8 rounded-3xl bg-white/5 border border-white/10 text-slate-200 text-lg leading-relaxed font-light italic">"${item.purpose}"</div>
+                </div>
+                <div class="p-8 rounded-3xl bg-black/40 border border-white/10">
+                    <label class="text-[10px] text-slate-500 uppercase font-bold mb-4 block font-mono">Communication Channels</label>
+                    <div class="grid grid-cols-2 gap-8 font-mono text-sm">
+                        <div>
+                            <span class="text-slate-600 block mb-1">EMAIL_LINK</span>
+                            <span class="text-blue-400">${item.email || 'NULL'}</span>
+                        </div>
+                        <div>
+                            <span class="text-slate-600 block mb-1">PHONE_MODEM</span>
+                            <span class="text-blue-400">${item.phone}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('detail-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+        }
+
+        // Initialize lucide
+        if (window.lucide) lucide.createIcons();
+        initInterface();
+    </script>
+</body>
+</html>
