@@ -152,7 +152,7 @@
         const API_BASE = window.APP_CONFIG?.API_BASE_URL || "https://portfolio-likith.onrender.com";
 
         function authenticate() {
-            const token = document.getElementById('admin-token').value;
+            const token = document.getElementById('admin-token').value.trim();
             if (!token) return;
             sessionStorage.setItem('admin_token', token);
             initConsole();

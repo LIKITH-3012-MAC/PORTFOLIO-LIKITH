@@ -93,7 +93,9 @@ llm_service = LLMService(api_key=GROQ_API_KEY, system_prompt=BASE_PROMPT)
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "Mahitha")
 
 def get_admin_auth(x_admin_token: str = Header(None)):
-    if x_admin_token != ADMIN_TOKEN:
+    actual_token = x_admin_token.strip() if x_admin_token else ""
+    if actual_token != ADMIN_TOKEN:
+        logger.warning(f"⚠️ Unauthorized admin access attempt with token length: {len(actual_token)}")
         raise HTTPException(status_code=401, detail="Unauthorized Admin Access")
     return True
 
