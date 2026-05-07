@@ -12,6 +12,9 @@ from datetime import datetime
 from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from core.router import IntentRouter
+from core.retrieval import RetrievalService
+from core.llm_service import LLMService
 
 # 1. Setup & Environment
 env_path = os.path.join(os.path.dirname(__file__), ".env")
@@ -73,7 +76,17 @@ try:
 except Exception as e:
     logger.error(f"KB Load Error: {e}")
 
-kb_text = json.dumps(kb)
+# 3.1 Initialize Services
+router = IntentRouter(kb)
+retriever = RetrievalService(kb)
+
+BASE_PROMPT = """
+You are Likith's AI Agent, an elite digital representative of Likith Naidu (AI-ML Architect & Founder).
+Your objective is to provide concise, premium, and technically accurate responses.
+Always maintain an elegant, founder-grade tone.
+"""
+
+llm_service = LLMService(api_key=GROQ_API_KEY, system_prompt=BASE_PROMPT)
 
 # 4. Database Setup
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -149,29 +162,7 @@ class CollabRequest(BaseModel):
     timeline: Optional[str] = None
     organization: Optional[str] = None
 
-# 6. AI Agent Prompt
-SYSTEM_PROMPT = f"""
-You are Likith's AI Agent, an elite digital representative of Likith Naidu Anumakonda (AI-ML Architect & Founder).
-Your objective is to provide concise, premium, and technically accurate responses based ONLY on the provided knowledge base.
-
-KNOWLEDGE BASE:
-{kb_text}
-
-RESPONSE PROTOCOL:
-1. Be elegant and concise.
-2. If the user asks for contact info, socials, or collaboration, include "[[CARD:contact]]" or "[[CARD:collab]]" at the very end of your message.
-3. If the user asks about projects or code, include "[[CARD:git]]" at the very end.
-4. If the user asks about videos or performances, include "[[CARD:youtube]]" at the very end.
-
-CARD TAGS:
-- [[CARD:contact]]: For email, phone, or general "how to reach you".
-- [[CARD:social]]: For GitHub, LinkedIn, X, Instagram links.
-- [[CARD:collab]]: For hiring, freelance, or partnership inquiries.
-- [[CARD:git]]: For project source code, repositories.
-- [[CARD:youtube]]: For media hub, video demos.
-
-Respond naturally. If a card is needed, append it at the end.
-"""
+# 6. AI Agent Logic (Removed legacy prompt)
 
 # 7. Endpoints
 @app.get("/")
@@ -180,28 +171,26 @@ async def root():
 
 @app.post("/api/chat")
 async def chat(request: ChatRequest):
-    async def generate():
-        try:
-            completion = client.chat.completions.create(
-                model="llama-3.1-8b-instant",
-                messages=[{"role": "system", "content": SYSTEM_PROMPT}] + [
-                    {"role": m["role"], "content": m["content"]} for m in request.history[-5:]
-                ] + [{"role": "user", "content": request.message}],
-                temperature=0.3,
-                max_tokens=512,
-                stream=True
-            )
-            for chunk in completion:
-                if chunk.choices[0].delta.content:
-                    yield chunk.choices[0].delta.content
-        except Exception as e:
-            if "rate_limit_exceeded" in str(e).lower() or "429" in str(e):
-                yield "I'm currently receiving too many requests. Please give me a few seconds to breathe and try again! [[CARD:none]]"
-            else:
-                logger.error(f"Streaming Error: {e}")
-                yield "I encountered a technical glitch. Please visit <a href='./problem.html' class='text-white underline hover:text-amber-400 transition-colors duration-300'>support</a>. [[CARD:error]]"
+    # Layer 1: Intent Routing & Static Answers
+    intent = router.classify(request.message)
+    static_answer, card = router.get_static_answer(intent, request.message)
+    
+    if static_answer:
+        logger.info(f"🚀 Intent: {intent} (Static Match)")
+        return StreamingResponse(self_stream(static_answer, card), media_type="text/plain")
 
-    return StreamingResponse(generate(), media_type="text/plain")
+    # Layer 2: RAG Context Retrieval
+    context = retriever.get_context(request.message, intent)
+    logger.info(f"🧠 Intent: {intent} (RAG Mode)")
+
+    # Layer 3: Selective LLM Generation
+    return StreamingResponse(llm_service.stream_chat(request.message, request.history, context), media_type="text/plain")
+
+async def self_stream(text, card):
+    """Helper to stream static text to maintain frontend consistency."""
+    yield text
+    if card != "none":
+        yield f" [[CARD:{card}]]"
 
 @app.post("/api/collab")
 async def create_collab(request: CollabRequest):
