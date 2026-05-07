@@ -1,7 +1,7 @@
 import os
 import json
 import logging
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request, HTTPException, Header, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel
@@ -12,6 +12,7 @@ from datetime import datetime
 from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from fastapi import Header
 from core.router import IntentRouter
 from core.retrieval import RetrievalService
 from core.llm_service import LLMService
@@ -88,6 +89,14 @@ Always maintain an elegant, founder-grade tone.
 
 llm_service = LLMService(api_key=GROQ_API_KEY, system_prompt=BASE_PROMPT)
 
+# 3.2 Admin Auth
+ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "fallback-secret-change-me")
+
+def get_admin_auth(x_admin_token: str = Header(None)):
+    if x_admin_token != ADMIN_TOKEN:
+        raise HTTPException(status_code=401, detail="Unauthorized Admin Access")
+    return True
+
 # 4. Database Setup
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -128,6 +137,16 @@ class CollaborationRequest(Base):
     timeline = Column(String(100), nullable=True)
     organization = Column(String(255), nullable=True)
     status = Column(String(50), default="pending")
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+class ChatLog(Base):
+    __tablename__ = "chat_logs"
+    id = Column(Integer, primary_key=True, index=True)
+    user_message = Column(Text, nullable=False)
+    ai_response = Column(Text, nullable=False)
+    intent = Column(String(100), nullable=True)
+    card_type = Column(String(50), nullable=True)
+    latency_ms = Column(Integer, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
 # Startup Table Verification
@@ -171,12 +190,21 @@ async def root():
 
 @app.post("/api/chat")
 async def chat(request: ChatRequest):
+    start_time = datetime.now()
+    
     # Layer 1: Intent Routing & Static Answers
     intent = router.classify(request.message)
     static_answer, card = router.get_static_answer(intent, request.message)
     
+    final_response_text = ""
+    
     if static_answer:
+        final_response_text = static_answer
         logger.info(f"🚀 Intent: {intent} (Static Match)")
+        
+        # Log to DB (Sync for static)
+        _log_chat(request.message, static_answer, intent, card, 0)
+        
         return StreamingResponse(self_stream(static_answer, card), media_type="text/plain")
 
     # Layer 2: RAG Context Retrieval
@@ -184,7 +212,35 @@ async def chat(request: ChatRequest):
     logger.info(f"🧠 Intent: {intent} (RAG Mode)")
 
     # Layer 3: Selective LLM Generation
-    return StreamingResponse(llm_service.stream_chat(request.message, request.history, context), media_type="text/plain")
+    async def log_and_stream():
+        full_text = ""
+        async for chunk in llm_service.stream_chat(request.message, request.history, context):
+            full_text += chunk
+            yield chunk
+        
+        # Calculate latency and log
+        duration = (datetime.now() - start_time).total_seconds() * 1000
+        _log_chat(request.message, full_text, intent, "none", int(duration))
+
+    return StreamingResponse(log_and_stream(), media_type="text/plain")
+
+def _log_chat(msg, resp, intent, card, latency):
+    try:
+        db = SessionLocal()
+        # Clean the response from CARD tags for logging
+        clean_resp = resp.split("[[CARD:")[0].strip()
+        log = ChatLog(
+            user_message=msg,
+            ai_response=clean_resp,
+            intent=intent,
+            card_type=card,
+            latency_ms=latency
+        )
+        db.add(log)
+        db.commit()
+        db.close()
+    except Exception as e:
+        logger.error(f"Failed to log chat: {e}")
 
 async def self_stream(text, card):
     """Helper to stream static text to maintain frontend consistency."""
@@ -222,6 +278,30 @@ async def create_collab(request: CollabRequest):
         db.rollback()
         logger.error(f"❌ DB STORAGE ERROR: {str(e)}")
         return JSONResponse(status_code=500, content={"success": False, "message": f"Database error: {str(e)}"})
+    finally:
+        db.close()
+
+# 8. Admin Endpoints
+@app.get("/api/admin/responses")
+async def get_admin_responses(limit: int = 50, offset: int = 0, authenticated: bool = Depends(get_admin_auth)):
+    db = SessionLocal()
+    try:
+        logs = db.query(ChatLog).order_by(ChatLog.id.desc()).offset(offset).limit(limit).all()
+        total = db.query(ChatLog).count()
+        return {
+            "success": True,
+            "data": [
+                {
+                    "id": l.id,
+                    "message": l.user_message,
+                    "response": l.ai_response,
+                    "intent": l.intent,
+                    "latency": l.latency_ms,
+                    "time": l.created_at.isoformat()
+                } for l in logs
+            ],
+            "pagination": {"total": total, "limit": limit, "offset": offset}
+        }
     finally:
         db.close()
 
