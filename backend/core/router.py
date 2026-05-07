@@ -10,7 +10,10 @@ class IntentRouter:
             "collab": [r"hire", r"work with", r"collab", r"partnership", r"freelance"],
             "skills": [r"skill", r"tech stack", r"technologies", r"know", r"expert"],
             "youtube": [r"video", r"youtube", r"watch", r"performance", r"piano"],
-            "resume": [r"resume", r"cv", r"experience"]
+            "resume": [r"resume", r"cv", r"experience"],
+            "achievements": [r"award", r"achievement", r"prize", r"win", r"won", r"sih"],
+            "education": [r"education", r"degree", r"university", r"college", r"iit", r"study"],
+            "stack": [r"tech stack", r"languages", r"python", r"javascript", r"framework"]
         }
 
     def classify(self, message: str):
@@ -39,6 +42,12 @@ class IntentRouter:
 
         if intent == "projects":
             return "Likith has built several production-grade systems including RESOLVIT and Prometheus AI. Check out his Engineering Archive.", "git"
+
+        if intent == "achievements":
+            return "Likith's achievements include leading a team in SIH 2025, winning 1st prize in CodeClash, and being recognized for innovative software engineering.", "none"
+
+        if intent == "education":
+            return "Likith is pursuing a B.Tech in CSE (AI) and holds an Advanced AIML Specialization from IIT Patna (I-HUB).", "none"
 
         return None, "none"
 

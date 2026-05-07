@@ -29,6 +29,12 @@ class RetrievalService:
             collab = self.knowledge.get("collaboration", {})
             context_parts.append(json.dumps(collab))
 
+        # 5. Education & Achievements context
+        if intent in ["education", "achievements"] or any(word in message for word in ["school", "college", "award", "prize"]):
+            edu = self.knowledge.get("education", {})
+            ach = self.knowledge.get("achievements", {})
+            context_parts.append(json.dumps({"education": edu, "achievements": ach}))
+
         # If no specific context found, provide a general profile summary
         if not context_parts:
             context_parts.append(json.dumps(self.knowledge.get("profile", {}))[:500])
