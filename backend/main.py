@@ -90,7 +90,7 @@ Always maintain an elegant, founder-grade tone.
 llm_service = LLMService(api_key=GROQ_API_KEY, system_prompt=BASE_PROMPT)
 
 # 3.2 Admin Auth
-ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "fallback-secret-change-me")
+ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "mahitha")
 
 def get_admin_auth(x_admin_token: str = Header(None)):
     if x_admin_token != ADMIN_TOKEN:
