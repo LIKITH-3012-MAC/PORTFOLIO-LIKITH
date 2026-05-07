@@ -307,6 +307,30 @@ async def get_admin_responses(limit: int = 50, offset: int = 0, authenticated: b
     finally:
         db.close()
 
+@app.get("/api/admin/collabs")
+async def get_admin_collabs(limit: int = 50, offset: int = 0, authenticated: bool = Depends(get_admin_auth)):
+    db = SessionLocal()
+    try:
+        collabs = db.query(CollaborationRequest).order_by(CollaborationRequest.id.desc()).offset(offset).limit(limit).all()
+        total = db.query(CollaborationRequest).count()
+        return {
+            "success": True,
+            "data": [
+                {
+                    "id": c.id,
+                    "name": c.full_name,
+                    "email": c.email,
+                    "phone": c.phone_number,
+                    "type": c.collaboration_type,
+                    "purpose": c.purpose,
+                    "time": c.created_at.isoformat() if c.created_at else None
+                } for c in collabs
+            ],
+            "pagination": {"total": total, "limit": limit, "offset": offset}
+        }
+    finally:
+        db.close()
+
 @app.get("/api/debug-db")
 async def debug_db():
     try:
