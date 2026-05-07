@@ -3,7 +3,7 @@ import json
 import logging
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel
 from typing import List, Optional
 from groq import Groq
@@ -159,43 +159,41 @@ KNOWLEDGE BASE:
 
 RESPONSE PROTOCOL:
 1. Be elegant and concise.
-2. If the user asks for contact info, socials, or collaboration, trigger the 'contact' or 'collab' card.
-3. If the user asks about projects or code, trigger the 'git' card.
-4. If the user asks about videos or performances, trigger the 'youtube' card.
+2. If the user asks for contact info, socials, or collaboration, include "[[CARD:contact]]" or "[[CARD:collab]]" at the very end of your message.
+3. If the user asks about projects or code, include "[[CARD:git]]" at the very end.
+4. If the user asks about videos or performances, include "[[CARD:youtube]]" at the very end.
 
-CARD SUMMONING (card_type):
-- "contact": Triggered for email, phone, or general "how to reach you".
-- "social": Triggered for GitHub, LinkedIn, X, Instagram links.
-- "collab": Triggered for hiring, freelance, or partnership inquiries.
-- "git": Triggered for project source code, repositories, or engineering archive requests.
-- "youtube": Triggered for media hub, video demos, or piano performances.
-- "none": Default for conversational answers.
+CARD TAGS:
+- [[CARD:contact]]: For email, phone, or general "how to reach you".
+- [[CARD:social]]: For GitHub, LinkedIn, X, Instagram links.
+- [[CARD:collab]]: For hiring, freelance, or partnership inquiries.
+- [[CARD:git]]: For project source code, repositories.
+- [[CARD:youtube]]: For media hub, video demos.
 
-Respond ONLY with this JSON structure:
-{{
-  "reply_text": "Your elegant answer here.",
-  "card_type": "contact" | "social" | "collab" | "git" | "youtube" | "none"
-}}
+Respond naturally. If a card is needed, append it at the end.
 """
 
-# 7. Endpoints
-@app.post("/api/chat", response_model=ChatResponse)
+@app.post("/api/chat")
 async def chat(request: ChatRequest):
-    try:
-        completion = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
-            messages=[{"role": "system", "content": SYSTEM_PROMPT}] + [
-                {"role": m["role"], "content": m["content"]} for m in request.history[-5:]
-            ] + [{"role": "user", "content": request.message}],
-            temperature=0.3,
-            max_tokens=512,
-            response_format={"type": "json_object"}
-        )
-        result = json.loads(completion.choices[0].message.content)
-        return ChatResponse(**result)
-    except Exception as e:
-        logger.error(f"Chat Error: {e}")
-        return ChatResponse(reply_text="I encountered a technical glitch. Please visit <a href='./problem.html' class='text-white underline hover:text-amber-400 transition-colors duration-300' style='text-underline-offset: 4px; text-decoration-color: rgba(255,255,255,0.5); font-weight: 500;'>support</a>.", card_type="error")
+    async def generate():
+        try:
+            completion = client.chat.completions.create(
+                model="llama-3.1-8b-instant",
+                messages=[{"role": "system", "content": SYSTEM_PROMPT}] + [
+                    {"role": m["role"], "content": m["content"]} for m in request.history[-5:]
+                ] + [{"role": "user", "content": request.message}],
+                temperature=0.3,
+                max_tokens=512,
+                stream=True
+            )
+            for chunk in completion:
+                if chunk.choices[0].delta.content:
+                    yield chunk.choices[0].delta.content
+        except Exception as e:
+            logger.error(f"Streaming Error: {e}")
+            yield "I encountered a technical glitch. Please visit <a href='./problem.html' class='text-white underline hover:text-amber-400 transition-colors duration-300'>support</a>."
+
+    return StreamingResponse(generate(), media_type="text/plain")
 
 @app.post("/api/collab")
 async def create_collab(request: CollabRequest):

@@ -256,6 +256,22 @@ body::after {
 
 
 
+/* AI Agent Streaming Cursor */
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background-color: #fbbf24; /* amber-400 */
+    margin-left: 2px;
+    vertical-align: middle;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
 /* AI Agent Utilities */
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;

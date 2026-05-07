@@ -141,17 +141,28 @@ document.addEventListener('DOMContentLoaded', () => {
         addMessage('user', text);
         chatInput.value = '';
         
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'flex gap-3 max-w-[85%]';
-        typingDiv.innerHTML = `
+        // Create assistant message placeholder
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `flex gap-3 max-w-[85%] reveal active`;
+        msgDiv.innerHTML = `
             <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 border border-white/10">
-                <i data-lucide="cpu" class="w-4 h-4 text-amber-400 animate-pulse"></i>
+                <i data-lucide="cpu" class="w-4 h-4 text-amber-400"></i>
             </div>
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-3 text-[10px] text-slate-500 font-mono italic">Neural network processing...</div>
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-3 text-sm text-slate-300">
+                <div class="prose prose-invert prose-sm assistant-content">
+                    <span class="typing-cursor"></span>
+                </div>
+                <div class="assistant-card-container"></div>
+            </div>
         `;
-        chatArea.appendChild(typingDiv);
+        chatArea.appendChild(msgDiv);
         chatArea.scrollTop = chatArea.scrollHeight;
         if (window.lucide) lucide.createIcons();
+
+        const contentDiv = msgDiv.querySelector('.assistant-content');
+        const cardContainer = msgDiv.querySelector('.assistant-card-container');
+        let fullReply = '';
+        let cardType = 'none';
 
         try {
             const response = await fetch(`${window.APP_CONFIG.API_BASE_URL}/api/chat`, {
@@ -159,18 +170,52 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: text, history: chatHistory })
             });
+
             if (!response.ok) throw new Error('API Unavailable');
-            const data = await response.json();
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
             
-            typingDiv.remove();
-            addMessage('assistant', data.reply_text, data.card_type);
-            
+            contentDiv.innerHTML = '<span class="typing-cursor"></span>';
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value, { stream: true });
+                fullReply += chunk;
+
+                // Clean the text from the tag for display
+                const displayMsg = fullReply.replace(/\[\[CARD:.*?\]\]/g, '').trim();
+                
+                // Update content with cursor at the end
+                contentDiv.innerHTML = `${displayMsg}<span class="typing-cursor"></span>`;
+
+                // Check for card tags in the reply (progressive extraction)
+                const cardMatch = fullReply.match(/\[\[CARD:(.*?)\]\]/);
+                if (cardMatch) cardType = cardMatch[1];
+
+                chatArea.scrollTop = chatArea.scrollHeight;
+            }
+
+            // Remove cursor on completion
+            const finalMsg = fullReply.replace(/\[\[CARD:.*?\]\]/g, '').trim();
+            contentDiv.innerHTML = finalMsg;
+
+            // Final card rendering if detected
+            if (cardType !== 'none') {
+                cardContainer.innerHTML = `<div class="mt-4 pt-4 border-t border-white/5">${renderCard(cardType)}</div>`;
+                if (window.lucide) lucide.createIcons();
+            }
+
             chatHistory.push({ role: 'user', content: text });
-            chatHistory.push({ role: 'assistant', content: data.reply_text });
+            chatHistory.push({ role: 'assistant', content: fullReply.replace(/\[\[CARD:.*?\]\]/g, '').trim() });
+
         } catch (error) {
             console.error('Chat Error:', error);
-            typingDiv.remove();
-            addMessage('assistant', "I encountered a technical glitch. Please visit <a href='./problem.html' class='text-white underline hover:text-amber-400 transition-colors duration-300' style='text-underline-offset: 4px; text-decoration-color: rgba(255,255,255,0.5); font-weight: 500;'>support</a>.", 'error');
+            contentDiv.innerHTML = "I encountered a technical glitch. Please visit <a href='./problem.html' class='text-white underline hover:text-amber-400 transition-colors duration-300'>support</a>.";
+            cardContainer.innerHTML = `<div class="mt-4 pt-4 border-t border-white/5">${renderCard('error')}</div>`;
+            if (window.lucide) lucide.createIcons();
         }
     });
 
