@@ -273,6 +273,11 @@ body::after {
 }
 
 /* AI Agent Utilities */
+.custom-scrollbar {
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
 }
