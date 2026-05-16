@@ -19,6 +19,7 @@ from core.llm_service import LLMService
 import pytz
 import secrets
 import hashlib
+import resend
 
 # Timezone Configuration
 IST = pytz.timezone('Asia/Kolkata')
@@ -198,6 +199,11 @@ class CollaborationRequest(Base):
     
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Email Tracking
+    email_status = Column(String(50), default="pending")
+    email_sent_at = Column(DateTime, nullable=True)
+    email_error = Column(Text, nullable=True)
 
 class ChatLog(Base):
     __tablename__ = "chat_logs"
@@ -243,7 +249,10 @@ try:
             'token_created_at': 'DATETIME',
             'token_expires_at': 'DATETIME',
             'verified_at': 'DATETIME',
-            'updated_at': 'DATETIME'
+            'updated_at': 'DATETIME',
+            'email_status': 'VARCHAR(50)',
+            'email_sent_at': 'DATETIME',
+            'email_error': 'TEXT'
         }
         for col_name, col_type in tracking_cols.items():
             try:
@@ -298,7 +307,188 @@ class CollabRequest(BaseModel):
     landing_page: Optional[str] = None
     hash_section: Optional[str] = None
 
-# 6. AI Agent Logic (Removed legacy prompt)
+# 6. Resend Email Configuration
+RESEND_API_KEY = os.getenv("RESEND_API_KEY")
+resend.api_key = RESEND_API_KEY
+RESEND_FROM_EMAIL = os.getenv("RESEND_FROM_EMAIL", "Likith Naidu <noreply@mail.likith-portfolio.online>")
+
+def send_collab_confirmation_email(
+    to_email: str,
+    full_name: str,
+    request_id: int,
+    collaboration_type: str,
+    preferred_contact_method: str,
+    phone_number: str
+):
+    if not RESEND_API_KEY:
+        logger.warning("⚠️ RESEND_API_KEY missing. Skipping email.")
+        return False, "API key missing"
+
+    # Fallbacks for optional values
+    fn = full_name or "Valued Client"
+    ct = collaboration_type or "Not provided"
+    pm = preferred_contact_method or "Not provided"
+    pn = phone_number or "Not provided"
+    em = to_email or "Not provided"
+    rid = f"#{request_id}" if request_id else "Not provided"
+
+    try:
+        html_content = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+                body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #000000; color: #ffffff; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }}
+                .wrapper {{ background-color: #000000; padding: 40px 10px; }}
+                .container {{ max-width: 600px; margin: 0 auto; background-color: #000000; }}
+                
+                /* Premium Header Section */
+                .header-card {{ background-color: #080808; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 40px; text-align: center; margin-bottom: 20px; }}
+                .brand-logo {{ width: 160px; height: auto; margin-bottom: 24px; }}
+                .company-name {{ font-size: 11px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: #ffffff; margin-bottom: 8px; opacity: 0.9; }}
+                .founder-name {{ font-size: 16px; font-weight: 500; color: #ffffff; margin-bottom: 4px; }}
+                .founder-role {{ font-size: 10px; color: #666; letter-spacing: 2px; text-transform: uppercase; }}
+
+                /* Main Confirmation Card */
+                .main-card {{ background-color: #080808; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 40px; margin-bottom: 20px; }}
+                .card-label {{ font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #555; margin-bottom: 16px; display: block; }}
+                .card-title {{ font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-bottom: 20px; color: #ffffff; line-height: 1.2; }}
+                .greeting {{ font-size: 16px; color: #ffffff; margin-bottom: 16px; font-weight: 600; }}
+                .message-text {{ font-size: 14px; line-height: 1.6; color: #888; margin-bottom: 0; }}
+                
+                /* Request Details Grid */
+                .details-grid {{ display: block; margin-bottom: 20px; }}
+                .detail-mini-card {{ background-color: #0d0d0d; border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 20px; margin-bottom: 12px; }}
+                .detail-mini-label {{ font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #444; margin-bottom: 8px; display: block; }}
+                .detail-mini-value {{ font-size: 13px; color: #eee; font-weight: 600; }}
+
+                /* Expertise Pill Chips */
+                .expertise-card {{ background-color: #080808; border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 32px; margin-bottom: 20px; }}
+                .chip-container {{ display: block; }}
+                .chip {{ display: inline-block; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 100px; padding: 8px 16px; font-size: 11px; color: #777; margin-right: 6px; margin-bottom: 8px; font-weight: 500; }}
+
+                /* Vision Statement Section */
+                .vision-card {{ background-color: #0d0d0d; border: 1px dashed rgba(255,255,255,0.1); border-radius: 20px; padding: 24px; margin-bottom: 30px; }}
+                .vision-text {{ font-size: 12px; color: #666; line-height: 1.6; margin: 0; text-align: center; }}
+
+                /* Action Buttons */
+                .action-section {{ text-align: center; margin-bottom: 40px; }}
+                .btn {{ display: block; background-color: #ffffff; color: #000000; text-decoration: none; padding: 18px; border-radius: 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; transition: all 0.3s; }}
+                .btn-secondary {{ background-color: transparent; border: 1px solid rgba(255,255,255,0.1); color: #ffffff; }}
+
+                /* Footer Section */
+                .footer-area {{ text-align: center; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); }}
+                .footer-brand {{ font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 4px; }}
+                .footer-legal {{ font-size: 10px; color: #333; letter-spacing: 1px; text-transform: uppercase; }}
+            </style>
+        </head>
+        <body>
+            <div class="wrapper">
+                <div class="container">
+                    <!-- Header -->
+                    <div class="header-card">
+                        <img src="https://raw.githubusercontent.com/LIKITH-3012-MAC/SAKRA-VISION/main/SAKRAVISION.png" alt="SAKRA VISION" class="brand-logo">
+                        <div class="company-name">THE SAKRA GROUP PVT LTD</div>
+                        <div class="founder-name">Likith Naidu Anumakonda</div>
+                        <div class="founder-role">Founder • AI/ML • Full-Stack • SAKRA VISION</div>
+                    </div>
+                    
+                    <!-- Confirmation -->
+                    <div class="main-card">
+                        <span class="card-label">Transmission Secure</span>
+                        <h1 class="card-title">Collaboration Request Received</h1>
+                        <div class="greeting">Dear {fn},</div>
+                        <p class="message-text">
+                            Thank you for submitting your collaboration request with Likith Naidu Anumakonda.
+                            <br><br>
+                            Your request has been received successfully and will be reviewed carefully. We’ll contact you soon using the email or mobile number you provided.
+                        </p>
+                    </div>
+
+                    <!-- Details Grid -->
+                    <div class="details-grid">
+                        <div class="detail-mini-card">
+                            <span class="detail-mini-label">Internal Request ID</span>
+                            <div class="detail-mini-value">{rid}</div>
+                        </div>
+                        <div class="detail-mini-card">
+                            <span class="detail-mini-label">Collaboration Category</span>
+                            <div class="detail-mini-value">{ct}</div>
+                        </div>
+                        <div class="detail-mini-card">
+                            <span class="detail-mini-label">Preferred Contact</span>
+                            <div class="detail-mini-value">{pm}</div>
+                        </div>
+                        <div class="detail-mini-card">
+                            <span class="detail-mini-label">Verified Email</span>
+                            <div class="detail-mini-value">{em}</div>
+                        </div>
+                        <div class="detail-mini-card" style="margin-bottom: 0;">
+                            <span class="detail-mini-label">Contact Number</span>
+                            <div class="detail-mini-value">{pn}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Expertise -->
+                    <div class="expertise-card">
+                        <span class="card-label">System Capabilities</span>
+                        <div class="chip-container">
+                            <span class="chip">AI Agents</span>
+                            <span class="chip">ML Models</span>
+                            <span class="chip">Full-Stack Systems</span>
+                            <span class="chip">Python / Node.js</span>
+                            <span class="chip">API Architecture</span>
+                            <span class="chip">Middleware</span>
+                            <span class="chip">Cloud Databases</span>
+                            <span class="chip">Metadata Systems</span>
+                            <span class="chip">Domain & Google Console</span>
+                            <span class="chip">Deployment</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Vision -->
+                    <div class="vision-card">
+                        <p class="vision-text">
+                            This request is connected to the SAKRA VISION execution ecosystem, where ideas are shaped into production-grade technical solutions under THE SAKRA GROUP PVT LTD.
+                        </p>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="action-section">
+                        <a href="https://www.likith-portfolio.online" class="btn">Visit Portfolio</a>
+                        <a href="https://www.likith-portfolio.online/collab.html?source=email" class="btn btn-secondary">Submit Another Request</a>
+                        <a href="mailto:likith.anumakonda@gmail.com" class="btn btn-secondary">Contact Likith</a>
+                    </div>
+                    
+                    <!-- Footer -->
+                    <div class="footer-area">
+                        <div class="footer-brand">Likith Naidu Anumakonda</div>
+                        <div class="footer-legal">Founder, THE SAKRA GROUP PVT LTD</div>
+                        <div class="footer-legal" style="margin-top: 12px; opacity: 0.5;">
+                            &copy; 2026 THE SAKRA GROUP PVT LTD. All rights reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>
+        </html>
+        """
+
+        params = {
+            "from": RESEND_FROM_EMAIL,
+            "to": [to_email],
+            "subject": "Thank you for collaborating with Likith",
+            "html": html_content,
+        }
+
+        email = resend.Emails.send(params)
+        logger.info(f"📧 Resend Email Sent: {email}")
+        return True, None
+    except Exception as e:
+        logger.error(f"❌ Resend Email Failed: {str(e)}")
+        return False, str(e)
 
 # 7. Endpoints
 @app.get("/")
@@ -410,12 +600,35 @@ async def create_collab(request: CollabRequest):
         db.commit()
         db.refresh(new_request)
         logger.info(f"🚀 SECURE DATA STORED: Successfully committed ID {new_request.id}")
+        
+        # Trigger Confirmation Email
+        email_sent = False
+        email_err = None
+        if request.email:
+            email_sent, email_err = send_collab_confirmation_email(
+                to_email=request.email,
+                full_name=request.full_name,
+                request_id=new_request.id,
+                collaboration_type=request.collaboration_type,
+                preferred_contact_method=request.preferred_contact_method or "Email",
+                phone_number=request.phone_number
+            )
+            
+            # Update DB with email status
+            new_request.email_status = "sent" if email_sent else "failed"
+            if email_sent:
+                new_request.email_sent_at = datetime.utcnow()
+            if email_err:
+                new_request.email_error = str(email_err)[:500] # Truncate for safety
+            db.commit()
+
         return {
             "success": True, 
-            "message": "Collaboration request stored successfully.", 
+            "message": "Collaboration request stored and confirmation email sent." if email_sent else "Collaboration request stored, but confirmation email could not be sent.", 
             "id": new_request.id,
             "token": raw_token,
-            "expires_in": expiry_minutes * 60
+            "expires_in": expiry_minutes * 60,
+            "email_sent": email_sent
         }
     except Exception as e:
         db.rollback()

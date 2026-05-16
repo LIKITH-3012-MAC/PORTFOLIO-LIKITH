@@ -549,7 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (data.success === true && data.id && data.token) {
                 // SUCCESS: Backend confirmed MySQL storage and returned ID + Token
-                triggerCinematicSuccess(data.id, data.token);
+                triggerCinematicSuccess(data.id, data.token, data.email_sent);
             } else {
                 // API returned success false or missing ID
                 if (window.navigateToProblem) {
@@ -578,12 +578,70 @@ document.addEventListener('DOMContentLoaded', () => {
     // CINEMATIC SUCCESS ANIMATION (unchanged core logic)
     // ═══════════════════════════════════════════════════
 
-    function triggerCinematicSuccess(insertedId, token) {
+    function triggerCinematicSuccess(insertedId, token, emailSent) {
         const stage = document.getElementById('cinematic-success');
         const rocket = document.getElementById('rocket-unit');
         const vapor = document.getElementById('rocket-vapor');
         const content = document.getElementById('success-content');
         const form = document.getElementById('collab-form');
+        
+        const successTitle = document.getElementById('success-title');
+        const successDesc = document.getElementById('success-desc');
+
+        // Update Content based on email status
+        if (successTitle && successDesc) {
+            successTitle.innerHTML = 'SUBMITTED<br>SUCCESSFULLY';
+            
+            let message = '';
+            if (emailSent === true) {
+                message = `
+                    <div class="mb-4">
+                        <span class="text-white font-bold block text-lg mb-1">Thank you for collaborating with Likith.</span>
+                        <span class="text-emerald-400/80 text-[10px] font-mono uppercase tracking-[0.2em] block mb-4">Premium Confirmation Sent</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Your collaboration request has been received by Likith Naidu Anumakonda and is currently being processed within the <span class="text-white font-medium">SAKRA</span> execution ecosystem.
+                    </p>
+                    <p class="text-slate-500 text-xs leading-relaxed">
+                        If your email is reachable, we’ll contact you soon. We may also connect with you through your provided mobile number.
+                    </p>
+                `;
+            } else if (emailSent === false) {
+                message = `
+                    <div class="mb-4">
+                        <span class="text-white font-bold block text-lg mb-1">Request Stored Successfully.</span>
+                        <span class="text-amber-400/80 text-[10px] font-mono uppercase tracking-[0.2em] block mb-4">Email Dispatch Interrupted</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Your request has been securely stored in the SAKRA database. Although the confirmation email could not be sent, Likith will still review your request manually.
+                    </p>
+                    <p class="text-slate-500 text-xs leading-relaxed">
+                        We will contact you through your email or mobile number once the review is complete.
+                    </p>
+                `;
+            } else {
+                message = `
+                    <div class="mb-4">
+                        <span class="text-white font-bold block text-lg mb-1">Request Received.</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Thank you for reaching out. Your collaboration request has been received by Likith Naidu Anumakonda.
+                    </p>
+                    <p class="text-slate-500 text-xs leading-relaxed">
+                        We’ll contact you soon using your provided email or mobile number.
+                    </p>
+                `;
+            }
+            
+            if (insertedId) {
+                message += `<div class="mt-8 pt-6 border-t border-white/5">
+                    <span class="text-[9px] text-slate-600 uppercase tracking-[0.3em] font-mono block mb-1">Internal Reference</span>
+                    <span class="text-[11px] text-slate-400 font-mono">REQ-ID: ${insertedId}</span>
+                </div>`;
+            }
+            
+            successDesc.innerHTML = message;
+        }
 
         // Phase 1: Form Dissolve
         if (form) {
