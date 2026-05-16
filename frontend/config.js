@@ -30,8 +30,8 @@ function navigateTo(page, params = {}) {
     window.location.href = buildUrl(page, params);
 }
 
-function navigateToProblem({ id, result, type, source }) {
-    navigateTo("problem.html", { id, result, type, source });
+function navigateToProblem(params = {}) {
+    navigateTo("problem.html", params);
 }
 
 if (typeof window !== 'undefined') {

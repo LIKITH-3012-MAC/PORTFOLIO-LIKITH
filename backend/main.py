@@ -332,7 +332,7 @@ async def create_collab(request: CollabRequest):
     except Exception as e:
         db.rollback()
         logger.error(f"❌ DB STORAGE ERROR: {str(e)}")
-        return JSONResponse(status_code=500, content={"success": False, "message": f"Database error: {str(e)}"})
+        return JSONResponse(status_code=500, content={"success": False, "message": "Database insert failed."})
     finally:
         db.close()
 

@@ -130,6 +130,79 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ═══ FORM PREFILL LOGIC ═══
+    function prefillCollabFormFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        
+        // Track source
+        const source = params.get('source');
+        const sourceNoteEl = document.getElementById('source-note');
+        if (source && sourceNoteEl) {
+            if (source === 'nav') {
+                sourceNoteEl.innerHTML = `<i data-lucide="compass" class="w-3 h-3"></i> Opened from Navigation`;
+                sourceNoteEl.classList.remove('hidden');
+            } else if (source === 'agent') {
+                sourceNoteEl.innerHTML = `<i data-lucide="cpu" class="w-3 h-3 text-amber-400"></i> Opened from Likith's AI Agent`;
+                sourceNoteEl.classList.remove('hidden');
+            }
+        }
+
+        const mapping = {
+            fullname: "full_name",
+            phone: "phone_number",
+            country: "country",
+            state: "state",
+            district: "district",
+            mandal: "mandal_or_subregion",
+            village: "village_or_town",
+            collaboration_type: "collaboration_type",
+            purpose: "purpose",
+            organization: "organization",
+            timeline: "timeline",
+            email: "email",
+            budget_range: "budget_range",
+            preferred_contact_method: "preferred_contact_method"
+        };
+
+        if (!collabForm) return;
+
+        for (const [paramKey, formFieldName] of Object.entries(mapping)) {
+            const val = params.get(paramKey);
+            if (val) {
+                const input = collabForm.querySelector(`[name="${formFieldName}"]`);
+                if (input) {
+                    if (formFieldName === 'country') {
+                        let optionExists = Array.from(input.options).some(opt => opt.value === val);
+                        if (optionExists) {
+                            input.value = val;
+                            input.dispatchEvent(new Event('change')); // Triggers state loading
+                        }
+                    } else if (formFieldName === 'state' || formFieldName === 'district' || formFieldName === 'mandal' || formFieldName === 'village') {
+                        let optionExists = Array.from(input.options).some(opt => opt.value === val);
+                        if (optionExists) {
+                            input.value = val;
+                            input.dispatchEvent(new Event('change')); // Trigger cascaded loading if it existed
+                        }
+                    } else if (input.tagName === 'SELECT') {
+                        let optionExists = Array.from(input.options).some(opt => opt.value === val);
+                        if (optionExists) {
+                            input.value = val;
+                        }
+                    } else {
+                        input.value = val;
+                    }
+                }
+            }
+        }
+        
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    }
+
+    // Execute prefill after dropdowns are initialized
+    prefillCollabFormFromURL();
+
 
     // ═══════════════════════════════════════════════════
     // VERIFICATION SYSTEM
@@ -452,32 +525,32 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) {
                 // System level error
                 if (window.navigateToProblem) {
-                    window.navigateToProblem({ result: 'error', type: 'collab', source: 'form' });
+                    window.navigateToProblem({ result: 'failed', type: 'collab', code: response.status });
                 } else {
-                    window.location.href = `problem.html?result=error&type=collab&source=form`;
+                    window.location.href = `problem.html?result=failed&type=collab&code=${response.status}`;
                 }
                 return;
             }
 
-            const result = await response.json();
+            const data = await response.json();
 
-            if (result.success) {
-                // SUCCESS: Backend confirmed MySQL storage
-                triggerCinematicSuccess(result.id);
+            if (data.success === true && data.id) {
+                // SUCCESS: Backend confirmed MySQL storage and returned ID
+                triggerCinematicSuccess(data.id);
             } else {
-                // API returned success false
+                // API returned success false or missing ID
                 if (window.navigateToProblem) {
-                    window.navigateToProblem({ result: 'failed', type: 'collab', source: 'form' });
+                    window.navigateToProblem({ result: 'failed', type: 'collab', reason: data.message || 'db_insert_failed' });
                 } else {
-                    window.location.href = `problem.html?result=failed&type=collab&source=form`;
+                    window.location.href = `problem.html?result=failed&type=collab&reason=${encodeURIComponent(data.message || 'db_insert_failed')}`;
                 }
             }
         } catch (error) {
             console.error('Transmission Error:', error);
             if (window.navigateToProblem) {
-                window.navigateToProblem({ result: 'error', type: 'collab', source: 'form' });
+                window.navigateToProblem({ result: 'error', type: 'collab', state: 'offline' });
             } else {
-                window.location.href = `problem.html?result=error&type=collab&source=form`;
+                window.location.href = `problem.html?result=error&type=collab&state=offline`;
             }
             isSubmitting = false;
         } finally {
