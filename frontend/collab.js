@@ -581,12 +581,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const stage = document.getElementById('cinematic-success');
         const rocket = document.getElementById('rocket-unit');
         const vapor = document.getElementById('rocket-vapor');
+        const content = document.getElementById('success-content');
         const form = document.getElementById('collab-form');
-        const successMsg = document.getElementById('success-content');
 
         // Phase 1: Form Dissolve
         if (form) {
-            form.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            form.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
             form.style.opacity = '0';
             form.style.filter = 'blur(10px)';
             form.style.transform = 'scale(0.95)';
@@ -598,6 +598,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Lock scroll
         document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
+        document.body.style.height = '100vh';
         if (window.lenis) window.lenis.stop();
             
         setTimeout(() => {
@@ -613,26 +614,28 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Phase 5: Cinematic Launch
                     rocket.classList.add('launch');
                     
-                    // Show success text shortly after launch
                     setTimeout(() => {
-                        if (successMsg) successMsg.classList.add('visible');
-                    }, 400);
-                    
-                    setTimeout(() => {
-                        // Phase 6: Navigate after animation
-                        if (window.navigateToProblem) {
-                            window.navigateToProblem({ 
-                                id: insertedId, 
-                                result: 'success', 
-                                type: 'collab', 
-                                token: token 
-                            });
-                        } else {
-                            window.location.href = `problem.html?id=${insertedId}&result=success&type=collab&token=${token}`;
-                        }
-                    }, 1800); // Wait for full launch sequence
-                }, 800);
-            }, 600);
+                        // Phase 6: Delivery Confirmation
+                        content.classList.add('visible');
+                        rocket.style.display = 'none'; // Clear stage for message
+                        if (window.lucide) lucide.createIcons();
+
+                        // Phase 7: Final Secure Redirect
+                        setTimeout(() => {
+                            if (window.navigateToProblem) {
+                                window.navigateToProblem({ 
+                                    id: insertedId, 
+                                    result: 'success', 
+                                    type: 'collab', 
+                                    token: token 
+                                });
+                            } else {
+                                window.location.href = `problem.html?id=${insertedId}&result=success&type=collab&token=${token}`;
+                            }
+                        }, 2000); // Give user time to see the success message
+                    }, 600);
+                }, 600);
+            }, 500);
         }, 300);
     }
 
