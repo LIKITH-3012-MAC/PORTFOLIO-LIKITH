@@ -16,14 +16,6 @@ const repositories = [
         tags: ["Innovation", "Frontend"]
     },
     {
-        name: "Echoes-of-an-Unsaid-Goodbye",
-        language: "HTML",
-        description: "Creative literary web experience exploring memory, resonance, and cinematic storytelling.",
-        status: "Updated last week",
-        category: "web",
-        tags: ["Creative", "Identity"]
-    },
-    {
         name: "Resolvit-Care-AI-Powered-Smart-Resource-Allocation-Platform",
         language: "Python",
         description: "Social intelligence platform optimizing resource allocation for NGOs and crisis response using AI workflows.",
