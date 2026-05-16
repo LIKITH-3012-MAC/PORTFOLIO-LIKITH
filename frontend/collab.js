@@ -619,20 +619,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         content.classList.add('visible');
                         rocket.style.display = 'none'; // Clear stage for message
                         if (window.lucide) lucide.createIcons();
-
-                        // Phase 7: Final Secure Redirect
-                        setTimeout(() => {
-                            if (window.navigateToProblem) {
-                                window.navigateToProblem({ 
-                                    id: insertedId, 
-                                    result: 'success', 
-                                    type: 'collab', 
-                                    token: token 
-                                });
-                            } else {
-                                window.location.href = `problem.html?id=${insertedId}&result=success&type=collab&token=${token}`;
-                            }
-                        }, 2000); // Give user time to see the success message
+                        
+                        // NOTE: No redirect. Success state persists on collab.html.
                     }, 600);
                 }, 600);
             }, 500);

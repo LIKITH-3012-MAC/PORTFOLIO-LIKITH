@@ -74,140 +74,59 @@
             const id = params.get("id");
             const result = params.get("result");
             const type = params.get("type");
-            const source = params.get("source");
             const code = params.get("code");
-            const reason = params.get("reason");
             const state = params.get("state");
             const token = params.get("token");
+            
             const titleEl = document.getElementById("page-title");
             const msgEl = document.getElementById("page-message");
             const buttonsEl = document.getElementById("page-buttons");
             const codeEl = document.getElementById("error-code");
 
-            // Priority Rule: Error indicators override success
-            const hasErrorIndicators = code || state || reason;
-            const isSuccess = result === 'success' && type === 'collab' && id && token && !hasErrorIndicators;
+            // Define Default Messaging
+            let title = "System <br/> Interruption.";
+            let message = "Likith's architecture encountered a technical anomaly. Your request may not have been fully processed.";
+            let buttonHtml = `
+                <button onclick="window.history.back()" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
+                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Retry Action
+                </button>
+                <a href="mailto:likith.anumakonda@gmail.com" class="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium text-sm flex items-center gap-2 hover:bg-white/10 transition-colors">
+                    <i data-lucide="mail" class="w-4 h-4"></i> Direct Support
+                </a>
+            `;
+            let statusText = `Anomaly: ${type || 'System'} • State: ${state || 'Interrupted'} • Code: ${code || '500'}`;
 
-            if (isSuccess) {
-                // Initial Verifying State
-                titleEl.innerHTML = "Verifying <br/> Submission.";
-                msgEl.innerHTML = "Please wait while Likith’s system confirms your request...";
-                buttonsEl.innerHTML = `
-                    <div class="flex items-center gap-3 text-slate-500 text-sm font-mono">
-                        <div class="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
-                        Authenticating Secure Token...
-                    </div>
-                `;
-                codeEl.textContent = `Status: Verifying • ID: ${id}`;
-
-                // Call Backend Verification
-                fetch(`${window.APP_CONFIG.API_BASE_URL}/api/collab/verify?id=${id}&token=${token}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.verified) {
-                            const sourceLabel = params.get('source') || 'Form';
-                            const formattedSource = sourceLabel.charAt(0).toUpperCase() + sourceLabel.slice(1);
-                            
-                            titleEl.innerHTML = "Request <br/> Submitted.";
-                            msgEl.innerHTML = `Your collaboration request has been securely stored and verified. I will review it and get back to you soon.`;
-                            buttonsEl.innerHTML = `
-                                <a href="index.html" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
-                                    <i data-lucide="home" class="w-4 h-4"></i> Back to Portfolio
-                                </a>
-                                <a href="mailto:likith.anumakonda@gmail.com" class="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium text-sm flex items-center gap-2 hover:bg-white/10 transition-colors">
-                                    <i data-lucide="mail" class="w-4 h-4"></i> Contact Likith
-                                </a>
-                            `;
-                            codeEl.textContent = `Status: Verified • Source: ${formattedSource} • ID: ${id}`;
-                        } else {
-                            // Verification failed (Fake or Expired)
-                            titleEl.innerHTML = "Verification <br/> Required.";
-                            msgEl.innerHTML = data.message || "This submission link is invalid or has expired. For security, we require a fresh submission.";
-                            buttonsEl.innerHTML = `
-                                <a href="collab.html" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
-                                    <i data-lucide="file-text" class="w-4 h-4"></i> Open Collab Form
-                                </a>
-                                <a href="index.html" class="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium text-sm flex items-center gap-2 hover:bg-white/10 transition-colors">
-                                    <i data-lucide="home" class="w-4 h-4"></i> Portfolio
-                                </a>
-                            `;
-                            codeEl.textContent = `Status: Invalid • Reason: ${data.reason || 'unauthorized'}`;
-                        }
-                        if (window.lucide) lucide.createIcons();
-                    })
-                    .catch(err => {
-                        titleEl.innerHTML = "System <br/> Interruption.";
-                        msgEl.innerHTML = "The verification service is currently unreachable. Please try again or contact support.";
-                        buttonsEl.innerHTML = `
-                             <button onclick="window.location.reload()" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
-                                <i data-lucide="refresh-cw" class="w-4 h-4"></i> Retry Verification
-                            </button>
-                        `;
-                        codeEl.textContent = `Status: Error • State: Verification_Offline`;
-                        if (window.lucide) lucide.createIcons();
-                    });
-            } else if (result === 'success' && type === 'collab' && !token) {
-                titleEl.innerHTML = "Verification <br/> Required.";
-                msgEl.innerHTML = "For security, success confirmation requires a valid verification token. Please submit the form to receive one.";
-                buttonsEl.innerHTML = `
-                    <a href="collab.html" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
-                        <i data-lucide="file-text" class="w-4 h-4"></i> Open Collab Form
-                    </a>
-                    <a href="index.html" class="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium text-sm flex items-center gap-2 hover:bg-white/10 transition-colors">
-                        <i data-lucide="home" class="w-4 h-4"></i> Portfolio
-                    </a>
-                `;
-                codeEl.textContent = `Status: Unauthorized • Reason: Missing_Token`;
-            } else if ((result === 'failed' && type === 'collab') || (hasErrorIndicators && code)) {
-                titleEl.innerHTML = "Submission <br/> Failed.";
-                msgEl.innerHTML = "The server could not store your request.";
-                buttonsEl.innerHTML = `
-                    <button onclick="window.history.back()" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
-                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Try Again
-                    </button>
-                    <a href="mailto:likith.anumakonda@gmail.com" class="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium text-sm flex items-center gap-2 hover:bg-white/10 transition-colors">
-                        <i data-lucide="mail" class="w-4 h-4"></i> Contact Likith
-                    </a>
-                `;
-                codeEl.textContent = `Status: Failed • Type: Collab${code ? ' • Error Code: ' + code : ''}${reason ? ' • Reason: ' + decodeURIComponent(reason) : ''}`;
-            } else if ((result === 'error' && type === 'collab') || hasErrorIndicators) {
-                titleEl.innerHTML = "System <br/> Interruption.";
-                msgEl.innerHTML = "The backend connection was interrupted or offline.";
-                buttonsEl.innerHTML = `
-                    <button onclick="window.history.back()" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
-                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Retry
-                    </button>
-                    <a href="mailto:likith.anumakonda@gmail.com" class="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium text-sm flex items-center gap-2 hover:bg-white/10 transition-colors">
-                        <i data-lucide="mail" class="w-4 h-4"></i> Contact Likith
-                    </a>
-                `;
-                codeEl.textContent = `Status: Error • Type: Collab${state ? ' • State: ' + state : ''}`;
-            } else if (result === 'error' && type === 'chatbot') {
-                titleEl.innerHTML = "AI Agent <br/> Support.";
-                msgEl.innerHTML = "Likith’s AI Agent encountered a technical issue.";
-                buttonsEl.innerHTML = `
+            // Context-Specific Refinement
+            if (code === '500') {
+                message = "The secure database transmission was interrupted. This is likely a temporary system maintenance state.";
+            } else if (state === 'offline') {
+                message = "The backend service is currently unreachable. Please check your connection or try again later.";
+            } else if (result === 'success' && token) {
+                title = "Legacy <br/> Verification.";
+                message = "Success states are now handled directly on the collaboration page. Your token confirms a valid submission.";
+                buttonHtml = `
                     <a href="index.html" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
-                        <i data-lucide="home" class="w-4 h-4"></i> Back to Portfolio
-                    </a>
-                    <a href="mailto:likith.anumakonda@gmail.com" class="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium text-sm flex items-center gap-2 hover:bg-white/10 transition-colors">
-                        <i data-lucide="mail" class="w-4 h-4"></i> Contact Likith
+                        <i data-lucide="home" class="w-4 h-4"></i> Return to Portfolio
                     </a>
                 `;
-                codeEl.textContent = `Status: Error • Type: Chatbot`;
-            } else {
-                // Default fallback state if accessed without params
-                titleEl.innerHTML = "System <br/> Interruption.";
-                msgEl.innerHTML = "The connection encountered a technical anomaly. Our digital architecture is designed to recover gracefully. Please choose a path forward.";
-                buttonsEl.innerHTML = `
-                    <button onclick="window.history.back()" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
-                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Retry Action
-                    </button>
-                    <a href="index.html" class="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium text-sm flex items-center gap-2 hover:bg-white/10 transition-colors">
-                        <i data-lucide="home" class="w-4 h-4"></i> Back to Portfolio
-                    </a>
-                `;
-                codeEl.textContent = `Error Code: 500 • State: Offline`;
+                statusText = `Status: Logged • ID: ${id}`;
             }
+
+            // Apply Content
+            titleEl.innerHTML = title;
+            msgEl.innerHTML = message;
+            buttonsEl.innerHTML = buttonHtml;
+            codeEl.textContent = statusText;
+
+            // Reveal Content
+            titleEl.classList.remove('opacity-0');
+            msgEl.classList.remove('opacity-0');
+            buttonsEl.classList.remove('opacity-0');
+
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
 
             // Reveal content after setting it
             titleEl.classList.remove('opacity-0');
