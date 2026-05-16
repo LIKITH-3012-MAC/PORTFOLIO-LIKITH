@@ -105,7 +105,11 @@
             const buttonsEl = document.getElementById("page-buttons");
             const codeEl = document.getElementById("error-code");
 
-            if (result === 'success' && type === 'collab') {
+            // Priority Rule: Error indicators override success
+            const hasErrorIndicators = code || state || reason;
+            const isSuccess = result === 'success' && type === 'collab' && !hasErrorIndicators;
+
+            if (isSuccess) {
                 titleEl.innerHTML = "Collaboration Request <br/> Submitted.";
                 msgEl.innerHTML = `Your request was stored successfully.<br/><br/>Reference ID: <span class="text-white font-mono bg-white/10 px-2 py-1 rounded">#${id || 'N/A'}</span>`;
                 buttonsEl.innerHTML = \`
@@ -120,7 +124,7 @@
                     </a>
                 \`;
                 codeEl.textContent = \`Status: Success • Type: Collab\`;
-            } else if (result === 'failed' && type === 'collab') {
+            } else if ((result === 'failed' && type === 'collab') || (hasErrorIndicators && code)) {
                 titleEl.innerHTML = "Submission <br/> Failed.";
                 msgEl.innerHTML = "The server could not store your request.";
                 buttonsEl.innerHTML = \`
@@ -132,7 +136,7 @@
                     </a>
                 \`;
                 codeEl.textContent = \`Status: Failed • Type: Collab\${code ? ' • Error Code: ' + code : ''}\${reason ? ' • Reason: ' + decodeURIComponent(reason) : ''}\`;
-            } else if (result === 'error' && type === 'collab') {
+            } else if ((result === 'error' && type === 'collab') || hasErrorIndicators) {
                 titleEl.innerHTML = "System <br/> Interruption.";
                 msgEl.innerHTML = "The backend connection was interrupted or offline.";
                 buttonsEl.innerHTML = \`

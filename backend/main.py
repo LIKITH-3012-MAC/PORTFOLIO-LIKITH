@@ -127,8 +127,14 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 # Optimized for Aiven MySQL with pymysql or SQLite fallback
 try:
     if DATABASE_URL and "mysql" in DATABASE_URL.lower():
+        # Ensure we use pymysql driver
+        if DATABASE_URL.startswith("mysql://"):
+            db_url = DATABASE_URL.replace("mysql://", "mysql+pymysql://", 1)
+        else:
+            db_url = DATABASE_URL
+            
         engine = create_engine(
-            DATABASE_URL,
+            db_url,
             connect_args={
                 "ssl": {
                     "ssl_mode": "REQUIRED"
