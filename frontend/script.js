@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Sticky Navbar Blur Effect
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
+        if (!navbar) return;
         if (window.scrollY > 50) {
             navbar.classList.add('bg-black/50', 'backdrop-blur-md', 'border-b', 'border-white/10');
             navbar.classList.remove('bg-transparent');
