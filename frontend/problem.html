@@ -52,21 +52,20 @@
             <i data-lucide="shield-alert" class="w-10 h-10 opacity-80"></i>
         </div>
 
-        <h1 id="page-title" class="text-4xl md:text-5xl font-display font-bold tracking-tight mb-6 text-white opacity-0 transition-opacity duration-500">Processing...</h1>
+        <h1 id="page-title" class="text-4xl md:text-5xl font-display font-bold tracking-tight mb-6 text-white opacity-0 transition-opacity duration-500">&nbsp;</h1>
 
         <p id="page-message" class="text-slate-400 text-lg mb-12 font-light leading-relaxed max-w-lg mx-auto opacity-0 transition-opacity duration-500">
-            Analyzing system state...
+            &nbsp;
         </p>
 
         <div id="page-buttons" class="flex flex-wrap justify-center gap-4 mb-16 opacity-0 transition-opacity duration-500">
             <!-- Buttons injected by JS -->
         </div>
 
-
-
-        <p id="error-code" class="mt-12 text-[10px] text-slate-600 uppercase tracking-[0.2em] font-mono">Error Code: 500 • State: Offline</p>
+        <p id="error-code" class="mt-12 text-[10px] text-slate-600 uppercase tracking-[0.2em] font-mono opacity-0 transition-opacity duration-500">Processing...</p>
     </div>
 
+    <script src="config.js"></script>
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -122,6 +121,7 @@
             titleEl.classList.remove('opacity-0');
             msgEl.classList.remove('opacity-0');
             buttonsEl.classList.remove('opacity-0');
+            codeEl.classList.remove('opacity-0');
 
             if (window.lucide) {
                 lucide.createIcons();
