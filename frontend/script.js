@@ -12,11 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
         touchMultiplier: 1.5,
     });
 
-    function raf(time) {
-        lenis.raf(time);
+    if (window.gsap) {
+        // Force 144Hz refresh rate optimization
+        gsap.ticker.fps(144);
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+    } else {
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
         requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
 
     // 1. Smooth Scroll for Anchor Links (Powered by Lenis)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
