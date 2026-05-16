@@ -283,7 +283,7 @@ class CollabRequest(BaseModel):
     village_or_town: Optional[str] = None
     purpose: str
     collaboration_type: str
-    email: Optional[str] = None
+    email: str
     preferred_contact_method: Optional[str] = None
     budget_range: Optional[str] = None
     timeline: Optional[str] = None

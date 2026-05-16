@@ -458,7 +458,8 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: 'phone_number', label: 'Phone Number' },
             { name: 'country', label: 'Country' },
             { name: 'collaboration_type', label: 'Collaboration Type' },
-            { name: 'purpose', label: 'Project Purpose' }
+            { name: 'purpose', label: 'Project Purpose' },
+            { name: 'email', label: 'Email' }
         ];
 
         let firstInvalid = null;
