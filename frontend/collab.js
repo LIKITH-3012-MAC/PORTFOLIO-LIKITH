@@ -503,7 +503,17 @@ document.addEventListener('DOMContentLoaded', () => {
             timeline: data.timeline || null,
             email: data.email || null,
             budget_range: data.budget_range || null,
-            preferred_contact_method: data.preferred_contact_method || null
+            preferred_contact_method: data.preferred_contact_method || null,
+            
+            // Tracking Metadata
+            source: sessionStorage.getItem('visitor_source') || null,
+            utm_source: sessionStorage.getItem('visitor_utm_source') || null,
+            utm_medium: sessionStorage.getItem('visitor_utm_medium') || null,
+            utm_campaign: sessionStorage.getItem('visitor_utm_campaign') || null,
+            utm_content: sessionStorage.getItem('visitor_utm_content') || null,
+            utm_term: sessionStorage.getItem('visitor_utm_term') || null,
+            referrer: sessionStorage.getItem('visitor_referrer') || null,
+            landing_page: sessionStorage.getItem('visitor_landing_page') || null
         };
 
         // Premium Loading State

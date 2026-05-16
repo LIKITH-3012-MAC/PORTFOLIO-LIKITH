@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // URL Tracking
+    if (window.storeTrackingParams) {
+        window.storeTrackingParams();
+    }
+
     // 0. Initialize Lenis Smooth Scroll
     const lenis = new Lenis({
         lerp: 0.05, // Ultra-floaty, buttery smooth feel

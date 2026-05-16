@@ -176,6 +176,17 @@ class CollaborationRequest(Base):
     timeline = Column(String(100), nullable=True)
     organization = Column(String(255), nullable=True)
     status = Column(String(50), default="pending")
+    
+    # Tracking Metadata
+    source = Column(String(100), nullable=True)
+    utm_source = Column(String(100), nullable=True)
+    utm_medium = Column(String(100), nullable=True)
+    utm_campaign = Column(String(150), nullable=True)
+    utm_content = Column(String(150), nullable=True)
+    utm_term = Column(String(150), nullable=True)
+    referrer = Column(Text, nullable=True)
+    landing_page = Column(String(255), nullable=True)
+    
     created_at = Column(DateTime, default=datetime.utcnow)
 
 class ChatLog(Base):
@@ -204,6 +215,26 @@ class VisitorAnalytics(Base):
 # Startup Table Verification
 try:
     Base.metadata.create_all(bind=engine)
+    
+    # Safely try to add new tracking columns for existing databases
+    with engine.begin() as conn:
+        from sqlalchemy import text
+        tracking_cols = {
+            'source': 'VARCHAR(100)',
+            'utm_source': 'VARCHAR(100)',
+            'utm_medium': 'VARCHAR(100)',
+            'utm_campaign': 'VARCHAR(150)',
+            'utm_content': 'VARCHAR(150)',
+            'utm_term': 'VARCHAR(150)',
+            'referrer': 'TEXT',
+            'landing_page': 'VARCHAR(255)'
+        }
+        for col_name, col_type in tracking_cols.items():
+            try:
+                conn.execute(text(f"ALTER TABLE collaboration_requests ADD COLUMN {col_name} {col_type} NULL"))
+            except Exception:
+                pass # Column likely already exists
+                
     logger.info("✅ Database tables verified/created successfully.")
 except Exception as e:
     logger.error(f"❌ Table Creation Error: {str(e)}")
@@ -241,6 +272,16 @@ class CollabRequest(BaseModel):
     budget_range: Optional[str] = None
     timeline: Optional[str] = None
     organization: Optional[str] = None
+    
+    # Tracking Metadata
+    source: Optional[str] = None
+    utm_source: Optional[str] = None
+    utm_medium: Optional[str] = None
+    utm_campaign: Optional[str] = None
+    utm_content: Optional[str] = None
+    utm_term: Optional[str] = None
+    referrer: Optional[str] = None
+    landing_page: Optional[str] = None
 
 # 6. AI Agent Logic (Removed legacy prompt)
 
@@ -328,7 +369,15 @@ async def create_collab(request: CollabRequest):
             preferred_contact_method=request.preferred_contact_method if request.preferred_contact_method else None,
             budget_range=request.budget_range if request.budget_range else None,
             timeline=request.timeline if request.timeline else None,
-            organization=request.organization if request.organization else None
+            organization=request.organization if request.organization else None,
+            source=request.source if request.source else None,
+            utm_source=request.utm_source if request.utm_source else None,
+            utm_medium=request.utm_medium if request.utm_medium else None,
+            utm_campaign=request.utm_campaign if request.utm_campaign else None,
+            utm_content=request.utm_content if request.utm_content else None,
+            utm_term=request.utm_term if request.utm_term else None,
+            referrer=request.referrer if request.referrer else None,
+            landing_page=request.landing_page if request.landing_page else None
         )
         db.add(new_request)
         db.commit()
