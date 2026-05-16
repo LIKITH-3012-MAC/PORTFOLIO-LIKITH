@@ -132,12 +132,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ═══ FORM PREFILL LOGIC ═══
     function prefillCollabFormFromURL() {
-        const params = new URLSearchParams(window.location.search);
+        if (!window.Navigation) return;
+
+        const tracking = window.Navigation.getUrlTracking();
+        const storedTracking = JSON.parse(sessionStorage.getItem("site_tracking") || "{}");
         
-        // Track source
-        const source = params.get('source') || sessionStorage.getItem('visitor_source');
-        const hash = window.location.hash.replace('#', '') || sessionStorage.getItem('visitor_hash_section');
-        const utmSource = params.get('utm_source') || sessionStorage.getItem('visitor_utm_source');
+        // Priority: 1. Current URL, 2. Stored Session
+        const source = tracking.source || storedTracking.source;
+        const hash = tracking.hash_section || storedTracking.hash_section;
+        const utmSource = tracking.utm_source || storedTracking.utm_source;
         
         const sourceNoteEl = document.getElementById('source-note');
         if (sourceNoteEl) {
@@ -146,6 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 sourceNoteEl.classList.remove('hidden');
             } else if (source === 'agent') {
                 sourceNoteEl.innerHTML = `<i data-lucide="cpu" class="w-3 h-3 text-amber-400"></i> Opened from Likith's AI Agent`;
+                sourceNoteEl.classList.remove('hidden');
+            } else if (source === 'hero') {
+                sourceNoteEl.innerHTML = `<i data-lucide="zap" class="w-3 h-3 text-amber-400"></i> Opened from Hero CTA`;
                 sourceNoteEl.classList.remove('hidden');
             } else if (utmSource === 'instagram') {
                 sourceNoteEl.innerHTML = `<i data-lucide="instagram" class="w-3 h-3 text-pink-500"></i> Opened from Instagram`;
@@ -156,14 +162,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        const params = new URLSearchParams(window.location.search);
         const mapping = {
             fullname: "full_name",
             phone: "phone_number",
             country: "country",
             state: "state",
-            district: "district",
-            mandal: "mandal_or_subregion",
-            village: "village_or_town",
             collaboration_type: "collaboration_type",
             purpose: "purpose",
             organization: "organization",
@@ -172,8 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
             budget_range: "budget_range",
             preferred_contact_method: "preferred_contact_method"
         };
-
-        if (!collabForm) return;
 
         for (const [paramKey, formFieldName] of Object.entries(mapping)) {
             const val = params.get(paramKey);
@@ -184,13 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         let optionExists = Array.from(input.options).some(opt => opt.value === val);
                         if (optionExists) {
                             input.value = val;
-                            input.dispatchEvent(new Event('change')); // Triggers state loading
-                        }
-                    } else if (formFieldName === 'state' || formFieldName === 'district' || formFieldName === 'mandal' || formFieldName === 'village') {
-                        let optionExists = Array.from(input.options).some(opt => opt.value === val);
-                        if (optionExists) {
-                            input.value = val;
-                            input.dispatchEvent(new Event('change')); // Trigger cascaded loading if it existed
+                            input.dispatchEvent(new Event('change'));
                         }
                     } else if (input.tagName === 'SELECT') {
                         let optionExists = Array.from(input.options).some(opt => opt.value === val);

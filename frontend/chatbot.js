@@ -55,6 +55,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderCard = (type) => {
         const config = window.APP_CONFIG;
+        const nav = window.Navigation || { buildUrl: (p, pr) => { 
+            const s = new URLSearchParams(pr).toString();
+            return `${p}${s ? '?' + s : ''}`;
+        }};
+
         switch(type) {
             case 'contact':
             case 'social':
@@ -81,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <a href="${config.CONTACT.X}" target="_blank" class="p-2 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10"><i data-lucide="twitter" class="w-4 h-4 text-slate-400"></i></a>
                             <a href="${config.CONTACT.INSTAGRAM}" target="_blank" class="p-2 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10"><i data-lucide="instagram" class="w-4 h-4 text-pink-400"></i></a>
                         </div>
-                        <a href="collab.html?source=agent" class="w-full btn-premium py-2 text-[10px] flex items-center justify-center gap-2">
+                        <a href="${nav.buildUrl('collab.html', { source: 'agent' })}" class="w-full btn-premium py-2 text-[10px] flex items-center justify-center gap-2">
                             <span>Open Collab Portal</span>
                             <i data-lucide="zap" class="w-3 h-3"></i>
                         </a>
@@ -91,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return `
                     <div class="space-y-3">
                         <p class="text-[10px] text-slate-400 leading-relaxed">Explore Likith's curated showcase of 22+ public repositories and AI systems.</p>
-                        <a href="likith-git-profile.html?source=agent" class="w-full btn-glass py-2 text-[10px] flex items-center justify-center gap-2">
+                        <a href="${nav.buildUrl('likith-git-profile.html', { source: 'agent' })}" class="w-full btn-glass py-2 text-[10px] flex items-center justify-center gap-2">
                             <span>Open Engineering Archive</span>
                             <i data-lucide="github" class="w-3 h-3"></i>
                         </a>
@@ -101,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return `
                     <div class="space-y-3">
                         <p class="text-[10px] text-slate-400 leading-relaxed">Watch Likith's project deep dives and cinematic piano performances.</p>
-                        <a href="likith-youtube.html?source=agent" class="w-full btn-glass py-2 text-[10px] flex items-center justify-center gap-2">
+                        <a href="${nav.buildUrl('likith-youtube.html', { source: 'agent' })}" class="w-full btn-glass py-2 text-[10px] flex items-center justify-center gap-2">
                             <span>Open Media Hub</span>
                             <i data-lucide="play" class="w-3 h-3"></i>
                         </a>
@@ -115,14 +120,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p class="text-[10px] text-slate-400 leading-relaxed">The connection to my neural backend was interrupted.</p>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
-                            <a href="problem.html?result=error&type=chatbot&source=agent" class="w-full py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center justify-center gap-2 text-[10px] text-slate-300">
+                            <a href="${nav.buildUrl('problem.html', { result: 'error', type: 'chatbot', source: 'agent' })}" class="w-full py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center justify-center gap-2 text-[10px] text-slate-300">
                                 <i data-lucide="life-buoy" class="w-3 h-3"></i> Support
                             </a>
                             <button onclick="document.getElementById('ai-chat-input').focus()" class="w-full py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center justify-center gap-2 text-[10px] text-slate-300">
                                 <i data-lucide="refresh-cw" class="w-3 h-3"></i> Retry
                             </button>
                         </div>
-                        <a href="collab.html?source=agent" class="w-full btn-premium py-2 text-[10px] flex items-center justify-center gap-2 mt-2">
+                        <a href="${nav.buildUrl('collab.html', { source: 'agent' })}" class="w-full btn-premium py-2 text-[10px] flex items-center justify-center gap-2 mt-2">
                             <span>Contact Likith</span>
                             <i data-lucide="mail" class="w-3 h-3"></i>
                         </a>

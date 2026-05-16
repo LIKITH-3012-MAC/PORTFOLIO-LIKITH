@@ -29,6 +29,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
     <link rel="stylesheet" href="style.css">
+    <script src="navigation.js"></script>
     
     <style>
         /* Apple-like Monochrome Aesthetics */
@@ -104,7 +105,7 @@
                 title = "Legacy <br/> Verification.";
                 message = "Success states are now handled directly on the collaboration page. Your token confirms a valid submission.";
                 buttonHtml = `
-                    <a href="index.html" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
+                    <a href="index.html?source=problem" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
                         <i data-lucide="home" class="w-4 h-4"></i> Return to Portfolio
                     </a>
                 `;

@@ -43,26 +43,49 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(raf);
     }
 
-    // 1. Smooth Scroll for Anchor Links (Powered by Lenis)
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                lenis.scrollTo(targetElement, {
-                    offset: 0,
-                    duration: 1.5,
-                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
-                });
-                // Close mobile menu if open
-                const mobileMenu = document.getElementById('mobile-menu');
-                if (mobileMenu && !mobileMenu.classList.contains('translate-x-full')) {
-                    mobileMenu.classList.add('translate-x-full');
+    // 1. Smooth Scroll for Anchor Links (Enhanced for Source Tracking)
+    document.querySelectorAll('a').forEach(anchor => {
+        const href = anchor.getAttribute('href');
+        if (!href) return;
+
+        // Check if it's a local hash or a full path with a hash for the current page
+        const isLocalHash = href.startsWith('#');
+        const isCurrentPageHash = href.includes('#') && (href.startsWith(window.location.pathname) || href.startsWith('index.html'));
+
+        if (isLocalHash || isCurrentPageHash) {
+            anchor.addEventListener('click', function (e) {
+                const url = new URL(this.href, window.location.origin);
+                const targetId = url.hash;
+                
+                if (!targetId || targetId === '#') return;
+
+                // Only prevent default if we are on the same page (ignoring query params)
+                const isSamePage = url.pathname === window.location.pathname || 
+                                   (url.pathname.endsWith('/') && window.location.pathname.endsWith('index.html')) ||
+                                   (url.pathname.endsWith('index.html') && window.location.pathname.endsWith('/'));
+
+                if (isSamePage) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        lenis.scrollTo(targetElement, {
+                            offset: 0,
+                            duration: 1.5,
+                            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                        });
+
+                        // Update URL hash without jumping
+                        window.history.pushState(null, null, this.href);
+
+                        // Close mobile menu if open
+                        const mobileMenu = document.getElementById('mobile-menu');
+                        if (mobileMenu && !mobileMenu.classList.contains('translate-x-full')) {
+                            mobileMenu.classList.add('translate-x-full');
+                        }
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 
     // 2. Scroll Reveal Animations

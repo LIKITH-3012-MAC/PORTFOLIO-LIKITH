@@ -12,144 +12,44 @@ const CONFIG = {
     }
 };
 
-// Global Navigation Helpers
-function buildUrl(page, params = {}, hash = "") {
-    const query = new URLSearchParams();
-
-    Object.entries(params).forEach(([key, value]) => {
-        if (value !== undefined && value !== null && value !== "") {
-            query.set(key, value);
-        }
-    });
-
-    const queryString = query.toString();
-    const url = queryString ? `${page}?${queryString}` : page;
-    return hash ? `${url}#${hash.replace('#', '')}` : url;
-}
-
-function navigateTo(page, params = {}, hash = "") {
-    window.location.href = buildUrl(page, params, hash);
-}
-
-function navigateToProblem(params = {}) {
-    // Preserve current source in problem redirect if not explicitly provided
-    if (!params.source) {
-        params.source = getStoredSource() || "form";
-    }
-    navigateTo("problem.html", params);
-}
-
-// URL Tracking & Parameter Intelligence
-function parseTrackingParams() {
-    const params = new URLSearchParams(window.location.search);
-    const hash = window.location.hash ? window.location.hash.replace('#', '') : null;
-    
-    return {
-        utm_source: params.get("utm_source"),
-        utm_medium: params.get("utm_medium"),
-        utm_campaign: params.get("utm_campaign"),
-        utm_content: params.get("utm_content"),
-        utm_term: params.get("utm_term"),
-        fbclid: params.get("fbclid"),
-        gclid: params.get("gclid"),
-        source: params.get("source"),
-        ref: params.get("ref"),
-        campaign: params.get("campaign"),
-        id: params.get("id"),
-        result: params.get("result"),
-        type: params.get("type"),
-        token: params.get("token"),
-        hash: hash
-    };
-}
-
-function storeTrackingParams() {
-    const trackingKeys = [
-        'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 
-        'utm_term', 'fbclid', 'gclid', 'source', 'ref', 'campaign'
-    ];
-    
-    const params = new URLSearchParams(window.location.search);
-    const hash = window.location.hash ? window.location.hash.replace('#', '') : null;
-    let hasTracking = false;
-    
-    trackingKeys.forEach(key => {
-        const val = params.get(key);
-        if (val) {
-            sessionStorage.setItem(`visitor_${key}`, val);
-            hasTracking = true;
-        }
-    });
-
-    if (hash) {
-        sessionStorage.setItem('visitor_hash_section', hash);
-        hasTracking = true;
-    }
-
-    if (hasTracking || !sessionStorage.getItem('visitor_landing_page')) {
-        if (!sessionStorage.getItem('visitor_landing_page')) {
-            sessionStorage.setItem('visitor_landing_page', window.location.pathname || 'index.html');
-        }
-        if (!sessionStorage.getItem('visitor_referrer')) {
-            sessionStorage.setItem('visitor_referrer', document.referrer || '');
-        }
-    }
-
-    // Clean tracking params visually without breaking essential app state
-    cleanURLVisually(params);
-}
-
-function getStoredSource() {
-    return sessionStorage.getItem('visitor_source') || 
-           sessionStorage.getItem('visitor_utm_source') || 
-           sessionStorage.getItem('visitor_hash_section') || 
-           null;
-}
-
-function getStoredTrackingPayload() {
-    return {
-        source: sessionStorage.getItem('visitor_source'),
-        utm_source: sessionStorage.getItem('visitor_utm_source'),
-        utm_medium: sessionStorage.getItem('visitor_utm_medium'),
-        utm_campaign: sessionStorage.getItem('visitor_utm_campaign'),
-        utm_content: sessionStorage.getItem('visitor_utm_content'),
-        utm_term: sessionStorage.getItem('visitor_utm_term'),
-        referrer: sessionStorage.getItem('visitor_referrer'),
-        landing_page: sessionStorage.getItem('visitor_landing_page'),
-        hash_section: sessionStorage.getItem('visitor_hash_section')
-    };
-}
-
-function cleanURLVisually(params) {
-    const essentialParams = [
-        'id', 'result', 'type', 'token', 'code', 'state', 'reason', 
-        'fullname', 'phone', 'country', 'state', 'collaboration_type', 'purpose'
-    ];
-    const newQuery = new URLSearchParams();
-    let keepQuery = false;
-
-    for (const [key, value] of params.entries()) {
-        if (essentialParams.includes(key)) {
-            newQuery.set(key, value);
-            keepQuery = true;
-        }
-    }
-
-    const currentHash = window.location.hash;
-    const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + 
-                   (keepQuery ? '?' + newQuery.toString() : '') + 
-                   currentHash;
-                   
-    window.history.replaceState({ path: newUrl }, '', newUrl);
-}
-
+/**
+ * Legacy support for scripts using window.APP_CONFIG
+ */
 if (typeof window !== 'undefined') {
     window.APP_CONFIG = CONFIG;
-    window.buildUrl = buildUrl;
-    window.navigateTo = navigateTo;
-    window.navigateToProblem = navigateToProblem;
-    window.parseTrackingParams = parseTrackingParams;
-    window.storeTrackingParams = storeTrackingParams;
-    window.getStoredSource = getStoredSource;
-    window.getStoredTrackingPayload = getStoredTrackingPayload;
+    
+    // Defer to Navigation utility if available
+    // We keep these on window for backward compatibility with existing scripts
+    if (window.Navigation) {
+        window.buildUrl = window.Navigation.buildUrl;
+        window.navigateTo = window.Navigation.navigateTo;
+        
+        window.getStoredTrackingPayload = function() {
+            const stored = JSON.parse(sessionStorage.getItem("site_tracking") || "{}");
+            return {
+                source: stored.source || null,
+                utm_source: stored.utm_source || null,
+                utm_medium: stored.utm_medium || null,
+                utm_campaign: stored.utm_campaign || null,
+                utm_content: stored.utm_content || null,
+                utm_term: stored.utm_term || null,
+                referrer: stored.ref || document.referrer || null,
+                landing_page: stored.landing_page || window.location.pathname,
+                hash_section: stored.hash_section || null
+            };
+        };
+
+        window.navigateToProblem = function(params = {}) {
+            const tracking = window.Navigation.getUrlTracking();
+            if (!params.source) {
+                params.source = tracking.source || "problem";
+            }
+            window.Navigation.navigateTo("problem.html", params);
+        };
+
+        // Disable aggressive cleaning - preserve source and tracking in URL
+        window.storeTrackingParams = () => {
+            console.log("[Config] URL parameters preserved for tracking.");
+        };
+    }
 }
