@@ -188,6 +188,7 @@ class CollaborationRequest(Base):
     utm_term = Column(String(150), nullable=True)
     referrer = Column(Text, nullable=True)
     landing_page = Column(String(255), nullable=True)
+    hash_section = Column(String(100), nullable=True)
     
     # Security Verification
     submission_token_hash = Column(String(255), nullable=True)
@@ -237,6 +238,7 @@ try:
             'utm_term': 'VARCHAR(150)',
             'referrer': 'TEXT',
             'landing_page': 'VARCHAR(255)',
+            'hash_section': 'VARCHAR(100)',
             'submission_token_hash': 'VARCHAR(255)',
             'token_created_at': 'DATETIME',
             'token_expires_at': 'DATETIME',
@@ -286,8 +288,6 @@ class CollabRequest(BaseModel):
     budget_range: Optional[str] = None
     timeline: Optional[str] = None
     organization: Optional[str] = None
-    
-    # Tracking Metadata
     source: Optional[str] = None
     utm_source: Optional[str] = None
     utm_medium: Optional[str] = None
@@ -296,6 +296,7 @@ class CollabRequest(BaseModel):
     utm_term: Optional[str] = None
     referrer: Optional[str] = None
     landing_page: Optional[str] = None
+    hash_section: Optional[str] = None
 
 # 6. AI Agent Logic (Removed legacy prompt)
 
@@ -397,6 +398,7 @@ async def create_collab(request: CollabRequest):
             utm_term=request.utm_term if request.utm_term else None,
             referrer=request.referrer if request.referrer else None,
             landing_page=request.landing_page if request.landing_page else None,
+            hash_section=request.hash_section if request.hash_section else None,
             
             # Security Fields
             submission_token_hash=token_hash,
