@@ -544,9 +544,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
 
-            if (data.success === true && data.id) {
-                // SUCCESS: Backend confirmed MySQL storage and returned ID
-                triggerCinematicSuccess(data.id);
+            if (data.success === true && data.id && data.token) {
+                // SUCCESS: Backend confirmed MySQL storage and returned ID + Token
+                triggerCinematicSuccess(data.id, data.token);
             } else {
                 // API returned success false or missing ID
                 if (window.navigateToProblem) {
@@ -575,7 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // CINEMATIC SUCCESS ANIMATION (unchanged core logic)
     // ═══════════════════════════════════════════════════
 
-    function triggerCinematicSuccess(insertedId) {
+    function triggerCinematicSuccess(insertedId, token) {
         const stage = document.getElementById('cinematic-success');
         const rocket = document.getElementById('rocket-unit');
         const vapor = document.getElementById('rocket-vapor');
@@ -612,9 +612,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         setTimeout(() => {
                             // Phase 6: Navigate after animation
                             if (window.navigateToProblem) {
-                                window.navigateToProblem({ id: insertedId, result: 'success', type: 'collab', source: 'form' });
+                                window.navigateToProblem({ 
+                                    id: insertedId, 
+                                    result: 'success', 
+                                    type: 'collab', 
+                                    source: 'form',
+                                    token: token 
+                                });
                             } else {
-                                window.location.href = `problem.html?id=${insertedId}&result=success&type=collab&source=form`;
+                                window.location.href = `problem.html?id=${insertedId}&result=success&type=collab&source=form&token=${token}`;
                             }
                         }, 600);
                     }, 600);

@@ -17,6 +17,8 @@ from core.router import IntentRouter
 from core.retrieval import RetrievalService
 from core.llm_service import LLMService
 import pytz
+import secrets
+import hashlib
 
 # Timezone Configuration
 IST = pytz.timezone('Asia/Kolkata')
@@ -187,7 +189,14 @@ class CollaborationRequest(Base):
     referrer = Column(Text, nullable=True)
     landing_page = Column(String(255), nullable=True)
     
+    # Security Verification
+    submission_token_hash = Column(String(255), nullable=True)
+    token_created_at = Column(DateTime, nullable=True)
+    token_expires_at = Column(DateTime, nullable=True)
+    verified_at = Column(DateTime, nullable=True)
+    
     created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 class ChatLog(Base):
     __tablename__ = "chat_logs"
@@ -227,7 +236,12 @@ try:
             'utm_content': 'VARCHAR(150)',
             'utm_term': 'VARCHAR(150)',
             'referrer': 'TEXT',
-            'landing_page': 'VARCHAR(255)'
+            'landing_page': 'VARCHAR(255)',
+            'submission_token_hash': 'VARCHAR(255)',
+            'token_created_at': 'DATETIME',
+            'token_expires_at': 'DATETIME',
+            'verified_at': 'DATETIME',
+            'updated_at': 'DATETIME'
         }
         for col_name, col_type in tracking_cols.items():
             try:
@@ -354,7 +368,12 @@ async def self_stream(text, card):
 async def create_collab(request: CollabRequest):
     db = SessionLocal()
     try:
-        logger.info(f"📥 RECEIVED PAYLOAD: {request.dict()}")
+        logger.info(f"📥 SECURE SUBMISSION: Received payload for {request.full_name}")
+        # Security Logic: Generate One-Time Token
+        raw_token = secrets.token_urlsafe(32)
+        token_hash = hashlib.sha256(raw_token.encode()).hexdigest()
+        expiry_minutes = 15
+        
         new_request = CollaborationRequest(
             full_name=request.full_name,
             phone_number=request.phone_number,
@@ -377,17 +396,66 @@ async def create_collab(request: CollabRequest):
             utm_content=request.utm_content if request.utm_content else None,
             utm_term=request.utm_term if request.utm_term else None,
             referrer=request.referrer if request.referrer else None,
-            landing_page=request.landing_page if request.landing_page else None
+            landing_page=request.landing_page if request.landing_page else None,
+            
+            # Security Fields
+            submission_token_hash=token_hash,
+            token_created_at=datetime.utcnow(),
+            token_expires_at=datetime.utcnow() + timedelta(minutes=expiry_minutes),
+            status="pending"
         )
         db.add(new_request)
         db.commit()
         db.refresh(new_request)
-        logger.info(f"🚀 DATA STORED: Successfully committed ID {new_request.id}")
-        return {"success": True, "message": "Collaboration request stored successfully.", "id": new_request.id}
+        logger.info(f"🚀 SECURE DATA STORED: Successfully committed ID {new_request.id}")
+        return {
+            "success": True, 
+            "message": "Collaboration request stored successfully.", 
+            "id": new_request.id,
+            "token": raw_token,
+            "expires_in": expiry_minutes * 60
+        }
     except Exception as e:
         db.rollback()
         logger.error(f"❌ DB STORAGE ERROR: {str(e)}")
         return JSONResponse(status_code=500, content={"success": False, "message": "Database insert failed."})
+    finally:
+        db.close()
+
+@app.get("/api/collab/verify")
+async def verify_collab(id: int, token: str):
+    db = SessionLocal()
+    try:
+        if not id or not token:
+            return {"verified": False, "reason": "missing_params", "message": "Missing ID or Token"}
+
+        token_hash = hashlib.sha256(token.encode()).hexdigest()
+        req = db.query(CollaborationRequest).filter(
+            CollaborationRequest.id == id,
+            CollaborationRequest.submission_token_hash == token_hash
+        ).first()
+
+        if not req:
+            return {"verified": False, "reason": "not_found", "message": "Invalid submission reference."}
+
+        if req.token_expires_at and datetime.utcnow() > req.token_expires_at:
+            return {"verified": False, "reason": "expired", "message": "Submission link has expired."}
+
+        # Mark as verified on first successful check
+        if not req.verified_at:
+            req.verified_at = datetime.utcnow()
+            req.status = "verified"
+            db.commit()
+
+        return {
+            "verified": True,
+            "id": req.id,
+            "status": req.status,
+            "message": "Submission verified successfully."
+        }
+    except Exception as e:
+        logger.error(f"❌ Verification Error: {e}")
+        return {"verified": False, "reason": "system_error", "message": "Internal verification error."}
     finally:
         db.close()
 
