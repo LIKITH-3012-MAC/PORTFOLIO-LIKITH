@@ -2,7 +2,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const collabForm = document.getElementById('collab-form');
     if (!collabForm) return;
 
-    // --- GEOGRAPHY CASCADING LOGIC ---
+    // ═══ STATE ═══
+    let isRobotChecked = false;
+    let mathAnswer = null;
+    let attemptCount = 0;
+    let isSubmitting = false;
+    let formOpenTimestamp = Date.now(); // Anti-spam: track when page loaded
+
+    // ═══ GEOGRAPHY CASCADING LOGIC ═══
     const GEOGRAPHY_DATA = {
         "India": {
             "Andhra Pradesh": {},
@@ -123,15 +130,294 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- FORM SUBMISSION LOGIC ---
-    collabForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
+
+    // ═══════════════════════════════════════════════════
+    // VERIFICATION SYSTEM
+    // ═══════════════════════════════════════════════════
+
+    const overlay = document.getElementById('verification-overlay');
+    const card = document.getElementById('hv-card');
+    const checkbox = document.getElementById('hv-checkbox');
+    const pulse = document.getElementById('hv-pulse');
+    const mathSection = document.getElementById('hv-math-section');
+    const mathQuestion = document.getElementById('hv-math-question');
+    const mathInput = document.getElementById('hv-math-input');
+    const errorEl = document.getElementById('hv-error');
+    const verifiedState = document.getElementById('hv-verified-state');
+    const verifyBtn = document.getElementById('hv-btn-verify');
+    const cancelBtn = document.getElementById('hv-btn-cancel');
+    const closeBtn = document.getElementById('hv-close');
+    const backdrop = document.getElementById('hv-backdrop');
+    const footerMeta = document.getElementById('hv-footer-meta');
+
+    // ── Math Question Generator ──
+    function generateMathQuestion() {
+        const ops = ['+', '−'];
+        const op = ops[Math.floor(Math.random() * ops.length)];
+        let a, b, answer;
         
+        if (op === '+') {
+            a = Math.floor(Math.random() * 15) + 3;
+            b = Math.floor(Math.random() * 12) + 2;
+            answer = a + b;
+        } else {
+            a = Math.floor(Math.random() * 15) + 8;
+            b = Math.floor(Math.random() * (a - 2)) + 1;
+            answer = a - b;
+        }
+
+        const prefixes = ['What is', 'Solve:', 'Verify:'];
+        const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+        
+        mathQuestion.textContent = `${prefix} ${a} ${op} ${b} = ?`;
+        mathAnswer = answer;
+    }
+
+    // ── Open Verification Modal ──
+    function openVerification() {
+        // Reset state
+        isRobotChecked = false;
+        attemptCount = 0;
+        isSubmitting = false;
+
+        checkbox.classList.remove('checked');
+        checkbox.setAttribute('aria-checked', 'false');
+        mathSection.classList.remove('active');
+        mathInput.value = '';
+        errorEl.classList.remove('visible');
+        errorEl.textContent = '';
+        verifiedState.classList.remove('visible');
+        verifyBtn.classList.remove('loading');
+        card.classList.remove('shake');
+        footerMeta.textContent = '';
+
+        generateMathQuestion();
+
+        // Show modal
+        overlay.classList.add('active');
+
+        // Focus trap start
+        setTimeout(() => checkbox.focus(), 400);
+    }
+
+    // ── Close Verification Modal ──
+    function closeVerification() {
+        overlay.classList.remove('active');
+        isSubmitting = false;
+    }
+
+    // ── Checkbox Toggle ──
+    checkbox.addEventListener('click', () => {
+        if (isSubmitting) return;
+
+        isRobotChecked = !isRobotChecked;
+        checkbox.classList.toggle('checked', isRobotChecked);
+        checkbox.setAttribute('aria-checked', isRobotChecked ? 'true' : 'false');
+
+        // Trigger pulse
+        pulse.classList.remove('pulse');
+        void pulse.offsetWidth; // Force reflow
+        pulse.classList.add('pulse');
+
+        // Activate math section
+        if (isRobotChecked) {
+            mathSection.classList.add('active');
+            setTimeout(() => mathInput.focus(), 400);
+        } else {
+            mathSection.classList.remove('active');
+            mathInput.value = '';
+        }
+
+        // Clear errors
+        errorEl.classList.remove('visible');
+        errorEl.textContent = '';
+    });
+
+    // ── Enter key on math input triggers verify ──
+    mathInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleVerification();
+        }
+    });
+
+    // ── Verify Button ──
+    verifyBtn.addEventListener('click', () => handleVerification());
+
+    // ── Close handlers ──
+    cancelBtn.addEventListener('click', closeVerification);
+    closeBtn.addEventListener('click', closeVerification);
+    backdrop.addEventListener('click', closeVerification);
+
+    // Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+            closeVerification();
+        }
+    });
+
+    // ── Core Verification Logic ──
+    async function handleVerification() {
+        if (isSubmitting) return;
+
+        // Clear previous errors
+        errorEl.classList.remove('visible');
+        errorEl.textContent = '';
+        card.classList.remove('shake');
+
+        // Check 1: Robot checkbox
+        if (!isRobotChecked) {
+            showError('Please confirm you are not a robot.');
+            triggerShake();
+            return;
+        }
+
+        // Check 2: Math answer
+        const userAnswer = parseInt(mathInput.value, 10);
+        if (isNaN(userAnswer)) {
+            showError('Please enter a valid answer to the security check.');
+            triggerShake();
+            mathInput.focus();
+            return;
+        }
+
+        if (userAnswer !== mathAnswer) {
+            attemptCount++;
+            const messages = [
+                'Incorrect answer. Please try again.',
+                'Verification failed. A new check has been generated.',
+                'Wrong answer. Focus and try once more.'
+            ];
+            showError(messages[Math.min(attemptCount - 1, messages.length - 1)]);
+            triggerShake();
+            
+            // Regenerate after 2nd failed attempt
+            if (attemptCount >= 2) {
+                generateMathQuestion();
+                footerMeta.textContent = `ATTEMPT ${attemptCount} • CHALLENGE REFRESHED`;
+            } else {
+                footerMeta.textContent = `ATTEMPT ${attemptCount}`;
+            }
+            
+            mathInput.value = '';
+            mathInput.focus();
+            return;
+        }
+
+        // ── Verification Passed ──
+        isSubmitting = true;
+
+        // Show verified state
+        mathSection.classList.remove('active');
+        checkbox.style.display = 'none';
+        verifiedState.classList.add('visible');
+        footerMeta.textContent = 'IDENTITY CONFIRMED • TRANSMITTING...';
+
+        // Put verify button in loading state
+        verifyBtn.classList.add('loading');
+
+        // Small delay for visual feedback, then submit to backend
+        await new Promise(r => setTimeout(r, 800));
+
+        // Close verification modal smoothly
+        closeVerification();
+
+        // Now submit to backend
+        await submitToBackend();
+    }
+
+    // ── Error display ──
+    function showError(msg) {
+        errorEl.textContent = msg;
+        errorEl.classList.add('visible');
+    }
+
+    // ── Shake effect ──
+    function triggerShake() {
+        card.classList.remove('shake');
+        void card.offsetWidth;
+        card.classList.add('shake');
+    }
+
+
+    // ═══════════════════════════════════════════════════
+    // FORM SUBMISSION FLOW
+    // ═══════════════════════════════════════════════════
+
+    collabForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (isSubmitting) return;
+
+        // Check honeypot
+        const honeypot = document.getElementById('hp-field');
+        if (honeypot && honeypot.value) {
+            // Bot detected — silently fail
+            console.warn('Honeypot triggered.');
+            return;
+        }
+
+        // Anti-speed check: if less than 3 seconds since page load, likely a bot
+        if (Date.now() - formOpenTimestamp < 3000) {
+            console.warn('Submission too fast.');
+            return;
+        }
+
+        // Validate required fields
+        if (!validateRequiredFields()) return;
+
+        // Open verification modal
+        openVerification();
+    });
+
+    // ── Field Validation ──
+    function validateRequiredFields() {
+        const requiredFields = [
+            { name: 'full_name', label: 'Full Name' },
+            { name: 'phone_number', label: 'Phone Number' },
+            { name: 'country', label: 'Country' },
+            { name: 'collaboration_type', label: 'Collaboration Type' },
+            { name: 'purpose', label: 'Project Purpose' }
+        ];
+
+        let firstInvalid = null;
+
+        for (const field of requiredFields) {
+            const input = collabForm.querySelector(`[name="${field.name}"]`);
+            if (!input || !input.value.trim()) {
+                // Highlight the field
+                input.style.borderColor = 'rgba(255, 255, 255, 0.5)';
+                input.style.boxShadow = '0 0 0 2px rgba(255, 255, 255, 0.1)';
+                setTimeout(() => {
+                    input.style.borderColor = '';
+                    input.style.boxShadow = '';
+                }, 3000);
+
+                if (!firstInvalid) firstInvalid = input;
+            }
+        }
+
+        if (firstInvalid) {
+            firstInvalid.focus();
+            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Show premium inline notification on submit button
+            showPremiumError('Please fill all required fields before proceeding.');
+            return false;
+        }
+
+        return true;
+    }
+
+    // ── Backend Submission ──
+    async function submitToBackend() {
         const submitBtn = document.getElementById('submit-btn');
         const originalBtnText = submitBtn.innerHTML;
         
         const formData = new FormData(collabForm);
         const data = Object.fromEntries(formData.entries());
+
+        // Remove honeypot from payload
+        delete data._hp_field;
 
         const payload = {
             full_name: data.full_name,
@@ -152,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.innerHTML = `
             <div class="flex items-center gap-3">
                 <div class="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
-                <span class="tracking-widest uppercase text-xs font-bold">Initiating Transmission...</span>
+                <span class="tracking-widest uppercase text-xs font-bold">Transmitting to Database...</span>
             </div>
         `;
 
@@ -168,18 +454,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
 
             if (result.success) {
+                // SUCCESS: Backend confirmed MySQL storage
                 triggerCinematicSuccess();
             } else {
-                throw new Error(result.message);
+                throw new Error(result.message || 'Storage failed');
             }
         } catch (error) {
             console.error('Transmission Error:', error);
             showPremiumError(error.message);
+            isSubmitting = false;
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnText;
+            if (window.lucide) lucide.createIcons();
         }
-    });
+    }
+
+
+    // ═══════════════════════════════════════════════════
+    // CINEMATIC SUCCESS ANIMATION (unchanged core logic)
+    // ═══════════════════════════════════════════════════
 
     function triggerCinematicSuccess() {
         const stage = document.getElementById('cinematic-success');
@@ -219,7 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         setTimeout(() => {
                             // Phase 6: Delivery Confirmation
                             content.classList.add('visible');
-                            rocket.style.display = 'none'; // Clear stage for message
+                            rocket.style.display = 'none';
                             if (window.lucide) lucide.createIcons();
                         }, 600);
                     }, 600);
@@ -239,7 +533,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.innerHTML = `
             <div class="flex items-center gap-2">
                 <i data-lucide="alert-circle" class="w-4 h-4"></i>
-                <span class="text-[10px] uppercase font-bold tracking-widest">Transmission Failed: ${message || 'System Error'}</span>
+                <span class="text-[10px] uppercase font-bold tracking-widest">${message || 'System Error'}</span>
             </div>
         `;
         if (window.lucide) lucide.createIcons();
