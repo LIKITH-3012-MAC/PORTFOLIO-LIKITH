@@ -127,19 +127,10 @@
                 lucide.createIcons();
             }
         });
-
-            // Reveal content after setting it
-            titleEl.classList.remove('opacity-0');
-            msgEl.classList.remove('opacity-0');
-            buttonsEl.classList.remove('opacity-0');
-
-            if (window.lucide) {
-                lucide.createIcons();
-            }
-        });
         
         setTimeout(() => {
-            document.querySelector('.reveal').classList.add('active');
+            const reveal = document.querySelector('.reveal');
+            if (reveal) reveal.classList.add('active');
         }, 100);
     </script>
 </body>
