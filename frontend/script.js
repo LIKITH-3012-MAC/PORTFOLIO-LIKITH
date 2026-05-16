@@ -4,6 +4,17 @@ document.addEventListener('DOMContentLoaded', () => {
         window.storeTrackingParams();
     }
 
+    // Auto-scroll to hash on load
+    const hash = window.location.hash;
+    if (hash && hash !== '#') {
+        setTimeout(() => {
+            const target = document.querySelector(hash);
+            if (target && window.lenis) {
+                window.lenis.scrollTo(target, { offset: 0, duration: 1.5 });
+            }
+        }, 500); 
+    }
+
     // 0. Initialize Lenis Smooth Scroll
     const lenis = new Lenis({
         lerp: 0.05, // Ultra-floaty, buttery smooth feel

@@ -104,9 +104,11 @@
                 fetch(`${window.APP_CONFIG.API_BASE_URL}/api/collab/verify?id=${id}&token=${token}`)
                     .then(res => res.json())
                     .then(data => {
-                        if (data.verified) {
+                            const sourceLabel = data.status === 'verified' ? (params.get('source') || 'Form') : 'Direct';
+                            const formattedSource = sourceLabel.charAt(0).toUpperCase() + sourceLabel.slice(1);
+                            
                             titleEl.innerHTML = "Request <br/> Submitted.";
-                            msgEl.innerHTML = "Your collaboration request has been securely stored and verified. I will review it and get back to you soon.";
+                            msgEl.innerHTML = `Your collaboration request has been securely stored and verified. I will review it and get back to you soon.`;
                             buttonsEl.innerHTML = `
                                 <a href="index.html" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
                                     <i data-lucide="home" class="w-4 h-4"></i> Back to Portfolio
@@ -115,7 +117,7 @@
                                     <i data-lucide="mail" class="w-4 h-4"></i> Contact Likith
                                 </a>
                             `;
-                            codeEl.textContent = `Status: Verified • ID: ${id} • Reference: ${data.id}`;
+                            codeEl.textContent = `Status: Verified • Source: ${formattedSource} • ID: ${id}`;
                         } else {
                             // Verification failed (Fake or Expired)
                             titleEl.innerHTML = "Verification <br/> Required.";

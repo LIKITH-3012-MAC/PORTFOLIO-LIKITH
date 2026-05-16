@@ -135,14 +135,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
         
         // Track source
-        const source = params.get('source');
+        const source = params.get('source') || sessionStorage.getItem('visitor_source');
+        const hash = window.location.hash.replace('#', '') || sessionStorage.getItem('visitor_hash_section');
+        const utmSource = params.get('utm_source') || sessionStorage.getItem('visitor_utm_source');
+        
         const sourceNoteEl = document.getElementById('source-note');
-        if (source && sourceNoteEl) {
+        if (sourceNoteEl) {
             if (source === 'nav') {
                 sourceNoteEl.innerHTML = `<i data-lucide="compass" class="w-3 h-3"></i> Opened from Navigation`;
                 sourceNoteEl.classList.remove('hidden');
             } else if (source === 'agent') {
                 sourceNoteEl.innerHTML = `<i data-lucide="cpu" class="w-3 h-3 text-amber-400"></i> Opened from Likith's AI Agent`;
+                sourceNoteEl.classList.remove('hidden');
+            } else if (utmSource === 'instagram') {
+                sourceNoteEl.innerHTML = `<i data-lucide="instagram" class="w-3 h-3 text-pink-500"></i> Opened from Instagram`;
+                sourceNoteEl.classList.remove('hidden');
+            } else if (hash) {
+                sourceNoteEl.innerHTML = `<i data-lucide="anchor" class="w-3 h-3"></i> Context: Section ${hash}`;
                 sourceNoteEl.classList.remove('hidden');
             }
         }
@@ -505,15 +514,8 @@ document.addEventListener('DOMContentLoaded', () => {
             budget_range: data.budget_range || null,
             preferred_contact_method: data.preferred_contact_method || null,
             
-            // Tracking Metadata
-            source: sessionStorage.getItem('visitor_source') || null,
-            utm_source: sessionStorage.getItem('visitor_utm_source') || null,
-            utm_medium: sessionStorage.getItem('visitor_utm_medium') || null,
-            utm_campaign: sessionStorage.getItem('visitor_utm_campaign') || null,
-            utm_content: sessionStorage.getItem('visitor_utm_content') || null,
-            utm_term: sessionStorage.getItem('visitor_utm_term') || null,
-            referrer: sessionStorage.getItem('visitor_referrer') || null,
-            landing_page: sessionStorage.getItem('visitor_landing_page') || null
+            // Tracking Metadata (Prioritize session storage captured on landing)
+            ...window.getStoredTrackingPayload()
         };
 
         // Premium Loading State
@@ -580,12 +582,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const rocket = document.getElementById('rocket-unit');
         const vapor = document.getElementById('rocket-vapor');
         const form = document.getElementById('collab-form');
+        const successMsg = document.getElementById('success-content');
 
         // Phase 1: Form Dissolve
-        form.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
-        form.style.opacity = '0';
-        form.style.filter = 'blur(10px)';
-        form.style.transform = 'scale(0.95)';
+        if (form) {
+            form.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            form.style.opacity = '0';
+            form.style.filter = 'blur(10px)';
+            form.style.transform = 'scale(0.95)';
+        }
         
         // Phase 2: Success Stage Reveal
         stage.classList.add('active');
@@ -593,39 +598,42 @@ document.addEventListener('DOMContentLoaded', () => {
         // Lock scroll
         document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
-        document.body.style.height = '100vh';
         if (window.lenis) window.lenis.stop();
             
+        setTimeout(() => {
+            // Phase 3: Rocket Arrival
+            rocket.classList.add('reveal');
+            
             setTimeout(() => {
-                // Phase 3: Rocket Arrival
-                rocket.classList.add('reveal');
+                // Phase 4: Pre-Launch Ignition
+                vapor.classList.add('active');
+                rocket.classList.add('launching');
                 
                 setTimeout(() => {
-                    // Phase 4: Pre-Launch Ignition
-                    vapor.classList.add('active');
-                    rocket.classList.add('launching');
+                    // Phase 5: Cinematic Launch
+                    rocket.classList.add('launch');
+                    
+                    // Show success text shortly after launch
+                    setTimeout(() => {
+                        if (successMsg) successMsg.classList.add('visible');
+                    }, 400);
                     
                     setTimeout(() => {
-                        // Phase 5: Cinematic Launch
-                        rocket.classList.add('launch');
-                        
-                        setTimeout(() => {
-                            // Phase 6: Navigate after animation
-                            if (window.navigateToProblem) {
-                                window.navigateToProblem({ 
-                                    id: insertedId, 
-                                    result: 'success', 
-                                    type: 'collab', 
-                                    source: 'form',
-                                    token: token 
-                                });
-                            } else {
-                                window.location.href = `problem.html?id=${insertedId}&result=success&type=collab&source=form&token=${token}`;
-                            }
-                        }, 600);
-                    }, 600);
-                }, 500);
-            }, 300);
+                        // Phase 6: Navigate after animation
+                        if (window.navigateToProblem) {
+                            window.navigateToProblem({ 
+                                id: insertedId, 
+                                result: 'success', 
+                                type: 'collab', 
+                                token: token 
+                            });
+                        } else {
+                            window.location.href = `problem.html?id=${insertedId}&result=success&type=collab&token=${token}`;
+                        }
+                    }, 1800); // Wait for full launch sequence
+                }, 800);
+            }, 600);
+        }, 300);
     }
 
     function showPremiumError(message) {
