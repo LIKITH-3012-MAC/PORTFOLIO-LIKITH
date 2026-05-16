@@ -627,6 +627,7 @@ async def create_collab(request: CollabRequest):
             "message": "Collaboration request stored and confirmation email sent." if email_sent else "Collaboration request stored, but confirmation email could not be sent.", 
             "id": new_request.id,
             "token": raw_token,
+            "source": new_request.source or request.source or "form",
             "expires_in": expiry_minutes * 60,
             "email_sent": email_sent
         }

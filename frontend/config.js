@@ -25,24 +25,27 @@ if (typeof window !== 'undefined') {
         window.navigateTo = window.Navigation.navigateTo;
         
         window.getStoredTrackingPayload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const urlSource = params.get("source");
             const stored = JSON.parse(sessionStorage.getItem("site_tracking") || "{}");
+            
             return {
-                source: stored.source || null,
-                utm_source: stored.utm_source || null,
-                utm_medium: stored.utm_medium || null,
-                utm_campaign: stored.utm_campaign || null,
-                utm_content: stored.utm_content || null,
-                utm_term: stored.utm_term || null,
+                source: urlSource || stored.source || "form",
+                utm_source: params.get("utm_source") || stored.utm_source || null,
+                utm_medium: params.get("utm_medium") || stored.utm_medium || null,
+                utm_campaign: params.get("utm_campaign") || stored.utm_campaign || null,
+                utm_content: params.get("utm_content") || stored.utm_content || null,
+                utm_term: params.get("utm_term") || stored.utm_term || null,
                 referrer: stored.ref || document.referrer || null,
-                landing_page: stored.landing_page || window.location.pathname,
-                hash_section: stored.hash_section || null
+                landing_page: stored.landing_page || (window.location.pathname + window.location.search),
+                hash_section: stored.hash_section || window.location.hash.replace('#', '') || null
             };
         };
 
         window.navigateToProblem = function(params = {}) {
-            const tracking = window.Navigation.getUrlTracking();
+            const tracking = window.getStoredTrackingPayload();
             if (!params.source) {
-                params.source = tracking.source || "problem";
+                params.source = tracking.source;
             }
             window.Navigation.navigateTo("problem.html", params);
         };

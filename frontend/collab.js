@@ -543,9 +543,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
 
-            if (data.success === true && data.id && data.token) {
-                // SUCCESS: Backend confirmed MySQL storage and returned ID + Token
-                triggerCinematicSuccess(data.id, data.token, data.email_sent);
+            if (data.success === true && data.id) {
+                // SUCCESS: Backend confirmed MySQL storage and returned ID
+                // We prioritize source returned from backend, or fallback to the one we sent
+                const finalSource = data.source || payload.source || "form";
+                triggerCinematicSuccess(data.id, data.token, data.email_sent, finalSource);
             } else {
                 // API returned success false or missing ID
                 if (window.navigateToProblem) {
@@ -574,7 +576,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // CINEMATIC SUCCESS ANIMATION (unchanged core logic)
     // ═══════════════════════════════════════════════════
 
-    function triggerCinematicSuccess(insertedId, token, emailSent) {
+    function triggerCinematicSuccess(insertedId, token, emailSent, source) {
         const stage = document.getElementById('cinematic-success');
         const rocket = document.getElementById('rocket-unit');
         const vapor = document.getElementById('rocket-vapor');
@@ -630,9 +632,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             if (insertedId) {
-                message += `<div class="mt-8 pt-6 border-t border-white/5">
-                    <span class="text-[9px] text-slate-600 uppercase tracking-[0.3em] font-mono block mb-1">Internal Reference</span>
-                    <span class="text-[11px] text-slate-400 font-mono">REQ-ID: ${insertedId}</span>
+                const sourceLabels = {
+                    'nav': 'Navigation',
+                    'agent': 'Likith’s AI Agent',
+                    'form': 'Collaboration Form',
+                    'footer': 'Footer',
+                    'hero': 'Hero Section',
+                    'email': 'Email Link'
+                };
+                const friendlySource = sourceLabels[source] || sourceLabels['form'] || 'Collaboration Form';
+                
+                message += `
+                <div class="mt-8 pt-6 border-t border-white/5 space-y-4">
+                    <div class="flex flex-col gap-1 text-left">
+                        <span class="text-[9px] text-slate-600 uppercase tracking-[0.3em] font-mono block">Internal Reference</span>
+                        <span class="text-[11px] text-slate-300 font-mono">REQ-ID: #${insertedId}</span>
+                    </div>
+                    <div class="flex flex-col gap-1 text-left">
+                        <span class="text-[9px] text-slate-600 uppercase tracking-[0.3em] font-mono block">Traffic Origin</span>
+                        <span class="text-[11px] text-slate-300 font-mono">${friendlySource}</span>
+                    </div>
+                    <div class="flex flex-col gap-1 text-left">
+                        <span class="text-[9px] text-slate-600 uppercase tracking-[0.3em] font-mono block">Email Status</span>
+                        <span class="text-[11px] ${emailSent ? 'text-emerald-400' : 'text-amber-400'} font-mono uppercase tracking-wider">
+                            ${emailSent ? 'Confirmation Sent' : 'Dispatch Interrupted'}
+                        </span>
+                    </div>
                 </div>`;
             }
             
