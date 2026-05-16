@@ -104,7 +104,8 @@
                 fetch(`${window.APP_CONFIG.API_BASE_URL}/api/collab/verify?id=${id}&token=${token}`)
                     .then(res => res.json())
                     .then(data => {
-                            const sourceLabel = data.status === 'verified' ? (params.get('source') || 'Form') : 'Direct';
+                        if (data.verified) {
+                            const sourceLabel = params.get('source') || 'Form';
                             const formattedSource = sourceLabel.charAt(0).toUpperCase() + sourceLabel.slice(1);
                             
                             titleEl.innerHTML = "Request <br/> Submitted.";
