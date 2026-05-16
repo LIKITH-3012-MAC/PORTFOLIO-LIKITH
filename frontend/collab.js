@@ -449,19 +449,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(payload)
             });
 
-            if (!response.ok) throw new Error('System Refusal');
+            if (!response.ok) {
+                // System level error
+                if (window.navigateToProblem) {
+                    window.navigateToProblem({ result: 'error', type: 'collab', source: 'form' });
+                } else {
+                    window.location.href = `problem.html?result=error&type=collab&source=form`;
+                }
+                return;
+            }
 
             const result = await response.json();
 
             if (result.success) {
                 // SUCCESS: Backend confirmed MySQL storage
-                triggerCinematicSuccess();
+                triggerCinematicSuccess(result.id);
             } else {
-                throw new Error(result.message || 'Storage failed');
+                // API returned success false
+                if (window.navigateToProblem) {
+                    window.navigateToProblem({ result: 'failed', type: 'collab', source: 'form' });
+                } else {
+                    window.location.href = `problem.html?result=failed&type=collab&source=form`;
+                }
             }
         } catch (error) {
             console.error('Transmission Error:', error);
-            showPremiumError(error.message);
+            if (window.navigateToProblem) {
+                window.navigateToProblem({ result: 'error', type: 'collab', source: 'form' });
+            } else {
+                window.location.href = `problem.html?result=error&type=collab&source=form`;
+            }
             isSubmitting = false;
         } finally {
             submitBtn.disabled = false;
@@ -475,11 +492,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // CINEMATIC SUCCESS ANIMATION (unchanged core logic)
     // ═══════════════════════════════════════════════════
 
-    function triggerCinematicSuccess() {
+    function triggerCinematicSuccess(insertedId) {
         const stage = document.getElementById('cinematic-success');
         const rocket = document.getElementById('rocket-unit');
         const vapor = document.getElementById('rocket-vapor');
-        const content = document.getElementById('success-content');
         const form = document.getElementById('collab-form');
 
         // Phase 1: Form Dissolve
@@ -511,10 +527,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         rocket.classList.add('launch');
                         
                         setTimeout(() => {
-                            // Phase 6: Delivery Confirmation
-                            content.classList.add('visible');
-                            rocket.style.display = 'none';
-                            if (window.lucide) lucide.createIcons();
+                            // Phase 6: Navigate after animation
+                            if (window.navigateToProblem) {
+                                window.navigateToProblem({ id: insertedId, result: 'success', type: 'collab', source: 'form' });
+                            } else {
+                                window.location.href = `problem.html?id=${insertedId}&result=success&type=collab&source=form`;
+                            }
                         }, 600);
                     }, 600);
                 }, 500);

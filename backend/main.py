@@ -328,7 +328,7 @@ async def create_collab(request: CollabRequest):
         db.commit()
         db.refresh(new_request)
         logger.info(f"🚀 DATA STORED: Successfully committed ID {new_request.id}")
-        return {"success": True, "message": "Collaboration logged successfully.", "entry_id": new_request.id}
+        return {"success": True, "message": "Collaboration request stored successfully.", "id": new_request.id}
     except Exception as e:
         db.rollback()
         logger.error(f"❌ DB STORAGE ERROR: {str(e)}")

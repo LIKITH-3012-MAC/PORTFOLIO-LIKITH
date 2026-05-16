@@ -52,13 +52,13 @@
             <i data-lucide="shield-alert" class="w-10 h-10 opacity-80"></i>
         </div>
 
-        <h1 class="text-4xl md:text-5xl font-display font-bold tracking-tight mb-6 text-white">System <br/> Interruption.</h1>
+        <h1 id="page-title" class="text-4xl md:text-5xl font-display font-bold tracking-tight mb-6 text-white">System <br/> Interruption.</h1>
 
-        <p class="text-slate-400 text-lg mb-12 font-light leading-relaxed max-w-lg mx-auto">
+        <p id="page-message" class="text-slate-400 text-lg mb-12 font-light leading-relaxed max-w-lg mx-auto">
             The connection encountered a technical anomaly. Our digital architecture is designed to recover gracefully. Please choose a path forward.
         </p>
 
-        <div class="flex flex-wrap justify-center gap-4 mb-16">
+        <div id="page-buttons" class="flex flex-wrap justify-center gap-4 mb-16">
             <button onclick="window.history.back()" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
                 <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Retry Action
             </button>
@@ -68,7 +68,7 @@
         </div>
 
         <!-- Contact Fallback -->
-        <div class="glass-panel p-8 rounded-[2rem] border border-white/10 text-left max-w-md mx-auto hover:border-white/20 transition-colors duration-500">
+        <div id="contact-fallback" class="glass-panel p-8 rounded-[2rem] border border-white/10 text-left max-w-md mx-auto hover:border-white/20 transition-colors duration-500">
             <h3 class="text-white font-medium mb-4 flex items-center gap-2">
                 <i data-lucide="mail" class="w-4 h-4 text-slate-400"></i> Direct Support Channel
             </h3>
@@ -78,19 +78,88 @@
                     <span class="text-sm text-slate-300 font-light">likith.anumakonda@gmail.com</span>
                     <i data-lucide="arrow-up-right" class="w-3 h-3 text-slate-500 group-hover:text-white transition-colors"></i>
                 </a>
-                <a href="collab.html" class="flex items-center justify-between group p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
+                <a href="collab.html?source=nav" class="flex items-center justify-between group p-3 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors">
                     <span class="text-sm text-slate-300 font-light">Open Collaboration Form</span>
                     <i data-lucide="arrow-right" class="w-3 h-3 text-slate-500 group-hover:text-white transition-colors"></i>
                 </a>
             </div>
         </div>
 
-        <p class="mt-12 text-[10px] text-slate-600 uppercase tracking-[0.2em] font-mono">Error Code: 500 • State: Offline</p>
+        <p id="error-code" class="mt-12 text-[10px] text-slate-600 uppercase tracking-[0.2em] font-mono">Error Code: 500 • State: Offline</p>
     </div>
 
     <script src="script.js"></script>
     <script>
-        lucide.createIcons();
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get("id");
+            const result = params.get("result");
+            const type = params.get("type");
+            const source = params.get("source");
+
+            const titleEl = document.getElementById("page-title");
+            const msgEl = document.getElementById("page-message");
+            const buttonsEl = document.getElementById("page-buttons");
+            const codeEl = document.getElementById("error-code");
+
+            if (result === 'success' && type === 'collab') {
+                titleEl.innerHTML = "Collaboration Request <br/> Submitted.";
+                msgEl.innerHTML = `Your request was stored successfully.<br/><br/>Reference ID: <span class="text-white font-mono bg-white/10 px-2 py-1 rounded">#${id || 'N/A'}</span>`;
+                buttonsEl.innerHTML = \`
+                    <a href="index.html" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
+                        <i data-lucide="home" class="w-4 h-4"></i> Back to Portfolio
+                    </a>
+                    <a href="collab.html?source=nav" class="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium text-sm flex items-center gap-2 hover:bg-white/10 transition-colors">
+                        <i data-lucide="plus" class="w-4 h-4"></i> Submit Another Request
+                    </a>
+                    <a href="mailto:likith.anumakonda@gmail.com" class="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium text-sm flex items-center gap-2 hover:bg-white/10 transition-colors">
+                        <i data-lucide="mail" class="w-4 h-4"></i> Contact Likith
+                    </a>
+                \`;
+                codeEl.textContent = \`Status: Success • Type: Collab\`;
+            } else if (result === 'failed' && type === 'collab') {
+                titleEl.innerHTML = "Submission <br/> Failed.";
+                msgEl.innerHTML = "Something went wrong while storing your request.";
+                buttonsEl.innerHTML = \`
+                    <button onclick="window.history.back()" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Try Again
+                    </button>
+                    <a href="mailto:likith.anumakonda@gmail.com" class="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium text-sm flex items-center gap-2 hover:bg-white/10 transition-colors">
+                        <i data-lucide="mail" class="w-4 h-4"></i> Contact Likith
+                    </a>
+                \`;
+                codeEl.textContent = \`Status: Failed • Type: Collab\`;
+            } else if (result === 'error' && type === 'collab') {
+                titleEl.innerHTML = "Technical <br/> Error.";
+                msgEl.innerHTML = "A network or server issue interrupted the submission.";
+                buttonsEl.innerHTML = \`
+                    <button onclick="window.history.back()" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Retry
+                    </button>
+                    <a href="mailto:likith.anumakonda@gmail.com" class="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium text-sm flex items-center gap-2 hover:bg-white/10 transition-colors">
+                        <i data-lucide="mail" class="w-4 h-4"></i> Contact Likith
+                    </a>
+                \`;
+                codeEl.textContent = \`Status: Error • Type: Collab\`;
+            } else if (result === 'error' && type === 'chatbot') {
+                titleEl.innerHTML = "AI Agent <br/> Support.";
+                msgEl.innerHTML = "Likith’s AI Agent encountered a technical issue.";
+                buttonsEl.innerHTML = \`
+                    <a href="index.html" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
+                        <i data-lucide="home" class="w-4 h-4"></i> Back to Portfolio
+                    </a>
+                    <a href="mailto:likith.anumakonda@gmail.com" class="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium text-sm flex items-center gap-2 hover:bg-white/10 transition-colors">
+                        <i data-lucide="mail" class="w-4 h-4"></i> Contact Likith
+                    </a>
+                \`;
+                codeEl.textContent = \`Status: Error • Type: Chatbot\`;
+            }
+
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+        
         setTimeout(() => {
             document.querySelector('.reveal').classList.add('active');
         }, 100);

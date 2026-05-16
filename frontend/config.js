@@ -12,6 +12,31 @@ const CONFIG = {
     }
 };
 
+// Global Navigation Helpers
+function buildUrl(page, params = {}) {
+    const query = new URLSearchParams();
+
+    Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== "") {
+            query.set(key, value);
+        }
+    });
+
+    const queryString = query.toString();
+    return queryString ? `${page}?${queryString}` : page;
+}
+
+function navigateTo(page, params = {}) {
+    window.location.href = buildUrl(page, params);
+}
+
+function navigateToProblem({ id, result, type, source }) {
+    navigateTo("problem.html", { id, result, type, source });
+}
+
 if (typeof window !== 'undefined') {
     window.APP_CONFIG = CONFIG;
+    window.buildUrl = buildUrl;
+    window.navigateTo = navigateTo;
+    window.navigateToProblem = navigateToProblem;
 }
