@@ -15,22 +15,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500); 
     }
 
-    // 0. Initialize Lenis Smooth Scroll
+    // 0. Initialize Lenis Smooth Scroll (144Hz Optimized)
     const lenis = new Lenis({
-        lerp: 0.05, // Ultra-floaty, buttery smooth feel
-        duration: 2.0,
+        lerp: 0.03, // Ultra-floaty, buttery smooth feel tuned for high refresh rates
+        duration: 1.5,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         direction: 'vertical',
         gestureDirection: 'vertical',
         smoothWheel: true,
-        smoothTouch: true, // Enable for mobile devices
-        wheelMultiplier: 1.2,
-        touchMultiplier: 1.5,
+        smoothTouch: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 1.2,
+        syncTouch: true, // synchronize touch for high refresh rate screens
+        syncTouchLerp: 0.075,
     });
 
     if (window.gsap) {
-        // Force 144Hz refresh rate optimization
-        gsap.ticker.fps(144);
+        // Sync with native monitor refresh rate (144Hz+)
         gsap.ticker.add((time) => {
             lenis.raf(time * 1000);
         });
