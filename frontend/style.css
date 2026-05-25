@@ -176,6 +176,55 @@ body::after {
     0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
+.btn-neon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 2.2rem;
+  font-weight: 800;
+  font-family: 'Outfit', sans-serif;
+  color: #fff;
+  background: transparent;
+  border-radius: 9999px;
+  border: 1px solid #00f3ff;
+  box-shadow: 
+    0 0 10px rgba(0, 243, 255, 0.5),
+    0 0 20px rgba(0, 243, 255, 0.3),
+    inset 0 0 10px rgba(0, 243, 255, 0.2);
+  text-shadow: 0 0 8px rgba(0, 243, 255, 0.8);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  overflow: hidden;
+}
+
+.btn-neon::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.4), transparent);
+  transition: 0.5s;
+}
+
+.btn-neon:hover::before {
+  left: 100%;
+}
+
+.btn-neon:hover {
+  background: rgba(0, 243, 255, 0.1);
+  box-shadow: 
+    0 0 20px rgba(0, 243, 255, 0.8),
+    0 0 40px rgba(0, 243, 255, 0.6),
+    inset 0 0 15px rgba(0, 243, 255, 0.4);
+  transform: translateY(-3px) scale(1.05);
+  text-shadow: 0 0 12px rgba(255, 255, 255, 1);
+  color: #00f3ff;
+  border-color: #00f3ff;
+}
+
 .ai-quick-btn {
   background: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(12px);
