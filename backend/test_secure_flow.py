@@ -3,7 +3,7 @@ import json
 import secrets
 import time
 
-API_BASE = "https://portfolio-likith.onrender.com"
+API_BASE = "https://portfolio-likith-jp4g.onrender.com"
 # API_BASE = "http://localhost:8000" # Use local for testing if needed
 
 def test_secure_collab_flow():

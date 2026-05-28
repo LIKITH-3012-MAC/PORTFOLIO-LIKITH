@@ -49,7 +49,7 @@ app.add_middleware(
     allow_origins=[
         FRONTEND_URL,
         FRONTEND_WWW_URL,
-        "https://portfolio-likith.onrender.com",
+        "https://portfolio-likith-jp4g.onrender.com",
         "https://likith-portfolio.vercel.app",
         "http://localhost:3000",
         "http://localhost:8080",

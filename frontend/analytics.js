@@ -47,7 +47,7 @@
             };
 
             // 3. Send to backend
-            const API_BASE = (window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL) || "https://portfolio-likith.onrender.com";
+            const API_BASE = (window.APP_CONFIG && window.APP_CONFIG.API_BASE_URL) || "https://portfolio-likith-jp4g.onrender.com";
             
             await fetch(`${API_BASE}/api/analytics/visit`, {
                 method: 'POST',
