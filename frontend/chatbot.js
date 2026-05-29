@@ -230,4 +230,68 @@ document.addEventListener('DOMContentLoaded', () => {
             chatForm.dispatchEvent(new Event('submit'));
         });
     });
+
+    // Speech Recognition integration
+    const micBtn = document.getElementById('ai-mic-btn');
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    
+    if (SpeechRecognition && micBtn) {
+        const recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = navigator.language || 'en-US';
+
+        let isListening = false;
+
+        recognition.onstart = () => {
+            isListening = true;
+            micBtn.classList.add('mic-listening');
+            chatInput.placeholder = 'Listening... Speak now';
+            const micIcon = micBtn.querySelector('i');
+            if (micIcon) {
+                micIcon.setAttribute('data-lucide', 'mic-off');
+                if (window.lucide) lucide.createIcons();
+            }
+        };
+
+        recognition.onend = () => {
+            isListening = false;
+            micBtn.classList.remove('mic-listening');
+            chatInput.placeholder = 'Initiate query...';
+            const micIcon = micBtn.querySelector('i');
+            if (micIcon) {
+                micIcon.setAttribute('data-lucide', 'mic');
+                if (window.lucide) lucide.createIcons();
+            }
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Speech Recognition Error:', event.error);
+            isListening = false;
+            micBtn.classList.remove('mic-listening');
+            chatInput.placeholder = 'Initiate query...';
+            const micIcon = micBtn.querySelector('i');
+            if (micIcon) {
+                micIcon.setAttribute('data-lucide', 'mic');
+                if (window.lucide) lucide.createIcons();
+            }
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            chatInput.value = transcript;
+            chatForm.dispatchEvent(new Event('submit'));
+        };
+
+        micBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (isListening) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        });
+    } else if (micBtn) {
+        micBtn.style.display = 'none';
+    }
 });
