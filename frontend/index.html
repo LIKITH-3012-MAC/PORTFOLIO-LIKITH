@@ -736,22 +736,23 @@
                         </p>
                         <div class="flex flex-wrap gap-2 mb-8">
                             <span
-                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Llama
-                                3.2</span>
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Llama 3.2</span>
                             <span
-                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Apple
-                                MLX</span>
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Apple MLX</span>
                             <span
-                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Local
-                                AI</span>
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Local AI</span>
                         </div>
-                        <div class="flex gap-4">
+                        <div class="flex flex-wrap gap-4">
                             <a href="https://www.prometheuslikiths-ai.online/" target="_blank"
                                 class="text-sm font-medium text-white hover:text-amber-400 flex items-center gap-1 transition-colors"><i
                                     data-lucide="external-link" class="w-4 h-4"></i> View App</a>
                             <a href="https://github.com/LIKITH-3012-MAC/my_chatbot.git" target="_blank"
                                 class="text-sm font-medium text-slate-400 hover:text-white flex items-center gap-1 transition-colors"><i
                                     data-lucide="github" class="w-4 h-4"></i> Source</a>
+                            <button onclick="openModal('modal-prometheus')"
+                                class="text-sm font-medium text-slate-400 hover:text-white flex items-center gap-1 transition-colors">
+                                <i data-lucide="info" class="w-4 h-4"></i> Explore about this
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -782,10 +783,9 @@
                             <span
                                 class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Full-Stack</span>
                             <span
-                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Civic
-                                Tech</span>
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Civic Tech</span>
                         </div>
-                        <div class="flex gap-4">
+                        <div class="flex flex-wrap gap-4">
                             <a href="https://www.resolvit-ai.online" target="_blank"
                                 class="text-sm font-medium text-white hover:text-blue-400 flex items-center gap-1 transition-colors"><i
                                     data-lucide="external-link" class="w-4 h-4"></i> Live Project</a>
@@ -793,37 +793,163 @@
                                 target="_blank"
                                 class="text-sm font-medium text-slate-400 hover:text-white flex items-center gap-1 transition-colors"><i
                                     data-lucide="github" class="w-4 h-4"></i> Source</a>
+                            <button onclick="openModal('modal-resolvit')"
+                                class="text-sm font-medium text-slate-400 hover:text-white flex items-center gap-1 transition-colors">
+                                <i data-lucide="info" class="w-4 h-4"></i> Explore about this
+                            </button>
                         </div>
                     </div>
                 </div>
 
                 <!-- Project 3 -->
                 <div class="glass-panel rounded-3xl overflow-hidden group reveal">
-                    <div class="p-8">
+                    <div
+                        class="aspect-video bg-slate-900 relative overflow-hidden border-b border-white/10 p-8 flex items-center justify-center">
                         <div
-                            class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white mb-6 group-hover:scale-110 group-hover:border-amber-500/50 transition-all">
-                            <i data-lucide="database" class="w-6 h-6"></i>
+                            class="absolute inset-0 bg-gradient-to-br from-rose-500/10 to-orange-500/10 opacity-50 group-hover:scale-110 transition duration-700">
                         </div>
-                        <h3 class="text-xl font-display font-bold text-white mb-3">BenchAI</h3>
-                        <p class="text-slate-400 font-light text-sm mb-6">
+                        <i data-lucide="database"
+                            class="w-20 h-20 text-white/50 group-hover:text-rose-400 transition duration-500 relative z-10 drop-shadow-[0_0_15px_rgba(244,63,94,0.3)]"></i>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3
+                                class="text-2xl font-display font-bold text-white group-hover:text-rose-400 transition-colors">
+                                BenchAI</h3>
+                        </div>
+                        <p class="text-slate-400 font-light text-sm mb-6 line-clamp-2">
                             Offline LLM + RAG-powered smart classroom infrastructure providing multilingual AI learning
                             support without internet dependency.
                         </p>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Ollama</span>
+                            <span
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">LangChain</span>
+                            <span
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">RAG</span>
+                        </div>
+                        <div class="flex flex-wrap gap-4">
+                            <button onclick="openModal('modal-benchai')"
+                                class="text-sm font-medium text-slate-400 hover:text-white flex items-center gap-1 transition-colors">
+                                <i data-lucide="info" class="w-4 h-4"></i> Explore about this
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Project 4 -->
                 <div class="glass-panel rounded-3xl overflow-hidden group reveal" style="transition-delay: 100ms;">
-                    <div class="p-8">
+                    <div
+                        class="aspect-video bg-slate-900 relative overflow-hidden border-b border-white/10 p-8 flex items-center justify-center">
                         <div
-                            class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white mb-6 group-hover:scale-110 group-hover:border-amber-500/50 transition-all">
-                            <i data-lucide="layout-template" class="w-6 h-6"></i>
+                            class="absolute inset-0 bg-gradient-to-br from-green-500/10 to-blue-500/10 opacity-50 group-hover:scale-110 transition duration-700">
                         </div>
-                        <h3 class="text-xl font-display font-bold text-white mb-3">Python GUI Utility</h3>
-                        <p class="text-slate-400 font-light text-sm mb-6">
+                        <i data-lucide="layout-template"
+                            class="w-20 h-20 text-white/50 group-hover:text-green-400 transition duration-500 relative z-10 drop-shadow-[0_0_15px_rgba(34,197,94,0.3)]"></i>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3
+                                class="text-2xl font-display font-bold text-white group-hover:text-green-400 transition-colors">
+                                Python GUI Utility</h3>
+                        </div>
+                        <p class="text-slate-400 font-light text-sm mb-6 line-clamp-2">
                             Desktop application using Tkinter/PyQt with robust backend processing, reducing processing
                             latency by 12% vs CLI tools.
                         </p>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Python</span>
+                            <span
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">PyQt5</span>
+                            <span
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Tkinter</span>
+                        </div>
+                        <div class="flex flex-wrap gap-4">
+                            <button onclick="openModal('modal-pythongui')"
+                                class="text-sm font-medium text-slate-400 hover:text-white flex items-center gap-1 transition-colors">
+                                <i data-lucide="info" class="w-4 h-4"></i> Explore about this
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="glass-panel rounded-3xl overflow-hidden group reveal">
+                    <div
+                        class="aspect-video bg-slate-900 relative overflow-hidden border-b border-white/10 p-8 flex items-center justify-center">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-pink-500/10 opacity-50 group-hover:scale-110 transition duration-700">
+                        </div>
+                        <i data-lucide="ticket"
+                            class="w-20 h-20 text-white/50 group-hover:text-indigo-400 transition duration-500 relative z-10 drop-shadow-[0_0_15px_rgba(99,102,241,0.3)]"></i>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3
+                                class="text-2xl font-display font-bold text-white group-hover:text-indigo-400 transition-colors">
+                                SAKRA VISION Event Hub</h3>
+                        </div>
+                        <p class="text-slate-400 font-light text-sm mb-6 line-clamp-2">
+                            A premium, dynamic event registration portal featuring automated UPI QR verification and live configuration APIs.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">FastAPI</span>
+                            <span
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Render API</span>
+                            <span
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">UPI Integration</span>
+                        </div>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://forms-project-f3sb.vercel.app/" target="_blank"
+                                class="text-sm font-medium text-white hover:text-indigo-400 flex items-center gap-1 transition-colors"><i
+                                    data-lucide="external-link" class="w-4 h-4"></i> View App</a>
+                            <button onclick="openModal('modal-sakraevents')"
+                                class="text-sm font-medium text-slate-400 hover:text-white flex items-center gap-1 transition-colors">
+                                <i data-lucide="info" class="w-4 h-4"></i> Explore about this
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="glass-panel rounded-3xl overflow-hidden group reveal" style="transition-delay: 100ms;">
+                    <div
+                        class="aspect-video bg-slate-900 relative overflow-hidden border-b border-white/10 p-8 flex items-center justify-center">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-teal-500/10 opacity-50 group-hover:scale-110 transition duration-700">
+                        </div>
+                        <i data-lucide="waves"
+                            class="w-20 h-20 text-white/50 group-hover:text-cyan-400 transition duration-500 relative z-10 drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]"></i>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3
+                                class="text-2xl font-display font-bold text-white group-hover:text-cyan-400 transition-colors">
+                                AquaSentinel AI</h3>
+                        </div>
+                        <p class="text-slate-400 font-light text-sm mb-6 line-clamp-2">
+                            A specialized marine intelligence operating system tracking debris via satellite telemetry and supporting teams with multilingual AI copilots.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Satellite Fusion</span>
+                            <span
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Groq AI</span>
+                            <span
+                                class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Marine AI</span>
+                        </div>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://aquq-sentinel-phsv.vercel.app/" target="_blank"
+                                class="text-sm font-medium text-white hover:text-cyan-400 flex items-center gap-1 transition-colors"><i
+                                    data-lucide="external-link" class="w-4 h-4"></i> Live Project</a>
+                            <button onclick="openModal('modal-aquasentinel')"
+                                class="text-sm font-medium text-slate-400 hover:text-white flex items-center gap-1 transition-colors">
+                                <i data-lucide="info" class="w-4 h-4"></i> Explore about this
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -1047,6 +1173,415 @@
             </div>
         </div>
     </footer>
+
+    <!-- PROJECT EXPLORE MODALS -->
+
+    <!-- 1. Prometheus AI Modal -->
+    <div id="modal-prometheus" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0" onclick="closeModal('modal-prometheus')"></div>
+        <div class="modal-content relative w-full max-w-3xl bg-slate-950/95 backdrop-blur-2xl rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_100px_rgba(251,191,36,0.15)] max-h-[85vh] flex flex-col" data-lenis-prevent>
+            <!-- Header -->
+            <div class="p-6 md:p-8 border-b border-white/10 flex justify-between items-center bg-white/5">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-400 border border-amber-500/20">
+                        <i data-lucide="cpu" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-2xl text-white">Prometheus AI V2.0</h3>
+                        <div class="text-xs text-amber-400 font-mono tracking-widest uppercase">Local-First Gen-AI System</div>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-prometheus')"
+                    class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors backdrop-blur-md">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <!-- Body -->
+            <div class="p-6 md:p-8 overflow-y-auto space-y-6 text-slate-300 font-light text-sm md:text-base leading-relaxed custom-scrollbar">
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Project Overview</h4>
+                    <p>
+                        Prometheus AI V2.0 is an advanced, privacy-first localized AI desktop environment designed to execute high-performance LLM capabilities directly on edge devices. By prioritizing local compute, the platform ensures total user privacy and offline operability.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Architecture & Pipeline</h4>
+                    <p>
+                        The core engine leverages Apple MLX and Llama 3.2, utilizing unified memory architecture to optimize throughput on Apple Silicon. Audio inputs are processed locally using Whisper-based neural nets, feeding semantic prompts directly to the LLM core.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div class="text-[10px] text-slate-500 uppercase font-mono mb-1">Status</div>
+                        <div class="text-xs text-slate-300">Production-Grade / Flagship</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div class="text-[10px] text-slate-500 uppercase font-mono mb-1">Performance</div>
+                        <div class="text-xs text-slate-300">Sub-100ms Inference Latency</div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Core Technologies</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Llama 3.2</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Apple MLX</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Whisper API</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">FastAPI</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="p-6 border-t border-white/10 flex justify-end gap-4 bg-white/5">
+                <a href="https://github.com/LIKITH-3012-MAC/my_chatbot.git" target="_blank"
+                    class="btn-glass px-5 py-2 text-xs flex items-center gap-2">
+                    <i data-lucide="github" class="w-4 h-4"></i> Source Code
+                </a>
+                <a href="https://www.prometheuslikiths-ai.online/" target="_blank"
+                    class="btn-premium px-5 py-2 text-xs flex items-center gap-2">
+                    <i data-lucide="external-link" class="w-4 h-4"></i> Launch App
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Resolvit-AI Modal -->
+    <div id="modal-resolvit" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0" onclick="closeModal('modal-resolvit')"></div>
+        <div class="modal-content relative w-full max-w-3xl bg-slate-950/95 backdrop-blur-2xl rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_100px_rgba(59,130,246,0.15)] max-h-[85vh] flex flex-col" data-lenis-prevent>
+            <!-- Header -->
+            <div class="p-6 md:p-8 border-b border-white/10 flex justify-between items-center bg-white/5">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20">
+                        <i data-lucide="globe-2" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-2xl text-white">Resolvit-AI</h3>
+                        <div class="text-xs text-blue-400 font-mono tracking-widest uppercase">Civic & NGO Operations Platform</div>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-resolvit')"
+                    class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors backdrop-blur-md">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <!-- Body -->
+            <div class="p-6 md:p-8 overflow-y-auto space-y-6 text-slate-300 font-light text-sm md:text-base leading-relaxed custom-scrollbar">
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Project Overview</h4>
+                    <p>
+                        Resolvit-AI is a comprehensive, production-grade civic intelligence platform designed to connect citizens directly with public authorities and municipal agencies. The platform empowers users to report local issues and track real-time resolution pipelines.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Intelligence & Routing</h4>
+                    <p>
+                        Features a specialized classification pipeline that parses natural language reports and routes them automatically to the correct agency department. Built-in interactive map layers and dynamic authority dashboards provide full accountability at every stage.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div class="text-[10px] text-slate-500 uppercase font-mono mb-1">Architecture</div>
+                        <div class="text-xs text-slate-300">FastAPI Middleware & Next.js</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div class="text-[10px] text-slate-500 uppercase font-mono mb-1">Database</div>
+                        <div class="text-xs text-slate-300">PostgreSQL Cloud Backend</div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Core Technologies</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Next.js</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">FastAPI</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">PostgreSQL</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Google Maps SDK</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">AI Classifier</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="p-6 border-t border-white/10 flex justify-end gap-4 bg-white/5">
+                <a href="https://github.com/LIKITH-3012-MAC/SYNAPTIX_2026_404-FOUND_TEAM.git" target="_blank"
+                    class="btn-glass px-5 py-2 text-xs flex items-center gap-2">
+                    <i data-lucide="github" class="w-4 h-4"></i> Source Code
+                </a>
+                <a href="https://www.resolvit-ai.online" target="_blank"
+                    class="btn-premium px-5 py-2 text-xs flex items-center gap-2">
+                    <i data-lucide="external-link" class="w-4 h-4"></i> Live Project
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. BenchAI Modal -->
+    <div id="modal-benchai" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0" onclick="closeModal('modal-benchai')"></div>
+        <div class="modal-content relative w-full max-w-3xl bg-slate-950/95 backdrop-blur-2xl rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_100px_rgba(244,63,94,0.15)] max-h-[85vh] flex flex-col" data-lenis-prevent>
+            <!-- Header -->
+            <div class="p-6 md:p-8 border-b border-white/10 flex justify-between items-center bg-white/5">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-rose-500/10 flex items-center justify-center text-rose-400 border border-rose-500/20">
+                        <i data-lucide="database" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-2xl text-white">BenchAI</h3>
+                        <div class="text-xs text-rose-400 font-mono tracking-widest uppercase">Smart Classroom System</div>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-benchai')"
+                    class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors backdrop-blur-md">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <!-- Body -->
+            <div class="p-6 md:p-8 overflow-y-auto space-y-6 text-slate-300 font-light text-sm md:text-base leading-relaxed custom-scrollbar">
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Project Overview</h4>
+                    <p>
+                        BenchAI is a localized offline learning solution built for environments lacking stable internet. It bridges the digital divide by running optimized LLMs and RAG systems on localized local area networks (LANs).
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Local RAG Architecture</h4>
+                    <p>
+                        A local server indexes educational curricula and PDF textbooks using FAISS and LangChain. Students connect via a local WiFi access point and query the system. Deployed Ollama engines handle secure local token generation with high speed and zero cloud data costs.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div class="text-[10px] text-slate-500 uppercase font-mono mb-1">Ecosystem</div>
+                        <div class="text-xs text-slate-300">Offline Hub-and-Spoke</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div class="text-[10px] text-slate-500 uppercase font-mono mb-1">Latency</div>
+                        <div class="text-xs text-slate-300">Zero Internet Lag (LAN-Speed)</div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Core Technologies</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Python</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Ollama / Llama</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">LangChain</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">FAISS Vector DB</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Local WebSockets</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="p-6 border-t border-white/10 flex justify-end gap-4 bg-white/5">
+                <button onclick="closeModal('modal-benchai')" class="btn-glass px-5 py-2 text-xs">
+                    Close Details
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Python GUI Utility Modal -->
+    <div id="modal-pythongui" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0" onclick="closeModal('modal-pythongui')"></div>
+        <div class="modal-content relative w-full max-w-3xl bg-slate-950/95 backdrop-blur-2xl rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_100px_rgba(34,197,94,0.15)] max-h-[85vh] flex flex-col" data-lenis-prevent>
+            <!-- Header -->
+            <div class="p-6 md:p-8 border-b border-white/10 flex justify-between items-center bg-white/5">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-400 border border-green-500/20">
+                        <i data-lucide="layout-template" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-2xl text-white">Python GUI Utility</h3>
+                        <div class="text-xs text-green-400 font-mono tracking-widest uppercase">Desktop Data Processing System</div>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-pythongui')"
+                    class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors backdrop-blur-md">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <!-- Body -->
+            <div class="p-6 md:p-8 overflow-y-auto space-y-6 text-slate-300 font-light text-sm md:text-base leading-relaxed custom-scrollbar">
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Project Overview</h4>
+                    <p>
+                        A high-performance desktop processing tool built to automate complex data tasks. It addresses bottleneck issues commonly found in CLI scripts and web applications by executing processing pipelines locally.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Thread Management & Latency</h4>
+                    <p>
+                        Features a responsive PyQt5 layout. The backend employs QThreads to split intensive IO operations and file conversions off the main event loop, preventing system lockups and reducing processing latency by 12% compared to standard CLI approaches.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div class="text-[10px] text-slate-500 uppercase font-mono mb-1">Architecture</div>
+                        <div class="text-xs text-slate-300">PyQt5 Concurrent Engine</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div class="text-[10px] text-slate-500 uppercase font-mono mb-1">Optimization</div>
+                        <div class="text-xs text-slate-300">Pandas Batch Ingestion</div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Core Technologies</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Python</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">PyQt5</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Tkinter</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Pandas Engine</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Multi-threading</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="p-6 border-t border-white/10 flex justify-end gap-4 bg-white/5">
+                <button onclick="closeModal('modal-pythongui')" class="btn-glass px-5 py-2 text-xs">
+                    Close Details
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. SAKRA VISION Event Hub Modal -->
+    <div id="modal-sakraevents" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0" onclick="closeModal('modal-sakraevents')"></div>
+        <div class="modal-content relative w-full max-w-3xl bg-slate-950/95 backdrop-blur-2xl rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_100px_rgba(99,102,241,0.15)] max-h-[85vh] flex flex-col" data-lenis-prevent>
+            <!-- Header -->
+            <div class="p-6 md:p-8 border-b border-white/10 flex justify-between items-center bg-white/5">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 border border-indigo-500/20">
+                        <i data-lucide="ticket" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-2xl text-white">SAKRA VISION Event Hub</h3>
+                        <div class="text-xs text-indigo-400 font-mono tracking-widest uppercase">Secure Event Registration Platform</div>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-sakraevents')"
+                    class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors backdrop-blur-md">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <!-- Body -->
+            <div class="p-6 md:p-8 overflow-y-auto space-y-6 text-slate-300 font-light text-sm md:text-base leading-relaxed custom-scrollbar" data-lenis-prevent>
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Project Overview</h4>
+                    <p>
+                        We’re building an AI-powered event registration and operations platform — a smarter, automated alternative to traditional Google Forms for events and registrations. Standard Google Forms are too limited for complex event operations, especially for handling payment screenshot verification, automation workflow rules, and participant communication. This system was designed from the ground up to solve these limitations.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div class="text-[10px] text-slate-500 uppercase font-mono mb-1">Backend</div>
+                        <div class="text-xs text-slate-300 font-medium">Python, FastAPI, Aiven Cloud MySQL</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div class="text-[10px] text-slate-500 uppercase font-mono mb-1">Frontend</div>
+                        <div class="text-xs text-slate-300 font-medium">Custom customizable web forms</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div class="text-[10px] text-slate-500 uppercase font-mono mb-1">Automation</div>
+                        <div class="text-xs text-slate-300 font-medium">Resend API & Domain Mail</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Core AI Receipt Screening</h4>
+                    <p>
+                        Normally, users can upload arbitrary images instead of legitimate payment screenshots. To eliminate fraudulent registrations, we engineered an AI-powered payment receipt screening system that analyzes uploads before permitting form submission:
+                    </p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-slate-400 text-xs md:text-sm">
+                        <li>Analyzes uploaded screenshots to detect authentic receipt dimensions and structures.</li>
+                        <li>Verifies transaction-related patterns and payment-app semantic layouts.</li>
+                        <li>Runs OCR-based payment signal analysis to scan for verification codes.</li>
+                        <li>Supports recognition logic for PhonePe, Google Pay, Paytm, BHIM, bank apps, and custom UPI receipt structures.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Core Technologies</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Python</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">FastAPI</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Aiven Cloud MySQL</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Resend API</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">AI Receipt Screening (OCR)</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="p-6 border-t border-white/10 flex justify-end gap-4 bg-white/5">
+                <a href="https://forms-project-f3sb.vercel.app/" target="_blank"
+                    class="btn-premium px-5 py-2 text-xs flex items-center gap-2">
+                    <i data-lucide="external-link" class="w-4 h-4"></i> Launch App
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. AquaSentinel AI Modal -->
+    <div id="modal-aquasentinel" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="absolute inset-0" onclick="closeModal('modal-aquasentinel')"></div>
+        <div class="modal-content relative w-full max-w-3xl bg-slate-950/95 backdrop-blur-2xl rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_100px_rgba(6,182,212,0.15)] max-h-[85vh] flex flex-col" data-lenis-prevent>
+            <!-- Header -->
+            <div class="p-6 md:p-8 border-b border-white/10 flex justify-between items-center bg-white/5">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 border border-cyan-500/20">
+                        <i data-lucide="waves" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-2xl text-white">AquaSentinel AI</h3>
+                        <div class="text-xs text-cyan-400 font-mono tracking-widest uppercase">Ocean Intelligence Operating System</div>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-aquasentinel')"
+                    class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors backdrop-blur-md">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <!-- Body -->
+            <div class="p-6 md:p-8 overflow-y-auto space-y-6 text-slate-300 font-light text-sm md:text-base leading-relaxed custom-scrollbar">
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Project Overview</h4>
+                    <p>
+                        AquaSentinel AI is a specialized ocean protection operating system designed to ingest, process, and map telemetry regarding global marine health and plastic debris layouts.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Satellite Data & AI Integration</h4>
+                    <p>
+                        The core engine consumes spatial imagery from NASA MODIS, Copernicus, and OpenWeather APIs to model debris density indices and calculate real-time regional threat alerts. The platform features a customized Groq-based RAG copilot offering tactical guidelines in multiple languages (Telugu, Tamil, Hindi, and English).
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div class="text-[10px] text-slate-500 uppercase font-mono mb-1">RAG Assistant</div>
+                        <div class="text-xs text-slate-300">Groq Engine / Multilingual</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/5">
+                        <div class="text-[10px] text-slate-500 uppercase font-mono mb-1">Ingestion Pipeline</div>
+                        <div class="text-xs text-slate-300">NASA MODIS & Copernicus API</div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold font-display mb-2 text-lg">Core Technologies</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Satellite Data Ingestion</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Groq API</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">Risk Analysis</span>
+                        <span class="text-xs px-3 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10">OpenStreetMap API</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="p-6 border-t border-white/10 flex justify-end gap-4 bg-white/5">
+                <a href="https://aquq-sentinel-phsv.vercel.app/" target="_blank"
+                    class="btn-premium px-5 py-2 text-xs flex items-center gap-2">
+                    <i data-lucide="external-link" class="w-4 h-4"></i> Live Project
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- PERFORMANCE MODAL -->
     <div id="performanceModal" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center">

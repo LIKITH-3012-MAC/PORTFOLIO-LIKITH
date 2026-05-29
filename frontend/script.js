@@ -207,5 +207,21 @@ function closeModal(id) {
         if (window.lenis) window.lenis.start();
     }
 }
+
+// Global Keyboard Listener to close modals on ESC keypress
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const activeModal = document.querySelector('.modal-overlay.active');
+        if (activeModal) {
+            const id = activeModal.getAttribute('id');
+            if (id === 'performanceModal') {
+                closePerformance();
+            } else {
+                closeModal(id);
+            }
+        }
+    }
+});
+
 window.openModal = openModal;
 window.closeModal = closeModal;
