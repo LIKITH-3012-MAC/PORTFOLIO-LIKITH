@@ -41,6 +41,11 @@ class IntentRouter:
             return "You can watch Likith's technical deep-dives and piano performances on his Media Hub.", "youtube"
 
         if intent == "projects":
+            # If asking about a specific project, let the LLM generate a tailored response using RAG context
+            msg_lower = message.lower()
+            specific_keywords = ["sakra", "event hub", "sentinel", "aquasentinel", "benchai", "prometheus", "resolvit", "gui utility"]
+            if any(kw in msg_lower for kw in specific_keywords):
+                return None, "none"
             return "Likith has built several production-grade systems including RESOLVIT and Prometheus AI. Check out his Engineering Archive.", "git"
 
         if intent == "achievements":

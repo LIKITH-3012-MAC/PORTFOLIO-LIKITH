@@ -15,7 +15,7 @@ class RetrievalService:
             context_parts.append(json.dumps(profile))
 
         # 2. Project context
-        if intent == "projects" or any(word in message for word in ["project", "build", "resolvit", "prometheus", "bench"]):
+        if intent == "projects" or any(word in message for word in ["project", "build", "resolvit", "prometheus", "bench", "sakra", "sentinel", "event"]):
             projects = self.knowledge.get("projects", {})
             context_parts.append(json.dumps(projects))
 
