@@ -1,6 +1,6 @@
 import requests
 
-url = "https://portfolio-likith-jp4g.onrender.com/api/collab"
+url = "https://portfolio-likith-yae9.onrender.com/api/collab"
 # Missing mandatory fields like 'full_name' and 'phone_number' to force failure
 payload = {
     "country": "India",

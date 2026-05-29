@@ -5,7 +5,7 @@ const isLocal = typeof window !== 'undefined' && (
 );
 
 const CONFIG = {
-    API_BASE_URL: isLocal ? "http://127.0.0.1:8000" : "https://portfolio-likith-jp4g.onrender.com",
+    API_BASE_URL: isLocal ? "http://127.0.0.1:8000" : "https://portfolio-likith-yae9.onrender.com",
     SITE_URL: "https://likith-portfolio.online",
     CONTACT: {
         PRIMARY_EMAIL: "likith.anumakonda@gmail.com",

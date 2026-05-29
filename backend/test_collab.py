@@ -1,6 +1,6 @@
 import requests
 
-url = "https://portfolio-likith-jp4g.onrender.com/api/admin/collabs"
+url = "https://portfolio-likith-yae9.onrender.com/api/admin/collabs"
 headers = {
     "x-admin-token": "Mahitha"
 }
