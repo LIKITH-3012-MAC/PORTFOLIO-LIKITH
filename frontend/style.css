@@ -1638,3 +1638,30 @@ body::after {
   color: white !important;
   animation: micPulse 1.5s infinite;
 }
+
+/* Prevent AI response text from overflowing in Chatbot UI */
+#ai-chat-area .prose, 
+#ai-chat-area .assistant-content {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  max-width: 100%;
+}
+
+#ai-chat-area pre {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+#ai-chat-area table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+#ai-chat-area code {
+  white-space: pre-wrap;
+  word-break: break-all;
+}

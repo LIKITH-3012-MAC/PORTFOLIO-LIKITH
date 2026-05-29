@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="w-8 h-8 rounded-full ${bgColor} flex items-center justify-center shrink-0 border ${borderColor}">
                 <i data-lucide="${icon}" class="w-4 h-4 ${iconColor}"></i>
             </div>
-            <div class="${bgColor} border ${borderColor} rounded-2xl p-3 text-sm text-slate-300">
-                <div class="prose prose-invert prose-sm">
+            <div class="${bgColor} border ${borderColor} rounded-2xl p-3 text-sm text-slate-300 max-w-full overflow-hidden break-words">
+                <div class="prose prose-invert prose-sm break-words max-w-full">
                     ${text}
                 </div>
                 ${cardHtml}
@@ -153,8 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 border border-white/10">
                 <i data-lucide="cpu" class="w-4 h-4 text-amber-400"></i>
             </div>
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-3 text-sm text-slate-300">
-                <div class="prose prose-invert prose-sm assistant-content">
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-3 text-sm text-slate-300 max-w-full overflow-hidden break-words">
+                <div class="prose prose-invert prose-sm assistant-content break-words max-w-full">
                     <span class="typing-cursor"></span>
                 </div>
                 <div class="assistant-card-container"></div>
