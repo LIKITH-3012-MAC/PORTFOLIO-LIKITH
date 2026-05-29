@@ -218,6 +218,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Chat Error:', error);
+            
+            // Check if we can handle the response locally (Offline Fallback Mode)
+            const lowerText = text.toLowerCase().trim();
+            let offlineReply = '';
+            let offlineCard = 'none';
+            
+            if (lowerText.includes('who is') || lowerText.includes('about') || lowerText.includes('likith') || lowerText.includes('background') || lowerText === 'who is likith?') {
+                offlineReply = "Likith Naidu Anumakonda is a premium AI/ML Engineer, Full Stack Systems Architect, and the Founder of SAKRA VISION. He specializes in designing autonomous AI agents, machine learning models, and building end-to-end full-stack systems with rigorous engineering discipline.";
+            } else if (lowerText.includes('contact') || lowerText.includes('phone') || lowerText.includes('email') || lowerText.includes('reach') || lowerText.includes('call')) {
+                offlineReply = `You can reach Likith at ${window.APP_CONFIG.CONTACT.PRIMARY_EMAIL} or call ${window.APP_CONFIG.CONTACT.PHONE}. He is open to high-stakes collaborations.`;
+                offlineCard = 'contact';
+            } else if (lowerText.includes('project') || lowerText.includes('portfolio') || lowerText.includes('build') || lowerText.includes('repo') || lowerText.includes('github') || lowerText.includes('git')) {
+                offlineReply = "Likith has built several production-grade systems including RESOLVIT, Prometheus AI, SAKRA VISION Event Hub, and AquaSentinel AI. Check out his Engineering Archive.";
+                offlineCard = 'git';
+            } else if (lowerText.includes('collab') || lowerText.includes('hire') || lowerText.includes('work with') || lowerText.includes('partnership')) {
+                offlineReply = "Likith is open to high-stakes collaborations, technical architecture design, and AI agent implementations. You can pitch your project through the secure Collab Portal.";
+                offlineCard = 'collab';
+            } else if (lowerText.includes('watch') || lowerText.includes('video') || lowerText.includes('youtube') || lowerText.includes('performance') || lowerText.includes('piano')) {
+                offlineReply = "You can watch Likith's technical deep-dives and piano performances on his Media Hub.";
+                offlineCard = 'youtube';
+            } else if (lowerText.includes('skill') || lowerText.includes('tech stack') || lowerText.includes('technologies') || lowerText.includes('expert') || lowerText.includes('skills matrix')) {
+                offlineReply = "Likith specializes in AI/ML (Agent Development, RAG, Computer Vision), Full Stack Systems (Python, Node.js, FastAPI, Next.js), and complete infrastructure deployment (Cloud Databases, Secure APIs, Domain setups). Check out the Technical Ecosystem section on the homepage.";
+            } else if (lowerText.includes('resume') || lowerText.includes('cv') || lowerText.includes('experience')) {
+                offlineReply = "You can view Likith's experience and download his resume through the Contact section.";
+                offlineCard = 'contact';
+            }
+            
+            if (offlineReply) {
+                contentDiv.innerHTML = offlineReply;
+                if (offlineCard !== 'none') {
+                    cardContainer.innerHTML = `<div class="mt-4 pt-4 border-t border-white/5">${renderCard(offlineCard)}</div>`;
+                }
+                chatHistory.push({ role: 'user', content: text });
+                chatHistory.push({ role: 'assistant', content: offlineReply });
+                if (window.lucide) lucide.createIcons();
+                chatArea.scrollTop = chatArea.scrollHeight;
+                return;
+            }
+
             contentDiv.innerHTML = "I encountered a technical glitch. Please visit <a href='problem.html?result=error&type=chatbot&source=agent' class='text-white underline hover:text-amber-400 transition-colors duration-300'>support</a>.";
             cardContainer.innerHTML = `<div class="mt-4 pt-4 border-t border-white/5">${renderCard('error')}</div>`;
             if (window.lucide) lucide.createIcons();
