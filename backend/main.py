@@ -256,9 +256,6 @@ Transform traditional event handling into an autonomous AI-driven experience.
 ---
 
 ## Example 2 — AI Assistant Response
-━━━━━━━━━━━━━━━━━━
-🤖 SYSTEM ONLINE
-━━━━━━━━━━━━━━━━━━
 Hello.
 I am Likith’s AI representative.
 
