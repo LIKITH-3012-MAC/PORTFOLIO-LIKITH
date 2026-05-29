@@ -38,6 +38,32 @@
         "RAG-powered smart classroom",
         "Multilingual learning support"
       ]
+    },
+    {
+      "name": "SAKRA VISION Event Hub",
+      "description": "An AI-powered event registration and operations platform. It acts as a smarter, automated alternative to traditional Google Forms, featuring AI-powered payment receipt screening (PhonePe, GPay, Paytm, BHIM, etc.) via OCR and layout/semantic analysis to prevent fraudulent submissions.",
+      "technologies": ["Python", "FastAPI", "Aiven Cloud MySQL", "Resend API", "AI Receipt Screening (OCR)"],
+      "status": "Production",
+      "url": "https://forms-project-f3sb.vercel.app/",
+      "category": "Events / AI Verification",
+      "highlights": [
+        "AI-powered receipt screening",
+        "FastAPI & MySQL backend",
+        "Resend API integration"
+      ]
+    },
+    {
+      "name": "AquaSentinel AI",
+      "description": "A specialized marine intelligence operating system tracking ocean debris, satellite telemetry (NASA MODIS, Copernicus), and local risk metrics. Features a Groq-powered AI copilot supporting regional Indian languages for mission-critical operations.",
+      "technologies": ["Satellite Telemetry APIs", "Groq AI API", "Vector Search", "Marine Debris Risk Engine"],
+      "status": "Featured",
+      "url": "https://aquq-sentinel-phsv.vercel.app/",
+      "category": "Environmental / AI Systems",
+      "highlights": [
+        "NASA MODIS & Copernicus telemetry",
+        "Groq AI copilot RAG integration",
+        "Regional language support"
+      ]
     }
   ],
   "utility_projects": [
