@@ -33,8 +33,8 @@
     },
     {
       "name": "SAKRA VISION Event Hub",
-      "description": "An AI-powered event registration and operations platform. It acts as a smarter, automated alternative to traditional Google Forms, featuring AI-powered payment receipt screening (PhonePe, GPay, Paytm, BHIM, etc.) via OCR and layout/semantic analysis to prevent fraudulent submissions.",
-      "technologies": ["Python", "FastAPI", "Aiven Cloud MySQL", "Resend API", "AI Receipt Screening (OCR)"],
+      "description": "A next-generation AI-powered event operations platform built to replace traditional systems. Automates payment verification, email workflows, Voice AI calling, attendance tracking, and certificate distribution.",
+      "technologies": ["Python", "FastAPI", "Aiven Cloud MySQL", "Resend API", "AI Receipt Screening (OCR)", "Voice AI Agent", "Certificate distribution engine"],
       "status": "Production",
       "url": "https://forms-project-f3sb.vercel.app/",
       "category": "Events / AI Verification"
