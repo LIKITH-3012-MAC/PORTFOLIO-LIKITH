@@ -14,6 +14,7 @@ def test_secure_collab_flow():
         "full_name": "TEST SECURE BOT",
         "phone_number": "+910000000000",
         "country": "India",
+        "email": "test@securebot.com",
         "collaboration_type": "Partnership",
         "purpose": "Testing secure verification system token generation.",
         "source": "test_script"

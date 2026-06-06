@@ -576,97 +576,143 @@ document.addEventListener('DOMContentLoaded', () => {
     // CINEMATIC SUCCESS ANIMATION (unchanged core logic)
     // ═══════════════════════════════════════════════════
 
+    // Helper function for spawning particles under the engine nozzle
+    function startExhaustParticles(container) {
+        if (!container) return null;
+        const spawnParticle = () => {
+            const p = document.createElement('div');
+            p.className = 'exhaust-particle';
+            
+            // Random size (6px to 18px)
+            const size = Math.random() * 12 + 6;
+            p.style.width = `${size}px`;
+            p.style.height = `${size}px`;
+            
+            // Random horizontal position near center
+            const xOffset = (Math.random() - 0.5) * 16; // -8px to +8px
+            p.style.left = `calc(50% + ${xOffset}px)`;
+            p.style.top = '10px';
+            
+            container.appendChild(p);
+            
+            // Animate using hardware-accelerated CSS transitions
+            requestAnimationFrame(() => {
+                p.style.transition = 'transform 1.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1)';
+                p.style.opacity = '0.8';
+                
+                // Drift calculations
+                const driftX = (Math.random() - 0.5) * 50; // -25px to +25px
+                const driftY = Math.random() * 70 + 40; // 40px to 110px
+                const scaleEnd = Math.random() * 0.4 + 0.1;
+                
+                p.style.transform = `translate(${driftX}px, ${driftY}px) scale(${scaleEnd})`;
+                p.style.opacity = '0';
+            });
+            
+            // Remove from DOM when done
+            setTimeout(() => {
+                p.remove();
+            }, 1500);
+        };
+        
+        // Trigger initial burst of particles
+        for (let i = 0; i < 5; i++) {
+            setTimeout(spawnParticle, i * 100);
+        }
+        
+        return setInterval(spawnParticle, 70);
+    }
+
     function triggerCinematicSuccess(insertedId, token, emailSent, source) {
         const stage = document.getElementById('cinematic-success');
         const rocket = document.getElementById('rocket-unit');
-        const vapor = document.getElementById('rocket-vapor');
         const content = document.getElementById('success-content');
         const form = document.getElementById('collab-form');
         
-        const successTitle = document.getElementById('success-title');
-        const successDesc = document.getElementById('success-desc');
+        const sourceLabels = {
+            'nav': 'Navigation',
+            'agent': 'Likith’s AI Agent',
+            'form': 'Collaboration Form',
+            'footer': 'Footer',
+            'hero': 'Hero Section',
+            'email': 'Email Link'
+        };
+        const friendlySource = sourceLabels[source] || sourceLabels['form'] || 'Collaboration Form';
 
-        // Update Content based on email status
-        if (successTitle && successDesc) {
-            successTitle.innerHTML = 'SUBMITTED<br>SUCCESSFULLY';
-            
-            let message = '';
-            if (emailSent === true) {
-                message = `
-                    <div class="mb-4">
-                        <span class="text-white font-bold block text-lg mb-1">Thank you for collaborating with Likith.</span>
-                        <span class="text-emerald-400/80 text-[10px] font-mono uppercase tracking-[0.2em] block mb-4">Premium Confirmation Sent</span>
-                    </div>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                        Your collaboration request has been received by Likith Naidu Anumakonda and is currently being processed within the <span class="text-white font-medium">SAKRA</span> execution ecosystem.
-                    </p>
-                    <p class="text-slate-500 text-xs leading-relaxed">
-                        If your email is reachable, we’ll contact you soon. We may also connect with you through your provided mobile number.
-                    </p>
-                `;
-            } else if (emailSent === false) {
-                message = `
-                    <div class="mb-4">
-                        <span class="text-white font-bold block text-lg mb-1">Request Stored Successfully.</span>
-                        <span class="text-amber-400/80 text-[10px] font-mono uppercase tracking-[0.2em] block mb-4">Email Dispatch Interrupted</span>
-                    </div>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                        Your request has been securely stored in the SAKRA database. Although the confirmation email could not be sent, Likith will still review your request manually.
-                    </p>
-                    <p class="text-slate-500 text-xs leading-relaxed">
-                        We will contact you through your email or mobile number once the review is complete.
-                    </p>
-                `;
-            } else {
-                message = `
-                    <div class="mb-4">
-                        <span class="text-white font-bold block text-lg mb-1">Request Received.</span>
-                    </div>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                        Thank you for reaching out. Your collaboration request has been received by Likith Naidu Anumakonda.
-                    </p>
-                    <p class="text-slate-500 text-xs leading-relaxed">
-                        We’ll contact you soon using your provided email or mobile number.
-                    </p>
-                `;
-            }
-            
-            if (insertedId) {
-                const sourceLabels = {
-                    'nav': 'Navigation',
-                    'agent': 'Likith’s AI Agent',
-                    'form': 'Collaboration Form',
-                    'footer': 'Footer',
-                    'hero': 'Hero Section',
-                    'email': 'Email Link'
-                };
-                const friendlySource = sourceLabels[source] || sourceLabels['form'] || 'Collaboration Form';
+        // Set up the premium HTML content structure
+        let statusBadge = '';
+        let descText = '';
+        if (emailSent === true) {
+            statusBadge = `<span class="text-emerald-400 text-xs font-mono uppercase tracking-[0.2em] px-3.5 py-1.5 rounded-full bg-emerald-950/40 border border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.1)]">Premium Confirmation Sent</span>`;
+            descText = `Your collaboration request has successfully entered the <span class="text-white font-semibold">Sakra</span> execution ecosystem. A confirmation message has been dispatched to your email address.`;
+        } else if (emailSent === false) {
+            statusBadge = `<span class="text-amber-400 text-xs font-mono uppercase tracking-[0.2em] px-3.5 py-1.5 rounded-full bg-amber-950/40 border border-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.1)]">Email Dispatch Interrupted</span>`;
+            descText = `Your request has been securely stored in the SAKRA database. Although the confirmation email was interrupted, Likith Naidu will review your details manually.`;
+        } else {
+            statusBadge = `<span class="text-slate-400 text-xs font-mono uppercase tracking-[0.2em] px-3.5 py-1.5 rounded-full bg-slate-900/40 border border-slate-700/20">Request Stored</span>`;
+            descText = `Thank you for collaborating. Your request has successfully entered the <span class="text-white font-semibold">Sakra</span> ecosystem.`;
+        }
+
+        if (content) {
+            content.innerHTML = `
+                <!-- Step 1: Verification Badge -->
+                <div class="success-fade-in-up flex items-center justify-center gap-2 mb-4" id="success-badge-verify">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[10px] font-mono uppercase tracking-wider">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Identity Verified
+                    </span>
+                </div>
                 
-                message += `
-                <div class="mt-8 pt-6 border-t border-white/5 space-y-4">
-                    <div class="flex flex-col gap-1 text-left">
-                        <span class="text-[9px] text-slate-600 uppercase tracking-[0.3em] font-mono block">Internal Reference</span>
-                        <span class="text-[11px] text-slate-300 font-mono">REQ-ID: #${insertedId}</span>
+                <!-- Step 2: Main Title -->
+                <h2 id="success-title" class="success-fade-in-up font-display font-black text-white tracking-tighter text-3xl md:text-5xl mb-3 text-center uppercase">
+                    Launch Confirmed
+                </h2>
+                
+                <!-- Step 3: Status Pill -->
+                <div id="success-status-pill" class="success-fade-in-up mb-6">
+                    ${statusBadge}
+                </div>
+                
+                <!-- Step 4: Description -->
+                <p id="success-desc" class="success-fade-in-up text-slate-400 text-sm md:text-base font-light leading-relaxed max-w-md mx-auto mb-8 text-center">
+                    ${descText}
+                </p>
+                
+                <!-- Step 5: Reference Grid -->
+                <div id="success-reference-grid" class="success-fade-in-up w-full max-w-lg mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 p-5 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-md mb-8 text-left">
+                    <div class="flex flex-col gap-1">
+                        <span class="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-mono">Reference ID</span>
+                        <span class="text-xs text-slate-200 font-mono font-semibold">REQ-${insertedId || 'PENDING'}</span>
                     </div>
-                    <div class="flex flex-col gap-1 text-left">
-                        <span class="text-[9px] text-slate-600 uppercase tracking-[0.3em] font-mono block">Traffic Origin</span>
-                        <span class="text-[11px] text-slate-300 font-mono">${friendlySource}</span>
+                    <div class="flex flex-col gap-1 border-t border-white/5 pt-3 md:border-t-0 md:pt-0 md:border-l md:pl-4">
+                        <span class="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-mono">Traffic Origin</span>
+                        <span class="text-xs text-slate-200 font-mono font-semibold">${friendlySource}</span>
                     </div>
-                    <div class="flex flex-col gap-1 text-left">
-                        <span class="text-[9px] text-slate-600 uppercase tracking-[0.3em] font-mono block">Email Status</span>
-                        <span class="text-[11px] ${emailSent ? 'text-emerald-400' : 'text-amber-400'} font-mono uppercase tracking-wider">
-                            ${emailSent ? 'Confirmation Sent' : 'Dispatch Interrupted'}
+                    <div class="flex flex-col gap-1 border-t border-white/5 pt-3 md:border-t-0 md:pt-0 md:border-l md:pl-4">
+                        <span class="text-[9px] text-slate-500 uppercase tracking-[0.2em] font-mono">Email Status</span>
+                        <span class="text-xs ${emailSent ? 'text-emerald-400' : 'text-amber-400'} font-mono font-semibold uppercase tracking-wider flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full ${emailSent ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}"></span>
+                            ${emailSent ? 'Dispatched' : 'Pending'}
                         </span>
                     </div>
-                </div>`;
-            }
-            
-            successDesc.innerHTML = message;
+                </div>
+                
+                <!-- Step 6: Actions -->
+                <div id="success-actions" class="success-fade-in-up flex flex-col sm:flex-row justify-center gap-4 w-full max-w-md justify-items-center">
+                    <a href="index.html?source=collab" class="btn-liquid-glass flex items-center justify-center gap-2 group w-full sm:w-auto">
+                        <span>Back to Portfolio</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="group-hover:translate-x-1 transition-transform duration-300"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                    <button onclick="window.location.reload()" class="btn-liquid-glass bg-white/5 border-white/5 opacity-60 hover:opacity-100 w-full sm:w-auto">
+                        Submit Another
+                    </button>
+                </div>
+            `;
         }
 
         // Phase 1: Form Dissolve
         if (form) {
-            form.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
+            form.style.transition = 'all 1s cubic-bezier(0.22, 1, 0.36, 1)';
             form.style.opacity = '0';
             form.style.filter = 'blur(10px)';
             form.style.transform = 'scale(0.95)';
@@ -680,31 +726,71 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'hidden';
         document.body.style.height = '100vh';
         if (window.lenis) window.lenis.stop();
-            
+        
+        const glowPurple = document.getElementById('glow-purple');
+        const glowBlue = document.getElementById('glow-blue');
+        const glowWhite = document.getElementById('glow-white');
+
+        // 150ms: Soft glow emerges
         setTimeout(() => {
-            // Phase 3: Rocket Arrival
-            rocket.classList.add('reveal');
+            if (glowPurple) glowPurple.classList.add('active');
+            if (glowBlue) glowBlue.classList.add('active');
+            if (glowWhite) glowWhite.classList.add('active');
+        }, 150);
             
-            setTimeout(() => {
-                // Phase 4: Pre-Launch Ignition
-                vapor.classList.add('active');
-                rocket.classList.add('launching');
-                
-                setTimeout(() => {
-                    // Phase 5: Cinematic Launch
-                    rocket.classList.add('launch');
-                    
-                    setTimeout(() => {
-                        // Phase 6: Delivery Confirmation
-                        content.classList.add('visible');
-                        rocket.style.display = 'none'; // Clear stage for message
-                        if (window.lucide) lucide.createIcons();
-                        
-                        // NOTE: No redirect. Success state persists on collab.html.
-                    }, 600);
-                }, 600);
-            }, 500);
+        // 300ms: Rocket fades in
+        setTimeout(() => {
+            if (rocket) rocket.classList.add('reveal');
         }, 300);
+            
+        // 500ms: Rocket lifts upward slightly
+        setTimeout(() => {
+            if (rocket) rocket.classList.add('lifted');
+        }, 500);
+
+        // 800ms: Rocket exhaust activates (flame flickers)
+        const thrusterFlame = document.getElementById('thruster-flame-group');
+        setTimeout(() => {
+            if (thrusterFlame) thrusterFlame.classList.add('active');
+        }, 800);
+                
+        // 1000ms: Particle trail appears & Rocket persistent hover
+        let particleInterval = null;
+        setTimeout(() => {
+            const particlesContainer = document.getElementById('exhaust-particles');
+            if (particlesContainer) {
+                particleInterval = startExhaustParticles(particlesContainer);
+            }
+            if (rocket) {
+                rocket.classList.remove('lifted');
+                rocket.classList.add('floating');
+            }
+        }, 1000);
+
+        // 1200ms: Success title & Identity verified badge animates in
+        setTimeout(() => {
+            const verify = document.getElementById('success-badge-verify');
+            const title = document.getElementById('success-title');
+            if (verify) verify.classList.add('active');
+            if (title) title.classList.add('active');
+        }, 1200);
+
+        // 1400ms: Confirmation status text appears
+        setTimeout(() => {
+            const statusPill = document.getElementById('success-status-pill');
+            const desc = document.getElementById('success-desc');
+            if (statusPill) statusPill.classList.add('active');
+            if (desc) desc.classList.add('active');
+        }, 1400);
+
+        // 1800ms: Reference ID & Actions appear
+        setTimeout(() => {
+            const refGrid = document.getElementById('success-reference-grid');
+            const actions = document.getElementById('success-actions');
+            if (refGrid) refGrid.classList.add('active');
+            if (actions) actions.classList.add('active');
+            if (window.lucide) window.lucide.createIcons();
+        }, 1800);
     }
 
     function showPremiumError(message) {

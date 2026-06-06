@@ -447,16 +447,19 @@ body::after {
   inset: 0;
   z-index: 500;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   background: rgba(3, 7, 18, 0.98);
-  backdrop-filter: blur(60px);
-  -webkit-backdrop-filter: blur(60px);
+  backdrop-filter: blur(80px);
+  -webkit-backdrop-filter: blur(80px);
   opacity: 0;
   visibility: hidden;
-  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-  padding: 2rem;
+  transition: opacity 800ms cubic-bezier(0.22, 1, 0.36, 1), visibility 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  padding: 4rem 1.5rem;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  will-change: opacity, visibility;
 }
 
 .success-stage.active {
@@ -464,67 +467,143 @@ body::after {
   visibility: visible;
 }
 
-.rocket-container {
+/* Rocket Area Container */
+#rocket-stage {
   position: relative;
-  width: 120px;
-  height: 240px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  transform: translateY(200px);
-  opacity: 0;
-  transition: all 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+  justify-content: center;
+  width: 100%;
+  height: 220px;
+  margin-bottom: 2rem;
+  overflow: visible;
 }
 
-.rocket-container.reveal {
-  transform: translateY(0);
+/* Glow Layers Behind Rocket */
+.glow-layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  will-change: opacity;
+  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.glow-layer.active {
   opacity: 1;
 }
 
-.rocket-container.launch {
-  animation: rocket-launch-sequence 2s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
-}
-
-@keyframes rocket-launch-sequence {
-  0% { transform: translateY(0); }
-  10% { transform: translateY(20px); filter: brightness(1.2); }
-  100% { transform: translateY(-150vh) scale(0.8); filter: brightness(0.5); }
-}
-
-.success-message-container {
+/* Rocket Container */
+.rocket-container {
   position: relative;
-  text-align: center;
-  width: min(90vw, 800px);
-  padding: 4rem 2rem;
+  width: 140px; /* Base desktop width */
+  height: auto;
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+  z-index: 10;
+}
+
+.rocket-svg {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
+
+/* Hover/Floating animation states */
+.rocket-container.reveal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.rocket-container.lifted {
+  transform: translateY(-10px) scale(1.02);
+}
+
+@keyframes rocketHover {
+  0%, 100% {
+    transform: translateY(-10px) scale(1.02);
+  }
+  50% {
+    transform: translateY(-16px) scale(1.02);
+  }
+}
+
+.rocket-container.floating {
+  animation: rocketHover 3s infinite ease-in-out;
+}
+
+/* Thruster Flame Flicker */
+@keyframes thrusterFlicker {
+  0%, 100% {
+    transform: scaleY(1) scaleX(1);
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.7)) drop-shadow(0 0 20px rgba(99, 102, 241, 0.4));
+  }
+  50% {
+    transform: scaleY(1.18) scaleX(0.92);
+    filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.95)) drop-shadow(0 0 30px rgba(99, 102, 241, 0.6));
+  }
+}
+
+.thruster-flame {
+  transform-origin: top center;
+  will-change: transform, filter;
+}
+
+.thruster-flame.active {
+  opacity: 1 !important;
+  animation: thrusterFlicker 120ms infinite alternate ease-in-out;
+}
+
+/* Exhaust Particles system */
+.exhaust-particles-container {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 120px;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 5;
+}
+
+.exhaust-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.7) 0%, rgba(99, 102, 241, 0.3) 40%, transparent 70%);
   opacity: 0;
   pointer-events: none;
-  transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-  z-index: 10;
-  margin: auto;
+  will-change: transform, opacity;
 }
 
-.success-message-container.visible {
+/* Success Card Message Container */
+.success-message-container {
+  text-align: center;
+  width: min(95vw, 680px);
+  padding: 0 1rem;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-fade-in-up {
+  opacity: 0;
+  transform: translateY(16px) scale(0.98);
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.success-fade-in-up.active {
   opacity: 1;
-  pointer-events: auto;
-  transform: scale(1);
-}
-
-.success-message-container h2 {
-  font-size: clamp(1.8rem, 6vw, 4.5rem);
-  line-height: 1.1;
-  margin-bottom: 2rem;
-  letter-spacing: -0.02em;
-  font-weight: 900;
-}
-
-.success-message-container p {
-  font-size: clamp(0.9rem, 2.5vw, 1.25rem);
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 3.5rem;
-  opacity: 0.8;
+  transform: translateY(0) scale(1);
 }
 
 .btn-liquid-glass {
@@ -533,14 +612,17 @@ body::after {
   -webkit-backdrop-filter: blur(30px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: white;
-  padding: 1.2rem 2.5rem;
+  padding: 1rem 2.2rem;
   border-radius: 100px;
   font-weight: 600;
   font-family: 'Outfit', sans-serif;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-size: 0.8rem;
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  font-size: 0.75rem;
+  transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1), 
+              background-color 250ms cubic-bezier(0.22, 1, 0.36, 1), 
+              border-color 250ms cubic-bezier(0.22, 1, 0.36, 1), 
+              box-shadow 250ms cubic-bezier(0.22, 1, 0.36, 1);
   box-shadow: 0 4px 30px rgba(0,0,0,0.5);
   position: relative;
   overflow: hidden;
@@ -548,7 +630,7 @@ body::after {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 220px;
+  min-width: 180px;
 }
 
 .btn-liquid-glass::before {
@@ -569,139 +651,69 @@ body::after {
 .btn-liquid-glass:hover {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-5px);
+  transform: translateY(-2px);
   box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 20px rgba(255,255,255,0.05);
 }
 
-.vapor-cloud {
-  position: absolute;
-  bottom: 0;
-  width: 200px;
-  height: 150px;
-  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
-  filter: blur(30px);
-  opacity: 0;
-  transition: opacity 1.5s ease;
-  pointer-events: none;
-}
-
-.vapor-cloud.active {
-  opacity: 1;
-  animation: vapor-breathe 4s infinite alternate ease-in-out;
-}
-
-@keyframes vapor-breathe {
-  0% { transform: scale(1) translateY(0); opacity: 0.3; }
-  100% { transform: scale(1.3) translateY(-20px); opacity: 0.6; }
-}
-
-.thruster-glow {
-  width: 40px;
-  height: 100px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
-  filter: blur(15px);
-  position: absolute;
-  bottom: -90px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.launching .thruster-glow {
-  opacity: 1;
+.btn-liquid-glass:active {
+  transform: translateY(0) scale(0.96) !important;
 }
 
 /* --- SUCCESS SYSTEM RESPONSIVENESS --- */
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .rocket-container {
-    width: 90px;
+    width: 120px;
+  }
+  #rocket-stage {
     height: 180px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .success-stage {
+    padding: 2.5rem 1rem;
   }
   
-  .rocket-container svg {
-    width: 80px;
-    height: 160px;
+  .rocket-container {
+    width: 100px;
+  }
+  #rocket-stage {
+    height: 150px;
+    margin-bottom: 1rem;
   }
 
   .btn-liquid-glass {
-    padding: 1.1rem 2rem;
+    padding: 0.9rem 1.8rem;
     font-size: 0.75rem;
     width: 100%;
     min-width: unset;
-  }
-
-  .success-message-container {
-    width: 95%;
-  }
-
-  .success-message-container .mb-12 {
-    margin-bottom: 2.5rem;
-  }
-
-  .success-message-container .w-24 {
-    width: 4.5rem;
-    height: 4.5rem;
-  }
-
-  .success-message-container i {
-    width: 1.75rem;
-    height: 1.75rem;
   }
 }
 
 @media (max-width: 480px) {
   .success-stage {
-    padding: 1rem;
+    padding: 1.5rem 0.5rem;
   }
-
+  
   .rocket-container {
-    width: 70px;
-    height: 140px;
+    width: 85px;
   }
-
-  .rocket-container svg {
-    width: 60px;
-    height: 120px;
-  }
-
-  .success-message-container h2 {
-    line-height: 1;
-  }
-
-  .vapor-cloud {
-    width: 120px;
-    height: 80px;
-  }
-
-  .thruster-glow {
-    width: 30px;
-    height: 70px;
-    bottom: -60px;
+  #rocket-stage {
+    height: 130px;
+    margin-bottom: 0.5rem;
   }
 }
 
-@media (max-height: 750px) {
-  .success-message-container .mb-12 {
-    margin-bottom: 1.5rem;
+@media (max-height: 700px) {
+  .success-stage {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
   }
-  .success-message-container p {
-    margin-bottom: 2rem;
-  }
-}
-
-@media (max-height: 650px) {
-  .success-message-container {
-    top: 50%;
-  }
-  .rocket-container {
-    transform: translateY(120px);
-  }
-  .success-message-container h2 {
-    margin-bottom: 0.75rem;
-  }
-  .success-message-container .mb-12 {
-    display: none; /* Hide icon on very short screens */
+  #rocket-stage {
+    height: 110px;
+    margin-bottom: 0.5rem;
   }
 }
 

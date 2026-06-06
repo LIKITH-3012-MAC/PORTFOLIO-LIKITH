@@ -486,66 +486,91 @@
     <div id="cinematic-success" class="success-stage" data-lenis-prevent>
         <!-- Atmosphere Layer -->
         <div id="rocket-atmosphere" class="absolute inset-0 overflow-hidden pointer-events-none opacity-40">
-            <div
-                class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white/5 blur-[150px] rounded-full">
-            </div>
+            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white/5 blur-[150px] rounded-full"></div>
         </div>
 
         <!-- Animation Stage -->
-        <div class="relative z-10 flex flex-col items-center">
-            <!-- Rocket SVG -->
-            <div id="rocket-unit" class="rocket-container">
-                <svg width="100" height="200" viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg"
-                    class="drop-shadow-[0_0_40px_rgba(255,255,255,0.1)]">
-                    <!-- Rocket Body -->
-                    <path d="M50 15C50 15 20 55 20 110V160H80V110C80 55 50 15 50 15Z" fill="url(#rocket-body-grad)" />
-                    <!-- Nose Detail -->
-                    <path d="M50 15C50 15 30 45 25 75H75C70 45 50 15 50 15Z" fill="white" fill-opacity="0.05" />
-                    <!-- Fins -->
-                    <path d="M20 120L0 165H20V120Z" fill="#1e293b" />
-                    <path d="M80 120L100 165H80V120Z" fill="#1e293b" />
-                    <!-- Strip -->
-                    <rect x="48" y="80" width="4" height="30" rx="2" fill="white" fill-opacity="0.1" />
-                    <defs>
-                        <linearGradient id="rocket-body-grad" x1="50" y1="15" x2="50" y2="160"
-                            gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#ffffff" />
-                            <stop offset="1" stop-color="#475569" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-                <div class="thruster-glow"></div>
-                <div id="rocket-vapor" class="vapor-cloud"></div>
+        <div class="relative z-10 w-full max-w-2xl mx-auto flex flex-col items-center px-4 py-8">
+            <!-- Rocket & Glow Area -->
+            <div id="rocket-stage" class="relative">
+                <!-- Glow System Behind Rocket -->
+                <div class="glow-layer w-[240px] h-[240px] bg-[radial-gradient(circle,rgba(168,85,247,0.25)_0%,transparent_70%)] blur-[50px]" id="glow-purple"></div>
+                <div class="glow-layer w-[180px] h-[180px] bg-[radial-gradient(circle,rgba(56,189,248,0.3)_0%,transparent_70%)] blur-[40px]" id="glow-blue"></div>
+                <div class="glow-layer w-[100px] h-[100px] bg-[radial-gradient(circle,rgba(255,255,255,0.45)_0%,transparent_60%)] blur-[25px]" id="glow-white"></div>
+                
+                <!-- Rocket Unit Container -->
+                <div id="rocket-unit" class="rocket-container">
+                    <!-- Exhaust Particles Container -->
+                    <div id="exhaust-particles" class="exhaust-particles-container"></div>
+                    
+                    <!-- SVG Rocket -->
+                    <svg viewBox="0 0 120 220" class="rocket-svg drop-shadow-[0_10px_30px_rgba(56,189,248,0.2)]" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <!-- Glass Body Gradients -->
+                            <linearGradient id="rocket-body-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="rgba(255, 255, 255, 0.15)" />
+                                <stop offset="40%" stop-color="rgba(255, 255, 255, 0.05)" />
+                                <stop offset="100%" stop-color="rgba(15, 23, 42, 0.2)" />
+                            </linearGradient>
+                            <linearGradient id="rocket-glass-shine" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="rgba(255, 255, 255, 0.25)" />
+                                <stop offset="30%" stop-color="rgba(255, 255, 255, 0.05)" />
+                                <stop offset="100%" stop-color="transparent" />
+                            </linearGradient>
+                            <linearGradient id="rocket-accent-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#38bdf8" />
+                                <stop offset="100%" stop-color="#818cf8" />
+                            </linearGradient>
+                            <linearGradient id="rocket-fin-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="rgba(255, 255, 255, 0.08)" />
+                                <stop offset="100%" stop-color="rgba(30, 41, 59, 0.5)" />
+                            </linearGradient>
+                            <!-- Thruster Flame Gradients -->
+                            <linearGradient id="flame-core-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#ffffff" />
+                                <stop offset="20%" stop-color="#38bdf8" />
+                                <stop offset="60%" stop-color="#6366f1" />
+                                <stop offset="100%" stop-color="transparent" />
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Thruster Flame (animated via CSS) -->
+                        <g class="thruster-flame opacity-0" id="thruster-flame-group">
+                            <!-- Inner Flame Core -->
+                            <path d="M 52,175 Q 60,225 68,175 Q 60,185 52,175 Z" fill="url(#flame-core-grad)" opacity="0.9" />
+                            <!-- Outer Flame Glow -->
+                            <path d="M 46,175 Q 60,240 74,175 Q 60,195 46,175 Z" fill="url(#flame-core-grad)" opacity="0.4" filter="blur(2px)" />
+                        </g>
+
+                        <!-- Rocket Fins / Wings -->
+                        <!-- Left Wing -->
+                        <path d="M 36,140 Q 15,165 10,180 Q 25,182 36,170 Z" fill="url(#rocket-fin-grad)" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1" />
+                        <!-- Right Wing -->
+                        <path d="M 84,140 Q 105,165 110,180 Q 95,182 84,170 Z" fill="url(#rocket-fin-grad)" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1" />
+                        
+                        <!-- Rocket Engine Base / Nozzle -->
+                        <path d="M 48,165 L 72,165 L 68,176 L 52,176 Z" fill="#334155" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                        
+                        <!-- Main Rocket Body -->
+                        <path d="M 60,20 C 32,80 36,130 36,165 L 84,165 C 84,130 88,80 60,20 Z" fill="url(#rocket-body-grad)" stroke="rgba(255, 255, 255, 0.25)" stroke-width="1.5" />
+                        
+                        <!-- Glass Overlay Shine / Inner Edge Highlight -->
+                        <path d="M 60,22 C 34,80 38,128 38,163 L 42,163 C 42,128 38,80 60,24 Z" fill="url(#rocket-glass-shine)" opacity="0.6" />
+                        
+                        <!-- Rocket Window (Glassmorphic Ring) -->
+                        <circle cx="60" cy="85" r="16" fill="rgba(15, 23, 42, 0.5)" stroke="url(#rocket-accent-grad)" stroke-width="2.5" />
+                        <!-- Window Inner Shine -->
+                        <circle cx="60" cy="85" r="11" fill="url(#rocket-glass-shine)" opacity="0.3" />
+                        <path d="M 53,78 A 11,11 0 0 1 67,78" fill="none" stroke="rgba(255, 255, 255, 0.4)" stroke-width="1.5" stroke-linecap="round" />
+                        
+                        <!-- Accent Stripe / Detail lines -->
+                        <path d="M 60,115 L 60,145" stroke="url(#rocket-accent-grad)" stroke-width="2" stroke-linecap="round" opacity="0.7" />
+                    </svg>
+                </div>
             </div>
 
-            <!-- Success Message -->
-            <div id="success-content" class="success-message-container">
-                <div class="mb-12 flex justify-center">
-                    <div
-                        class="w-24 h-24 rounded-full border border-white/10 flex items-center justify-center bg-white/5 backdrop-blur-3xl shadow-2xl relative">
-                        <div class="absolute inset-0 rounded-full bg-white/5 animate-pulse"></div>
-                        <i data-lucide="check" class="w-10 h-10 text-white relative z-10"></i>
-                    </div>
-                </div>
-                <h2 id="success-title" class="font-display font-black text-white tracking-tighter">COLLABORATION<br>REQUEST RECEIVED</h2>
-                <p id="success-desc" class="text-slate-400 font-light leading-relaxed">
-                    Your request has successfully landed in<br>
-                    <span class="text-white font-medium">Likith’s collaboration system.</span>
-                </p>
-                <div class="flex flex-col md:flex-row justify-center gap-6">
-                    <a href="index.html?source=collab" class="btn-liquid-glass group flex items-center gap-3">
-                        <span>Back to Portfolio</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <button onclick="window.location.reload()"
-                        class="btn-liquid-glass bg-white/5 border-white/5 opacity-40 hover:opacity-100">
-                        Submit Another Request
-                    </button>
-                    <a href="mailto:likith.anumakonda@gmail.com" class="btn-liquid-glass bg-white/5 border-white/5 opacity-40 hover:opacity-100">
-                        Contact Likith
-                    </a>
-                </div>
-            </div>
+            <!-- Success Card Container -->
+            <div id="success-content" class="success-message-container w-full"></div>
         </div>
     </div>
 </body>
