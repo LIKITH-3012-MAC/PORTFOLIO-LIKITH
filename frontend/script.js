@@ -288,6 +288,16 @@ document.addEventListener('DOMContentLoaded', () => {
         yearSpan.textContent = new Date().getFullYear();
     }
 
+    // Check if we need to open the founder message on page load
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('open') === 'message') {
+        setTimeout(() => {
+            if (typeof window.openFounderMessage === 'function') {
+                window.openFounderMessage();
+            }
+        }, 600);
+    }
+
     // Expose lenis and mobile menu control to window
     window.lenis = lenis;
     window.closeMobileMenu = closeMobileMenu;
@@ -353,3 +363,9 @@ function closeModal(id) {
 
 window.openModal = openModal;
 window.closeModal = closeModal;
+
+// 9. Founder Message Redirect Helper for secondary pages
+function openFounderMessage() {
+    window.location.href = "index.html?open=message";
+}
+window.openFounderMessage = openFounderMessage;
