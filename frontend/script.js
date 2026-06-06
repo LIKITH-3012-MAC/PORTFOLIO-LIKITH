@@ -112,33 +112,175 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.observe(el);
     });
 
-    // 3. Sticky Navbar Blur Effect
+    // 3. Sticky Navbar Transition (Floating Pill OS style)
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
         if (!navbar) return;
         if (window.scrollY > 50) {
-            navbar.classList.add('bg-black/50', 'backdrop-blur-md', 'border-b', 'border-white/10');
-            navbar.classList.remove('bg-transparent');
+            navbar.classList.add('py-2', 'bg-slate-950/85', 'shadow-[0_16px_48px_rgba(0,0,0,0.7)]');
+            navbar.classList.remove('py-3', 'bg-slate-950/40');
         } else {
-            navbar.classList.remove('bg-black/50', 'backdrop-blur-md', 'border-b', 'border-white/10');
-            navbar.classList.add('bg-transparent');
+            navbar.classList.remove('py-2', 'bg-slate-950/85', 'shadow-[0_16px_48px_rgba(0,0,0,0.7)]');
+            navbar.classList.add('py-3', 'bg-slate-950/40');
         }
     });
 
-    // 4. Mobile Menu Toggle
+    // 4. Mobile Navigation Overlay & Active State Matching
     const menuBtn = document.getElementById('mobile-menu-btn');
-    const closeMenuBtn = document.getElementById('mobile-close');
-    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileOverlay = document.getElementById('mobile-nav-overlay');
+    const mobilePanel = document.getElementById('mobile-nav-panel');
+    const mobileBackdrop = document.getElementById('mobile-nav-backdrop');
+    const closeMenuBtn = document.getElementById('mobile-nav-close');
 
-    if (menuBtn && closeMenuBtn && mobileMenu) {
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.remove('translate-x-full');
+    function openMobileMenu() {
+        if (!mobileOverlay || !mobilePanel || !mobileBackdrop) return;
+        
+        // Disable scroll
+        document.body.style.overflow = 'hidden';
+        if (window.lenis) window.lenis.stop();
+
+        mobileOverlay.classList.remove('hidden');
+        mobileOverlay.classList.add('flex');
+
+        // Reflow for transition
+        void mobileOverlay.offsetWidth;
+
+        mobileBackdrop.classList.add('opacity-100');
+        mobileBackdrop.classList.remove('opacity-0');
+        
+        mobilePanel.classList.add('scale-100', 'opacity-100');
+        mobilePanel.classList.remove('scale-95', 'opacity-0');
+    }
+
+    function closeMobileMenu() {
+        if (!mobileOverlay || !mobilePanel || !mobileBackdrop) return;
+
+        // Enable scroll
+        document.body.style.overflow = '';
+        if (window.lenis) window.lenis.start();
+
+        mobileBackdrop.classList.remove('opacity-100');
+        mobileBackdrop.classList.add('opacity-0');
+        
+        mobilePanel.classList.remove('scale-100', 'opacity-100');
+        mobilePanel.classList.add('scale-95', 'opacity-0');
+
+        setTimeout(() => {
+            mobileOverlay.classList.remove('flex');
+            mobileOverlay.classList.add('hidden');
+        }, 300);
+    }
+
+    if (menuBtn && closeMenuBtn && mobileOverlay) {
+        menuBtn.addEventListener('click', openMobileMenu);
+        closeMenuBtn.addEventListener('click', closeMobileMenu);
+        mobileBackdrop.addEventListener('click', closeMobileMenu);
+        
+        // Tap outside panel closes
+        mobileOverlay.addEventListener('click', (e) => {
+            if (e.target === mobileOverlay) {
+                closeMobileMenu();
+            }
         });
 
-        closeMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.add('translate-x-full');
+        // Close on clicking links
+        const mobileLinks = mobileOverlay.querySelectorAll('.mobile-nav-item');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
         });
     }
+
+    // Active Navigation state detector
+    function updateActiveNavState() {
+        const pathname = window.location.pathname;
+        const hash = window.location.hash;
+        
+        let activeKey = 'index';
+        
+        if (pathname.includes('likith-git-profile.html')) {
+            activeKey = 'git';
+        } else if (pathname.includes('likith-youtube.html')) {
+            activeKey = 'youtube';
+        } else if (pathname.includes('collab.html')) {
+            activeKey = 'collab';
+        } else if (pathname.includes('index.html') || pathname.endsWith('/')) {
+            if (hash === '#about') {
+                activeKey = 'about';
+            } else if (hash === '#experience') {
+                activeKey = 'experience';
+            } else if (hash === '#projects') {
+                activeKey = 'projects';
+            } else if (hash === '#founder') {
+                activeKey = 'founder';
+            } else {
+                activeKey = 'index';
+            }
+        }
+        
+        document.querySelectorAll('.desktop-nav-link, .mobile-nav-item').forEach(el => {
+            el.classList.remove('active');
+        });
+        
+        document.querySelectorAll(`[data-nav-target="${activeKey}"]`).forEach(el => {
+            el.classList.add('active');
+        });
+    }
+
+    // Run active nav on load and hash change
+    updateActiveNavState();
+    window.addEventListener('hashchange', updateActiveNavState);
+
+    // Scroll Spy for Home Page sections
+    const spySections = document.querySelectorAll('section[id]');
+    if (spySections.length > 0) {
+        const spyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    let targetKey = id;
+                    if (id === 'about') targetKey = 'about';
+                    else if (id === 'experience') targetKey = 'experience';
+                    else if (id === 'projects') targetKey = 'projects';
+                    else if (id === 'founder') targetKey = 'founder';
+                    else return;
+                    
+                    document.querySelectorAll('.desktop-nav-link, .mobile-nav-item').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                    document.querySelectorAll(`[data-nav-target="${targetKey}"]`).forEach(el => {
+                        el.classList.add('active');
+                    });
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '-25% 0px -55% 0px'
+        });
+        
+        spySections.forEach(section => {
+            spyObserver.observe(section);
+        });
+    }
+
+    // Global Keyboard Listener inside DOMContentLoaded block for context scope
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            // Close mobile menu if active
+            if (mobileOverlay && !mobileOverlay.classList.contains('hidden')) {
+                closeMobileMenu();
+            }
+            
+            const activeModal = document.querySelector('.modal-overlay.active');
+            if (activeModal) {
+                const id = activeModal.getAttribute('id');
+                if (id === 'performanceModal') {
+                    closePerformance();
+                } else {
+                    closeModal(id);
+                }
+            }
+        }
+    });
 
     // 5. Current Year
     const yearSpan = document.getElementById('current-year');
@@ -146,8 +288,9 @@ document.addEventListener('DOMContentLoaded', () => {
         yearSpan.textContent = new Date().getFullYear();
     }
 
-    // Expose lenis to window for global access
+    // Expose lenis and mobile menu control to window
     window.lenis = lenis;
+    window.closeMobileMenu = closeMobileMenu;
 });
 
 // 6. Performance Modal (YouTube)
@@ -207,21 +350,6 @@ function closeModal(id) {
         if (window.lenis) window.lenis.start();
     }
 }
-
-// Global Keyboard Listener to close modals on ESC keypress
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        const activeModal = document.querySelector('.modal-overlay.active');
-        if (activeModal) {
-            const id = activeModal.getAttribute('id');
-            if (id === 'performanceModal') {
-                closePerformance();
-            } else {
-                closeModal(id);
-            }
-        }
-    }
-});
 
 window.openModal = openModal;
 window.closeModal = closeModal;

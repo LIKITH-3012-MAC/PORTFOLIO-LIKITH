@@ -90,6 +90,8 @@
             box-shadow: 0 0 20px rgba(251, 191, 36, 0.1);
         }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="navigation.js"></script>
     <!-- Analytics Tracking -->
     <script src="analytics.js"></script>
@@ -97,22 +99,108 @@
 <body class="text-slate-200 overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <nav id="navbar" class="fixed top-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50 rounded-full border border-white/10 bg-slate-950/40 backdrop-blur-xl px-6 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.5)] transition-all duration-300">
+        <div class="flex items-center justify-between">
+            <!-- Brand -->
             <a href="index.html?source=nav" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-black font-bold group-hover:rotate-12 transition-transform">L</div>
-                <span class="font-display font-black text-xl tracking-tighter text-white uppercase">Media Hub</span>
+                <div class="w-8 h-8 rounded-full overflow-hidden border border-white/10 transition-transform duration-300 group-hover:scale-105">
+                    <img src="https://raw.githubusercontent.com/LIKITH-3012-MAC/MY-PIC-GALLERY/refs/heads/main/Gemini_Generated_Image_ltizrcltizrcltiz.png"
+                        class="w-full h-full object-cover" alt="Likith Naidu Anumakonda" />
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display font-bold tracking-tight leading-none text-sm text-white">LIKITH NAIDU</span>
+                    <span class="text-[8px] text-slate-400 font-mono tracking-widest uppercase">AI Architect</span>
+                </div>
             </a>
-            <div class="flex items-center gap-4">
-                <a href="index.html?source=nav" class="text-sm font-medium text-slate-300 hover:text-white transition-colors hidden md:block">Home</a>
-                <a href="likith-git-profile.html?source=nav" class="text-sm font-medium text-slate-300 hover:text-white transition-colors hidden md:block">Git Archive</a>
-                <a href="index.html?source=nav" class="btn-glass flex items-center gap-2 text-sm">
-                    <i data-lucide="home" class="w-4 h-4"></i> <span class="hidden md:inline">Back to Portfolio</span>
+
+            <!-- Desktop Nav Items -->
+            <div class="hidden md:flex items-center gap-6">
+                <a href="index.html?source=nav" class="desktop-nav-link text-xs font-medium tracking-wider uppercase text-slate-400 hover:text-white transition-colors" data-nav-target="index">Index</a>
+                <a href="index.html?source=nav#about" class="desktop-nav-link text-xs font-medium tracking-wider uppercase text-slate-400 hover:text-white transition-colors" data-nav-target="about">Identity</a>
+                <a href="index.html?source=nav#experience" class="desktop-nav-link text-xs font-medium tracking-wider uppercase text-slate-400 hover:text-white transition-colors" data-nav-target="experience">Experience</a>
+                <a href="index.html?source=nav#projects" class="desktop-nav-link text-xs font-medium tracking-wider uppercase text-slate-400 hover:text-white transition-colors" data-nav-target="projects">Systems</a>
+                <a href="likith-git-profile.html?source=nav" class="desktop-nav-link text-xs font-medium tracking-wider uppercase text-slate-400 hover:text-white transition-colors flex items-center gap-1.5" data-nav-target="git">
+                    <i data-lucide="github" class="w-3.5 h-3.5"></i> Git Archive
                 </a>
-                <a href="https://youtube.com/@LIKITH_NAIDU_ANUMAKONDA" target="_blank" class="btn-premium text-xs py-2 px-5">Channel</a>
+                <a href="likith-youtube.html?source=nav" class="desktop-nav-link text-xs font-medium tracking-wider uppercase text-slate-400 hover:text-white transition-colors flex items-center gap-1.5" data-nav-target="youtube">
+                    <i data-lucide="youtube" class="w-3.5 h-3.5 text-red-500"></i> YouTube Hub
+                </a>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4">
+                <!-- Likith's Message (Desktop only) -->
+                <button onclick="openFounderMessage()" class="hidden lg:flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-amber-400 hover:text-white transition-colors px-3 py-1.5 rounded-full border border-amber-400/20 bg-amber-400/5 hover:bg-amber-400/10">
+                    <i data-lucide="mail" class="w-3.5 h-3.5"></i> Message
+                </button>
+                <a href="collab.html?source=nav" class="btn-premium hidden md:flex !py-2 !px-5 !text-[10px]" data-nav-target="collab">Collaborate</a>
+                
+                <!-- Mobile Hamburger Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:text-slate-300 transition-colors" aria-label="Open Menu">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Navigation Overlay (Premium Scale-Reveal Glass Modal) -->
+    <div id="mobile-nav-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+        <!-- Backdrop Dim & Blur -->
+        <div id="mobile-nav-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-300"></div>
+        
+        <!-- Floating Glass Menu Panel -->
+        <div id="mobile-nav-panel" class="relative w-full max-w-sm rounded-[2rem] border border-white/10 bg-slate-950/75 backdrop-blur-2xl p-6 shadow-2xl scale-95 opacity-0 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-6">
+                <span class="font-display font-bold text-sm text-white tracking-wider uppercase">Navigation</span>
+                <button id="mobile-nav-close" class="p-2 text-slate-400 hover:text-white transition-colors" aria-label="Close Navigation">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <!-- Large Touch-friendly Buttons -->
+            <div class="flex flex-col gap-2.5">
+                <a href="index.html?source=nav" class="mobile-nav-item" data-nav-target="index">
+                    <span class="mobile-nav-label">Index</span>
+                    <i data-lucide="arrow-right" class="mobile-nav-arrow w-4 h-4 opacity-0 transition-all"></i>
+                </a>
+                <a href="index.html?source=nav#about" class="mobile-nav-item" data-nav-target="about">
+                    <span class="mobile-nav-label">Identity</span>
+                    <i data-lucide="arrow-right" class="mobile-nav-arrow w-4 h-4 opacity-0 transition-all"></i>
+                </a>
+                <a href="index.html?source=nav#experience" class="mobile-nav-item" data-nav-target="experience">
+                    <span class="mobile-nav-label">Experience</span>
+                    <i data-lucide="arrow-right" class="mobile-nav-arrow w-4 h-4 opacity-0 transition-all"></i>
+                </a>
+                <a href="index.html?source=nav#projects" class="mobile-nav-item" data-nav-target="projects">
+                    <span class="mobile-nav-label">Systems</span>
+                    <i data-lucide="arrow-right" class="mobile-nav-arrow w-4 h-4 opacity-0 transition-all"></i>
+                </a>
+                <a href="likith-git-profile.html?source=nav" class="mobile-nav-item" data-nav-target="git">
+                    <span class="mobile-nav-label">Git Archive</span>
+                    <i data-lucide="arrow-right" class="mobile-nav-arrow w-4 h-4 opacity-0 transition-all"></i>
+                </a>
+                <a href="likith-youtube.html?source=nav" class="mobile-nav-item" data-nav-target="youtube">
+                    <span class="mobile-nav-label">YouTube Hub</span>
+                    <i data-lucide="arrow-right" class="mobile-nav-arrow w-4 h-4 opacity-0 transition-all"></i>
+                </a>
+                
+                <div class="h-px bg-white/5 my-2"></div>
+                
+                <!-- Secondary: Likith's Message -->
+                <button onclick="openFounderMessage(); document.getElementById('mobile-nav-close').click();" class="mobile-nav-item text-amber-400 border-amber-500/10">
+                    <span>Likith’s Message</span>
+                    <i data-lucide="mail" class="w-4 h-4"></i>
+                </button>
+                
+                <!-- Primary Action: Collaborate -->
+                <a href="collab.html?source=nav" class="mobile-nav-item mobile-nav-btn" data-nav-target="collab">
+                    <span class="mobile-nav-label">Collaborate</span>
+                    <i data-lucide="zap" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <main>
         <!-- Cinematic Hero -->
