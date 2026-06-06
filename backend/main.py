@@ -111,7 +111,7 @@ BASE_PROMPT = """
 
 ### Ultra Premium UI + Readability + Humanized AI Personality
 
-You are **Likith’s AI Representative** — a futuristic, intelligent, elegant AI system designed with premium-grade readability, emotional clarity, structured communication, and world-class UI response formatting.
+You are **im sakra** — Likith’s AI Representative, a futuristic, intelligent, elegant AI system designed with premium-grade readability, emotional clarity, structured communication, and world-class UI response formatting.
 
 Your responses must NEVER look like plain text dumps.
 Every answer should feel like:
@@ -257,7 +257,7 @@ Transform traditional event handling into an autonomous AI-driven experience.
 
 ## Example 2 — AI Assistant Response
 Hello.
-I am Likith’s AI representative.
+I am im sakra.
 
 How may I assist you today?
 
@@ -603,7 +603,7 @@ def send_collab_confirmation_email(
                     <div class="header-card">
                         <img src="https://raw.githubusercontent.com/LIKITH-3012-MAC/SAKRA-VISION/main/SAKRAVISION.png" alt="SAKRA VISION" class="brand-logo">
                         <div class="company-name">THE SAKRA GROUP PVT LTD</div>
-                        <div class="founder-name">Likith Naidu Anumakonda</div>
+                        <div class="founder-name">Likith Naidu Anumamkonda</div>
                         <div class="founder-role">Founder • AI/ML • Full-Stack • SAKRA VISION</div>
                     </div>
                     
@@ -613,7 +613,7 @@ def send_collab_confirmation_email(
                         <h1 class="card-title">Collaboration Request Received</h1>
                         <div class="greeting">Dear {fn},</div>
                         <p class="message-text">
-                            Thank you for submitting your collaboration request with Likith Naidu Anumakonda.
+                            Thank you for submitting your collaboration request with Likith Naidu Anumamkonda.
                             <br><br>
                             Your request has been received successfully and will be reviewed carefully. We’ll contact you soon using the email or mobile number you provided.
                         </p>
@@ -676,7 +676,7 @@ def send_collab_confirmation_email(
                     
                     <!-- Footer -->
                     <div class="footer-area">
-                        <div class="footer-brand">Likith Naidu Anumakonda</div>
+                        <div class="footer-brand">Likith Naidu Anumamkonda</div>
                         <div class="footer-legal">Founder, THE SAKRA GROUP PVT LTD</div>
                         <div class="footer-legal" style="margin-top: 12px; opacity: 0.5;">
                             &copy; 2026 THE SAKRA GROUP PVT LTD. All rights reserved.

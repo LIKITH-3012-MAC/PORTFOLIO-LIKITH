@@ -1,13 +1,13 @@
 {
   "identity": {
-    "fullName": "Likith Naidu Anumakonda",
+    "fullName": "Likith Naidu Anumamkonda",
     "alternateNames": [
-      "Likith Anumakonda",
+      "Likith Anumamkonda",
       "Likith Naidu",
-      "Likith Naidu Anumakonda"
+      "Likith Naidu Anumamkonda"
     ],
     "roles": [
-      "AI/ML Engineer",
+      "AI-ML Architect",
       "AI Agents Developer",
       "ML Model Developer",
       "Full Stack Systems Architect",
@@ -28,7 +28,7 @@
       "country": "India"
     },
     "specialties": [
-      "AI/ML Engineering",
+      "AI-ML Architecting",
       "AI Agent Development",
       "ML Model Development",
       "Full-Stack Application Development",
@@ -50,6 +50,6 @@
   "metadata": {
     "version": "1.1.0",
     "lastUpdated": "2026-05-05",
-    "maintainer": "Likith Naidu Anumakonda"
+    "maintainer": "Likith Naidu Anumamkonda"
   }
 }

@@ -55,7 +55,7 @@ class IntentRouter:
             return "Likith is pursuing a B.Tech in CSE (AI) and holds an Advanced AIML Specialization from IIT Patna (I-HUB).", "none"
 
         if intent == "identity":
-            return "Likith Naidu Anumakonda is a premium AI/ML Engineer, Full Stack Systems Architect, and the Founder of SAKRA VISION. He specializes in designing autonomous AI agents, machine learning models, and building end-to-end full-stack systems with rigorous engineering discipline.", "none"
+            return "Likith Naidu Anumamkonda is a premium AI-ML Architect, Full Stack Systems Architect, and the Founder of SAKRA VISION. He specializes in designing autonomous AI agents, machine learning models, and building end-to-end full-stack systems with rigorous engineering discipline.", "none"
 
         if intent == "collab":
             return "Likith is open to high-stakes collaborations, technical architecture design, and AI agent implementations. You can pitch your project through the secure Collab Portal.", "collab"

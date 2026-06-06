@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let offlineCard = 'none';
             
             if (lowerText.includes('who is') || lowerText.includes('about') || lowerText.includes('likith') || lowerText.includes('background') || lowerText === 'who is likith?') {
-                offlineReply = "Likith Naidu Anumakonda is a premium AI/ML Engineer, Full Stack Systems Architect, and the Founder of SAKRA VISION. He specializes in designing autonomous AI agents, machine learning models, and building end-to-end full-stack systems with rigorous engineering discipline.";
+                offlineReply = "Likith Naidu Anumamkonda is a premium AI-ML Architect, Full Stack Systems Architect, and the Founder of SAKRA VISION. He specializes in designing autonomous AI agents, machine learning models, and building end-to-end full-stack systems with rigorous engineering discipline.";
             } else if (lowerText.includes('contact') || lowerText.includes('phone') || lowerText.includes('email') || lowerText.includes('reach') || lowerText.includes('call')) {
                 offlineReply = `You can reach Likith at ${window.APP_CONFIG.CONTACT.PRIMARY_EMAIL} or call ${window.APP_CONFIG.CONTACT.PHONE}. He is open to high-stakes collaborations.`;
                 offlineCard = 'contact';

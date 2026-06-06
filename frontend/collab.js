@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 sourceNoteEl.innerHTML = `<i data-lucide="compass" class="w-3 h-3"></i> Opened from Navigation`;
                 sourceNoteEl.classList.remove('hidden');
             } else if (source === 'agent') {
-                sourceNoteEl.innerHTML = `<i data-lucide="cpu" class="w-3 h-3 text-amber-400"></i> Opened from Likith's AI Agent`;
+                sourceNoteEl.innerHTML = `<i data-lucide="cpu" class="w-3 h-3 text-amber-400"></i> Opened from im sakra`;
                 sourceNoteEl.classList.remove('hidden');
             } else if (source === 'hero') {
                 sourceNoteEl.innerHTML = `<i data-lucide="zap" class="w-3 h-3 text-amber-400"></i> Opened from Hero CTA`;

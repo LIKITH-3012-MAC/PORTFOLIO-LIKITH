@@ -153,7 +153,7 @@ We use **RAG** (Retrieval-Augmented Generation):
 2.  `POST /api/chat` sent.
 3.  Router says "Intent: Greeting".
 4.  Retrieval pulls "Likith's Name" context.
-5.  Groq generates: "Hello! I am Likith's AI agent...".
+5.  Groq generates: "Hello! I am im sakra...".
 6.  User sees the message stream.
 
 ---
