@@ -12,7 +12,7 @@ const CONFIG = {
         SECONDARY_EMAIL: "likith.naidu@icloud.com",
         PHONE: "+919440113763",
         GITHUB: "https://github.com/LIKITH-3012-MAC",
-        LINKEDIN: "https://linkedin.com/in/likith-naidu-anumakonda-33a347327",
+        LINKEDIN: "https://www.linkedin.com/in/likith-naidu-anumakonda/",
         INSTAGRAM: "https://www.instagram.com/likhith_anumakonda?igsh=MTgxZ3hrc3BtcHAzdg==",
         X: "https://x.com/Likithdob301206?t=4FzQYS1UgCKSQBgc99xspg&s=09"
     }

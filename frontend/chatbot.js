@@ -9,6 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let chatHistory = [];
 
+    const renderLucide = () => {
+        if (window.lucide) {
+            setTimeout(() => {
+                window.lucide.createIcons();
+            }, 50);
+        }
+    };
+
     // Toggle Panel
     launcher.addEventListener('click', () => {
         panel.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
@@ -27,9 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
         msgDiv.className = `flex gap-3 max-w-[85%] ${role === 'user' ? 'ml-auto flex-row-reverse' : ''} reveal active`;
         
         const icon = role === 'user' ? 'user' : 'cpu';
-        const iconColor = role === 'user' ? 'text-blue-400' : 'text-amber-400';
-        const bgColor = role === 'user' ? 'bg-blue-500/10' : 'bg-white/5';
-        const borderColor = role === 'user' ? 'border-blue-500/20' : 'border-white/10';
+        const iconColor = role === 'user' ? 'text-indigo-400' : 'text-amber-400';
+        const bgColor = role === 'user' ? 'bg-gradient-to-br from-indigo-500/20 to-blue-600/10' : 'bg-gradient-to-br from-white/[0.06] to-white/[0.02]';
+        const borderColor = role === 'user' ? 'border-indigo-500/30' : 'border-white/10';
+        const shadow = role === 'user' ? 'shadow-[0_0_15px_rgba(99,102,241,0.05)]' : 'shadow-[0_4px_20px_rgba(0,0,0,0.2)]';
 
         let cardHtml = '';
         if (cardType !== 'none') {
@@ -37,10 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         msgDiv.innerHTML = `
-            <div class="w-8 h-8 rounded-full ${bgColor} flex items-center justify-center shrink-0 border ${borderColor}">
+            <div class="w-8 h-8 rounded-full ${bgColor} flex items-center justify-center shrink-0 border ${borderColor} ${shadow}">
                 <i data-lucide="${icon}" class="w-4 h-4 ${iconColor}"></i>
             </div>
-            <div class="${bgColor} border ${borderColor} rounded-2xl p-3 text-sm text-slate-300 max-w-full overflow-hidden break-words">
+            <div class="${bgColor} border ${borderColor} ${shadow} rounded-2xl p-3 text-sm text-slate-300 max-w-full overflow-hidden break-words">
                 <div class="prose prose-invert prose-sm break-words max-w-full">
                     ${text}
                 </div>
@@ -50,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         chatArea.appendChild(msgDiv);
         chatArea.scrollTop = chatArea.scrollHeight;
-        if (window.lucide) lucide.createIcons();
+        renderLucide();
     };
 
     const renderCard = (type) => {
@@ -81,10 +90,18 @@ document.addEventListener('DOMContentLoaded', () => {
                             <i data-lucide="chevron-right" class="w-3 h-3 text-slate-600 group-hover:translate-x-1 transition-transform"></i>
                         </a>
                         <div class="grid grid-cols-4 gap-2">
-                            <a href="${config.CONTACT.GITHUB}" target="_blank" class="p-2 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10"><i data-lucide="github" class="w-4 h-4 text-white"></i></a>
-                            <a href="${config.CONTACT.LINKEDIN}" target="_blank" class="p-2 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10"><i data-lucide="linkedin" class="w-4 h-4 text-blue-400"></i></a>
-                            <a href="${config.CONTACT.X}" target="_blank" class="p-2 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10"><i data-lucide="twitter" class="w-4 h-4 text-slate-400"></i></a>
-                            <a href="${config.CONTACT.INSTAGRAM}" target="_blank" class="p-2 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10"><i data-lucide="instagram" class="w-4 h-4 text-pink-400"></i></a>
+                            <a href="${config.CONTACT.GITHUB}" target="_blank" class="p-2 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10">
+                                <i data-lucide="github" class="w-4 h-4 text-white"></i>
+                            </a>
+                            <a href="${config.CONTACT.LINKEDIN}" target="_blank" class="p-2 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10">
+                                <i data-lucide="linkedin" class="w-4 h-4 text-blue-400"></i>
+                            </a>
+                            <a href="${config.CONTACT.X}" target="_blank" class="p-2 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10">
+                                <i data-lucide="twitter" class="w-4 h-4 text-slate-300"></i>
+                            </a>
+                            <a href="${config.CONTACT.INSTAGRAM}" target="_blank" class="p-2 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10">
+                                <i data-lucide="instagram" class="w-4 h-4 text-pink-400"></i>
+                            </a>
                         </div>
                         <a href="${nav.buildUrl('collab.html', { source: 'agent' })}" class="w-full btn-premium py-2 text-[10px] flex items-center justify-center gap-2">
                             <span>Open Collab Portal</span>
@@ -123,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <a href="${nav.buildUrl('problem.html', { result: 'error', type: 'chatbot', source: 'agent' })}" class="w-full py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center justify-center gap-2 text-[10px] text-slate-300">
                                 <i data-lucide="life-buoy" class="w-3 h-3"></i> Support
                             </a>
-                            <button onclick="document.getElementById('ai-chat-input').focus()" class="w-full py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center justify-center gap-2 text-[10px] text-slate-300">
+                            <button type="button" onclick="document.getElementById('ai-chat-input').focus()" class="w-full py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center justify-center gap-2 text-[10px] text-slate-300">
                                 <i data-lucide="refresh-cw" class="w-3 h-3"></i> Retry
                             </button>
                         </div>
@@ -138,22 +155,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    chatForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const text = chatInput.value.trim();
+    const sendMessage = async (text) => {
         if (!text) return;
 
         addMessage('user', text);
-        chatInput.value = '';
         
         // Create assistant message placeholder
         const msgDiv = document.createElement('div');
         msgDiv.className = `flex gap-3 max-w-[85%] reveal active`;
         msgDiv.innerHTML = `
-            <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 border border-white/10">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-white/[0.06] to-white/[0.02] flex items-center justify-center shrink-0 border border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
                 <i data-lucide="cpu" class="w-4 h-4 text-amber-400"></i>
             </div>
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-3 text-sm text-slate-300 max-w-full overflow-hidden break-words">
+            <div class="bg-gradient-to-br from-white/[0.06] to-white/[0.02] border border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.2)] rounded-2xl p-3 text-sm text-slate-300 max-w-full overflow-hidden break-words">
                 <div class="prose prose-invert prose-sm assistant-content break-words max-w-full">
                     <span class="typing-cursor"></span>
                 </div>
@@ -162,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         chatArea.appendChild(msgDiv);
         chatArea.scrollTop = chatArea.scrollHeight;
-        if (window.lucide) lucide.createIcons();
+        renderLucide();
 
         const contentDiv = msgDiv.querySelector('.assistant-content');
         const cardContainer = msgDiv.querySelector('.assistant-card-container');
@@ -210,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Final card rendering if detected
             if (cardType !== 'none') {
                 cardContainer.innerHTML = `<div class="mt-4 pt-4 border-t border-white/5">${renderCard(cardType)}</div>`;
-                if (window.lucide) lucide.createIcons();
+                renderLucide();
             }
 
             chatHistory.push({ role: 'user', content: text });
@@ -224,18 +238,18 @@ document.addEventListener('DOMContentLoaded', () => {
             let offlineReply = '';
             let offlineCard = 'none';
             
-            if (lowerText.includes('who is') || lowerText.includes('about') || lowerText.includes('likith') || lowerText.includes('background') || lowerText === 'who is likith?') {
+            if (lowerText.includes('who is') || lowerText.includes('about') || lowerText.includes('likith') || lowerText.includes('background') || lowerText === 'who is likith?' || lowerText === 'identity') {
                 offlineReply = "Likith Naidu Anumamkonda is a premium AI-ML Architect, Full Stack Systems Architect, and the Founder of SAKRA VISION. He specializes in designing autonomous AI agents, machine learning models, and building end-to-end full-stack systems with rigorous engineering discipline.";
-            } else if (lowerText.includes('contact') || lowerText.includes('phone') || lowerText.includes('email') || lowerText.includes('reach') || lowerText.includes('call')) {
+            } else if (lowerText.includes('contact') || lowerText.includes('phone') || lowerText.includes('email') || lowerText.includes('reach') || lowerText.includes('call') || lowerText === 'collaborate') {
                 offlineReply = `You can reach Likith at ${window.APP_CONFIG.CONTACT.PRIMARY_EMAIL} or call ${window.APP_CONFIG.CONTACT.PHONE}. He is open to high-stakes collaborations.`;
                 offlineCard = 'contact';
-            } else if (lowerText.includes('project') || lowerText.includes('portfolio') || lowerText.includes('build') || lowerText.includes('repo') || lowerText.includes('github') || lowerText.includes('git')) {
+            } else if (lowerText.includes('project') || lowerText.includes('portfolio') || lowerText.includes('build') || lowerText.includes('repo') || lowerText.includes('github') || lowerText.includes('git') || lowerText === 'systems' || lowerText === 'git archive') {
                 offlineReply = "Likith has built several production-grade systems including RESOLVIT, Prometheus AI, SAKRA VISION Event Hub, and AquaSentinel AI. Check out his Engineering Archive.";
                 offlineCard = 'git';
             } else if (lowerText.includes('collab') || lowerText.includes('hire') || lowerText.includes('work with') || lowerText.includes('partnership')) {
                 offlineReply = "Likith is open to high-stakes collaborations, technical architecture design, and AI agent implementations. You can pitch your project through the secure Collab Portal.";
                 offlineCard = 'collab';
-            } else if (lowerText.includes('watch') || lowerText.includes('video') || lowerText.includes('youtube') || lowerText.includes('performance') || lowerText.includes('piano')) {
+            } else if (lowerText.includes('watch') || lowerText.includes('video') || lowerText.includes('youtube') || lowerText.includes('performance') || lowerText.includes('piano') || lowerText === 'youtube hub') {
                 offlineReply = "You can watch Likith's technical deep-dives and piano performances on his Media Hub.";
                 offlineCard = 'youtube';
             } else if (lowerText.includes('skill') || lowerText.includes('tech stack') || lowerText.includes('technologies') || lowerText.includes('expert') || lowerText.includes('skills matrix')) {
@@ -252,85 +266,177 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 chatHistory.push({ role: 'user', content: text });
                 chatHistory.push({ role: 'assistant', content: offlineReply });
-                if (window.lucide) lucide.createIcons();
+                renderLucide();
                 chatArea.scrollTop = chatArea.scrollHeight;
                 return;
             }
 
             contentDiv.innerHTML = "I encountered a technical glitch. Please visit <a href='problem.html?result=error&type=chatbot&source=agent' class='text-white underline hover:text-amber-400 transition-colors duration-300'>support</a>.";
             cardContainer.innerHTML = `<div class="mt-4 pt-4 border-t border-white/5">${renderCard('error')}</div>`;
-            if (window.lucide) lucide.createIcons();
+            renderLucide();
         }
+    };
+
+    chatForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const text = chatInput.value.trim();
+        if (!text) return;
+
+        chatInput.value = '';
+        await sendMessage(text);
     });
 
     quickBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            chatInput.value = btn.innerText;
-            chatForm.dispatchEvent(new Event('submit'));
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            sendMessage(btn.innerText.trim());
         });
     });
 
     // Speech Recognition integration
     const micBtn = document.getElementById('ai-mic-btn');
+    const langEnBtn = document.getElementById('lang-en-btn');
+    const langTeBtn = document.getElementById('lang-te-btn');
+    const voiceWave = document.getElementById('ai-voice-wave');
+    const voiceStatus = document.getElementById('ai-voice-status');
+    const infoMsg = document.getElementById('ai-chat-info-msg');
+    const micActiveDot = document.getElementById('mic-active-dot');
+
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    
-    if (SpeechRecognition && micBtn) {
-        const recognition = new SpeechRecognition();
-        recognition.continuous = false;
-        recognition.interimResults = false;
-        recognition.lang = navigator.language || 'en-US';
+    let selectedLang = 'en-IN';
 
-        let isListening = false;
-
-        recognition.onstart = () => {
-            isListening = true;
-            micBtn.classList.add('mic-listening');
-            chatInput.placeholder = 'Listening... Speak now';
-            const micIcon = micBtn.querySelector('i');
-            if (micIcon) {
-                micIcon.setAttribute('data-lucide', 'mic-off');
-                if (window.lucide) lucide.createIcons();
-            }
-        };
-
-        recognition.onend = () => {
-            isListening = false;
-            micBtn.classList.remove('mic-listening');
-            chatInput.placeholder = 'Initiate query...';
-            const micIcon = micBtn.querySelector('i');
-            if (micIcon) {
-                micIcon.setAttribute('data-lucide', 'mic');
-                if (window.lucide) lucide.createIcons();
-            }
-        };
-
-        recognition.onerror = (event) => {
-            console.error('Speech Recognition Error:', event.error);
-            isListening = false;
-            micBtn.classList.remove('mic-listening');
-            chatInput.placeholder = 'Initiate query...';
-            const micIcon = micBtn.querySelector('i');
-            if (micIcon) {
-                micIcon.setAttribute('data-lucide', 'mic');
-                if (window.lucide) lucide.createIcons();
-            }
-        };
-
-        recognition.onresult = (event) => {
-            const transcript = event.results[0][0].transcript;
-            chatInput.value = transcript;
-            chatForm.dispatchEvent(new Event('submit'));
-        };
-
-        micBtn.addEventListener('click', (e) => {
+    // Handle Language Toggle buttons
+    if (langEnBtn && langTeBtn) {
+        langEnBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            if (isListening) {
-                recognition.stop();
-            } else {
-                recognition.start();
-            }
+            selectedLang = 'en-IN';
+            langEnBtn.className = "px-2.5 py-0.5 rounded-full text-white bg-amber-500/20 border border-amber-500/30 transition-all font-medium";
+            langTeBtn.className = "px-2.5 py-0.5 rounded-full text-slate-400 hover:text-white transition-all";
+            if (infoMsg) infoMsg.innerText = "Language: English (India)";
         });
-    } else if (micBtn) {
-        micBtn.style.display = 'none';
+
+        langTeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            selectedLang = 'te-IN';
+            langTeBtn.className = "px-2.5 py-0.5 rounded-full text-white bg-amber-500/20 border border-amber-500/30 transition-all font-medium";
+            langEnBtn.className = "px-2.5 py-0.5 rounded-full text-slate-400 hover:text-white transition-all";
+            if (infoMsg) infoMsg.innerText = "Language: Telugu (India)";
+        });
+    }
+
+    if (micBtn) {
+        if (!SpeechRecognition) {
+            // Speech recognition not supported fallback warning click behavior
+            micBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (infoMsg) {
+                    infoMsg.innerText = "Voice input is not supported in this browser. Please type.";
+                    infoMsg.classList.remove('text-slate-500');
+                    infoMsg.classList.add('text-red-400');
+                    setTimeout(() => {
+                        infoMsg.innerText = "";
+                        infoMsg.classList.remove('text-red-400');
+                        infoMsg.classList.add('text-slate-500');
+                    }, 4000);
+                }
+            });
+        } else {
+            const recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            let isListening = false;
+
+            recognition.onstart = () => {
+                isListening = true;
+                micBtn.classList.add('mic-listening');
+                if (micActiveDot) micActiveDot.classList.remove('hidden');
+                chatInput.placeholder = 'Listening... Speak now';
+                if (voiceWave) {
+                    voiceWave.classList.remove('hidden');
+                    voiceWave.classList.add('flex');
+                }
+                if (voiceStatus) {
+                    voiceStatus.innerText = selectedLang === 'te-IN' ? 'Listening (TE)...' : 'Listening (EN)...';
+                }
+                if (infoMsg) infoMsg.innerText = "Microphone active";
+                const micIcon = micBtn.querySelector('i, svg');
+                if (micIcon) {
+                    micIcon.setAttribute('data-lucide', 'mic-off');
+                    renderLucide();
+                }
+            };
+
+            recognition.onend = () => {
+                isListening = false;
+                micBtn.classList.remove('mic-listening');
+                if (micActiveDot) micActiveDot.classList.add('hidden');
+                chatInput.placeholder = 'Initiate query...';
+                if (voiceWave) {
+                    voiceWave.classList.add('hidden');
+                    voiceWave.classList.remove('flex');
+                }
+                if (infoMsg) infoMsg.innerText = "";
+                const micIcon = micBtn.querySelector('i, svg');
+                if (micIcon) {
+                    micIcon.setAttribute('data-lucide', 'mic');
+                    renderLucide();
+                }
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech Recognition Error:', event.error);
+                isListening = false;
+                micBtn.classList.remove('mic-listening');
+                if (micActiveDot) micActiveDot.classList.add('hidden');
+                chatInput.placeholder = 'Initiate query...';
+                if (voiceWave) {
+                    voiceWave.classList.add('hidden');
+                    voiceWave.classList.remove('flex');
+                }
+                
+                if (infoMsg) {
+                    if (event.error === 'not-allowed') {
+                        infoMsg.innerText = "Permission denied. Enable mic to use voice input.";
+                    } else {
+                        infoMsg.innerText = `Voice error: ${event.error}`;
+                    }
+                    infoMsg.classList.remove('text-slate-500');
+                    infoMsg.classList.add('text-red-400');
+                    setTimeout(() => {
+                        infoMsg.innerText = "";
+                        infoMsg.classList.remove('text-red-400');
+                        infoMsg.classList.add('text-slate-500');
+                    }, 4000);
+                }
+
+                const micIcon = micBtn.querySelector('i, svg');
+                if (micIcon) {
+                    micIcon.setAttribute('data-lucide', 'mic');
+                    renderLucide();
+                }
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                chatInput.value = transcript;
+                if (infoMsg) infoMsg.innerText = "Speech recognized. Press send to transmit.";
+                chatInput.focus();
+            };
+
+            micBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (isListening) {
+                    recognition.stop();
+                } else {
+                    recognition.lang = selectedLang;
+                    try {
+                        recognition.start();
+                    } catch (err) {
+                        console.error("Failed to start recognition:", err);
+                    }
+                }
+            });
+        }
     }
 });
