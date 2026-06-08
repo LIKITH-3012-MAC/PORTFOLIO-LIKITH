@@ -5,7 +5,7 @@ class IntentRouter:
         self.knowledge = knowledge
         self.intents = {
             "contact": [r"email", r"contact", r"phone", r"reach", r"call"],
-            "projects": [r"project", r"portfolio", r"build", r"repo", r"github"],
+            "projects": [r"project", r"portfolio", r"build", r"repo", r"github", r"system"],
             "identity": [r"who is", r"about", r"likith", r"background"],
             "collab": [r"hire", r"work with", r"collab", r"partnership", r"freelance"],
             "skills": [r"skill", r"tech stack", r"technologies", r"know", r"expert"],
