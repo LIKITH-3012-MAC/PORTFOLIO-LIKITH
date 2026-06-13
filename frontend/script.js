@@ -15,131 +15,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500); 
     }
 
-    // 0. Initialize Lenis Smooth Scroll (Optimized for snappiness & high refresh rate monitors)
+    // 0. Initialize Lenis Smooth Scroll (144Hz Optimized)
     const lenis = new Lenis({
-        lerp: 0.08, // Increased from 0.03 for much quicker, snappier reaction while remaining buttery smooth
-        duration: 1.2, // Decreased from 1.5 for a more active responsive feel
+        lerp: 0.03, // Ultra-floaty, buttery smooth feel tuned for high refresh rates
+        duration: 1.5,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         direction: 'vertical',
         gestureDirection: 'vertical',
         smoothWheel: true,
-        smoothTouch: false, // Set to false to preserve native inertial touch scrolling on mobile devices, preventing stutters
-        wheelMultiplier: 1.05, // Subtle boost to speed
-        touchMultiplier: 1.5,
+        smoothTouch: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 1.2,
+        syncTouch: true, // synchronize touch for high refresh rate screens
+        syncTouchLerp: 0.075,
     });
 
-    // Select elements for 3D parallax effects
-    const heroSection = document.querySelector('section.min-h-screen');
-    const heroLeft = document.querySelector('section.min-h-screen .animate-fade-in');
-    const heroRight = document.querySelector('section.min-h-screen .order-first, section.min-h-screen .order-last');
-    
-    const cube1 = document.querySelector('.cube-1');
-    const cube2 = document.querySelector('.cube-2');
-    const orb1 = document.querySelector('.orb-amber');
-    const orb2 = document.querySelector('.orb-blue');
-    const orb3 = document.querySelector('.orb-purple');
-    const grid = document.querySelector('.cyber-grid');
-
-    let heroMouseX = 0, heroMouseY = 0;
-    let heroTargetX = 0, heroTargetY = 0;
-    let scrollY = window.scrollY;
-    let gridOffset = 0;
-
-    // Track scroll using Lenis smooth scroll callback for temporal synchronization
-    lenis.on('scroll', (e) => {
-        scrollY = e.scroll;
-    });
-
-    if (heroSection) {
-        heroSection.addEventListener('mousemove', (e) => {
-            if (window.innerWidth < 1024 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                return;
-            }
-            const rect = heroSection.getBoundingClientRect();
-            heroTargetX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-            heroTargetY = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    if (window.gsap) {
+        // Sync with native monitor refresh rate (144Hz+)
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
         });
-
-        heroSection.addEventListener('mouseleave', () => {
-            heroTargetX = 0;
-            heroTargetY = 0;
-        });
+        gsap.ticker.lagSmoothing(0);
+    } else {
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
     }
-
-    let lastScrollY = -1;
-    let lastHeroMouseX = -1;
-    let lastHeroMouseY = -1;
-    let lastGridOffset = -1;
-
-    // Unified Ticker Loop (Synced with monitor refresh rate 144Hz+ to prevent judder)
-    function animateFrame(time) {
-        // Tick Lenis smooth scroll first on every frame
-        lenis.raf(time);
-
-        // Increment background grid Y offset
-        gridOffset += 0.35;
-        if (gridOffset >= 60) {
-            gridOffset -= 60;
-        }
-
-        // Interpolate mouse coordinates
-        let heroParallaxActive = false;
-        if (window.innerWidth >= 1024 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            const prevX = heroMouseX;
-            const prevY = heroMouseY;
-            
-            heroMouseX += (heroTargetX - heroMouseX) * 0.08;
-            heroMouseY += (heroTargetY - heroMouseY) * 0.08;
-            
-            if (Math.abs(heroMouseX - prevX) > 0.001 || Math.abs(heroMouseY - prevY) > 0.001) {
-                heroParallaxActive = true;
-            }
-        }
-
-        // Check if render parameters changed
-        const scrollChanged = Math.abs(scrollY - lastScrollY) > 0.05;
-        const gridChanged = Math.abs(gridOffset - lastGridOffset) > 0.05;
-
-        if (scrollChanged || heroParallaxActive || gridChanged) {
-            // Hero parallax
-            if (window.innerWidth >= 1024 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                if (heroLeft) heroLeft.style.transform = `translate3d(${heroMouseX * 12}px, ${heroMouseY * 12}px, 0)`;
-                if (heroRight) heroRight.style.transform = `translate3d(${heroMouseX * -25}px, ${heroMouseY * -25}px, 0)`;
-            } else {
-                if (heroLeft && heroLeft.style.transform) heroLeft.style.transform = '';
-                if (heroRight && heroRight.style.transform) heroRight.style.transform = '';
-            }
-
-            // Background objects parallax
-            if (window.innerWidth >= 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                if (cube1) cube1.style.transform = `translate3d(0, ${scrollY * 0.15}px, 0)`;
-                if (cube2) cube2.style.transform = `translate3d(0, ${scrollY * 0.08}px, 0)`;
-                if (orb1) orb1.style.transform = `translate3d(0, ${scrollY * 0.1}px, 0)`;
-                if (orb2) orb2.style.transform = `translate3d(0, ${scrollY * 0.05}px, 0)`;
-                if (orb3) orb3.style.transform = `translate3d(0, ${scrollY * 0.12}px, 0)`;
-                
-                if (grid) {
-                    const finalGridY = (scrollY * 0.2) + gridOffset;
-                    grid.style.transform = `perspective(600px) rotateX(75deg) translateZ(-150px) translate3d(${heroMouseX * -15}px, ${finalGridY}px, 0)`;
-                }
-            } else {
-                if (cube1 && cube1.style.transform) cube1.style.transform = '';
-                if (cube2 && cube2.style.transform) cube2.style.transform = '';
-                if (orb1 && orb1.style.transform) orb1.style.transform = '';
-                if (orb2 && orb2.style.transform) orb2.style.transform = '';
-                if (orb3 && orb3.style.transform) orb3.style.transform = '';
-                if (grid && grid.style.transform) grid.style.transform = '';
-            }
-
-            lastScrollY = scrollY;
-            lastHeroMouseX = heroMouseX;
-            lastHeroMouseY = heroMouseY;
-            lastGridOffset = gridOffset;
-        }
-
-        requestAnimationFrame(animateFrame);
-    }
-    requestAnimationFrame(animateFrame);
 
     // 1. Smooth Scroll for Anchor Links (Enhanced for Source Tracking)
     document.querySelectorAll('a').forEach(anchor => {
@@ -394,99 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 600);
     }
-
-    // ═══════════════════════════════════════════════════
-    // 10. PREMIUM 3D CARD TILT & MOUSE PARALLAX EFFECTS
-    // ═══════════════════════════════════════════════════
-    
-    // Tag static cards on page load for the 3D tilt effect
-    const staticCards = document.querySelectorAll(
-        '#projects .glass-panel, #experience .glass-panel, #skills .glass-panel, #founder .glass-panel, .glass-panel.rounded-3xl, .glass-panel.rounded-2xl'
-    );
-    staticCards.forEach(card => {
-        // Exclude elements that shouldn't tilt (like AI agent panel, modals, navigation)
-        if (
-            card.closest('#ai-agent-panel') || 
-            card.closest('.modal-content') || 
-            card.id === 'ai-agent-panel' || 
-            card.closest('nav')
-        ) {
-            return;
-        }
-        card.classList.add('tilt-card');
-    });
-
-    // Event Delegation for Card 3D Tilt (highly performant and supports dynamically added elements)
-    let activeCard = null;
-
-    document.addEventListener('mousemove', (e) => {
-        // Safe check for mobile or reduced motion preferences
-        if (window.innerWidth < 768 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            return;
-        }
-
-        const card = e.target.closest('.tilt-card, .repo-card, .short-card');
-        
-        if (!card) {
-            if (activeCard) {
-                resetCard(activeCard);
-                activeCard = null;
-            }
-            return;
-        }
-
-        if (card !== activeCard) {
-            if (activeCard) {
-                resetCard(activeCard);
-            }
-            activeCard = card;
-            activeCard.classList.add('tilt-active');
-            activeCard.classList.add('tilt-moving');
-        }
-        
-        tiltCard(e, activeCard);
-    });
-
-    document.addEventListener('mouseleave', () => {
-        if (activeCard) {
-            resetCard(activeCard);
-            activeCard = null;
-        }
-    });
-
-    function tiltCard(e, card) {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        // Max tilt range
-        const maxTilt = 8;
-        const rotateX = ((centerY - y) / centerY) * maxTilt;
-        const rotateY = ((x - centerX) / centerX) * maxTilt;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.015, 1.015, 1.015)`;
-        
-        // Update glare coordinates
-        const pctX = (x / rect.width) * 100;
-        const pctY = (y / rect.height) * 100;
-        card.style.setProperty('--glare-x', `${pctX}%`);
-        card.style.setProperty('--glare-y', `${pctY}%`);
-        card.style.setProperty('--glare-opacity', '0.12');
-    }
-
-    function resetCard(card) {
-        card.classList.remove('tilt-active');
-        card.classList.remove('tilt-moving');
-        card.style.transform = '';
-        card.style.setProperty('--glare-opacity', '0');
-    }
-
-
-
-
 
     // Expose lenis and mobile menu control to window
     window.lenis = lenis;
