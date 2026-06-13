@@ -194,7 +194,7 @@ function renderRepos(filter = 'all') {
                 ${repo.category === 'featured' ? '<span class="text-[9px] font-bold text-amber-500 border border-amber-500/20 px-2 py-1 rounded bg-amber-500/5 uppercase tracking-widest">Featured</span>' : ''}
             </div>
             
-            <h3 class="text-xl font-display font-bold text-white mb-3 group-hover:text-amber-500 transition-colors">${repo.name}</h3>
+            <h3 class="text-xl font-display font-bold text-white mb-3 group-hover:text-amber-500 transition-colors break-words">${repo.name}</h3>
             
             <p class="text-slate-400 text-sm font-light leading-relaxed mb-6 flex-grow">
                 ${repo.description}
