@@ -1,6 +1,8 @@
 import os
 import json
 import logging
+import urllib.request
+import urllib.parse
 from fastapi import FastAPI, Request, HTTPException, Header, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
@@ -518,6 +520,7 @@ class CollabRequest(BaseModel):
     referrer: Optional[str] = None
     landing_page: Optional[str] = None
     hash_section: Optional[str] = None
+    turnstile_token: str
 
 # 6. Resend Email Configuration
 RESEND_API_KEY = os.getenv("RESEND_API_KEY")
@@ -769,6 +772,23 @@ async def self_stream(text, card):
 
 @app.post("/api/collab")
 async def create_collab(request: CollabRequest):
+    TURNSTILE_SECRET_KEY = os.getenv("TURNSTILE_SECRET_KEY", "")
+    try:
+        verify_data = urllib.parse.urlencode({
+            'secret': TURNSTILE_SECRET_KEY,
+            'response': request.turnstile_token
+        }).encode('utf-8')
+        verify_req = urllib.request.Request('https://challenges.cloudflare.com/turnstile/v0/siteverify', data=verify_data)
+        with urllib.request.urlopen(verify_req) as verify_res_obj:
+            verify_res = json.loads(verify_res_obj.read().decode('utf-8'))
+        
+        if not verify_res.get('success'):
+            logger.warning(f"Turnstile verification failed for {request.full_name}: {verify_res}")
+            return JSONResponse(status_code=400, content={"success": False, "message": "Security verification failed. Please try again."})
+    except Exception as e:
+        logger.error(f"Turnstile API error: {e}")
+        return JSONResponse(status_code=500, content={"success": False, "message": "Could not verify security token."})
+
     db = SessionLocal()
     try:
         logger.info(f"📥 SECURE SUBMISSION: Received payload for {request.full_name}")

@@ -64,6 +64,9 @@
     <script src="navigation.js"></script>
     <!-- Analytics Tracking -->
     <script src="analytics.js"></script>
+    
+    <!-- Cloudflare Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
 <body class="text-slate-200 overflow-x-hidden">
@@ -300,8 +303,13 @@
                                 </select>
                             </div>
 
-                            <button type="submit" id="submit-btn"
-                                class="w-full btn-premium py-5 text-lg flex items-center justify-center gap-3">
+                            <!-- Cloudflare Turnstile Widget -->
+                            <div class="flex justify-center mt-4">
+                                <div class="cf-turnstile" data-sitekey="0x4AAAAAADkBJO3pDza4-pkc" data-callback="onTurnstileSuccess" data-expired-callback="onTurnstileExpired" data-error-callback="onTurnstileExpired"></div>
+                            </div>
+
+                            <button type="submit" id="submit-btn" disabled
+                                class="w-full btn-premium py-5 text-lg flex items-center justify-center gap-3 opacity-50 cursor-not-allowed transition-all">
                                 <span>Submit Collaboration Request</span>
                                 <i data-lucide="send" class="w-5 h-5"></i>
                             </button>

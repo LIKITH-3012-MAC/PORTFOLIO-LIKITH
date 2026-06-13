@@ -9,6 +9,23 @@ document.addEventListener('DOMContentLoaded', () => {
     let isSubmitting = false;
     let formOpenTimestamp = Date.now(); // Anti-spam: track when page loaded
 
+    // ═══ TURNSTILE CALLBACKS ═══
+    window.onTurnstileSuccess = function(token) {
+        const submitBtn = document.getElementById('submit-btn');
+        if(submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+    };
+
+    window.onTurnstileExpired = function() {
+        const submitBtn = document.getElementById('submit-btn');
+        if(submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        }
+    };
+
     // ═══ GEOGRAPHY CASCADING LOGIC ═══
     const GEOGRAPHY_DATA = {
         "India": {
@@ -443,6 +460,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Validate required fields
         if (!validateRequiredFields()) return;
 
+        // Turnstile Check
+        const fd = new FormData(collabForm);
+        const turnstileToken = fd.get('cf-turnstile-response');
+        if (!turnstileToken) {
+            showPremiumError('Please complete security verification first.');
+            return;
+        }
+
         // Open verification modal
         openVerification();
     });
@@ -510,6 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
             email: data.email || null,
             budget_range: data.budget_range || null,
             preferred_contact_method: data.preferred_contact_method || null,
+            turnstile_token: data['cf-turnstile-response'],
             
             // Tracking Metadata (Prioritize session storage captured on landing)
             ...window.getStoredTrackingPayload()
