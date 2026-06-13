@@ -58,11 +58,12 @@ body::before {
   width: 100vw;
   height: 100vh;
   z-index: -3;
-  background-image: url("LIKITH's.jpeg");
+  background-image: url("SAKRAVISION.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  filter: grayscale(100%) brightness(0.9); /* Premium monochrome treatment */
+  filter: blur(4px); /* Approximately 20% blur effect */
+  /* filter: grayscale(100%) brightness(0.9); Premium monochrome treatment */
 }
 
 body::after {

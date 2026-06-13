@@ -1,0 +1,91 @@
+{
+  "company": {
+    "name": "SAKRA VISION",
+    "url": "https://www.sakra-vision.online",
+    "description": "AI product studio / AI automation brand founded by Likith Naidu Anumakonda.",
+    "identity": {
+      "positioning": "AI Product Studio + Execution Ecosystem",
+      "meaning": "Not just coding small projects, but building complete AI-enabled systems from idea → backend → frontend → deployment → domain → automation.",
+      "focus": [
+        "AI products",
+        "Automation systems",
+        "LLM/RAG tools",
+        "Full-stack platforms",
+        "Computer vision automation",
+        "Dedicated AI infrastructure"
+      ]
+    },
+    "founder": {
+      "name": "Likith Naidu Anumakonda",
+      "role": "AI/ML Engineer, Founder",
+      "brand": "SAKRA VISION",
+      "education": "B.Tech CSE-AI at PBR VITS",
+      "skills": [
+        "AI/ML",
+        "full-stack",
+        "Python",
+        "Java",
+        "FastAPI",
+        "React",
+        "RAG",
+        "LLMs"
+      ],
+      "location": "India / Andhra Pradesh / Nellore",
+      "titles": "AI/ML Engineer • Python Full-Stack Developer • SQL Developer • Data Analyst • Data Scientist • Founder of SAKRA VISION."
+    },
+    "expertise_areas": [
+      {
+        "area": "AI Agents",
+        "meaning": "AI assistants, voice agents, workflow automation"
+      },
+      {
+        "area": "ML Models",
+        "meaning": "Classification, prediction, image/OCR verification"
+      },
+      {
+        "area": "RAG Systems",
+        "meaning": "Document Q&A, retrieval-based AI systems"
+      },
+      {
+        "area": "Full-stack Apps",
+        "meaning": "React/Next.js frontend + FastAPI/Node backend"
+      },
+      {
+        "area": "Event Automation",
+        "meaning": "Registration, payment verification, email, calling, certificates"
+      },
+      {
+        "area": "Civic Tech",
+        "meaning": "Resolvit AI / public issue tracking systems"
+      },
+      {
+        "area": "Offline AI",
+        "meaning": "Local LLM / LAN-based AI learning systems"
+      },
+      {
+        "area": "Cloud Deployment",
+        "meaning": "Render, Aiven, PostgreSQL/MySQL, domain setup"
+      }
+    ],
+    "major_projects": [
+      {
+        "name": "SAKRA VISION Event Hub",
+        "description": "An AI-powered event registration, verification, and participant communication platform.",
+        "problem_solved": "Traditional Google Forms-style registration has problems: No intelligent payment screenshot verification, manual approval burden, fake screenshot risk, no automated participant lifecycle, no proper admin dashboard, no automated certificates/calls/emails."
+      },
+      {
+        "name": "Resolvit AI",
+        "url": "https://www.resolvit-ai.online",
+        "description": "Civic Tech / public issue tracking system"
+      },
+      {
+        "name": "Forms Project",
+        "url": "https://forms-project-f3sb.vercel.app/"
+      },
+      {
+        "name": "Prometheus Free AI",
+        "url": "https://www.prometheuslikiths-ai.online/"
+      }
+    ]
+  }
+}
