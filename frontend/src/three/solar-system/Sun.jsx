@@ -207,9 +207,15 @@ export const Sun = ({ config, quality }) => {
       {/* Central PointLight illuminating all planets */}
       <pointLight
         color="#ffeecc"
-        intensity={3.5}
-        distance={80}
-        decay={1.2}
+        intensity={40.0}
+        distance={150.0}
+        decay={1.1}
+        castShadow={quality.tier === 'desktop'}
+        shadow-mapSize-width={quality.tier === 'desktop' ? 1024 : 0}
+        shadow-mapSize-height={quality.tier === 'desktop' ? 1024 : 0}
+        shadow-camera-near={0.5}
+        shadow-camera-far={100}
+        shadow-bias={-0.0005}
       />
 
       {/* Corona layers */}

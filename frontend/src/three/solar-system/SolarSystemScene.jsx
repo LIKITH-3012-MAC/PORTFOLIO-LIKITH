@@ -11,12 +11,14 @@ import StarField from './StarField';
 import NebulaField from './NebulaField';
 import SolarSceneController from './SolarSceneController';
 import SolarCameraRig from './SolarCameraRig';
+import IntroSceneController from '../../components/intro/IntroSceneController';
+import IntroComet from '../../components/intro/IntroComet';
 
 const PLANET_ORDER = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'];
 const ORBIT_COLOR = '#ffffff';
 const SUN_POSITION = new THREE.Vector3(0, 0, 0);
 
-export const SolarSystemScene = ({ quality, prefersReduced }) => {
+export const SolarSystemScene = ({ quality, prefersReduced, introActive, introTime, onIntroComplete }) => {
   // Filter planets based on quality tier
   const visiblePlanets = useMemo(() => {
     return PLANET_ORDER.filter(id => quality.visiblePlanets.includes(id));
@@ -25,11 +27,29 @@ export const SolarSystemScene = ({ quality, prefersReduced }) => {
   return (
     <>
       {/* Controllers */}
-      <SolarSceneController quality={quality} />
-      <SolarCameraRig quality={quality} prefersReduced={prefersReduced} />
+      {introActive ? (
+        <>
+          <IntroSceneController 
+            introActive={introActive} 
+            introTime={introTime} 
+            onIntroComplete={onIntroComplete} 
+          />
+          <IntroComet introTime={introTime} />
+        </>
+      ) : (
+        <>
+          <SolarSceneController quality={quality} />
+          <SolarCameraRig quality={quality} prefersReduced={prefersReduced} />
+        </>
+      )}
 
       {/* Ambient environment light */}
-      <ambientLight intensity={0.08} color="#222244" />
+      <ambientLight intensity={0.06} color="#ffffff" />
+      <hemisphereLight
+        skyColor="#4a6085"
+        groundColor="#080b12"
+        intensity={0.10}
+      />
 
       {/* Star field background */}
       <StarField
@@ -70,6 +90,8 @@ export const SolarSystemScene = ({ quality, prefersReduced }) => {
                 config={config}
                 quality={quality}
                 sunPosition={SUN_POSITION}
+                introActive={introActive}
+                introTime={introTime}
               />
             </group>
           );

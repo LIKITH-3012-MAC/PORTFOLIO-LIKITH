@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import MobileMenu from '../components/common/MobileMenu';
@@ -8,6 +8,7 @@ import ScrollToTop from '../components/common/ScrollToTop';
 import Chatbot from '../components/chatbot/Chatbot';
 import FounderMessage from '../components/home/FounderMessage';
 import SolarSystemCanvas from '../three/solar-system/SolarSystemCanvas';
+import CinematicIntro from '../components/intro/CinematicIntro';
 import { Bot } from 'lucide-react';
 
 export const MainLayout = () => {
@@ -15,6 +16,17 @@ export const MainLayout = () => {
   const [chatbotOpen, setChatbotOpen] = useState(false);
   const [founderMessageOpen, setFounderMessageOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+
+  // Cinematic Intro state
+  const [introActive, setIntroActive] = useState(true);
+  const introTime = useRef(0);
+
+  // Reset the intro timer when intro starts
+  useEffect(() => {
+    if (introActive) {
+      introTime.current = 0;
+    }
+  }, [introActive]);
 
   // Listen for the ?open=message query parameter globally
   useEffect(() => {
@@ -37,13 +49,33 @@ export const MainLayout = () => {
     setChatbotOpen(true);
   };
 
+  const handleSkipIntro = () => {
+    sessionStorage.setItem('likith-cinematic-intro-seen', 'true');
+    setIntroActive(false);
+  };
+
   return (
     <div className="app-shell min-h-screen flex flex-col bg-transparent text-slate-100 overflow-x-hidden selection:bg-white/20 selection:text-white">
+      {/* Cinematic Intro Manager (Layer 5) */}
+      <CinematicIntro 
+        introActive={introActive} 
+        setIntroActive={setIntroActive} 
+        onSkip={handleSkipIntro}
+      />
+
       {/* Immersive 3D Space Background (Layer 1) */}
-      <SolarSystemCanvas />
+      <SolarSystemCanvas 
+        introActive={introActive}
+        introTime={introTime}
+        onIntroComplete={handleSkipIntro}
+      />
 
       {/* Site Content (Layer 3) */}
-      <div className="site-content flex-grow flex flex-col">
+      <div 
+        className={`site-content flex-grow flex flex-col transition-opacity duration-1000 ${
+          introActive ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
+      >
         {/* Scroll trackers */}
         <ScrollProgress />
         <ScrollToTop />

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { useLocation } from 'react-router-dom';
+import * as THREE from 'three';
 import useWebGLSupport from '../../hooks/useWebGLSupport';
 import useReducedMotion from '../../hooks/useReducedMotion';
 import { useQuality } from '../../hooks/useAdaptive3DQuality';
@@ -8,7 +9,7 @@ import SolarFallback from './SolarFallback';
 import SolarSystemScene from './SolarSystemScene';
 import PerformanceMonitor from '../performance/PerformanceMonitor';
 
-export const SolarSystemCanvas = () => {
+export const SolarSystemCanvas = ({ introActive, introTime, onIntroComplete }) => {
   const hasWebGL = useWebGLSupport();
   const prefersReduced = useReducedMotion();
   const location = useLocation();
@@ -37,13 +38,24 @@ export const SolarSystemCanvas = () => {
   return (
     <div className="cosmic-background">
       <Canvas
+        shadows={quality.tier === 'desktop'}
         camera={{ position: [0, 0, 7.5], fov: 50 }}
         dpr={quality.dpr}
         gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
+        onCreated={({ gl }) => {
+          gl.toneMapping = THREE.ACESFilmicToneMapping;
+          gl.toneMappingExposure = 1.15;
+        }}
         frameloop={loopMode}
         style={{ background: 'transparent', pointerEvents: 'none' }}
       >
-        <SolarSystemScene quality={quality} prefersReduced={prefersReduced} />
+        <SolarSystemScene 
+          quality={quality} 
+          prefersReduced={prefersReduced} 
+          introActive={introActive}
+          introTime={introTime}
+          onIntroComplete={onIntroComplete}
+        />
         <PerformanceMonitor downgradeQuality={downgradeQuality} />
       </Canvas>
     </div>
