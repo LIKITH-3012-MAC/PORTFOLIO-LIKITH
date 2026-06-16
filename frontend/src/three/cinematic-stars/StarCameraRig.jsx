@@ -29,6 +29,11 @@ export const StarCameraRig = ({ quality, prefersReduced }) => {
     state.camera.position.x += (targetX - state.camera.position.x) * ease;
     state.camera.position.y += (targetY - state.camera.position.y) * ease;
 
+    // Ensure camera up vector is always vertical when not in intro
+    if (state.camera.up.x !== 0 || state.camera.up.y !== 1 || state.camera.up.z !== 0) {
+      state.camera.up.set(0, 1, 0);
+    }
+
     // Keep camera aligned to target center
     state.camera.lookAt(0, 0, 0);
   });

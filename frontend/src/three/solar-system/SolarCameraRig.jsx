@@ -28,6 +28,11 @@ export const SolarCameraRig = ({ quality, prefersReduced }) => {
     camera.position.x += (targetX - camera.position.x) * 0.05;
     camera.position.y += (targetY - camera.position.y) * 0.05;
 
+    // Ensure camera up vector is always vertical when not in intro
+    if (camera.up.x !== 0 || camera.up.y !== 1 || camera.up.z !== 0) {
+      camera.up.set(0, 1, 0);
+    }
+
     // Always look at the scene center (the sun)
     camera.lookAt(new THREE.Vector3(0, 0, 0));
   });

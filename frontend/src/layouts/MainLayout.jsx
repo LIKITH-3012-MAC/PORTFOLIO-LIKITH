@@ -1,5 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import useWebGLSupport from '../hooks/useWebGLSupport';
+import useReducedMotion from '../hooks/useReducedMotion';
 import Navbar from '../components/common/Navbar';
 import MobileMenu from '../components/common/MobileMenu';
 import Footer from '../components/common/Footer';
@@ -17,16 +20,68 @@ export const MainLayout = () => {
   const [founderMessageOpen, setFounderMessageOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Cinematic Intro state
-  const [introActive, setIntroActive] = useState(true);
+  // Cinematic Intro state - guaranteed completion checks
+  const [introComplete, setIntroComplete] = useState(() => {
+    try {
+      return sessionStorage.getItem('likith-cinematic-intro-seen') === 'true';
+    } catch {
+      return false;
+    }
+  });
+
   const introTime = useRef(0);
+  const hasCompletedRef = useRef(false);
+
+  // Idempotent completion function
+  const completeIntro = useCallback(() => {
+    if (hasCompletedRef.current) return;
+    hasCompletedRef.current = true;
+    setIntroComplete(true);
+    try {
+      sessionStorage.setItem('likith-cinematic-intro-seen', 'true');
+    } catch (err) {
+      // safe fallback
+    }
+  }, []);
+
+  const prefersReduced = useReducedMotion();
+  const hasWebGL = useWebGLSupport();
+
+  // Instant skip for reduced motion or missing WebGL contexts
+  useEffect(() => {
+    if (prefersReduced || !hasWebGL) {
+      completeIntro();
+    }
+  }, [prefersReduced, hasWebGL, completeIntro]);
+
+  // Safety Timeout Fallback (5 seconds) to ensure the portfolio never stays locked
+  useEffect(() => {
+    if (introComplete) return;
+    const safetyTimer = window.setTimeout(() => {
+      completeIntro();
+    }, 5000);
+    return () => window.clearTimeout(safetyTimer);
+  }, [introComplete, completeIntro]);
+
+  // Pageshow event handler (for Mobile Safari back-forward cache compatibility)
+  useEffect(() => {
+    const handlePageShow = (event) => {
+      if (event.persisted) {
+        completeIntro();
+      }
+    };
+    window.addEventListener('pageshow', handlePageShow);
+    return () => {
+      window.removeEventListener('pageshow', handlePageShow);
+    };
+  }, [completeIntro]);
 
   // Reset the intro timer when intro starts
   useEffect(() => {
-    if (introActive) {
+    if (!introComplete) {
       introTime.current = 0;
     }
-  }, [introActive]);
+  }, [introComplete]);
 
   // Listen for the ?open=message query parameter globally
   useEffect(() => {
@@ -50,30 +105,37 @@ export const MainLayout = () => {
   };
 
   const handleSkipIntro = () => {
-    sessionStorage.setItem('likith-cinematic-intro-seen', 'true');
-    setIntroActive(false);
+    completeIntro();
   };
 
   return (
-    <div className="app-shell min-h-screen flex flex-col bg-transparent text-slate-100 overflow-x-hidden selection:bg-white/20 selection:text-white">
+    <div className={`app-shell min-h-screen flex flex-col bg-transparent text-slate-100 overflow-x-hidden selection:bg-white/20 selection:text-white ${
+      introComplete ? 'app--ready' : 'app--intro'
+    }`}>
       {/* Cinematic Intro Manager (Layer 5) */}
-      <CinematicIntro 
-        introActive={introActive} 
-        setIntroActive={setIntroActive} 
-        onSkip={handleSkipIntro}
-      />
+      <AnimatePresence mode="wait">
+        {!introComplete && (
+          <CinematicIntro 
+            key="cinematic-intro"
+            introActive={!introComplete} 
+            setIntroActive={setIntroComplete} 
+            onSkip={completeIntro}
+            onComplete={completeIntro}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Immersive 3D Space Background (Layer 1) */}
       <GlobalStarCanvas 
-        introActive={introActive}
+        introActive={!introComplete}
         introTime={introTime}
-        onIntroComplete={handleSkipIntro}
+        onIntroComplete={completeIntro}
       />
 
       {/* Site Content (Layer 3) */}
       <div 
         className={`site-content flex-grow flex flex-col transition-opacity duration-1000 ${
-          introActive ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          introComplete ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
       >
         {/* Scroll trackers */}
@@ -114,6 +176,22 @@ export const MainLayout = () => {
         isOpen={founderMessageOpen}
         onClose={() => setFounderMessageOpen(false)}
       />
+
+      {/* Floating Developer Replay Button (Only visible in local development environment when intro is completed) */}
+      {import.meta.env.DEV && introComplete && (
+        <button
+          onClick={() => {
+            try {
+              sessionStorage.removeItem('likith-cinematic-intro-seen');
+            } catch {}
+            window.location.reload();
+          }}
+          className="fixed bottom-4 left-4 z-40 px-3 py-1.5 rounded bg-slate-900/90 border border-slate-700 hover:border-amber-500 text-slate-400 hover:text-amber-400 font-mono text-[10px] tracking-wider transition-all duration-200 cursor-pointer shadow-lg"
+          title="Developer Replay Option (Local Only)"
+        >
+          ⚙️ Replay Intro
+        </button>
+      )}
     </div>
   );
 };

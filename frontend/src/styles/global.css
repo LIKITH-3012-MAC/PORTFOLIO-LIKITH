@@ -643,3 +643,37 @@ html.lenis, html.lenis body {
   color: #fbbf24;
   box-shadow: 0 0 20px rgba(251, 191, 36, 0.1);
 }
+
+/* Cinematic mobile viewport and stacking layout fixes */
+.app-shell {
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
+.cinematic-intro {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  min-height: 100svh;
+  height: 100dvh;
+  z-index: 10000;
+}
+
+.cinematic-intro.is-exiting {
+  pointer-events: none !important;
+}
+
+.cosmic-background {
+  z-index: 0 !important;
+}
+
+.site-content {
+  position: relative;
+  z-index: 2 !important;
+}
+
+.navigation,
+.mobile-menu,
+.chatbot {
+  z-index: 1100 !important;
+}
