@@ -65,6 +65,11 @@ const Comet = ({ seed = 0, speed = 1, orbitRadius = 18 }) => {
 
     groupRef.current.position.set(x, y, z);
 
+    // Set comet position in scene userData so stars can react to it
+    if (seed === 0) {
+      state.scene.userData.cometPos = groupRef.current.position.clone();
+    }
+
     // Tail direction: always points away from origin (sun)
     const sunDir = groupRef.current.position.clone().normalize();
 
@@ -176,84 +181,8 @@ const Comet = ({ seed = 0, speed = 1, orbitRadius = 18 }) => {
   );
 };
 
-// Shooting star streaks
-const ShootingStar = ({ seed = 0, bounds = 30 }) => {
-  const ref = useRef();
-  const trailRef = useRef();
-
-  const params = useMemo(() => {
-    const speed = 12 + seed * 15;
-    const dir = new THREE.Vector3(
-      (seed - 0.5) * 2,
-      -0.5 - seed * 0.5,
-      (Math.random() - 0.5)
-    ).normalize();
-
-    const start = new THREE.Vector3(
-      (Math.random() - 0.5) * bounds,
-      bounds * 0.3 + Math.random() * bounds * 0.3,
-      (Math.random() - 0.5) * bounds
-    );
-
-    return { speed, dir, start: start.clone(), pos: start.clone() };
-  }, [seed, bounds]);
-
-  useFrame((state, delta) => {
-    if (!ref.current) return;
-    const dt = Math.min(delta, 0.1);
-
-    params.pos.addScaledVector(params.dir, params.speed * dt);
-
-    // Reset when out of bounds
-    const d = params.pos.length();
-    if (d > bounds * 1.5) {
-      params.pos.copy(params.start);
-      params.pos.x += (Math.random() - 0.5) * bounds * 0.5;
-      params.pos.z += (Math.random() - 0.5) * bounds * 0.5;
-    }
-
-    ref.current.position.copy(params.pos);
-
-    // Trail stretching
-    if (trailRef.current) {
-      trailRef.current.scale.set(1, 1, 2.5);
-      trailRef.current.lookAt(
-        params.pos.x + params.dir.x,
-        params.pos.y + params.dir.y,
-        params.pos.z + params.dir.z
-      );
-    }
-  });
-
-  return (
-    <group ref={ref}>
-      {/* Bright head */}
-      <mesh>
-        <sphereGeometry args={[0.015, 6, 6]} />
-        <meshBasicMaterial
-          color="#ffffff"
-          transparent
-          opacity={0.9}
-        />
-      </mesh>
-      {/* Trail */}
-      <mesh ref={trailRef} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.008, 0.001, 0.4, 4]} />
-        <meshBasicMaterial
-          color="#aaddff"
-          transparent
-          opacity={0.4}
-          depthWrite={false}
-          blending={THREE.AdditiveBlending}
-        />
-      </mesh>
-    </group>
-  );
-};
-
 export const CometSystem = ({ quality }) => {
-  const cometCount = quality.tier === 'desktop' ? 3 : quality.tier === 'tablet' ? 2 : 1;
-  const shootingStarCount = quality.tier === 'desktop' ? 5 : 3;
+  const cometCount = quality.tier === 'desktop' || quality.tier === 'ultra' ? 3 : quality.tier === 'tablet' || quality.tier === 'mobile' ? 2 : 1;
 
   return (
     <group>
@@ -264,15 +193,6 @@ export const CometSystem = ({ quality }) => {
           seed={i / cometCount}
           speed={0.6 + i * 0.3}
           orbitRadius={16 + i * 6}
-        />
-      ))}
-
-      {/* Shooting stars */}
-      {Array.from({ length: shootingStarCount }).map((_, i) => (
-        <ShootingStar
-          key={`star-${i}`}
-          seed={i / shootingStarCount}
-          bounds={35}
         />
       ))}
     </group>

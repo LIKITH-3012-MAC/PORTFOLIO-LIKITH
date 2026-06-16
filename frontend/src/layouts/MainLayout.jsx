@@ -7,7 +7,7 @@ import ScrollProgress from '../components/common/ScrollProgress';
 import ScrollToTop from '../components/common/ScrollToTop';
 import Chatbot from '../components/chatbot/Chatbot';
 import FounderMessage from '../components/home/FounderMessage';
-import SolarSystemCanvas from '../three/solar-system/SolarSystemCanvas';
+import GlobalStarCanvas from '../three/cinematic-stars/GlobalStarCanvas';
 import CinematicIntro from '../components/intro/CinematicIntro';
 import { Bot } from 'lucide-react';
 
@@ -64,7 +64,7 @@ export const MainLayout = () => {
       />
 
       {/* Immersive 3D Space Background (Layer 1) */}
-      <SolarSystemCanvas 
+      <GlobalStarCanvas 
         introActive={introActive}
         introTime={introTime}
         onIntroComplete={handleSkipIntro}

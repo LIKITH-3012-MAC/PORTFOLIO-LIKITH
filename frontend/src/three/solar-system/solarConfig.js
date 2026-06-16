@@ -1,7 +1,14 @@
 export const SOLAR_QUALITY_PRESETS = {
   low: {
     tier: 'low',
-    starCount: 250,
+    starCount: 395,
+    starConfig: {
+      distantStars: 300,
+      midStars: 80,
+      foregroundStars: 12,
+      brightStars: 3,
+      shootingStars: 1
+    },
     asteroidCount: 60,
     maxComets: 1,
     cometsEnabled: true,
@@ -16,7 +23,14 @@ export const SOLAR_QUALITY_PRESETS = {
   },
   mobile: {
     tier: 'mobile',
-    starCount: 600,
+    starCount: 839,
+    starConfig: {
+      distantStars: 650,
+      midStars: 160,
+      foregroundStars: 24,
+      brightStars: 5,
+      shootingStars: 1
+    },
     asteroidCount: 120,
     maxComets: 1,
     cometsEnabled: true,
@@ -31,9 +45,38 @@ export const SOLAR_QUALITY_PRESETS = {
   },
   desktop: {
     tier: 'desktop',
-    starCount: 1600,
+    starCount: 2302,
+    starConfig: {
+      distantStars: 1800,
+      midStars: 420,
+      foregroundStars: 70,
+      brightStars: 12,
+      shootingStars: 2
+    },
     asteroidCount: 450,
     maxComets: 2,
+    cometsEnabled: true,
+    shootingStarsEnabled: true,
+    nebulaEnabled: true,
+    atmosphereEnabled: true,
+    ringsEnabled: true,
+    moonsEnabled: true,
+    postProcessing: true,
+    dpr: 1.5,
+    visiblePlanets: ['sun', 'mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune']
+  },
+  ultra: {
+    tier: 'ultra',
+    starCount: 3628,
+    starConfig: {
+      distantStars: 2800,
+      midStars: 700,
+      foregroundStars: 110,
+      brightStars: 18,
+      shootingStars: 3
+    },
+    asteroidCount: 600,
+    maxComets: 3,
     cometsEnabled: true,
     shootingStarsEnabled: true,
     nebulaEnabled: true,

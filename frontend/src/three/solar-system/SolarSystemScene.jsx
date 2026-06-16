@@ -7,8 +7,6 @@ import Planet from './Planet';
 import PlanetOrbit from './PlanetOrbit';
 import AsteroidBelt from './AsteroidBelt';
 import CometSystem from './CometSystem';
-import StarField from './StarField';
-import NebulaField from './NebulaField';
 import SolarSceneController from './SolarSceneController';
 import SolarCameraRig from './SolarCameraRig';
 import IntroSceneController from '../../components/intro/IntroSceneController';
@@ -18,7 +16,7 @@ const PLANET_ORDER = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 
 const ORBIT_COLOR = '#ffffff';
 const SUN_POSITION = new THREE.Vector3(0, 0, 0);
 
-export const SolarSystemScene = ({ quality, prefersReduced, introActive, introTime, onIntroComplete }) => {
+export const SolarSystemScene = ({ quality, prefersReduced, introActive, introTime, onIntroComplete, currentPath }) => {
   // Filter planets based on quality tier
   const visiblePlanets = useMemo(() => {
     return PLANET_ORDER.filter(id => quality.visiblePlanets.includes(id));
@@ -38,7 +36,7 @@ export const SolarSystemScene = ({ quality, prefersReduced, introActive, introTi
         </>
       ) : (
         <>
-          <SolarSceneController quality={quality} />
+          <SolarSceneController quality={quality} currentPath={currentPath} />
           <SolarCameraRig quality={quality} prefersReduced={prefersReduced} />
         </>
       )}
@@ -50,18 +48,6 @@ export const SolarSystemScene = ({ quality, prefersReduced, introActive, introTi
         groundColor="#080b12"
         intensity={0.10}
       />
-
-      {/* Star field background */}
-      <StarField
-        count={quality.starCount}
-        spread={85}
-        layers={3}
-      />
-
-      {/* Nebula clouds (far distance) */}
-      {quality.nebulaEnabled && (
-        <NebulaField count={4} spread={55} />
-      )}
 
       {/* Main solar system group (moved by scroll controller) */}
       <group name="solar-system-group">

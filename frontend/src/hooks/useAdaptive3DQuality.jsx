@@ -11,10 +11,13 @@ export const QualityProvider = ({ children }) => {
   const [quality, setQuality] = useState(SOLAR_QUALITY_PRESETS.desktop);
 
   useEffect(() => {
+    const isUltrawide = typeof window !== 'undefined' && (window.innerWidth > 2000 || (window.innerWidth / window.innerHeight) > 2.1);
     if (prefersReduced || deviceTier === 'low') {
       setQuality(SOLAR_QUALITY_PRESETS.low);
     } else if (deviceTier === 'medium') {
       setQuality(SOLAR_QUALITY_PRESETS.mobile);
+    } else if (isUltrawide) {
+      setQuality(SOLAR_QUALITY_PRESETS.ultra || SOLAR_QUALITY_PRESETS.desktop);
     } else {
       setQuality(SOLAR_QUALITY_PRESETS.desktop);
     }

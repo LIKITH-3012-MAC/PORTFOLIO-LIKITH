@@ -113,11 +113,15 @@ export const IntroComet = ({ introTime }) => {
     // Active sequence: 0.0s to 2.55s (dissolution)
     if (t > 2.7) {
       groupRef.current.position.set(999, 999, 999);
+      state.scene.userData.cometPos = null;
       return;
     }
 
     const currentPos = getCometPosition(t);
     groupRef.current.position.copy(currentPos);
+
+    // Set comet position in scene userData so stars can react to it during the intro
+    state.scene.userData.cometPos = currentPos.clone();
 
     // Calculate velocity tangent using finite differences
     const nextPos = getCometPosition(t + 0.01);

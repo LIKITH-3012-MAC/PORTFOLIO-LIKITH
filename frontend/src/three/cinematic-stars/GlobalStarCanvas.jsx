@@ -5,18 +5,19 @@ import * as THREE from 'three';
 import useWebGLSupport from '../../hooks/useWebGLSupport';
 import useReducedMotion from '../../hooks/useReducedMotion';
 import { useQuality } from '../../hooks/useAdaptive3DQuality';
-import SolarFallback from './SolarFallback';
-import SolarSystemScene from './SolarSystemScene';
+import StarFallback from './StarFallback';
+import CinematicStarUniverse from './CinematicStarUniverse';
+import SolarSystemScene from '../solar-system/SolarSystemScene';
 import PerformanceMonitor from '../performance/PerformanceMonitor';
 
-export const SolarSystemCanvas = ({ introActive, introTime, onIntroComplete }) => {
+export const GlobalStarCanvas = ({ introActive, introTime, onIntroComplete }) => {
   const hasWebGL = useWebGLSupport();
   const prefersReduced = useReducedMotion();
   const location = useLocation();
   const { quality, downgradeQuality } = useQuality();
   const [tabVisible, setTabVisible] = useState(true);
 
-  // Monitor Page Visibility API to suspend draw loops when tab is hidden
+  // Track visibility API to pause rendering when backgrounded
   useEffect(() => {
     const handleVisibilityChange = () => {
       setTabVisible(!document.hidden);
@@ -27,9 +28,9 @@ export const SolarSystemCanvas = ({ introActive, introTime, onIntroComplete }) =
 
   const isCanvasRoute = ['/', '/index.html', '/collab', '/git-profile', '/youtube', '/data', '/problem'].includes(location.pathname);
 
-  // Render static/CSS fallback when WebGL is unsupported
+  // Return layered CSS fallback if WebGL is unsupported
   if (!hasWebGL) {
-    return <SolarFallback />;
+    return <StarFallback />;
   }
 
   // Suspend canvas loop if tab is hidden or user is on non-canvas route
@@ -49,6 +50,14 @@ export const SolarSystemCanvas = ({ introActive, introTime, onIntroComplete }) =
         frameloop={loopMode}
         style={{ background: 'transparent', pointerEvents: 'none' }}
       >
+        {/* 1. Cinematic Background Universe */}
+        <CinematicStarUniverse 
+          quality={quality} 
+          prefersReduced={prefersReduced} 
+          currentPath={location.pathname}
+        />
+
+        {/* 2. Interactive Solar System Elements */}
         <SolarSystemScene 
           quality={quality} 
           prefersReduced={prefersReduced} 
@@ -57,10 +66,11 @@ export const SolarSystemCanvas = ({ introActive, introTime, onIntroComplete }) =
           onIntroComplete={onIntroComplete}
           currentPath={location.pathname}
         />
+
         <PerformanceMonitor downgradeQuality={downgradeQuality} />
       </Canvas>
     </div>
   );
 };
 
-export default SolarSystemCanvas;
+export default GlobalStarCanvas;

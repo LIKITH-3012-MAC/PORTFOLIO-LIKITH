@@ -6,7 +6,7 @@ import { SOLAR_SECTION_METRICS } from './solarConfig';
 const SECTION_IDS = ['about', 'experience', 'projects', 'skills', 'founder', 'contact'];
 const SECTION_KEYS = ['hero', 'about', 'experience', 'projects', 'skills', 'founder', 'contact'];
 
-export const SolarSceneController = ({ quality }) => {
+export const SolarSceneController = ({ quality, currentPath }) => {
   const scrollRef = useRef({
     currentScroll: 0,
     targetScroll: 0
@@ -31,54 +31,78 @@ export const SolarSceneController = ({ quality }) => {
     const isMobile = window.innerWidth <= 768;
     const layout = isMobile ? SOLAR_SECTION_METRICS.mobile : SOLAR_SECTION_METRICS.desktop;
 
-    // Build scroll intervals from DOM section offsets
-    const offsets = [0];
-    SECTION_IDS.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        offsets.push(el.offsetTop);
-      } else {
-        offsets.push(offsets[offsets.length - 1] + window.innerHeight);
-      }
-    });
+    const isHome = currentPath === '/' || currentPath === '/index.html' || !currentPath;
 
-    const scrollVal = s.currentScroll;
-    let sectionIdx = 0;
-    let progress = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let targetZ = 0;
+    let targetScale = 1.0;
+    let targetCamZ = 7.5;
 
-    for (let i = 0; i < offsets.length - 1; i++) {
-      if (scrollVal >= offsets[i] && scrollVal <= offsets[i + 1]) {
-        sectionIdx = i;
-        const range = offsets[i + 1] - offsets[i];
-        progress = range > 0 ? (scrollVal - offsets[i]) / range : 0;
-        break;
+    if (isHome) {
+      // Build scroll intervals from DOM section offsets
+      const offsets = [0];
+      SECTION_IDS.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          offsets.push(el.offsetTop);
+        } else {
+          offsets.push(offsets[offsets.length - 1] + window.innerHeight);
+        }
+      });
+
+      const scrollVal = s.currentScroll;
+      let sectionIdx = 0;
+      let progress = 0;
+
+      for (let i = 0; i < offsets.length - 1; i++) {
+        if (scrollVal >= offsets[i] && scrollVal <= offsets[i + 1]) {
+          sectionIdx = i;
+          const range = offsets[i + 1] - offsets[i];
+          progress = range > 0 ? (scrollVal - offsets[i]) / range : 0;
+          break;
+        }
       }
+
+      if (scrollVal > offsets[offsets.length - 1]) {
+        sectionIdx = offsets.length - 2;
+        progress = 1.0;
+      }
+
+      const currentKey = SECTION_KEYS[sectionIdx];
+      const nextKey = SECTION_KEYS[Math.min(sectionIdx + 1, SECTION_KEYS.length - 1)];
+
+      const currentConf = layout[currentKey];
+      const nextConf = layout[nextKey];
+
+      if (currentConf && nextConf) {
+        // Smoothed section interpolation
+        targetX = THREE.MathUtils.lerp(currentConf.pos[0], nextConf.pos[0], progress);
+        targetY = THREE.MathUtils.lerp(currentConf.pos[1], nextConf.pos[1], progress);
+        targetZ = THREE.MathUtils.lerp(currentConf.pos[2], nextConf.pos[2], progress);
+        targetScale = THREE.MathUtils.lerp(currentConf.scale, nextConf.scale, progress);
+        targetCamZ = THREE.MathUtils.lerp(currentConf.camZ, nextConf.camZ, progress);
+
+        // Store scroll metrics in scene userData for components to reference
+        state.scene.userData.sectionIdx = sectionIdx;
+        state.scene.userData.progress = progress;
+        state.scene.userData.scrollProgress = sectionIdx + progress;
+      }
+    } else {
+      // Non-home routes: smoothly hide the solar system
+      targetX = 0;
+      targetY = -18; // descend down out of view
+      targetZ = -12; // move back
+      targetScale = 0.001; // shrink to tiny scale
+      targetCamZ = 8.5; // standard camera depth
+
+      state.scene.userData.sectionIdx = 0;
+      state.scene.userData.progress = 0;
+      state.scene.userData.scrollProgress = 0;
     }
 
-    if (scrollVal > offsets[offsets.length - 1]) {
-      sectionIdx = offsets.length - 2;
-      progress = 1.0;
-    }
-
-    const currentKey = SECTION_KEYS[sectionIdx];
-    const nextKey = SECTION_KEYS[Math.min(sectionIdx + 1, SECTION_KEYS.length - 1)];
-
-    const currentConf = layout[currentKey];
-    const nextConf = layout[nextKey];
-
-    if (!currentConf || !nextConf) return;
-
-    // Smoothed section interpolation
-    const targetX = THREE.MathUtils.lerp(currentConf.pos[0], nextConf.pos[0], progress);
-    const targetY = THREE.MathUtils.lerp(currentConf.pos[1], nextConf.pos[1], progress);
-    const targetZ = THREE.MathUtils.lerp(currentConf.pos[2], nextConf.pos[2], progress);
-    const targetScale = THREE.MathUtils.lerp(currentConf.scale, nextConf.scale, progress);
-    const targetCamZ = THREE.MathUtils.lerp(currentConf.camZ, nextConf.camZ, progress);
-
-    // Store scroll metrics in scene userData for components to reference
-    state.scene.userData.sectionIdx = sectionIdx;
-    state.scene.userData.progress = progress;
-    state.scene.userData.scrollProgress = sectionIdx + progress;
+    // Write path to scene userData
+    state.scene.userData.currentPath = currentPath;
 
     // Apply to the solar system group
     state.scene.traverse((child) => {
@@ -86,8 +110,8 @@ export const SolarSceneController = ({ quality }) => {
         child.position.x += (targetX - child.position.x) * 0.06;
         child.position.y += (targetY - child.position.y) * 0.06;
         child.position.z += (targetZ - child.position.z) * 0.06;
-        const s = child.scale.x + (targetScale - child.scale.x) * 0.06;
-        child.scale.set(s, s, s);
+        const scaleVal = child.scale.x + (targetScale - child.scale.x) * 0.06;
+        child.scale.set(scaleVal, scaleVal, scaleVal);
       }
     });
 

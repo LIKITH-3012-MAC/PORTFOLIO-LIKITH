@@ -1,0 +1,52 @@
+export const cinematicStarQuality = {
+  low: {
+    tier: 'low',
+    distantStars: 350,
+    midStars: 90,
+    foregroundStars: 10,
+    focalStars: 2,
+    dustCount: 30,
+    shootingStars: 1,
+    nebulaQuality: 'low',
+    bloom: false,
+    dpr: 1.0,
+  },
+  mobile: {
+    tier: 'mobile',
+    distantStars: 700,
+    midStars: 170,
+    foregroundStars: 22,
+    focalStars: 4,
+    dustCount: 70,
+    shootingStars: 1,
+    nebulaQuality: 'medium',
+    bloom: false,
+    dpr: 1.0,
+  },
+  desktop: {
+    tier: 'desktop',
+    distantStars: 2200,
+    midStars: 500,
+    foregroundStars: 80,
+    focalStars: 12,
+    dustCount: 220,
+    shootingStars: 2,
+    nebulaQuality: 'high',
+    bloom: true,
+    dpr: 1.5,
+  },
+  ultra: {
+    tier: 'ultra',
+    distantStars: 3200,
+    midStars: 850,
+    foregroundStars: 130,
+    focalStars: 18,
+    dustCount: 350,
+    shootingStars: 3,
+    nebulaQuality: 'high',
+    bloom: true,
+    dpr: 1.5,
+  }
+};
+
+export default cinematicStarQuality;
