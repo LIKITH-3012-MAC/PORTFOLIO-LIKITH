@@ -2,6 +2,11 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/:path*", "destination": "/index.html" }
+    { "source": "/collab.html", "destination": "/index.html" },
+    { "source": "/dataa.html", "destination": "/index.html" },
+    { "source": "/likith-git-profile.html", "destination": "/index.html" },
+    { "source": "/likith-youtube.html", "destination": "/index.html" },
+    { "source": "/problem.html", "destination": "/index.html" },
+    { "source": "/((?!assets/|knowledge/|.*\\.).*)", "destination": "/index.html" }
   ]
 }
