@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Github, Linkedin, Twitter, Play, Zap, MessageSquare, Box, Cpu } from 'lucide-react';
+import { Github, Linkedin, Twitter, Play, Zap, MessageSquare, Cpu } from 'lucide-react';
 import { motion } from 'framer-motion';
 import CONFIG from '../../services/config';
 import { fadeUp, scaleReveal } from '../../motion/variants';
@@ -67,14 +67,7 @@ export const Hero = ({ onOpenMessage }) => {
               <MessageSquare className="w-5 h-5 text-amber-400 group-hover:rotate-12 transition-transform duration-300" />
               <span>Likith’s Message</span>
             </button>
-            <a 
-              href="https://web-beta-seven-50.vercel.app/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="btn-neon flex items-center gap-2"
-            >
-              <Box className="w-4 h-4" /> heres my 3d portfolio
-            </a>
+
           </div>
 
           <div className="flex items-center gap-6 pt-8 border-t border-white/5">

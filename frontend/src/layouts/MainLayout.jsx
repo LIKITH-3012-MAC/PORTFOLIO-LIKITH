@@ -7,7 +7,7 @@ import ScrollProgress from '../components/common/ScrollProgress';
 import ScrollToTop from '../components/common/ScrollToTop';
 import Chatbot from '../components/chatbot/Chatbot';
 import FounderMessage from '../components/home/FounderMessage';
-import CosmicCanvas from '../three/cosmic/CosmicCanvas';
+import SolarSystemCanvas from '../three/solar-system/SolarSystemCanvas';
 import { Bot } from 'lucide-react';
 
 export const MainLayout = () => {
@@ -40,7 +40,7 @@ export const MainLayout = () => {
   return (
     <div className="app-shell min-h-screen flex flex-col bg-transparent text-slate-100 overflow-x-hidden selection:bg-white/20 selection:text-white">
       {/* Immersive 3D Space Background (Layer 1) */}
-      <CosmicCanvas />
+      <SolarSystemCanvas />
 
       {/* Site Content (Layer 3) */}
       <div className="site-content flex-grow flex flex-col">

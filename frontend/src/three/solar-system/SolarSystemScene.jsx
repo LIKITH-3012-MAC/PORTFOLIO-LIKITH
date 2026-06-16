@@ -1,0 +1,96 @@
+import React, { useMemo } from 'react';
+import * as THREE from 'three';
+
+import { PLANET_CONFIG } from './solarConfig';
+import Sun from './Sun';
+import Planet from './Planet';
+import PlanetOrbit from './PlanetOrbit';
+import AsteroidBelt from './AsteroidBelt';
+import CometSystem from './CometSystem';
+import StarField from './StarField';
+import NebulaField from './NebulaField';
+import SolarSceneController from './SolarSceneController';
+import SolarCameraRig from './SolarCameraRig';
+
+const PLANET_ORDER = ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'];
+const ORBIT_COLOR = '#ffffff';
+const SUN_POSITION = new THREE.Vector3(0, 0, 0);
+
+export const SolarSystemScene = ({ quality, prefersReduced }) => {
+  // Filter planets based on quality tier
+  const visiblePlanets = useMemo(() => {
+    return PLANET_ORDER.filter(id => quality.visiblePlanets.includes(id));
+  }, [quality.visiblePlanets]);
+
+  return (
+    <>
+      {/* Controllers */}
+      <SolarSceneController quality={quality} />
+      <SolarCameraRig quality={quality} prefersReduced={prefersReduced} />
+
+      {/* Ambient environment light */}
+      <ambientLight intensity={0.08} color="#222244" />
+
+      {/* Star field background */}
+      <StarField
+        count={quality.starCount}
+        spread={85}
+        layers={3}
+      />
+
+      {/* Nebula clouds (far distance) */}
+      {quality.nebulaEnabled && (
+        <NebulaField count={4} spread={55} />
+      )}
+
+      {/* Main solar system group (moved by scroll controller) */}
+      <group name="solar-system-group">
+        {/* The Sun */}
+        <Sun config={PLANET_CONFIG.sun} quality={quality} />
+
+        {/* Planets with orbital paths */}
+        {visiblePlanets.map((id) => {
+          const config = PLANET_CONFIG[id];
+          if (!config) return null;
+
+          return (
+            <group key={id}>
+              {/* Orbit ring */}
+              {config.orbitRadius && (
+                <PlanetOrbit
+                  radius={config.orbitRadius}
+                  color={ORBIT_COLOR}
+                  opacity={0.06}
+                />
+              )}
+
+              {/* Planet */}
+              <Planet
+                id={id}
+                config={config}
+                quality={quality}
+                sunPosition={SUN_POSITION}
+              />
+            </group>
+          );
+        })}
+
+        {/* Asteroid belt between Mars and Jupiter */}
+        <AsteroidBelt
+          innerRadius={9.5}
+          outerRadius={11.0}
+          count={quality.asteroidCount}
+          ySpread={0.5}
+          baseColor="#888899"
+        />
+
+        {/* Comets and shooting stars */}
+        {quality.cometsEnabled && (
+          <CometSystem quality={quality} />
+        )}
+      </group>
+    </>
+  );
+};
+
+export default SolarSystemScene;
