@@ -2,11 +2,9 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/collab.html", "destination": "/index.html" },
-    { "source": "/dataa.html", "destination": "/index.html" },
-    { "source": "/likith-git-profile.html", "destination": "/index.html" },
-    { "source": "/likith-youtube.html", "destination": "/index.html" },
-    { "source": "/problem.html", "destination": "/index.html" },
-    { "source": "/((?!assets/|knowledge/|.*\\.).*)", "destination": "/index.html" }
+    {
+      "source": "/((?!assets|knowledge|favicon.png|apple-touch-icon.png|likiths.jpeg|my_resume.pdf|LIKITH-resume.pdf|robots.txt|sitemap.xml).*)",
+      "destination": "/index.html"
+    }
   ]
 }
