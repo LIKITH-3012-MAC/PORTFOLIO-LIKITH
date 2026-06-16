@@ -1,0 +1,12 @@
+# Robots.txt for Likith Portfolio
+User-agent: *
+Allow: /
+
+# Prevent indexing of specific asset types if needed
+Disallow: /backend/
+Disallow: /data/
+Disallow: /dataa.html
+Disallow: /analytics.js
+
+# Sitemap location
+Sitemap: https://likith-portfolio.online/sitemap.xml
