@@ -1,0 +1,34 @@
+/* custom layouts and details adjustments for high fidelity displays */
+
+@media (max-width: 1023px) {
+  :root {
+    --navbar-height: 4rem;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --navbar-height: 3.5rem;
+  }
+  
+  .success-stage {
+    padding: 2.5rem 1rem;
+  }
+  
+  #rocket-stage {
+    height: 160px;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Landscape orientation optimization for small mobile devices */
+@media (max-height: 480px) and (orientation: landscape) {
+  .success-stage {
+    padding: 1.5rem 1rem;
+  }
+  
+  #rocket-stage {
+    height: 100px;
+    margin-bottom: 0.5rem;
+  }
+}

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Hub | Likith Naidu Anumamkonda</title>
+
+    <!-- Core Metadata -->
+    <meta name="description" content="Cinematic media hub showcasing Likith Naidu's AI/ML innovations and creative piano expressions. Experience the intersection of technology and art.">
+    <meta name="keywords" content="Likith Naidu YouTube, AI Demo, Piano Cover, Music Tech, IIT Patna AI, Resolvit AI Demo, BenchAI Showcase, Classical Piano India">
+    <meta name="author" content="Likith Naidu Anumamkonda">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://likith-portfolio.online/likith-youtube.html">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://likith-portfolio.online/likith-youtube.html">
+    <meta property="og:title" content="Media Hub | Likith Naidu Anumamkonda">
+    <meta property="og:description" content="Exploring the intersection of AI innovation and creative musical identity through cinematic video artifacts.">
+    <meta property="og:image" content="https://i.ibb.co/4wdQxJyy/Likith-image.jpg">
+    
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Media Hub | Likith Naidu Anumamkonda">
+    <meta name="twitter:description" content="Exploring the intersection of AI innovation and creative musical identity through cinematic video artifacts.">
+    <meta name="twitter:image" content="https://i.ibb.co/4wdQxJyy/Likith-image.jpg">
+
+    <!-- Structured Data: ProfilePage & VideoObject -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "name": "Likith Naidu Anumamkonda Media Hub",
+      "description": "Showcase of video content including AI project demos and classical piano performances.",
+      "url": "https://likith-portfolio.online/likith-youtube.html",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Likith Naidu Anumamkonda",
+        "sameAs": "https://youtube.com/@LIKITH_NAIDU_ANUMAKONDA"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "Resolvit AI – Turning Community Chaos into Smart Actions",
+      "description": "Official Demo of Resolvit AI – AI-powered civic issue resolution platform.",
+      "thumbnailUrl": "https://i.ytimg.com/vi/FzD2xQicnLU/maxresdefault.jpg",
+      "uploadDate": "2025-01-01T00:00:00Z",
+      "contentUrl": "https://youtu.be/FzD2xQicnLU",
+      "embedUrl": "https://www.youtube.com/embed/FzD2xQicnLU"
+    }
+    </script>
+    
+    <!-- Scripts & Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            background: #000;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .short-card {
+            aspect-ratio: 9 / 16;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .short-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+        .tab-btn.active {
+            background: rgba(251, 191, 36, 0.15);
+            border-color: rgba(251, 191, 36, 0.4);
+            color: #fbbf24;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.1);
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="navigation.js"></script>
+    <!-- Analytics Tracking -->
+    <script src="analytics.js"></script>
+</head>
+<body class="text-slate-200 overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50 rounded-full border border-white/10 bg-slate-950/40 backdrop-blur-xl px-6 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.5)] transition-all duration-300">
+        <div class="flex items-center justify-between">
+            <!-- Brand -->
+            <a href="index.html?source=nav" class="flex items-center gap-3 group">
+                <div class="w-8 h-8 rounded-full overflow-hidden border border-white/10 transition-transform duration-300 group-hover:scale-105">
+                    <img src="https://raw.githubusercontent.com/LIKITH-3012-MAC/MY-PIC-GALLERY/refs/heads/main/Gemini_Generated_Image_ltizrcltizrcltiz.png"
+                        class="w-full h-full object-cover" alt="Likith Naidu Anumamkonda" />
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display font-bold tracking-tight leading-none text-sm text-white">LIKITH NAIDU</span>
+                    <span class="text-[8px] text-slate-400 font-mono tracking-widest uppercase">AI Architect</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Items -->
+            <div class="hidden md:flex items-center gap-6">
+                <a href="index.html?source=nav#about" class="desktop-nav-link text-xs font-medium tracking-wider uppercase text-slate-400 hover:text-white transition-colors" data-nav-target="about">Identity</a>
+                <a href="index.html?source=nav#experience" class="desktop-nav-link text-xs font-medium tracking-wider uppercase text-slate-400 hover:text-white transition-colors" data-nav-target="experience">Experience</a>
+                <a href="index.html?source=nav#projects" class="desktop-nav-link text-xs font-medium tracking-wider uppercase text-slate-400 hover:text-white transition-colors" data-nav-target="projects">Systems</a>
+                <a href="likith-git-profile.html?source=nav" class="desktop-nav-link text-xs font-medium tracking-wider uppercase text-slate-400 hover:text-white transition-colors flex items-center gap-1.5" data-nav-target="git">
+                    <i data-lucide="github" class="w-3.5 h-3.5"></i> Git Archive
+                </a>
+                <a href="likith-youtube.html?source=nav" class="desktop-nav-link text-xs font-medium tracking-wider uppercase text-slate-400 hover:text-white transition-colors flex items-center gap-1.5" data-nav-target="youtube">
+                    <i data-lucide="youtube" class="w-3.5 h-3.5 text-red-500"></i> YouTube Hub
+                </a>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4">
+                <!-- Likith's Message (Desktop only) -->
+                <button onclick="openFounderMessage()" class="hidden lg:flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-amber-400 hover:text-white transition-colors px-3 py-1.5 rounded-full border border-amber-400/20 bg-amber-400/5 hover:bg-amber-400/10">
+                    <i data-lucide="mail" class="w-3.5 h-3.5"></i> Message
+                </button>
+                <a href="collab.html?source=nav" class="btn-premium hidden md:flex !py-2 !px-5 !text-[10px]" data-nav-target="collab">Collaborate</a>
+                
+                <!-- Mobile Hamburger Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white p-2 hover:text-slate-300 transition-colors" aria-label="Open Menu">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation Overlay (Premium Scale-Reveal Glass Modal) -->
+    <div id="mobile-nav-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+        <!-- Backdrop Dim & Blur -->
+        <div id="mobile-nav-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-md opacity-0 transition-opacity duration-300"></div>
+        
+        <!-- Floating Glass Menu Panel -->
+        <div id="mobile-nav-panel" class="relative w-full max-w-sm rounded-[2rem] border border-white/10 bg-slate-950/75 backdrop-blur-2xl p-6 shadow-2xl scale-95 opacity-0 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-6">
+                <span class="font-display font-bold text-sm text-white tracking-wider uppercase">Navigation</span>
+                <button id="mobile-nav-close" class="p-2 text-slate-400 hover:text-white transition-colors" aria-label="Close Navigation">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <!-- Large Touch-friendly Buttons -->
+            <div class="flex flex-col gap-2.5">
+                <a href="index.html?source=nav#about" class="mobile-nav-item" data-nav-target="about">
+                    <span class="mobile-nav-label">Identity</span>
+                    <i data-lucide="arrow-right" class="mobile-nav-arrow w-4 h-4 opacity-0 transition-all"></i>
+                </a>
+                <a href="index.html?source=nav#experience" class="mobile-nav-item" data-nav-target="experience">
+                    <span class="mobile-nav-label">Experience</span>
+                    <i data-lucide="arrow-right" class="mobile-nav-arrow w-4 h-4 opacity-0 transition-all"></i>
+                </a>
+                <a href="index.html?source=nav#projects" class="mobile-nav-item" data-nav-target="projects">
+                    <span class="mobile-nav-label">Systems</span>
+                    <i data-lucide="arrow-right" class="mobile-nav-arrow w-4 h-4 opacity-0 transition-all"></i>
+                </a>
+                <a href="likith-git-profile.html?source=nav" class="mobile-nav-item" data-nav-target="git">
+                    <span class="mobile-nav-label">Git Archive</span>
+                    <i data-lucide="arrow-right" class="mobile-nav-arrow w-4 h-4 opacity-0 transition-all"></i>
+                </a>
+                <a href="likith-youtube.html?source=nav" class="mobile-nav-item" data-nav-target="youtube">
+                    <span class="mobile-nav-label">YouTube Hub</span>
+                    <i data-lucide="arrow-right" class="mobile-nav-arrow w-4 h-4 opacity-0 transition-all"></i>
+                </a>
+                
+                <div class="h-px bg-white/5 my-2"></div>
+                
+                <!-- Secondary: Likith's Message -->
+                <button onclick="openFounderMessage(); document.getElementById('mobile-nav-close').click();" class="mobile-nav-item text-amber-400 border-amber-500/10">
+                    <span>Likith’s Message</span>
+                    <i data-lucide="mail" class="w-4 h-4"></i>
+                </button>
+                
+                <!-- Primary Action: Collaborate -->
+                <a href="collab.html?source=nav" class="mobile-nav-item mobile-nav-btn" data-nav-target="collab">
+                    <span class="mobile-nav-label">Collaborate</span>
+                    <i data-lucide="zap" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- Cinematic Hero -->
+        <section class="pt-32 pb-20 px-6 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col lg:flex-row gap-12 items-center mb-24">
+                    <div class="lg:w-1/2 reveal">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="w-12 h-[1px] bg-white"></span>
+                            <span class="text-white font-mono text-[10px] uppercase tracking-[0.3em]">Official Creator Channel</span>
+                        </div>
+                        <h1 class="text-6xl md:text-8xl font-display font-black text-white mb-8 tracking-tighter leading-none uppercase">
+                            Visual <br> <span class="text-gradient">Narrative</span>
+                        </h1>
+                        <p class="text-xl text-slate-400 font-light leading-relaxed mb-10 max-w-xl">
+                            Bridging cutting-edge AI innovation with soulful musical expression. Explore the creative and technical side of Likith's journey.
+                        </p>
+                        <div class="flex items-center gap-8 p-6 glass-panel rounded-3xl border border-white/10 max-w-md">
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-white">89</div>
+                                <div class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Subscribers</div>
+                            </div>
+                            <div class="w-[1px] h-10 bg-white/10"></div>
+                            <div class="text-center">
+                                <div class="text-2xl font-bold text-white">11</div>
+                                <div class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Videos</div>
+                            </div>
+                            <div class="w-[1px] h-10 bg-white/10"></div>
+                            <div class="flex-grow">
+                                <div class="text-xs font-bold text-white mb-1">@LIKITH_NAIDU_ANUMAKONDA</div>
+                                <div class="text-[10px] text-slate-500">IIT Patna AI/ML Alum</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 reveal" style="transition-delay: 200ms;">
+                        <!-- Featured Video Embed -->
+                        <div class="video-container shadow-[0_30px_60px_-15px_rgba(0,0,0,0.7)] border border-white/10">
+                            <iframe id="hero-player" src="https://www.youtube.com/embed/FzD2xQicnLU" title="Resolvit AI – Turning Community Chaos into Smart Actions" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="mt-6 flex justify-between items-center px-2">
+                            <div>
+                                <h3 class="text-white font-bold text-lg">Resolvit AI – Smart Civic Action</h3>
+                                <p class="text-xs text-slate-500">Official Demo • 9:04</p>
+                            </div>
+                            <a href="https://youtu.be/FzD2xQicnLU?si=hnCVHIl0AZUZxol9" target="_blank" class="btn-glass text-[10px] py-2 px-4">Watch on YouTube</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs & Library -->
+                <div class="mb-12 flex flex-col md:flex-row justify-between items-center gap-6 reveal">
+                    <div class="flex gap-4">
+                        <button class="tab-btn active btn-filter" data-tab="all">All Content</button>
+                        <button class="tab-btn btn-filter" data-tab="video">AI & Projects</button>
+                        <button class="tab-btn btn-filter" data-tab="short">Piano Shorts</button>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono uppercase tracking-widest">
+                        Total 11 Artifacts Published
+                    </div>
+                </div>
+
+                <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+                    <!-- Cards will be injected by JS -->
+                </div>
+
+                <!-- CTA Banner -->
+                <div class="glass-panel p-12 rounded-[3rem] border border-white/10 text-center relative overflow-hidden reveal">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent"></div>
+                    <div class="relative z-10">
+                        <h2 class="text-4xl font-display font-bold text-white mb-6 uppercase tracking-tighter">Follow the Evolution</h2>
+                        <p class="text-slate-400 max-w-xl mx-auto mb-10 text-lg font-light leading-relaxed">
+                            Subscribe to the channel for deep dives into autonomous systems, LLM implementations, and cinematic piano sessions.
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <a href="https://youtube.com/@LIKITH_NAIDU_ANUMAKONDA" target="_blank" class="btn-premium">Subscribe on YouTube</a>
+                            <a href="collab.html?source=youtube" class="btn-glass">Collab with Likith</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-slate-600 text-xs font-mono uppercase tracking-[0.5em] mb-8">LIKITH NAIDU ANUMAKONDA • CREATOR ECOSYSTEM</p>
+            <div class="flex justify-center gap-8">
+                <a href="index.html?source=footer" class="text-xs text-slate-400 hover:text-white transition-colors">Home</a>
+                <a href="likith-git-profile.html?source=footer" class="text-xs text-slate-400 hover:text-white transition-colors">GitHub</a>
+                <a href="collab.html?source=footer" class="text-xs text-slate-400 hover:text-white transition-colors">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script src="youtube-profile.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

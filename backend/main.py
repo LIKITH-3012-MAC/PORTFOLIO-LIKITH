@@ -48,17 +48,8 @@ FRONTEND_WWW_URL = os.getenv("FRONTEND_WWW_URL", "https://www.likith-portfolio.o
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        FRONTEND_URL,
-        FRONTEND_WWW_URL,
-        "https://portfolio-likith.onrender.com",
-        "https://portfolio-likith-yae9.onrender.com",
-        "https://likith-portfolio.vercel.app",
-        "http://localhost:3000",
-        "http://localhost:8080",
-        "null",
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )

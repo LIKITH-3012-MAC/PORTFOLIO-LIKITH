@@ -1,0 +1,39 @@
+:root {
+  /* Brand Ecosytem Colors */
+  --background-primary: #030712;
+  --background-secondary: #0b0f19;
+  --surface-glass: rgba(255, 255, 255, 0.03);
+  --surface-glass-hover: rgba(255, 255, 255, 0.05);
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  
+  --brand-primary: #ffffff;
+  --brand-secondary: #fbbf24; /* Amber Accent */
+  
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-active: rgba(255, 255, 255, 0.2);
+  
+  --shadow-soft: 0 4px 24px -1px rgba(0, 0, 0, 0.3);
+  --shadow-depth: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+  --glow-primary: rgba(255, 255, 255, 0.15);
+  --glow-accent: rgba(251, 191, 36, 0.2);
+  
+  /* Layout scale */
+  --content-max-width: 80rem; /* 1280px */
+  --navbar-height: 4.5rem;
+  
+  /* Radius scale */
+  --radius-small: 0.5rem;
+  --radius-medium: 1rem;
+  --radius-large: 1.5rem;
+  --radius-xl: 2rem;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-medium: 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-slow: 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+}

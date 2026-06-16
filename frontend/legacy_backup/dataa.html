@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+    <title>Likith OS | Advanced Intelligence Console</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg: #03040a;
+            --panel: rgba(10, 11, 20, 0.7);
+            --panel-border: rgba(255, 255, 255, 0.06);
+            --accent: #fbbf24;
+            --accent-glow: rgba(251, 191, 36, 0.15);
+            --glass-highlight: rgba(255, 255, 255, 0.03);
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            cursor: default;
+        }
+
+        body { 
+            font-family: var(--font-main);
+            background-color: var(--bg);
+            color: #e2e8f0;
+            margin: 0;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% -20%, rgba(251, 191, 36, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 0% 100%, rgba(30, 41, 59, 0.2) 0%, transparent 30%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l2.598 5h-5.196L30 0zm0 60l-2.598-5h5.196L30 60zM0 30l5 2.598v-5.196L0 30zm60 0l-5-2.598v5.196L60 30z' fill='%23ffffff' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .font-mono { font-family: var(--font-mono); }
+
+        /* Premium Glass Panels */
+        .panel-glass {
+            background: var(--panel);
+            backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid var(--panel-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel-glass::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--glass-highlight) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .panel-border-glow {
+            box-shadow: 0 0 1px 1px rgba(251, 191, 36, 0.1), inset 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Stats Cards - HUD Style */
+        .hud-card {
+            border-left: 3px solid transparent;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hud-card:hover {
+            border-left-color: var(--accent);
+            background: rgba(255, 255, 255, 0.02);
+            transform: translateX(4px);
+        }
+
+        /* Typography Hierarchy */
+        .title-gradient {
+            background: linear-gradient(to right, #fff 20%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-value {
+            font-family: var(--font-mono);
+            letter-spacing: -0.05em;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        /* Interactive Elements */
+        .btn-action {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .btn-action:hover {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .sidebar-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .sidebar-link.active {
+            color: var(--accent);
+        }
+        .sidebar-link.active::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 20%;
+            height: 60%;
+            width: 2px;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        /* Custom Table Styling */
+        .intel-table thead th {
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            color: #64748b;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .intel-table tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            transition: background 0.2s ease;
+        }
+        .intel-table tbody tr:hover {
+            background: rgba(251, 191, 36, 0.02);
+        }
+
+        .intel-table td {
+            padding: 1.25rem 2rem;
+        }
+
+        /* Status Badges */
+        .badge-intel {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Shimmer / Scanline effect */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.1) 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.1;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #03040a; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        #auth-overlay {
+            background: radial-gradient(circle at center, #0a0b14 0%, #03040a 100%);
+        }
+
+        .input-premium {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .input-premium:focus {
+            border-color: var(--accent);
+            background: rgba(251, 191, 36, 0.03);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <div class="scanline"></div>
+
+    <!-- Auth Protocol Overlay -->
+    <div id="auth-overlay" class="fixed inset-0 z-[200] flex items-center justify-center p-6 transition-all duration-700">
+        <div class="panel-glass panel-border-glow p-12 rounded-[2rem] w-full max-w-md text-center">
+            <div class="w-16 h-16 mx-auto mb-8 relative">
+                <div class="absolute inset-0 bg-amber-500/20 blur-xl animate-pulse rounded-full"></div>
+                <div class="relative w-full h-full border border-amber-500/40 rounded-2xl flex items-center justify-center bg-black/40">
+                    <i data-lucide="fingerprint" class="w-8 h-8 text-amber-500"></i>
+                </div>
+            </div>
+            
+            <h2 class="text-2xl font-bold title-gradient mb-2">Likith OS</h2>
+            <p class="text-xs font-mono text-slate-500 mb-10 tracking-[0.3em] uppercase">Security Protocol Alpha-9</p>
+            
+            <div class="space-y-6">
+                <div class="relative group">
+                    <input type="password" id="admin-token" placeholder="Authorization Secret" 
+                        class="w-full input-premium rounded-xl px-4 py-4 text-white focus:outline-none text-center font-mono placeholder:text-slate-700">
+                </div>
+                
+                <button onclick="authenticate()" class="w-full py-4 bg-amber-500 text-black font-bold rounded-xl hover:bg-amber-400 transition-all transform active:scale-95 shadow-lg shadow-amber-500/20 font-mono text-xs uppercase tracking-widest">
+                    Unlock Console
+                </button>
+            </div>
+            
+            <div class="mt-8 flex justify-center gap-2">
+                <span class="w-1 h-1 rounded-full bg-amber-500/20"></span>
+                <span class="w-1 h-1 rounded-full bg-amber-500/50 animate-pulse"></span>
+                <span class="w-1 h-1 rounded-full bg-amber-500/20"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interface Matrix -->
+    <div id="main-interface" class="hidden opacity-0 flex min-h-screen transition-all duration-1000">
+        
+        <!-- Tactical Sidebar -->
+        <aside class="w-20 lg:w-72 border-r border-white/5 flex flex-col py-10 sticky top-0 h-screen bg-black/40 backdrop-blur-3xl z-50">
+            <div class="px-8 mb-16">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500 flex items-center justify-center text-black font-black text-lg">L</div>
+                    <div class="hidden lg:block">
+                        <h1 class="font-bold text-sm tracking-tight text-white uppercase">Likith Intelligence</h1>
+                        <p class="text-[9px] text-slate-500 font-mono tracking-widest mt-0.5">OPS COMMAND V3.0</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="flex-1 space-y-1 px-4">
+                <div class="px-4 mb-4 text-[10px] font-mono text-slate-600 uppercase tracking-widest">Core Interface</div>
+                <button onclick="switchTab('overview')" id="nav-overview" class="sidebar-link active w-full flex items-center gap-4 px-4 py-4 text-slate-400 hover:text-white group">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4 transition-transform group-hover:scale-110"></i>
+                    <span class="hidden lg:block font-semibold text-xs tracking-wide">Command Center</span>
+                </button>
+                <button onclick="switchTab('signals')" id="nav-signals" class="sidebar-link w-full flex items-center gap-4 px-4 py-4 text-slate-400 hover:text-white group">
+                    <i data-lucide="radio" class="w-4 h-4 transition-transform group-hover:scale-110"></i>
+                    <span class="hidden lg:block font-semibold text-xs tracking-wide">AI Neural Feed</span>
+                </button>
+                <button onclick="switchTab('collabs')" id="nav-collabs" class="sidebar-link w-full flex items-center gap-4 px-4 py-4 text-slate-400 hover:text-white group">
+                    <i data-lucide="briefcase" class="w-4 h-4 transition-transform group-hover:scale-110"></i>
+                    <span class="hidden lg:block font-semibold text-xs tracking-wide">Strategic Intake</span>
+                </button>
+                <button onclick="switchTab('visitors')" id="nav-visitors" class="sidebar-link w-full flex items-center gap-4 px-4 py-4 text-slate-400 hover:text-white group">
+                    <i data-lucide="activity" class="w-4 h-4 transition-transform group-hover:scale-110"></i>
+                    <span class="hidden lg:block font-semibold text-xs tracking-wide">Global Traffic</span>
+                </button>
+            </nav>
+
+            <div class="px-6 pt-6 border-t border-white/5">
+                <button onclick="logout()" class="w-full flex items-center gap-4 px-4 py-4 text-slate-500 hover:text-red-400 transition-all group">
+                    <i data-lucide="power" class="w-4 h-4 transition-transform group-hover:rotate-90"></i>
+                    <span class="hidden lg:block font-semibold text-xs tracking-wide">Terminate Session</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Command Environment -->
+        <main class="flex-1 p-8 lg:p-14 overflow-y-auto relative">
+            
+            <!-- Dynamic HUD Header -->
+            <header class="flex flex-wrap items-end justify-between gap-8 mb-16">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="h-[1px] w-8 bg-amber-500/40"></span>
+                        <span id="page-subtitle" class="text-[10px] font-mono text-amber-500/60 uppercase tracking-[0.4em]">Neural Network Active</span>
+                    </div>
+                    <h2 id="page-title" class="text-5xl font-bold title-gradient tracking-tighter">Command Center</h2>
+                </div>
+                
+                <div class="flex items-center gap-4 panel-glass px-6 py-3 rounded-2xl border-white/5">
+                    <div class="flex flex-col items-end">
+                        <span class="text-[9px] font-mono text-slate-500 uppercase tracking-widest">System Pulse</span>
+                        <span class="text-[11px] font-bold text-green-400 uppercase tracking-tighter">Sync: Nominal</span>
+                    </div>
+                    <div class="w-px h-8 bg-white/10 mx-2"></div>
+                    <button onclick="refreshData()" class="p-2 rounded-lg hover:bg-white/5 transition-all text-slate-400 hover:text-amber-500">
+                        <i data-lucide="refresh-ccw" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Metrics Matrix -->
+            <div id="stats-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <div class="panel-glass hud-card p-8 rounded-3xl">
+                    <p class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-4">Total Signals</p>
+                    <div class="flex items-baseline gap-2">
+                        <span id="stat-signals" class="text-4xl font-bold stat-value text-white">--</span>
+                        <span class="text-[10px] text-slate-600 font-mono uppercase">units</span>
+                    </div>
+                    <div class="mt-4 flex items-center gap-2 text-green-400/60 text-[10px] font-mono">
+                        <i data-lucide="trending-up" class="w-3 h-3"></i>
+                        <span>+12.4% vs prev sync</span>
+                    </div>
+                </div>
+
+                <div class="panel-glass hud-card p-8 rounded-3xl">
+                    <p class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-4">Global Reach</p>
+                    <div class="flex items-baseline gap-2">
+                        <span id="stat-visits" class="text-4xl font-bold stat-value text-white">--</span>
+                        <span class="text-[10px] text-slate-600 font-mono uppercase">nodes</span>
+                    </div>
+                    <div class="mt-4 flex items-center gap-2 text-blue-400/60 text-[10px] font-mono">
+                        <i data-lucide="globe" class="w-3 h-3"></i>
+                        <span>Live ingestion active</span>
+                    </div>
+                </div>
+
+                <div class="panel-glass hud-card p-8 rounded-3xl">
+                    <p class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-4">Avg Latency</p>
+                    <div class="flex items-baseline gap-2">
+                        <span id="stat-latency" class="text-4xl font-bold stat-value text-white">--</span>
+                        <span class="text-[10px] text-slate-600 font-mono uppercase">ms</span>
+                    </div>
+                    <div class="mt-4 flex items-center gap-2 text-amber-400/60 text-[10px] font-mono">
+                        <i data-lucide="zap" class="w-3 h-3"></i>
+                        <span>Optimized response core</span>
+                    </div>
+                </div>
+
+                <div class="panel-glass hud-card p-8 rounded-3xl">
+                    <p class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-4">Auth Integrity</p>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-4xl font-bold stat-value text-white">99.8</span>
+                        <span class="text-[10px] text-slate-600 font-mono uppercase">%</span>
+                    </div>
+                    <div class="mt-4 flex items-center gap-2 text-purple-400/60 text-[10px] font-mono">
+                        <i data-lucide="shield-check" class="w-3 h-3"></i>
+                        <span>Encrypted tunnels only</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intelligence Data Grid -->
+            <div class="panel-glass rounded-[2rem] overflow-hidden">
+                <div class="px-10 py-8 border-b border-white/5 flex flex-wrap items-center justify-between gap-8 bg-white/[0.01]">
+                    <div class="flex items-center gap-6">
+                        <h3 class="font-bold text-lg text-white">Operations Feed</h3>
+                        <div class="relative">
+                            <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500"></i>
+                            <input type="text" id="data-search" placeholder="Filter parameters..." 
+                                class="bg-black/40 border border-white/5 rounded-full pl-12 pr-6 py-2.5 text-xs focus:outline-none focus:border-amber-500/30 transition-all w-80 font-mono">
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <button class="px-5 py-2.5 rounded-xl border border-white/5 text-[10px] font-bold text-slate-400 hover:text-white transition-all uppercase tracking-widest bg-white/5 hover:bg-white/10">Download Logs</button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full intel-table">
+                        <thead>
+                            <tr id="table-head">
+                                <!-- Dynamic Head -->
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            <!-- Dynamic Body -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty Node State -->
+                <div id="empty-state" class="hidden flex flex-col items-center justify-center py-40 text-center">
+                    <div class="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center mb-8 rotate-45 border border-white/5">
+                        <i data-lucide="box" class="w-8 h-8 text-slate-600 -rotate-45"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-slate-300">No Intelligence Ingested</h4>
+                    <p class="text-slate-500 text-sm mt-2 max-w-xs mx-auto">The secure data matrix is currently awaiting incoming operational signals.</p>
+                </div>
+
+                <!-- Control Footer -->
+                <div class="px-10 py-8 border-t border-white/5 flex items-center justify-between bg-white/[0.01]">
+                    <div id="pagination-info" class="text-[10px] font-mono text-slate-600 uppercase tracking-widest">
+                        Node: 00-20 | Data Stream: 000
+                    </div>
+                    <div class="flex gap-8">
+                        <button onclick="changePage(-1)" class="text-[10px] font-bold text-slate-400 hover:text-amber-500 transition-colors uppercase tracking-[0.2em] flex items-center gap-2 group">
+                            <i data-lucide="chevron-left" class="w-3 h-3 group-hover:-translate-x-1 transition-transform"></i>
+                            Previous Protocol
+                        </button>
+                        <button onclick="changePage(1)" class="text-[10px] font-bold text-slate-400 hover:text-amber-500 transition-colors uppercase tracking-[0.2em] flex items-center gap-2 group">
+                            Next Protocol
+                            <i data-lucide="chevron-right" class="w-3 h-3 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Record Inspection Modal -->
+    <div id="detail-modal" class="fixed inset-0 z-[210] bg-[#03040a]/95 backdrop-blur-3xl hidden flex items-center justify-center p-6">
+        <div class="panel-glass p-12 rounded-[3rem] w-full max-w-5xl max-h-[90vh] overflow-y-auto relative panel-border-glow">
+            <div class="absolute -top-24 -right-24 w-80 h-80 bg-amber-500/5 blur-[120px] rounded-full"></div>
+            
+            <div class="flex justify-between items-start mb-12 relative z-10">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="h-[1px] w-6 bg-amber-500/60"></span>
+                        <span class="text-[10px] font-mono text-amber-500/60 uppercase tracking-widest">Deep Packet Inspection</span>
+                    </div>
+                    <h2 id="modal-title" class="text-4xl font-bold title-gradient">Operational Intelligence</h2>
+                    <p id="modal-subtitle" class="text-slate-500 text-xs font-mono mt-2 uppercase tracking-[0.3em]">Signature Verified</p>
+                </div>
+                <button onclick="closeModal()" class="p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all group">
+                    <i data-lucide="x" class="w-6 h-6 text-slate-400 group-hover:text-white group-hover:rotate-90 transition-transform"></i>
+                </button>
+            </div>
+
+            <div id="modal-content" class="space-y-10 relative z-10">
+                <!-- Dynamic Node Content -->
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        const API_BASE = window.APP_CONFIG?.API_BASE_URL || "https://portfolio-likith.onrender.com";
+        let activeTab = 'overview';
+        let currentPage = 0;
+        const limit = 20;
+
+        function switchTab(tab) {
+            activeTab = tab;
+            currentPage = 0;
+            
+            // Sidebar Navigation Matrix
+            document.querySelectorAll('aside nav button').forEach(btn => btn.classList.remove('active', 'text-white'));
+            document.getElementById(`nav-${tab}`).classList.add('active', 'text-white');
+            
+            // Layout Header Dynamics
+            const configs = {
+                overview: { main: "Command Center", sub: "Operational Matrix Overview" },
+                signals: { main: "AI Neural Feed", sub: "Deep Stream Signal Intelligence" },
+                collabs: { main: "Strategic Intake", sub: "Partnership Protocol Ingest" },
+                visitors: { main: "Global Traffic", sub: "Node Distribution Analysis" }
+            };
+            
+            document.getElementById('page-title').innerText = configs[tab].main;
+            document.getElementById('page-subtitle').innerText = configs[tab].sub;
+            
+            // Stats Grid Toggle
+            document.getElementById('stats-grid').classList.toggle('hidden', tab !== 'overview');
+            
+            fetchData();
+        }
+
+        function authenticate() {
+            const token = document.getElementById('admin-token').value.trim();
+            if (!token) return;
+            sessionStorage.setItem('admin_token', token);
+            initInterface();
+        }
+
+        function logout() {
+            sessionStorage.removeItem('admin_token');
+            location.reload();
+        }
+
+        function initInterface() {
+            const token = sessionStorage.getItem('admin_token');
+            if (token) {
+                const overlay = document.getElementById('auth-overlay');
+                overlay.classList.add('opacity-0', 'scale-110');
+                setTimeout(() => overlay.classList.add('hidden'), 700);
+                
+                const main = document.getElementById('main-interface');
+                main.classList.remove('hidden');
+                setTimeout(() => main.classList.add('opacity-100'), 100);
+                
+                switchTab('overview');
+                fetchStats();
+            }
+        }
+
+        async function fetchStats() {
+            const token = sessionStorage.getItem('admin_token');
+            try {
+                const response = await fetch(`${API_BASE}/api/admin/visitor-stats`, {
+                    headers: { 'X-Admin-Token': token }
+                });
+                const json = await response.json();
+                if (json.success) {
+                    document.getElementById('stat-visits').innerText = json.stats.unique_visitors || 0;
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        async function fetchData() {
+            const token = sessionStorage.getItem('admin_token');
+            const tbody = document.getElementById('table-body');
+            const empty = document.getElementById('empty-state');
+            
+            // HUD Loading State
+            tbody.innerHTML = Array(6).fill(0).map(() => `
+                <tr class="animate-pulse">
+                    <td colspan="6" class="p-8">
+                        <div class="h-4 bg-white/5 rounded-full w-full opacity-20"></div>
+                    </td>
+                </tr>
+            `).join('');
+            empty.classList.add('hidden');
+
+            let endpoint = '';
+            if (activeTab === 'overview' || activeTab === 'signals') endpoint = '/api/admin/responses';
+            else if (activeTab === 'collabs') endpoint = '/api/admin/collabs';
+            else if (activeTab === 'visitors') endpoint = '/api/admin/visitors';
+
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}?limit=${limit}&offset=${currentPage * limit}`, {
+                    headers: { 'X-Admin-Token': token }
+                });
+
+                if (response.status === 401) {
+                    logout();
+                    return;
+                }
+
+                const json = await response.json();
+                renderTable(json.data);
+                
+                document.getElementById('pagination-info').innerText = `Node: ${currentPage * limit}-${currentPage * limit + json.data.length} | Data Stream: ${json.pagination.total}`;
+                
+                if (activeTab === 'overview' || activeTab === 'signals') {
+                    document.getElementById('stat-signals').innerText = json.pagination.total;
+                    const avg = json.data.length ? Math.round(json.data.reduce((acc, curr) => acc + (curr.latency || 0), 0) / json.data.length) : 0;
+                    document.getElementById('stat-latency').innerText = avg || '--';
+                }
+
+                if (json.data.length === 0) empty.classList.remove('hidden');
+
+            } catch (err) {
+                console.error(err);
+                tbody.innerHTML = '<tr><td colspan="6" class="p-20 text-center text-red-500 font-mono text-[10px] tracking-widest">CRITICAL_INTERFACE_FAILURE: LINK_TIMEOUT</td></tr>';
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('table-body');
+            const thead = document.getElementById('table-head');
+
+            if (activeTab === 'overview' || activeTab === 'signals') {
+                thead.innerHTML = `<th class="w-24">Status</th><th class="w-32">Intent</th><th>Signature Feed</th><th class="w-32">Latency</th><th class="w-32 text-right">Operation</th>`;
+                tbody.innerHTML = data.map(item => `
+                    <tr>
+                        <td>
+                            <div class="flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(251,191,36,0.5)]"></span>
+                                <span class="badge-intel text-amber-500/80">Active</span>
+                            </div>
+                        </td>
+                        <td><span class="badge-intel bg-white/5 border border-white/10 text-slate-400">${item.intent || 'NONE'}</span></td>
+                        <td>
+                            <div class="max-w-md">
+                                <p class="text-xs text-slate-200 font-medium mb-1 truncate">${item.message}</p>
+                                <p class="text-[9px] font-mono text-slate-600 uppercase tracking-tighter">${item.time}</p>
+                            </div>
+                        </td>
+                        <td class="font-mono text-[10px] text-slate-500">${item.latency}ms</td>
+                        <td class="text-right">
+                            <button onclick='viewSignalDetails(${JSON.stringify(item).replace(/'/g, "&apos;")})' class="btn-action px-4 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-widest">Analyze</button>
+                        </td>
+                    </tr>
+                `).join('');
+            } else if (activeTab === 'collabs') {
+                thead.innerHTML = `<th>Requester Signature</th><th>Protocol</th><th>Communication Node</th><th>Temporal Marker</th><th class="text-right">Operation</th>`;
+                tbody.innerHTML = data.map(item => `
+                    <tr>
+                        <td>
+                            <p class="text-xs font-bold text-white tracking-tight">${item.name}</p>
+                            <p class="text-[9px] font-mono text-slate-600 mt-1 uppercase tracking-tighter">${item.time}</p>
+                        </td>
+                        <td><span class="badge-intel bg-blue-500/10 border border-blue-500/20 text-blue-400">${item.type}</span></td>
+                        <td>
+                            <p class="text-[10px] text-slate-400 font-mono">${item.email || 'N/A'}</p>
+                            <p class="text-[10px] text-slate-600 font-mono mt-1">${item.phone}</p>
+                        </td>
+                        <td class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Node-Sync</td>
+                        <td class="text-right">
+                            <button onclick='viewCollabDetails(${JSON.stringify(item).replace(/'/g, "&apos;")})' class="btn-action px-4 py-1.5 rounded-lg text-[9px] font-bold uppercase tracking-widest">Inspect</button>
+                        </td>
+                    </tr>
+                `).join('');
+            } else if (activeTab === 'visitors') {
+                thead.innerHTML = `<th>Node ID</th><th>Entry Path</th><th>Environment Environment</th><th>Traffic Origin</th><th class="text-right">Temporal Marker</th>`;
+                tbody.innerHTML = data.map(item => `
+                    <tr>
+                        <td class="text-slate-600 font-mono text-[10px]">OPS-${item.id}</td>
+                        <td class="text-xs text-white font-mono tracking-tight font-medium">${item.path}</td>
+                        <td>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="badge-intel bg-white/5 border border-white/5 text-slate-500">${item.os}</span>
+                                <span class="badge-intel bg-white/5 border border-white/5 text-slate-500">${item.browser}</span>
+                            </div>
+                            <span class="text-[9px] font-bold text-slate-600 uppercase tracking-widest">${item.device}</span>
+                        </td>
+                        <td class="text-xs font-mono text-slate-500 truncate max-w-[150px]">${item.referrer}</td>
+                        <td class="text-right font-mono text-[9px] text-slate-600 uppercase tracking-tighter">${item.time}</td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        function refreshData() {
+            fetchStats();
+            fetchData();
+        }
+
+        function changePage(delta) {
+            currentPage = Math.max(0, currentPage + delta);
+            fetchData();
+        }
+
+        function viewSignalDetails(item) {
+            document.getElementById('modal-title').innerText = "Signal Deep-Inspection";
+            document.getElementById('modal-subtitle').innerText = `NODE: OPS-${item.id} | EXEC_LATENCY: ${item.latency}MS`;
+            document.getElementById('modal-content').innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <div class="space-y-4">
+                        <label class="text-[10px] text-slate-600 uppercase font-bold tracking-[0.3em] font-mono">Input Signal Stream</label>
+                        <div class="p-8 rounded-[2rem] bg-black/40 border border-white/5 text-slate-200 text-sm leading-relaxed font-medium">${item.message}</div>
+                    </div>
+                    <div class="space-y-4">
+                        <label class="text-[10px] text-amber-500/60 uppercase font-bold tracking-[0.3em] font-mono">Neural Response Synthesis</label>
+                        <div class="p-8 rounded-[2rem] bg-amber-500/5 border border-amber-500/10 text-slate-300 text-sm leading-relaxed whitespace-pre-wrap font-medium shadow-[inset_0_0_40px_rgba(251,191,36,0.02)]">${item.response}</div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                    <div class="p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-amber-500/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                        <label class="relative z-10 text-[9px] text-slate-600 uppercase font-bold mb-3 block font-mono tracking-widest">Logic Intent</label>
+                        <span class="relative z-10 text-amber-500 font-mono font-bold text-lg uppercase tracking-tight">${item.intent || 'GENERAL_INTEL'}</span>
+                    </div>
+                    <div class="p-8 rounded-[2rem] bg-white/[0.02] border border-white/5">
+                        <label class="text-[9px] text-slate-600 uppercase font-bold mb-3 block font-mono tracking-widest">Time Signature</label>
+                        <span class="text-white font-mono font-bold text-sm uppercase tracking-tighter">${item.time}</span>
+                    </div>
+                    <div class="p-8 rounded-[2rem] bg-white/[0.02] border border-white/5">
+                        <label class="text-[9px] text-slate-600 uppercase font-bold mb-3 block font-mono tracking-widest">Sync Priority</label>
+                        <span class="text-green-500 font-mono font-bold text-sm uppercase tracking-tighter">Verified_Optimal</span>
+                    </div>
+                </div>
+            `;
+            document.getElementById('detail-modal').classList.remove('hidden');
+        }
+
+        function viewCollabDetails(item) {
+            document.getElementById('modal-title').innerText = "Partnership Protocol Ingest";
+            document.getElementById('modal-subtitle').innerText = `SIGNAL_SIGNATURE: ${item.id}`;
+            document.getElementById('modal-content').innerHTML = `
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                    <div class="p-8 rounded-[2rem] bg-blue-500/5 border border-blue-500/10">
+                        <label class="text-[9px] text-slate-600 uppercase font-bold mb-3 block font-mono tracking-widest">Entity Signature</label>
+                        <span class="text-white font-bold text-2xl tracking-tighter">${item.name}</span>
+                    </div>
+                    <div class="p-8 rounded-[2rem] bg-white/[0.02] border border-white/5">
+                        <label class="text-[9px] text-slate-600 uppercase font-bold mb-3 block font-mono tracking-widest">Mission Category</label>
+                        <span class="text-blue-400 font-mono font-bold uppercase tracking-tight">${item.type}</span>
+                    </div>
+                    <div class="p-8 rounded-[2rem] bg-white/[0.02] border border-white/5">
+                        <label class="text-[9px] text-slate-600 uppercase font-bold mb-3 block font-mono tracking-widest">Current Status</label>
+                        <span class="text-amber-500 font-mono font-bold uppercase tracking-tight">Review_Pending</span>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <label class="text-[10px] text-slate-600 uppercase font-bold tracking-[0.3em] font-mono">Strategic Goal Manifest</label>
+                    <div class="p-10 rounded-[2.5rem] bg-white/[0.02] border border-white/5 text-slate-200 text-xl leading-relaxed font-light italic">"${item.purpose}"</div>
+                </div>
+                <div class="p-10 rounded-[2.5rem] bg-black/60 border border-white/5">
+                    <label class="text-[10px] text-slate-600 uppercase font-bold mb-6 block font-mono tracking-widest">Secure Communication Nodes</label>
+                    <div class="grid grid-cols-2 gap-10 font-mono text-sm">
+                        <div class="space-y-1">
+                            <span class="text-slate-700 block text-[9px] font-bold uppercase tracking-widest">Network_Email</span>
+                            <span class="text-blue-400/80 tracking-tight">${item.email || 'NULL'}</span>
+                        </div>
+                        <div class="space-y-1">
+                            <span class="text-slate-700 block text-[9px] font-bold uppercase tracking-widest">Cellular_Link</span>
+                            <span class="text-blue-400/80 tracking-tight">${item.phone}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('detail-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+        }
+
+        // Initialize HUD Symbols
+        if (window.lucide) lucide.createIcons();
+        initInterface();
+    </script>
+</body>
+</html>
