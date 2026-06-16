@@ -1,0 +1,171 @@
+/* Typing cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.typing-cursor {
+  display: inline-block;
+  width: 6px;
+  height: 1em;
+  background-color: var(--brand-secondary);
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 0.8s infinite;
+}
+
+/* Chatbot typing dots */
+@keyframes typing {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+.typing-dot {
+  animation: typing 1.4s infinite;
+}
+
+/* Basic fade in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Rocket hover animation */
+@keyframes rocketHover {
+  0%, 100% {
+    transform: translateY(-10px) scale(1.02);
+  }
+  50% {
+    transform: translateY(-16px) scale(1.02);
+  }
+}
+
+/* Rocket thruster flame flicker */
+@keyframes thrusterFlicker {
+  0%, 100% {
+    transform: scaleY(1) scaleX(1);
+    filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.7)) drop-shadow(0 0 20px rgba(99, 102, 241, 0.4));
+  }
+  50% {
+    transform: scaleY(1.18) scaleX(0.92);
+    filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.95)) drop-shadow(0 0 30px rgba(99, 102, 241, 0.6));
+  }
+}
+
+/* Verification pulse ring */
+@keyframes hv-pulse-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.08); opacity: 0; }
+}
+
+/* Verification dialog shake */
+@keyframes hv-micro-shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-4px); }
+  30% { transform: translateX(4px); }
+  45% { transform: translateX(-3px); }
+  60% { transform: translateX(3px); }
+  75% { transform: translateX(-1px); }
+  90% { transform: translateX(1px); }
+}
+
+/* Verification fade in up */
+@keyframes hv-fade-in-up {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Verification loader scan */
+@keyframes hv-scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Voice microphone pulse */
+@keyframes micPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  70% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+/* Logo slow spin */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Audio waves bar animation */
+@keyframes wave-bar {
+  0%, 100% { height: 4px; }
+  50% { height: 16px; }
+}
+
+/* CSS Classes hooking into Keyframes */
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
+}
+
+.animate-wave-bar {
+  animation: wave-bar 0.8s ease-in-out infinite;
+}
+
+.mic-listening {
+  background-color: #ef4444 !important;
+  color: white !important;
+  animation: micPulse 1.5s infinite;
+}
+
+.hv-scan-line {
+  animation: hv-scan 1.2s ease-in-out infinite;
+}
+
+.hv-card.shake {
+  animation: hv-micro-shake 0.5s ease-out;
+}
+
+.hv-verified-state.visible {
+  animation: hv-fade-in-up 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.hv-verification-pulse.pulse {
+  animation: hv-pulse-ring 0.8s ease-out forwards;
+}
+
+.rocket-container.floating {
+  animation: rocketHover 3s infinite ease-in-out;
+}
+
+.thruster-flame.active {
+  animation: thrusterFlicker 120ms infinite alternate ease-in-out;
+}
+
+/* Success details entrance choreography */
+@keyframes successFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.success-fade-in-up {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.success-fade-in-up.active {
+  animation: successFadeInUp 800ms var(--ease-cinematic) forwards;
+}

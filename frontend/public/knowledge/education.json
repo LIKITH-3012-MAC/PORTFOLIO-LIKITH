@@ -1,0 +1,15 @@
+{
+  "education": [
+    {
+      "degree": "B.Tech in Computer Science Engineering (Artificial Intelligence)",
+      "institution": "PBR VITS",
+      "status": "Current",
+      "focus": "Complex data structures, Java OOP, and Neural Networks."
+    },
+    {
+      "certification": "Advanced AIML Specialization",
+      "provider": "IIT Patna (I-HUB)",
+      "focus": "Deep Learning, NLP, Computer Vision, and real-time predictive modeling."
+    }
+  ]
+}

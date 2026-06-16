@@ -1,0 +1,20 @@
+{
+  "achievements": [
+    {
+      "title": "SIH Hackathon 2025 Team Lead",
+      "description": "Led a 5-person engineering team for Project Prometheus AI, designing normalized NoSQL schemas and improving data retrieval latency by over 50%."
+    },
+    {
+      "title": "Technova2K25 Best Concept",
+      "description": "Awarded for innovative software engineering principles at PBRVITS."
+    },
+    {
+      "title": "1st Prize: CodeClash 2025",
+      "description": "Secured 1st place in algorithmic problem solving."
+    },
+    {
+      "title": "SQL & AI Data Storytelling",
+      "description": "Optimized complex queries, reducing report generation time by 60%."
+    }
+  ]
+}

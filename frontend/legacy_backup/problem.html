@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Interruption | Likith Naidu</title>
+
+    <!-- Core Metadata -->
+    <meta name="description"
+        content="Support and fallback page for Likith Naidu's portfolio. Routing issues or technical anomalies are handled here.">
+    <meta name="robots" content="noindex, follow">
+    <meta name="author" content="Likith Naidu Anumamkonda">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Structured Data: WebPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "System Interruption | Likith Naidu Portfolio",
+      "description": "Fallback page for handling technical anomalies and providing contact guidance.",
+      "url": "https://likith-portfolio.online/problem.html"
+    }
+    </script>
+
+    <!-- Scripts & Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="navigation.js"></script>
+    
+    <style>
+        /* Apple-like Monochrome Aesthetics */
+        body {
+            background-color: #030712;
+            color: #f8fafc;
+        }
+        .mono-icon-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-6 selection:bg-white/20 selection:text-white">
+
+    <div class="max-w-2xl w-full text-center reveal">
+        <!-- Error Icon -->
+        <div class="w-24 h-24 rounded-3xl mono-icon-container flex items-center justify-center text-white mx-auto mb-8 animate-pulse">
+            <i data-lucide="shield-alert" class="w-10 h-10 opacity-80"></i>
+        </div>
+
+        <h1 id="page-title" class="text-4xl md:text-5xl font-display font-bold tracking-tight mb-6 text-white opacity-0 transition-opacity duration-500">&nbsp;</h1>
+
+        <p id="page-message" class="text-slate-400 text-lg mb-12 font-light leading-relaxed max-w-lg mx-auto opacity-0 transition-opacity duration-500">
+            &nbsp;
+        </p>
+
+        <div id="page-buttons" class="flex flex-wrap justify-center gap-4 mb-16 opacity-0 transition-opacity duration-500">
+            <!-- Buttons injected by JS -->
+        </div>
+
+        <p id="error-code" class="mt-12 text-[10px] text-slate-600 uppercase tracking-[0.2em] font-mono opacity-0 transition-opacity duration-500">Processing...</p>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get("id");
+            const result = params.get("result");
+            const type = params.get("type");
+            const code = params.get("code");
+            const state = params.get("state");
+            const token = params.get("token");
+            
+            const titleEl = document.getElementById("page-title");
+            const msgEl = document.getElementById("page-message");
+            const buttonsEl = document.getElementById("page-buttons");
+            const codeEl = document.getElementById("error-code");
+
+            // Define Default Messaging
+            let title = "System <br/> Interruption.";
+            let message = "Likith's architecture encountered a technical anomaly. Your request may not have been fully processed.";
+            let buttonHtml = `
+                <button onclick="window.history.back()" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
+                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Retry Action
+                </button>
+                <a href="mailto:likith.anumakonda@gmail.com" class="px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white font-medium text-sm flex items-center gap-2 hover:bg-white/10 transition-colors">
+                    <i data-lucide="mail" class="w-4 h-4"></i> Direct Support
+                </a>
+            `;
+            let statusText = `Anomaly: ${type || 'System'} • State: ${state || 'Interrupted'} • Code: ${code || '500'}`;
+
+            // Context-Specific Refinement
+            if (code === '500') {
+                message = "The secure database transmission was interrupted. This is likely a temporary system maintenance state.";
+            } else if (state === 'offline') {
+                message = "The backend service is currently unreachable. Please check your connection or try again later.";
+            } else if (result === 'success' && token) {
+                title = "Legacy <br/> Verification.";
+                message = "Success states are now handled directly on the collaboration page. Your token confirms a valid submission.";
+                buttonHtml = `
+                    <a href="index.html?source=problem" class="px-6 py-3 rounded-full bg-white text-black font-medium text-sm flex items-center gap-2 hover:bg-slate-200 transition-colors">
+                        <i data-lucide="home" class="w-4 h-4"></i> Return to Portfolio
+                    </a>
+                `;
+                statusText = `Status: Logged • ID: ${id}`;
+            }
+
+            // Apply Content
+            titleEl.innerHTML = title;
+            msgEl.innerHTML = message;
+            buttonsEl.innerHTML = buttonHtml;
+            codeEl.textContent = statusText;
+
+            // Reveal Content
+            titleEl.classList.remove('opacity-0');
+            msgEl.classList.remove('opacity-0');
+            buttonsEl.classList.remove('opacity-0');
+            codeEl.classList.remove('opacity-0');
+
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+        
+        setTimeout(() => {
+            const reveal = document.querySelector('.reveal');
+            if (reveal) reveal.classList.add('active');
+        }, 100);
+    </script>
+</body>
+</html>
