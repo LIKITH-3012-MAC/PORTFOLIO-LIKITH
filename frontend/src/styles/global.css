@@ -53,7 +53,17 @@ body,
 .site-content {
   position: relative;
   z-index: 2;
-  pointer-events: auto;
+}
+
+.site-content--behind-intro {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.site-content--ready {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transition: opacity 1000ms ease;
 }
 
 /* Layer 0 Fallback stars animation */
@@ -657,19 +667,22 @@ html.lenis, html.lenis body {
   min-height: 100svh;
   height: 100dvh;
   z-index: 10000;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity 350ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 350ms;
 }
 
 .cinematic-intro.is-exiting {
+  opacity: 0 !important;
+  visibility: hidden !important;
   pointer-events: none !important;
 }
 
 .cosmic-background {
   z-index: 0 !important;
-}
-
-.site-content {
-  position: relative;
-  z-index: 2 !important;
 }
 
 .navigation,

@@ -23,25 +23,36 @@ export const MainLayout = () => {
   // Cinematic Intro state - guaranteed completion checks
   const [introComplete, setIntroComplete] = useState(() => {
     try {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('replayIntro') === '1' || urlParams.get('replay') === 'true') {
+        sessionStorage.removeItem('likith-cinematic-intro-seen');
+        return false;
+      }
       return sessionStorage.getItem('likith-cinematic-intro-seen') === 'true';
     } catch {
       return false;
     }
   });
+  const [introExiting, setIntroExiting] = useState(false);
 
   const introTime = useRef(0);
   const hasCompletedRef = useRef(false);
 
-  // Idempotent completion function
+  // Idempotent completion function with exit delay
   const completeIntro = useCallback(() => {
     if (hasCompletedRef.current) return;
     hasCompletedRef.current = true;
-    setIntroComplete(true);
-    try {
-      sessionStorage.setItem('likith-cinematic-intro-seen', 'true');
-    } catch (err) {
-      // safe fallback
-    }
+    setIntroExiting(true);
+
+    window.setTimeout(() => {
+      setIntroComplete(true);
+      setIntroExiting(false);
+      try {
+        sessionStorage.setItem('likith-cinematic-intro-seen', 'true');
+      } catch (err) {
+        // safe fallback
+      }
+    }, 350);
   }, []);
 
   const prefersReduced = useReducedMotion();
@@ -50,16 +61,17 @@ export const MainLayout = () => {
   // Instant skip for reduced motion or missing WebGL contexts
   useEffect(() => {
     if (prefersReduced || !hasWebGL) {
-      completeIntro();
+      setIntroComplete(true);
+      hasCompletedRef.current = true;
     }
-  }, [prefersReduced, hasWebGL, completeIntro]);
+  }, [prefersReduced, hasWebGL]);
 
-  // Safety Timeout Fallback (5 seconds) to ensure the portfolio never stays locked
+  // Safety Timeout Fallback (4.8 seconds) to ensure the portfolio never stays locked
   useEffect(() => {
     if (introComplete) return;
     const safetyTimer = window.setTimeout(() => {
       completeIntro();
-    }, 5000);
+    }, 4800);
     return () => window.clearTimeout(safetyTimer);
   }, [introComplete, completeIntro]);
 
@@ -112,19 +124,6 @@ export const MainLayout = () => {
     <div className={`app-shell min-h-screen flex flex-col bg-transparent text-slate-100 overflow-x-hidden selection:bg-white/20 selection:text-white ${
       introComplete ? 'app--ready' : 'app--intro'
     }`}>
-      {/* Cinematic Intro Manager (Layer 5) */}
-      <AnimatePresence mode="wait">
-        {!introComplete && (
-          <CinematicIntro 
-            key="cinematic-intro"
-            introActive={!introComplete} 
-            setIntroActive={setIntroComplete} 
-            onSkip={completeIntro}
-            onComplete={completeIntro}
-          />
-        )}
-      </AnimatePresence>
-
       {/* Immersive 3D Space Background (Layer 1) */}
       <GlobalStarCanvas 
         introActive={!introComplete}
@@ -132,10 +131,10 @@ export const MainLayout = () => {
         onIntroComplete={completeIntro}
       />
 
-      {/* Site Content (Layer 3) */}
-      <div 
-        className={`site-content flex-grow flex flex-col transition-opacity duration-1000 ${
-          introComplete ? 'opacity-100' : 'opacity-0 pointer-events-none'
+      {/* Site Content (Layer 3) wrapped in semantic <main> with ready/behind classes */}
+      <main 
+        className={`site-content flex-grow flex flex-col ${
+          introComplete ? 'site-content--ready' : 'site-content--behind-intro'
         }`}
       >
         {/* Scroll trackers */}
@@ -144,7 +143,8 @@ export const MainLayout = () => {
 
         {/* Shared Header Navigation */}
         <Navbar 
-          introComplete={introComplete}
+          visible={introComplete}
+          mobileMenuEnabled={true}
           menuOpen={mobileMenuOpen}
           setMenuOpen={setMobileMenuOpen}
           onOpenMessage={handleOpenMessage}
@@ -158,13 +158,26 @@ export const MainLayout = () => {
         />
 
         {/* Main Page Content */}
-        <main className="flex-grow">
+        <div className="flex-grow">
           <Outlet context={{ handleOpenMessage, handleOpenAI }} />
-        </main>
+        </div>
 
         {/* Shared Footer */}
         <Footer />
-      </div>
+      </main>
+
+      {/* Cinematic Intro Manager (Layer 5) */}
+      <AnimatePresence mode="wait">
+        {!introComplete && (
+          <CinematicIntro 
+            key="cinematic-intro"
+            introActive={!introComplete} 
+            exiting={introExiting}
+            onComplete={completeIntro}
+            onSkip={completeIntro}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Shared Chatbot Concierge (Layer 4) */}
       <Chatbot 

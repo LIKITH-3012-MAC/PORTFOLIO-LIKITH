@@ -3,24 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import IntroTitle from './IntroTitle';
 
-export const CinematicIntro = ({ introActive, setIntroActive, onSkip }) => {
-  const [searchParams] = useSearchParams();
+export const CinematicIntro = ({ exiting, onComplete, onSkip }) => {
   const [showTitle, setShowTitle] = useState(false);
-
-  // Read developer bypass and session storage state
-  useEffect(() => {
-    const isReplay = searchParams.get('replay') === 'true' || searchParams.get('replay') === '1' || searchParams.get('debug') === 'intro';
-    const hasSeenIntro = sessionStorage.getItem('likith-cinematic-intro-seen');
-
-    if (isReplay) {
-      sessionStorage.removeItem('likith-cinematic-intro-seen');
-      setIntroActive(true);
-    } else if (!hasSeenIntro) {
-      setIntroActive(true);
-    } else {
-      setIntroActive(false);
-    }
-  }, [searchParams, setIntroActive]);
 
   // Lock body scroll during the intro, with full cleanup restoration
   useEffect(() => {
@@ -81,7 +65,7 @@ export const CinematicIntro = ({ introActive, setIntroActive, onSkip }) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, ease: 'easeInOut' }}
       className={`cinematic-intro fixed inset-0 w-full h-full z-50 flex flex-col justify-between p-6 ${
-        introActive ? 'pointer-events-auto' : 'is-exiting pointer-events-none'
+        exiting ? 'is-exiting pointer-events-none' : 'pointer-events-auto'
       }`}
       style={{
         background: 'radial-gradient(circle at center, rgba(10,15,30,0) 0%, rgba(3,5,10,0.85) 100%)',
