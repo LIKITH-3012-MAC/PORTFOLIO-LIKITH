@@ -144,7 +144,9 @@ export const MainLayout = () => {
 
         {/* Shared Header Navigation */}
         <Navbar 
-          onOpenMenu={() => setMobileMenuOpen(true)} 
+          introComplete={introComplete}
+          menuOpen={mobileMenuOpen}
+          setMenuOpen={setMobileMenuOpen}
           onOpenMessage={handleOpenMessage}
         />
 

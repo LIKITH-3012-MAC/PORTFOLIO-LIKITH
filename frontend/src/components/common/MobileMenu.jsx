@@ -59,7 +59,11 @@ export const MobileMenu = ({ isOpen, onClose, onOpenMessage }) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <nav
+          id="mobile-navigation"
+          className="mobile-navigation is-open fixed inset-0 z-[1050] flex items-center justify-center p-4"
+          aria-hidden={!isOpen}
+        >
           {/* Backdrop Dim & Blur */}
           <motion.div 
             initial={{ opacity: 0 }}
@@ -80,13 +84,6 @@ export const MobileMenu = ({ isOpen, onClose, onOpenMessage }) => {
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
               <span className="font-display font-bold text-sm text-white tracking-wider uppercase">Navigation</span>
-              <button 
-                onClick={onClose}
-                className="p-2 text-slate-400 hover:text-white transition-colors" 
-                aria-label="Close Navigation"
-              >
-                <X className="w-5 h-5" />
-              </button>
             </div>
             
             {/* Nav items */}
@@ -150,7 +147,7 @@ export const MobileMenu = ({ isOpen, onClose, onOpenMessage }) => {
               </MagneticButton>
             </div>
           </motion.div>
-        </div>
+        </nav>
       )}
     </AnimatePresence>
   );

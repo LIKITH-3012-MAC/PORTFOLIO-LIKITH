@@ -6,7 +6,7 @@ import useKnowledge from '../../hooks/useKnowledge';
 import { MagneticButton } from '../effects/MagneticButton';
 import { MagneticIcon } from '../effects/MagneticIcon';
 
-export const Navbar = ({ onOpenMenu, onOpenMessage }) => {
+export const Navbar = ({ introComplete, menuOpen, setMenuOpen, onOpenMessage }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
@@ -92,8 +92,10 @@ export const Navbar = ({ onOpenMenu, onOpenMessage }) => {
   return (
     <nav 
       id="navbar" 
-      className={`fixed top-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50 rounded-full border border-white/10 bg-slate-950/40 backdrop-blur-xl px-6 transition-all duration-300 shadow-[0_12px_40px_rgba(0,0,0,0.5)] ${
+      className={`site-header fixed top-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50 rounded-full border border-white/10 bg-slate-950/40 backdrop-blur-xl px-6 transition-all duration-300 shadow-[0_12px_40px_rgba(0,0,0,0.5)] ${
         scrolled ? 'py-2.5 bg-slate-950/85' : 'py-3 bg-slate-950/40'
+      } ${
+        introComplete ? 'site-header--visible' : 'site-header--intro'
       }`}
     >
       <div className="flex items-center justify-between">
@@ -115,7 +117,7 @@ export const Navbar = ({ onOpenMenu, onOpenMessage }) => {
         </MagneticIcon>
 
         {/* Desktop Links with magnetic effects */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-6">
           <MagneticIcon>
             <button 
               onClick={() => handleNavClick('about')} 
@@ -174,19 +176,24 @@ export const Navbar = ({ onOpenMenu, onOpenMessage }) => {
           <MagneticButton>
             <Link 
               to="/collab?source=nav" 
-              className={`btn-premium hidden md:flex !py-2 !px-5 !text-[10px] ${activeSection === 'collab' ? 'border-amber-400' : ''}`}
+              className={`btn-premium hidden lg:flex !py-2 !px-5 !text-[10px] ${activeSection === 'collab' ? 'border-amber-400' : ''}`}
             >
               Collaborate
             </Link>
           </MagneticButton>
           
           {/* Mobile hamburger menu */}
-          <button 
-            onClick={onOpenMenu}
-            className="md:hidden text-white p-2 hover:text-slate-300 transition-colors" 
-            aria-label="Open Menu"
+          <button
+            type="button"
+            className={`mobile-menu-button lg:hidden ${menuOpen ? 'is-open' : ''}`}
+            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setMenuOpen((current) => !current)}
           >
-            <Menu className="w-6 h-6" />
+            <span />
+            <span />
+            <span />
           </button>
         </div>
       </div>
