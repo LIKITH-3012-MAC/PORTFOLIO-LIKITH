@@ -1,39 +1,34 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import useDeviceTier from './useDeviceTier';
 import useReducedMotion from './useReducedMotion';
-import QUALITY_PRESETS from '../three/config/qualityPresets';
+import { SOLAR_QUALITY_PRESETS } from '../three/solar-system/solarConfig';
 
 const QualityContext = createContext(null);
 
 export const QualityProvider = ({ children }) => {
   const deviceTier = useDeviceTier();
   const prefersReduced = useReducedMotion();
-  const [quality, setQuality] = useState(QUALITY_PRESETS.high);
+  const [quality, setQuality] = useState(SOLAR_QUALITY_PRESETS.desktop);
 
   useEffect(() => {
-    let initialTier = deviceTier;
-    if (prefersReduced) {
-      initialTier = 'low';
-    } else if (deviceTier === 'high' && navigator.deviceMemory > 8 && navigator.hardwareConcurrency > 8) {
-      // If we have great specs, promote to Ultra
-      initialTier = 'ultra';
+    if (prefersReduced || deviceTier === 'low') {
+      setQuality(SOLAR_QUALITY_PRESETS.low);
+    } else if (deviceTier === 'medium') {
+      setQuality(SOLAR_QUALITY_PRESETS.mobile);
+    } else {
+      setQuality(SOLAR_QUALITY_PRESETS.desktop);
     }
-    setQuality(QUALITY_PRESETS[initialTier] || QUALITY_PRESETS.low);
   }, [deviceTier, prefersReduced]);
 
   const downgradeQuality = useCallback(() => {
     setQuality((current) => {
-      if (current.tier === 'ultra') {
-        console.warn('[QualityEngine] Performance degradation detected. Downgrading to High Quality.');
-        return QUALITY_PRESETS.high;
+      if (current.tier === 'desktop') {
+        console.warn('[QualityEngine] Performance degradation detected. Downgrading to Mobile/Medium Quality.');
+        return SOLAR_QUALITY_PRESETS.mobile;
       }
-      if (current.tier === 'high') {
-        console.warn('[QualityEngine] Performance degradation detected. Downgrading to Medium Quality.');
-        return QUALITY_PRESETS.medium;
-      }
-      if (current.tier === 'medium') {
+      if (current.tier === 'mobile') {
         console.warn('[QualityEngine] Performance degradation detected. Downgrading to Low Quality.');
-        return QUALITY_PRESETS.low;
+        return SOLAR_QUALITY_PRESETS.low;
       }
       return current;
     });
