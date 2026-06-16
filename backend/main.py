@@ -51,6 +51,7 @@ app.add_middleware(
     allow_origins=[
         FRONTEND_URL,
         FRONTEND_WWW_URL,
+        "https://portfolio-likith.onrender.com",
         "https://portfolio-likith-yae9.onrender.com",
         "https://likith-portfolio.vercel.app",
         "http://localhost:3000",
@@ -773,21 +774,24 @@ async def self_stream(text, card):
 @app.post("/api/collab")
 async def create_collab(request: CollabRequest):
     TURNSTILE_SECRET_KEY = os.getenv("TURNSTILE_SECRET_KEY", "")
-    try:
-        verify_data = urllib.parse.urlencode({
-            'secret': TURNSTILE_SECRET_KEY,
-            'response': request.turnstile_token
-        }).encode('utf-8')
-        verify_req = urllib.request.Request('https://challenges.cloudflare.com/turnstile/v0/siteverify', data=verify_data)
-        with urllib.request.urlopen(verify_req) as verify_res_obj:
-            verify_res = json.loads(verify_res_obj.read().decode('utf-8'))
-        
-        if not verify_res.get('success'):
-            logger.warning(f"Turnstile verification failed for {request.full_name}: {verify_res}")
-            return JSONResponse(status_code=400, content={"success": False, "message": "Security verification failed. Please try again."})
-    except Exception as e:
-        logger.error(f"Turnstile API error: {e}")
-        return JSONResponse(status_code=500, content={"success": False, "message": "Could not verify security token."})
+    if not TURNSTILE_SECRET_KEY:
+        logger.warning(f"⚠️ TURNSTILE_SECRET_KEY is missing/empty. Skipping Turnstile verification for {request.full_name}.")
+    else:
+        try:
+            verify_data = urllib.parse.urlencode({
+                'secret': TURNSTILE_SECRET_KEY,
+                'response': request.turnstile_token
+            }).encode('utf-8')
+            verify_req = urllib.request.Request('https://challenges.cloudflare.com/turnstile/v0/siteverify', data=verify_data)
+            with urllib.request.urlopen(verify_req) as verify_res_obj:
+                verify_res = json.loads(verify_res_obj.read().decode('utf-8'))
+            
+            if not verify_res.get('success'):
+                logger.warning(f"Turnstile verification failed for {request.full_name}: {verify_res}")
+                return JSONResponse(status_code=400, content={"success": False, "message": "Security verification failed. Please try again."})
+        except Exception as e:
+            logger.error(f"Turnstile API error: {e}")
+            return JSONResponse(status_code=500, content={"success": False, "message": "Could not verify security token."})
 
     db = SessionLocal()
     try:
