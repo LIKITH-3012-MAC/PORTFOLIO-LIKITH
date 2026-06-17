@@ -140,11 +140,16 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
         {/* Brand logo wrapper */}
         <MagneticIcon>
           <Link to="/?source=nav" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10 transition-transform duration-300 group-hover:scale-105">
-              <img 
-                src="/images/likith/likith-naidu-anumakonda-professional.jpeg"
-                className="w-full h-full object-cover" 
-                alt={brandName} 
+            <div className="transition-transform duration-300 group-hover:scale-105 flex-shrink-0">
+              <img
+                src="/images/likith/likith-naidu-anumakonda-profile.png"
+                alt="Likith Naidu Anumakonda"
+                className="identity-profile-image"
+                width="72"
+                height="72"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
               />
             </div>
             <div className="flex flex-col text-left">

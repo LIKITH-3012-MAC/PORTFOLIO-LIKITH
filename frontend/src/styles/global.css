@@ -771,3 +771,17 @@ html.lenis, html.lenis body {
   transform: translate3d(-50%, 0, 0) !important;
 }
 
+/* Header profile image custom styling */
+.identity-profile-image {
+  width: clamp(58px, 5vw, 72px);
+  height: clamp(58px, 5vw, 72px);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.05),
+    0 0 22px rgba(150, 190, 255, 0.16);
+}
+
