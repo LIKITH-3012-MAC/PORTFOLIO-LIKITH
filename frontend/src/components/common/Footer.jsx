@@ -52,9 +52,6 @@ export const Footer = () => {
           <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
           <span>/</span>
           <a href={twitterUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">X / Twitter</a>
-          <span>/</span>
-          <Link to="/gallery" className="hover:text-white transition-colors">Gallery</Link>
-          <span>/</span>
           <a href="#contact" onClick={handleSupportClick} className="hover:text-white transition-colors">Support</a>
           <span>/</span>
           <a href={`tel:${phone}`} className="hover:text-white transition-colors">Phone</a>

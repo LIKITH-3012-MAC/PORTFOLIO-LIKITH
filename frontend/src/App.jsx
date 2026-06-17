@@ -7,7 +7,6 @@ import { DataConsolePage } from './pages/DataConsolePage';
 import { GitProfilePage } from './pages/GitProfilePage';
 import { YouTubePage } from './pages/YouTubePage';
 import { ProblemPage } from './pages/ProblemPage';
-import { GalleryPage } from './pages/GalleryPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { QualityProvider } from './hooks/useAdaptive3DQuality';
 import { MotionProvider } from './motion/MotionProvider';
@@ -26,7 +25,6 @@ export const App = () => {
               <Route path="git-profile" element={<GitProfilePage />} />
               <Route path="youtube" element={<YouTubePage />} />
               <Route path="problem" element={<ProblemPage />} />
-              <Route path="gallery" element={<GalleryPage />} />
               
               {/* Legacy URL Backward Compatibility Redirects */}
               <Route path="index.html" element={<Navigate to="/" replace />} />

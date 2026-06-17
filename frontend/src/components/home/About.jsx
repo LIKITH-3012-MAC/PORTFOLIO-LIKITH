@@ -28,10 +28,10 @@ export const About = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/20 to-transparent blur-3xl opacity-50 group-hover:opacity-100 transition duration-700"></div>
             <div className="relative rounded-3xl overflow-hidden glass-panel border border-white/10 aspect-[4/5]">
-              <figure className="w-full h-full">
+              <figure className="w-full h-full relative">
                 <img 
                   src="/images/likith/likith-naidu-anumakonda-profile.png"
-                  alt="Likith Naidu Anumakonda — AI-ML Architect and Founder"
+                  alt="Likith Naidu Anumakonda in a suit standing in front of an institutional building"
                   width="1672"
                   height="941"
                   loading="eager"
@@ -39,6 +39,9 @@ export const About = () => {
                   decoding="async"
                   className="w-full h-full object-cover filter contrast-125 saturate-0 group-hover:saturate-100 transition-all duration-700"
                 />
+                <figcaption className="absolute bottom-4 left-4 text-xs font-mono text-white/80 z-20">
+                  Likith Naidu Anumakonda
+                </figcaption>
               </figure>
             </div>
           </motion.div>
@@ -69,14 +72,7 @@ export const About = () => {
                 world-class.
               </p>
               
-              <div className="pt-2">
-                <Link 
-                  to="/gallery" 
-                  className="inline-flex items-center gap-2 text-sm font-mono text-amber-400 hover:text-amber-300 transition-colors group/link"
-                >
-                  View Photo Gallery <span className="transform group-hover/link:translate-x-1 transition-transform">&rarr;</span>
-                </Link>
-              </div>
+
             </div>
             
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-6 border-t border-white/10">

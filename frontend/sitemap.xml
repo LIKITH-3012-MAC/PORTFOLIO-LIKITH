@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset 
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
 
     <!-- Home Page -->
     <url>
@@ -7,14 +10,31 @@
         <lastmod>2026-06-17</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
-    </url>
-
-    <!-- Photo Gallery -->
-    <url>
-        <loc>https://likith-portfolio.online/gallery</loc>
-        <lastmod>2026-06-17</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.9</priority>
+        
+        <image:image>
+            <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-profile.png</image:loc>
+            <image:title>Likith Naidu Anumakonda — Official Profile</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda.jpeg</image:loc>
+            <image:title>Likith Naidu Anumakonda — black and white close-up portrait wearing glasses</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-professional.jpeg</image:loc>
+            <image:title>Likith Naidu Anumakonda in a blazer on a rooftop with city skyline</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-personal-portrait.jpeg</image:loc>
+            <image:title>Likith Anumakonda — monochrome rooftop portrait in blazer</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-casual-photo.jpeg</image:loc>
+            <image:title>Likith Naidu Anumakonda — candid indoor shot with sunglasses</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-professional-photo.jpeg</image:loc>
+            <image:title>Likith Anumakonda wearing a blazer and blue shirt on a rooftop terrace</image:title>
+        </image:image>
     </url>
 
     <!-- GitHub Project Archive -->
@@ -23,6 +43,11 @@
         <lastmod>2026-06-17</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
+        
+        <image:image>
+            <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-portrait.png</image:loc>
+            <image:title>Likith Naidu Anumakonda — stylized editorial portrait with purple backdrop</image:title>
+        </image:image>
     </url>
 
     <!-- YouTube Media Hub -->
@@ -31,6 +56,11 @@
         <lastmod>2026-06-17</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
+        
+        <image:image>
+            <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-portrait.jpeg</image:loc>
+            <image:title>Likith Anumakonda at the beach with ocean waves</image:title>
+        </image:image>
     </url>
 
     <!-- Collaboration Page -->
@@ -39,6 +69,11 @@
         <lastmod>2026-06-17</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
+        
+        <image:image>
+            <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-profile-photo.jpeg</image:loc>
+            <image:title>Likith Anumakonda in a blazer against a hillside cityscape</image:title>
+        </image:image>
     </url>
 
     <!-- Intelligence / Data Console -->

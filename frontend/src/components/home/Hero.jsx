@@ -83,13 +83,33 @@ export const Hero = ({ onOpenMessage }) => {
           </div>
         </motion.div>
 
-        {/* Right: Floating PBR card anchored to WebGL center */}
-        <div className="relative h-[300px] md:h-[500px] lg:h-[600px] w-full flex items-center justify-center order-first md:order-last pointer-events-none">
+        {/* Right: Portrait Image & Floating PBR card */}
+        <div className="relative h-[400px] md:h-[500px] lg:h-[600px] w-full flex items-center justify-center order-first md:order-last">
+          {/* Portrait Image */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-70 md:opacity-90">
+            <figure className="relative w-64 h-80 md:w-72 md:h-[26rem] rounded-3xl overflow-hidden glass-panel border border-white/10 shadow-2xl">
+              <img 
+                src="/images/likith/likith-naidu-anumakonda.jpeg"
+                alt="Likith Naidu Anumakonda — black and white close-up portrait wearing glasses"
+                width="3072"
+                height="4096"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                className="w-full h-full object-cover filter contrast-125 saturate-50 hover:saturate-100 transition-all duration-700"
+              />
+              <figcaption className="absolute bottom-4 left-4 text-xs font-mono text-white/80 z-20">
+                Likith Naidu Anumakonda
+              </figcaption>
+            </figure>
+          </div>
+
+          {/* Floating PBR card anchored above */}
           <motion.div 
             initial="hidden"
             animate="visible"
             variants={scaleReveal}
-            className="glass-panel p-6 rounded-[2rem] border border-white/10 backdrop-blur-xl animate-bounce shadow-2xl pointer-events-auto"
+            className="glass-panel p-6 rounded-[2rem] border border-white/10 backdrop-blur-xl animate-bounce shadow-2xl z-30 pointer-events-auto"
             style={{ animationDuration: '4s' }}
           >
             <div className="flex items-center gap-4 text-left">

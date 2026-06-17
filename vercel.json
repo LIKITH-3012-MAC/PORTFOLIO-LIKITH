@@ -4,11 +4,29 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/((?!assets|knowledge|favicon.png|apple-touch-icon.png|likiths.jpeg|my_resume.pdf|LIKITH-resume.pdf|robots.txt|sitemap.xml).*)",
+      "source": "/((?!assets|images|email-assets|knowledge|favicon.png|apple-touch-icon.png|likiths.jpeg|my_resume.pdf|LIKITH-resume.pdf|robots.txt|sitemap.xml|image-sitemap.xml).*)",
       "destination": "/index.html"
     }
   ],
   "headers": [
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/email-assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [

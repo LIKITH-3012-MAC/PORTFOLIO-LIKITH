@@ -33,10 +33,11 @@ export const HomePage = () => {
   return (
     <>
       <SEO 
-        title="Likith Naidu Anumamkonda | AI-ML Architect & Founder"
-        description="Likith Naidu Anumamkonda — AI-ML Architect, Founder of SAKRA VISION, and Full-Stack Architect. Specializing in AI Agents, ML Models, Python & Node.js systems."
-        keywords="Likith Naidu Anumamkonda, AI Engineer, ML Architect, SAKRA VISION, Full Stack Developer, Python, Node.js, IIT Patna"
+        title="Likith Naidu Anumakonda | AI/ML Architect & Founder"
+        description="Official portfolio of Likith Naidu Anumakonda, featuring AI/ML engineering, full-stack projects, technical work, creative work and founder initiatives."
+        keywords="Likith Naidu Anumakonda, Likith Anumakonda, Likith Naidu, AI Engineer, ML Architect, SAKRA VISION, Full Stack Developer, Python, Node.js, IIT Patna"
         canonical="https://likith-portfolio.online/"
+        image="https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-profile.png"
       />
       
       {/* Scroll Sections */}

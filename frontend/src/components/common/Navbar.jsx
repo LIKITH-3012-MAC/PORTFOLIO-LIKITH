@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, Mail, Github, Youtube, Image } from 'lucide-react';
+import { Menu, Mail, Github, Youtube } from 'lucide-react';
 import CONFIG from '../../services/config';
 import useKnowledge from '../../hooks/useKnowledge';
 import { MagneticButton } from '../effects/MagneticButton';
@@ -97,8 +97,6 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
       setActiveSection('youtube');
     } else if (path.includes('collab')) {
       setActiveSection('collab');
-    } else if (path.includes('gallery')) {
-      setActiveSection('gallery');
     } else if (path === '/' && !location.hash) {
       setActiveSection('index');
     }
@@ -206,14 +204,7 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
             </Link>
           </MagneticIcon>
 
-          <MagneticIcon>
-            <Link 
-              to="/gallery?source=nav" 
-              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase flex items-center gap-1.5 ${activeSection === 'gallery' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
-            >
-              <Image className="w-3.5 h-3.5" /> Gallery
-            </Link>
-          </MagneticIcon>
+
         </div>
 
         {/* Action buttons */}

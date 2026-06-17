@@ -114,12 +114,21 @@ export const FounderMessage = ({ isOpen, onClose }) => {
 
               {/* Right Side: Portrait */}
               <div className="relative rounded-3xl overflow-hidden glass-panel border border-white/10 aspect-[4/5] hidden md:block">
-                <img 
-                  src="/images/likith/likith-anumakonda-professional-photo.jpeg" 
-                  alt="Likith Naidu Anumakonda — Founder Portrait"
-                  className="w-full h-full object-cover filter contrast-110 saturate-50"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-85"></div>
+                <figure className="w-full h-full relative">
+                  <img 
+                    src="/images/likith/likith-anumakonda-professional-photo.jpeg" 
+                    alt="Likith Anumakonda wearing a blazer and blue shirt on a rooftop terrace"
+                    width="2752"
+                    height="1536"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover filter contrast-110 saturate-50"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-85 pointer-events-none"></div>
+                  <figcaption className="absolute bottom-4 left-4 text-xs font-mono text-white/80 z-20">
+                    Likith Naidu Anumakonda
+                  </figcaption>
+                </figure>
               </div>
             </div>
           </motion.div>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  version="1.2"
+  baseProfile="tiny-ps"
+  width="256"
+  height="256"
+  viewBox="0 0 256 256"
+>
+  <title>Likith Naidu Anumakonda</title>
+  <desc>LNA brand logo for BIMI email identification</desc>
+  <rect width="256" height="256" fill="#030712" />
+  <path d="M 47.75 94.5 L 47.75 161.25 L 89.75 161.25 L 89.75 150.0 L 60.0 149.75 L 60.0 94.5 Z" fill="#fbbf24" />
+  <path d="M 94.5 94.5 L 94.5 161.25 L 106.75 161.0 L 106.75 117.5 L 132.5 160.75 L 146.0 161.25 L 146.0 94.5 L 134.0 94.5 L 133.75 138.0 L 107.75 94.5 Z" fill="#fbbf24" />
+  <path d="M 172.5 94.5 L 149.75 157.75 L 149.5 161.25 L 162.25 161.25 L 168.25 144.5 L 189.5 144.5 L 195.5 161.25 L 208.25 161.25 L 208.25 158.25 L 185.5 94.75 Z M 178.75 112.25 L 172.0 133.0 L 185.75 133.0 Z" fill="#fbbf24" fill-rule="evenodd" />
+</svg>

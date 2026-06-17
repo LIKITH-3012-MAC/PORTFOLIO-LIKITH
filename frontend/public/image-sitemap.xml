@@ -3,52 +3,68 @@
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
 >
+  <!-- Home Page Images -->
   <url>
-    <loc>https://likith-portfolio.online/gallery</loc>
-
-    <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda.jpeg</image:loc>
-      <image:title>Likith Naidu Anumakonda</image:title>
-    </image:image>
+    <loc>https://likith-portfolio.online/</loc>
 
     <image:image>
       <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-profile.png</image:loc>
-      <image:title>Likith Naidu Anumakonda — Professional Profile</image:title>
+      <image:title>Likith Naidu Anumakonda — Official Profile</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-portrait.png</image:loc>
-      <image:title>Likith Naidu Anumakonda — Editorial Portrait</image:title>
+      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda.jpeg</image:loc>
+      <image:title>Likith Naidu Anumakonda — black and white close-up portrait wearing glasses</image:title>
     </image:image>
 
     <image:image>
       <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-professional.jpeg</image:loc>
-      <image:title>Likith Naidu Anumakonda — Rooftop Portrait</image:title>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-profile-photo.jpeg</image:loc>
-      <image:title>Likith Anumakonda — Outdoor Portrait</image:title>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-professional-photo.jpeg</image:loc>
-      <image:title>Likith Anumakonda — Terrace Portrait</image:title>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-portrait.jpeg</image:loc>
-      <image:title>Likith Anumakonda — By the Sea</image:title>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-casual-photo.jpeg</image:loc>
-      <image:title>Likith Naidu Anumakonda — Candid</image:title>
+      <image:title>Likith Naidu Anumakonda in a blazer on a rooftop with city skyline</image:title>
     </image:image>
 
     <image:image>
       <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-personal-portrait.jpeg</image:loc>
-      <image:title>Likith Anumakonda — Monochrome Portrait</image:title>
+      <image:title>Likith Anumakonda — monochrome rooftop portrait in blazer</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-casual-photo.jpeg</image:loc>
+      <image:title>Likith Naidu Anumakonda — candid indoor shot with sunglasses</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-professional-photo.jpeg</image:loc>
+      <image:title>Likith Anumakonda wearing a blazer and blue shirt on a rooftop terrace</image:title>
+    </image:image>
+  </url>
+
+  <!-- GitHub Archive Page Images -->
+  <url>
+    <loc>https://likith-portfolio.online/git-profile</loc>
+    
+    <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-portrait.png</image:loc>
+      <image:title>Likith Naidu Anumakonda — stylized editorial portrait with purple backdrop</image:title>
+    </image:image>
+  </url>
+
+  <!-- YouTube Page Images -->
+  <url>
+    <loc>https://likith-portfolio.online/youtube</loc>
+    
+    <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-portrait.jpeg</image:loc>
+      <image:title>Likith Anumakonda at the beach with ocean waves</image:title>
+    </image:image>
+  </url>
+
+  <!-- Collaboration Page Images -->
+  <url>
+    <loc>https://likith-portfolio.online/collab</loc>
+    
+    <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-profile-photo.jpeg</image:loc>
+      <image:title>Likith Anumakonda in a blazer against a hillside cityscape</image:title>
     </image:image>
   </url>
 </urlset>

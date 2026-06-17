@@ -27,10 +27,11 @@ export const YouTubePage = () => {
   return (
     <>
       <SEO 
-        title="Media Hub | Likith Naidu Anumamkonda"
+        title="Media Hub | Likith Naidu Anumakonda"
         description="Cinematic media hub showcasing Likith Naidu's AI/ML innovations and creative piano expressions. Experience the intersection of technology and art."
         keywords="Likith Naidu YouTube, AI Demo, Piano Cover, Music Tech, Classical Piano India"
         canonical="https://likith-portfolio.online/youtube"
+        image="https://likith-portfolio.online/images/likith/likith-anumakonda-portrait.jpeg"
       />
 
       <div className="pt-32 pb-24 text-slate-200">
@@ -41,24 +42,51 @@ export const YouTubePage = () => {
             <ArrowLeft className="w-3.5 h-3.5" /> Back to Home
           </Link>
 
-          {/* Header copy */}
-          <motion.div 
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="mb-16"
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-6">
-              <Youtube className="w-3.5 h-3.5 text-red-500" />
-              <span className="text-[10px] font-mono text-slate-300 tracking-widest uppercase">Media Ingest</span>
-            </div>
-            <h1 className="text-4xl md:text-6xl font-display font-bold text-white mb-6">
-              Media <br /><span className="text-gradient">Hub.</span>
-            </h1>
-            <p className="text-slate-400 text-lg max-w-2xl leading-relaxed font-light">
-              Cinematic media hub showcasing Likith Naidu's AI/ML innovations and creative piano expressions. Experience the intersection of technology and art.
-            </p>
-          </motion.div>
+          {/* Header copy & image grid */}
+          <div className="grid md:grid-cols-12 gap-12 items-center mb-16">
+            <motion.div 
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              className="md:col-span-7 space-y-6"
+            >
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
+                <Youtube className="w-3.5 h-3.5 text-red-500" />
+                <span className="text-[10px] font-mono text-slate-300 tracking-widest uppercase">Media Ingest</span>
+              </div>
+              <h1 className="text-4xl md:text-6xl font-display font-bold text-white leading-tight">
+                Media <br /><span className="text-gradient">Hub.</span>
+              </h1>
+              <p className="text-slate-400 text-lg leading-relaxed font-light font-sans">
+                Cinematic media hub showcasing Likith Naidu's AI/ML innovations and creative piano expressions. Experience the intersection of technology and art.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={fadeUp}
+              className="md:col-span-5 relative group"
+            >
+              <div className="absolute inset-0 bg-gradient-to-tr from-red-500/15 to-transparent blur-3xl opacity-50 group-hover:opacity-100 transition duration-700"></div>
+              <div className="relative rounded-3xl overflow-hidden glass-panel border border-white/10 aspect-[16/9] max-w-sm mx-auto">
+                <figure className="w-full h-full relative">
+                  <img 
+                    src="/images/likith/likith-anumakonda-portrait.jpeg"
+                    alt="Likith Anumakonda at the beach with ocean waves"
+                    width="1227"
+                    height="685"
+                    loading="eager"
+                    decoding="async"
+                    className="w-full h-full object-cover filter contrast-110 saturate-50 group-hover:saturate-100 transition-all duration-700"
+                  />
+                  <figcaption className="absolute bottom-4 left-4 text-xs font-mono text-white/80 z-20">
+                    Likith Anumakonda
+                  </figcaption>
+                </figure>
+              </div>
+            </motion.div>
+          </div>
 
           {/* Filters */}
           <motion.div 

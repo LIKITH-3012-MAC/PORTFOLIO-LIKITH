@@ -352,10 +352,11 @@ export const CollaborationPage = () => {
   return (
     <>
       <SEO 
-        title="Collaborate | Likith Naidu Anumamkonda"
-        description="Start a high-end technical collaboration with Likith Naidu Anumamkonda. Founder-grade intake for AI, ML, and creative tech projects."
+        title="Collaborate | Likith Naidu Anumakonda"
+        description="Start a high-end technical collaboration with Likith Naidu Anumakonda. Founder-grade intake for AI, ML, and creative tech projects."
         keywords="Likith Naidu Collaboration, Partner with Likith, AI Agent Development, Custom SaaS"
         canonical="https://likith-portfolio.online/collab"
+        image="https://likith-portfolio.online/images/likith/likith-anumakonda-profile-photo.jpeg"
       />
 
       <main className="pt-32 pb-20 px-6 min-h-screen text-slate-200 transition-all duration-1000" id="main-content">
@@ -599,6 +600,27 @@ export const CollaborationPage = () => {
 
             {/* Sidebar Column */}
             <div className="space-y-6 text-left">
+              {/* Profile Photo Card */}
+              <div className="glass-panel p-6 rounded-3xl border border-white/10 relative overflow-hidden group">
+                <figure className="relative w-full rounded-2xl overflow-hidden aspect-[16/9] mb-4">
+                  <img 
+                    src="/images/likith/likith-anumakonda-profile-photo.jpeg"
+                    alt="Likith Anumakonda in a blazer against a hillside cityscape"
+                    width="2752"
+                    height="1536"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover filter contrast-110 saturate-50 group-hover:saturate-100 transition-all duration-700"
+                  />
+                  <figcaption className="absolute bottom-2 left-3 text-[10px] font-mono text-white/80 z-20">
+                    Likith Anumakonda
+                  </figcaption>
+                </figure>
+                <p className="text-xs text-slate-400 font-light leading-relaxed">
+                  Founder of <b>SAKRA VISION</b>, ready to architect and execute your high-end technical vision.
+                </p>
+              </div>
+
               {/* Why Likith Sidebar Card */}
               <div className="glass-panel p-6 rounded-3xl border border-white/10 relative overflow-hidden">
                 <h3 className="text-amber-500 font-display font-bold text-lg mb-6 uppercase tracking-tighter">Why Likith?</h3>
