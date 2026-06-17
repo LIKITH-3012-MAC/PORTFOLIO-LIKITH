@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { fadeUp } from '../../motion/variants';
 import useKnowledge from '../../hooks/useKnowledge';
+import { imageConfig } from '../../config/seo';
 
 export const About = () => {
   const { data: profile } = useKnowledge('likith-profile.json');
@@ -30,7 +31,7 @@ export const About = () => {
             <div className="relative rounded-3xl overflow-hidden glass-panel border border-white/10 aspect-[4/5]">
               <figure className="w-full h-full relative">
                 <img 
-                  src="/images/likith/likith-naidu-anumakonda-profile.png"
+                  src={imageConfig.multiDimensionImage}
                   alt="Likith Naidu Anumakonda in a suit standing in front of an institutional building"
                   width="1672"
                   height="941"

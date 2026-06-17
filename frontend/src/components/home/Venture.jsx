@@ -9,67 +9,38 @@ export const Venture = () => {
     <>
       {/* 1. SAKRA VISION CEO CARD */}
       <section id="founder" className="py-24 relative z-10">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="grid md:grid-cols-12 gap-8 items-center">
-            {/* CEO Card text */}
-            <motion.div 
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeUp}
-              className="md:col-span-7 glass-panel rounded-3xl p-10 relative overflow-hidden group text-left"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-700"></div>
-              <div className="relative z-10">
-                <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-amber-400 mb-8">
-                  <Building2 className="w-8 h-8" />
-                </div>
-                <h3 className="text-xs font-mono text-amber-400 tracking-widest uppercase mb-2">Venture</h3>
-                <h2 className="text-3xl font-display font-bold text-white mb-4">SAKRA Vision</h2>
-                <p className="text-slate-400 font-light leading-relaxed mb-8">
-                  Founder & CEO. Driving innovation in computer vision automation and dedicated AI
-                  infrastructure. Focused on building highly efficient systems that bridge complex algorithms
-                  with real-world utility.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <Link to="/collab?source=venture" className="btn-premium group">
-                    Start Collaboration
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                  <a href="https://www.sakra-vision.online" target="_blank" rel="noopener noreferrer" className="btn-glass flex items-center gap-2">
-                    <ExternalLink className="w-4 h-4" /> Visit Portal
-                  </a>
-                </div>
+        <div className="max-w-5xl mx-auto px-6 flex justify-center">
+          {/* CEO Card text */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeUp}
+            className="glass-panel rounded-3xl p-10 relative overflow-hidden group text-left max-w-3xl w-full"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-700"></div>
+            <div className="relative z-10">
+              <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-amber-400 mb-8">
+                <Building2 className="w-8 h-8" />
               </div>
-            </motion.div>
-
-            {/* CEO Portrait */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeUp}
-              className="md:col-span-5 relative group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/20 to-transparent blur-3xl opacity-50 group-hover:opacity-100 transition duration-700"></div>
-              <div className="relative rounded-3xl overflow-hidden glass-panel border border-white/10 aspect-square max-w-sm mx-auto">
-                <figure className="w-full h-full relative">
-                  <img 
-                    src="/images/likith/likith-naidu-anumakonda-professional.jpeg"
-                    alt="Likith Naidu Anumakonda in a blazer on a rooftop with city skyline"
-                    width="1440"
-                    height="1440"
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover filter contrast-115 saturate-50 group-hover:saturate-100 transition-all duration-700"
-                  />
-                  <figcaption className="absolute bottom-4 left-4 text-xs font-mono text-white/80 z-20">
-                    Likith Naidu Anumakonda
-                  </figcaption>
-                </figure>
+              <h3 className="text-xs font-mono text-amber-400 tracking-widest uppercase mb-2">Venture</h3>
+              <h2 className="text-3xl font-display font-bold text-white mb-4">SAKRA Vision</h2>
+              <p className="text-slate-400 font-light leading-relaxed mb-8">
+                Founder & CEO. Driving innovation in computer vision automation and dedicated AI
+                infrastructure. Focused on building highly efficient systems that bridge complex algorithms
+                with real-world utility.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link to="/collab?source=venture" className="btn-premium group">
+                  Start Collaboration
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <a href="https://www.sakra-vision.online" target="_blank" rel="noopener noreferrer" className="btn-glass flex items-center gap-2">
+                  <ExternalLink className="w-4 h-4" /> Visit Portal
+                </a>
               </div>
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -78,56 +49,27 @@ export const Venture = () => {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-10 filter grayscale mix-blend-overlay pointer-events-none"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black pointer-events-none"></div>
 
-        <div className="max-w-5xl mx-auto px-6 relative z-10">
-          <div className="grid md:grid-cols-12 gap-12 items-center">
-            {/* Left: text */}
-            <motion.div 
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeUp}
-              className="md:col-span-7 text-left space-y-6"
-            >
-              <h2 className="text-4xl md:text-6xl font-display font-light text-white tracking-wide leading-tight">
-                The Art of <span className="font-bold text-gradient-accent">Precision.</span>
-              </h2>
-              <p className="text-lg text-slate-400 font-light leading-relaxed">
-                Classical Pianist. Where discipline meets emotion. Exploring the deep architectural symmetry shared between classical composition and algorithmic systems engineering.
-              </p>
-              <div className="pt-2">
-                <Link to="/youtube?source=nav" className="btn-premium group shadow-[0_0_40px_rgba(251,191,36,0.3)]">
-                  <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" /> Witness Performance
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Right: Piano / Monochrome Portrait */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeUp}
-              className="md:col-span-5 relative group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-transparent blur-3xl opacity-50 group-hover:opacity-100 transition duration-700"></div>
-              <div className="relative rounded-3xl overflow-hidden glass-panel border border-white/10 aspect-square max-w-sm mx-auto">
-                <figure className="w-full h-full relative">
-                  <img 
-                    src="/images/likith/likith-anumakonda-personal-portrait.jpeg"
-                    alt="Likith Anumakonda — monochrome rooftop portrait in blazer"
-                    width="1440"
-                    height="1440"
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover filter contrast-125 saturate-0 group-hover:contrast-110 transition-all duration-700"
-                  />
-                  <figcaption className="absolute bottom-4 left-4 text-xs font-mono text-white/80 z-20">
-                    Likith Anumakonda
-                  </figcaption>
-                </figure>
-              </div>
-            </motion.div>
-          </div>
+        <div className="max-w-3xl mx-auto px-6 relative z-10 text-center">
+          {/* Left: text */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeUp}
+            className="space-y-6"
+          >
+            <h2 className="text-4xl md:text-6xl font-display font-light text-white tracking-wide leading-tight">
+              The Art of <span className="font-bold text-gradient-accent">Precision.</span>
+            </h2>
+            <p className="text-lg text-slate-400 font-light leading-relaxed">
+              Classical Pianist. Where discipline meets emotion. Exploring the deep architectural symmetry shared between classical composition and algorithmic systems engineering.
+            </p>
+            <div className="pt-2 flex justify-center">
+              <Link to="/youtube?source=nav" className="btn-premium group shadow-[0_0_40px_rgba(251,191,36,0.3)]">
+                <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" /> Witness Performance
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
 

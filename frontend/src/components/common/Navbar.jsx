@@ -5,6 +5,7 @@ import CONFIG from '../../services/config';
 import useKnowledge from '../../hooks/useKnowledge';
 import { MagneticButton } from '../effects/MagneticButton';
 import { MagneticIcon } from '../effects/MagneticIcon';
+import { imageConfig } from '../../config/seo';
 
 export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOpenMessage }) => {
   const location = useLocation();
@@ -140,7 +141,7 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
           <Link to="/?source=nav" className="flex items-center gap-3 group">
             <div className="transition-transform duration-300 group-hover:scale-105 flex-shrink-0">
               <img
-                src="/images/likith/likith-naidu-anumakonda-profile.png"
+                src={imageConfig.primaryVisibleImage}
                 alt="Likith Naidu Anumakonda"
                 className="identity-profile-image"
                 width="72"

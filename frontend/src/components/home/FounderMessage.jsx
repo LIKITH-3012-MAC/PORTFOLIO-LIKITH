@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { modalTransition } from '../../motion/variants';
 import useBodyScrollLock from '../../hooks/useBodyScrollLock';
+import { imageConfig } from '../../config/seo';
 
 export const FounderMessage = ({ isOpen, onClose }) => {
   useBodyScrollLock(isOpen);
@@ -116,7 +117,7 @@ export const FounderMessage = ({ isOpen, onClose }) => {
               <div className="relative rounded-3xl overflow-hidden glass-panel border border-white/10 aspect-[4/5] hidden md:block">
                 <figure className="w-full h-full relative">
                   <img 
-                    src="/images/likith/likith-anumakonda-professional-photo.jpeg" 
+                    src={imageConfig.messagesImage} 
                     alt="Likith Anumakonda wearing a blazer and blue shirt on a rooftop terrace"
                     width="2752"
                     height="1536"
