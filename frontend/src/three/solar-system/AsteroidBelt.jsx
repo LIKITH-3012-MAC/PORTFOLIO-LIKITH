@@ -28,13 +28,16 @@ export const AsteroidBelt = ({
       const sy = sx * (0.5 + Math.random() * 1.0);
       const sz = sx * (0.5 + Math.random() * 1.0);
 
-      dummy.position.set(x, y, z);
-      dummy.rotation.set(
+      const scale = new THREE.Vector3(sx, sy, sz);
+      const rotation = new THREE.Euler(
         Math.random() * Math.PI,
         Math.random() * Math.PI,
         Math.random() * Math.PI
       );
-      dummy.scale.set(sx, sy, sz);
+
+      dummy.position.set(x, y, z);
+      dummy.rotation.copy(rotation);
+      dummy.scale.copy(scale);
       dummy.updateMatrix();
       m.push(dummy.matrix.clone());
 
@@ -47,7 +50,9 @@ export const AsteroidBelt = ({
         ),
         angle,
         dist,
-        y
+        y,
+        rotation,
+        scale
       });
     }
 
@@ -56,31 +61,24 @@ export const AsteroidBelt = ({
 
   useFrame((state, delta) => {
     if (!meshRef.current) return;
-    const dt = Math.min(delta, 0.1);
+    const dt = Math.min(delta, 0.05);
 
     for (let i = 0; i < count; i++) {
       const r = rotSpeeds[i];
       r.angle += r.orbitSpeed * dt;
 
-      dummy.position.set(
-        Math.cos(r.angle) * r.dist,
-        r.y,
-        Math.sin(r.angle) * r.dist
-      );
-
-      meshRef.current.getMatrixAt(i, dummy.matrix);
-      dummy.matrix.decompose(dummy.position, dummy.quaternion, dummy.scale);
+      // Update rotation
+      r.rotation.x += r.tumble.x * dt;
+      r.rotation.y += r.tumble.y * dt;
+      r.rotation.z += r.tumble.z * dt;
 
       dummy.position.set(
         Math.cos(r.angle) * r.dist,
         r.y,
         Math.sin(r.angle) * r.dist
       );
-
-      // Tumble rotation
-      dummy.rotation.x += r.tumble.x * dt;
-      dummy.rotation.y += r.tumble.y * dt;
-      dummy.rotation.z += r.tumble.z * dt;
+      dummy.rotation.copy(r.rotation);
+      dummy.scale.copy(r.scale);
 
       dummy.updateMatrix();
       meshRef.current.setMatrixAt(i, dummy.matrix);

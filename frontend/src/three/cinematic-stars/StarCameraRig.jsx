@@ -2,7 +2,7 @@ import React from 'react';
 import { useFrame } from '@react-three/fiber';
 
 export const StarCameraRig = ({ quality, prefersReduced }) => {
-  useFrame((state) => {
+  useFrame((state, delta) => {
     // 1. Gentle procedural camera drift (disabled in reduced-motion)
     const elapsed = state.clock.getElapsedTime();
     let driftX = 0;
@@ -25,9 +25,10 @@ export const StarCameraRig = ({ quality, prefersReduced }) => {
     }
 
     // Smooth dampening
-    const ease = 0.05;
-    state.camera.position.x += (targetX - state.camera.position.x) * ease;
-    state.camera.position.y += (targetY - state.camera.position.y) * ease;
+    const safeDelta = Math.min(delta, 0.05);
+    const damping = 1 - Math.exp(-3.0 * safeDelta);
+    state.camera.position.x += (targetX - state.camera.position.x) * damping;
+    state.camera.position.y += (targetY - state.camera.position.y) * damping;
 
     // Ensure camera up vector is always vertical when not in intro
     if (state.camera.up.x !== 0 || state.camera.up.y !== 1 || state.camera.up.z !== 0) {

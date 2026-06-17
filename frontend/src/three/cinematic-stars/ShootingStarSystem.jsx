@@ -77,7 +77,8 @@ export const ShootingStarSystem = ({ quality, prefersReduced, currentPath }) => 
       if (!star.active) {
         // Trigger randomly: small chance per frame (~1% chance per second per slot)
         // Or force-trigger on route changes
-        if ((routeChanged && Math.random() < 0.8) || Math.random() < 0.0035) {
+        const triggerChance = 0.21 * delta;
+        if ((routeChanged && Math.random() < 0.8) || Math.random() < triggerChance) {
           triggerStar(star);
         }
       } else {

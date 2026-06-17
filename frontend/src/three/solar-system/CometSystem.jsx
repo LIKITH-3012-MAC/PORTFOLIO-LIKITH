@@ -53,8 +53,9 @@ const Comet = ({ seed = 0, speed = 1, orbitRadius = 18 }) => {
     return { eccentricity, inclination, semiMajor, semiMinor, period };
   }, [seed, speed, orbitRadius]);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (!groupRef.current) return;
+    const safeDelta = Math.min(delta, 0.05);
     const t = state.clock.getElapsedTime() * params.period * 0.08;
     const { semiMajor, semiMinor, inclination } = params;
 
@@ -116,8 +117,8 @@ const Comet = ({ seed = 0, speed = 1, orbitRadius = 18 }) => {
 
     // Nucleus tumble
     if (nucleusRef.current) {
-      nucleusRef.current.rotation.x += 0.01;
-      nucleusRef.current.rotation.y += 0.008;
+      nucleusRef.current.rotation.x += 0.6 * safeDelta;
+      nucleusRef.current.rotation.y += 0.48 * safeDelta;
     }
   });
 

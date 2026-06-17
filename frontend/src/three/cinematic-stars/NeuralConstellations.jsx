@@ -144,9 +144,12 @@ export const NeuralConstellations = ({ quality, prefersReduced }) => {
     const lerpSpeed = prefersReduced ? 1.0 : 4.2;
     const currentPos = currentPositions.current;
 
+    const safeDelta = Math.min(delta, 0.05);
+    const nodeSmoothing = 1 - Math.exp(-lerpSpeed * safeDelta);
+
     // 1. Lerp node positions
     for (let i = 0; i < nodeCount; i++) {
-      currentPos[i].lerp(targets[i], delta * lerpSpeed);
+      currentPos[i].lerp(targets[i], nodeSmoothing);
       nodePositionsArray[i * 3] = currentPos[i].x;
       nodePositionsArray[i * 3 + 1] = currentPos[i].y;
       nodePositionsArray[i * 3 + 2] = currentPos[i].z;
@@ -207,7 +210,8 @@ export const NeuralConstellations = ({ quality, prefersReduced }) => {
     // Transition opacity based on route factors (fade out completely on subpages)
     const isSubpage = currentPath && currentPath !== '/' && currentPath !== '/index.html';
     const targetOpacity = isSubpage ? 0.0 : 0.85;
-    opacityRef.current += (targetOpacity - opacityRef.current) * 0.08;
+    const opacitySmoothing = 1 - Math.exp(-5.0 * safeDelta);
+    opacityRef.current += (targetOpacity - opacityRef.current) * opacitySmoothing;
   });
 
   return (

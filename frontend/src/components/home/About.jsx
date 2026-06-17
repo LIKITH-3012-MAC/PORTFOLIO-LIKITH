@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { fadeUp } from '../../motion/variants';
 import useKnowledge from '../../hooks/useKnowledge';
 
@@ -27,11 +28,18 @@ export const About = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/20 to-transparent blur-3xl opacity-50 group-hover:opacity-100 transition duration-700"></div>
             <div className="relative rounded-3xl overflow-hidden glass-panel border border-white/10 aspect-[4/5]">
-              <img 
-                src="https://raw.githubusercontent.com/LIKITH-3012-MAC/PORTFOLIO-LIKITH/main/likith.png"
-                alt="Likith Naidu Portrait"
-                className="w-full h-full object-cover filter contrast-125 saturate-0 group-hover:saturate-100 transition-all duration-700"
-              />
+              <figure className="w-full h-full">
+                <img 
+                  src="/images/likith/likith-naidu-anumakonda-profile.png"
+                  alt="Likith Naidu Anumakonda — AI-ML Architect and Founder"
+                  width="1672"
+                  height="941"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="w-full h-full object-cover filter contrast-125 saturate-0 group-hover:saturate-100 transition-all duration-700"
+                />
+              </figure>
             </div>
           </motion.div>
           
@@ -60,6 +68,15 @@ export const About = () => {
                 product I build is not only highly performant but also visually and experientially
                 world-class.
               </p>
+              
+              <div className="pt-2">
+                <Link 
+                  to="/gallery" 
+                  className="inline-flex items-center gap-2 text-sm font-mono text-amber-400 hover:text-amber-300 transition-colors group/link"
+                >
+                  View Photo Gallery <span className="transform group-hover/link:translate-x-1 transition-transform">&rarr;</span>
+                </Link>
+              </div>
             </div>
             
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-6 border-t border-white/10">

@@ -137,22 +137,25 @@ export const IntroSceneController = ({ introActive, introTime, onIntroComplete }
     }
 
     // Apply camera banking roll
+    const safeDelta = Math.min(delta, 0.05);
+    const smoothing = 1 - Math.exp(-5.0 * safeDelta);
+
     if (Math.abs(bankAngle) > 0.001) {
       state.camera.up.set(Math.sin(bankAngle), Math.cos(bankAngle), 0);
     } else {
-      state.camera.up.lerp(new THREE.Vector3(0, 1, 0), 0.08);
+      state.camera.up.lerp(new THREE.Vector3(0, 1, 0), smoothing);
     }
 
     // Update lookTarget and direct camera
-    lookTargetRef.current.lerp(targetLookTarget, 0.08);
-    state.camera.position.lerp(targetCamPos, 0.08);
+    lookTargetRef.current.lerp(targetLookTarget, smoothing);
+    state.camera.position.lerp(targetCamPos, smoothing);
     state.camera.lookAt(lookTargetRef.current);
 
     // Apply group position and scale
     state.scene.traverse((child) => {
       if (child.isGroup && child.name === 'solar-system-group') {
-        child.position.lerp(targetGroupPos, 0.08);
-        const s = THREE.MathUtils.lerp(child.scale.x, targetGroupScale, 0.08);
+        child.position.lerp(targetGroupPos, smoothing);
+        const s = THREE.MathUtils.lerp(child.scale.x, targetGroupScale, smoothing);
         child.scale.set(s, s, s);
       }
     });

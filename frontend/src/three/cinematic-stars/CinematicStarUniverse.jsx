@@ -31,20 +31,23 @@ export const CinematicStarUniverse = ({ quality, prefersReduced, currentPath }) 
 
   const lastCamPos = useRef(new THREE.Vector3());
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const elapsed = state.clock.getElapsedTime();
     const camPos = state.camera.position;
 
     // Calculate camera velocity and speed
     const velocity = new THREE.Vector3().subVectors(camPos, lastCamPos.current);
-    const speed = THREE.MathUtils.clamp(velocity.length() / 0.016, 0.0, 10.0);
+    const speed = THREE.MathUtils.clamp(velocity.length() / Math.max(delta, 0.001), 0.0, 10.0);
     lastCamPos.current.copy(camPos);
 
     const u = sharedUniforms.current;
     u.uTime.value = elapsed;
     u.uCameraPosition.value.copy(camPos);
     u.uCameraVelocity.value.copy(velocity);
-    u.uCameraSpeed.value += (speed - u.uCameraSpeed.value) * 0.1;
+
+    const safeDelta = Math.min(delta, 0.05);
+    const speedDamping = 1 - Math.exp(-6.3 * safeDelta);
+    u.uCameraSpeed.value += (speed - u.uCameraSpeed.value) * speedDamping;
 
     // Proximity to active comet in scene userData
     const cometPos = state.scene.userData.cometPos;
@@ -64,11 +67,11 @@ export const CinematicStarUniverse = ({ quality, prefersReduced, currentPath }) 
     };
 
     const cf = u.uRouteFactors.value;
-    const easeSpeed = 0.06;
-    cf.x += (targets.stretch - cf.x) * easeSpeed;
-    cf.y += (targets.flatten - cf.y) * easeSpeed;
-    cf.z += (targets.grid - cf.z) * easeSpeed;
-    cf.w += (targets.line - cf.w) * easeSpeed;
+    const routeDamping = 1 - Math.exp(-3.7 * safeDelta);
+    cf.x += (targets.stretch - cf.x) * routeDamping;
+    cf.y += (targets.flatten - cf.y) * routeDamping;
+    cf.z += (targets.grid - cf.z) * routeDamping;
+    cf.w += (targets.line - cf.w) * routeDamping;
 
     // Update prefers reduced motion uniform
     u.uPrefersReduced.value = prefersReduced ? 1.0 : 0.0;

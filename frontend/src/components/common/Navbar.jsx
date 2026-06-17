@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, Mail, Github, Youtube } from 'lucide-react';
+import { Menu, Mail, Github, Youtube, Image } from 'lucide-react';
 import CONFIG from '../../services/config';
 import useKnowledge from '../../hooks/useKnowledge';
 import { MagneticButton } from '../effects/MagneticButton';
@@ -21,35 +21,71 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
     
   const brandRole = profile?.identity?.roles?.[0] || 'AI Architect';
 
+  // 1. Lightweight scroll state for backdrop-blur
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-
-      // Section spy on homepage
-      if (location.pathname === '/' || location.pathname === '/index.html') {
-        const sections = ['about', 'experience', 'projects', 'founder'];
-        const scrollPosition = window.scrollY + window.innerHeight * 0.3;
-
-        let currentSection = 'index';
-        for (const sectionId of sections) {
-          const el = document.getElementById(sectionId);
-          if (el) {
-            const top = el.offsetTop;
-            const height = el.offsetHeight;
-            if (scrollPosition >= top && scrollPosition < top + height) {
-              currentSection = sectionId;
-              break;
-            }
-          }
-        }
-        setActiveSection(currentSection);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 50);
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // 2. High-performance IntersectionObserver for Section Spy
+  useEffect(() => {
+    if (location.pathname !== '/' && location.pathname !== '/index.html') {
+      return;
+    }
+
+    const sections = ['about', 'experience', 'projects', 'founder'];
+    const observerOptions = {
+      root: null,
+      rootMargin: '-30% 0px -60% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    let ticking = false;
+    const handleScrollTopCheck = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (window.scrollY < 120) {
+            setActiveSection('index');
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScrollTopCheck, { passive: true });
+    handleScrollTopCheck();
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScrollTopCheck);
+    };
   }, [location.pathname]);
 
   // Determine active nav highlights based on route paths
@@ -61,6 +97,8 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
       setActiveSection('youtube');
     } else if (path.includes('collab')) {
       setActiveSection('collab');
+    } else if (path.includes('gallery')) {
+      setActiveSection('gallery');
     } else if (path === '/' && !location.hash) {
       setActiveSection('index');
     }
@@ -104,7 +142,7 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
           <Link to="/?source=nav" className="flex items-center gap-3 group">
             <div className="w-8 h-8 rounded-full overflow-hidden border border-white/10 transition-transform duration-300 group-hover:scale-105">
               <img 
-                src="https://raw.githubusercontent.com/LIKITH-3012-MAC/MY-PIC-GALLERY/refs/heads/main/Gemini_Generated_Image_ltizrcltizrcltiz.png"
+                src="/images/likith/likith-naidu-anumakonda-professional.jpeg"
                 className="w-full h-full object-cover" 
                 alt={brandName} 
               />
@@ -160,6 +198,15 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
               className={`desktop-nav-link text-xs font-medium tracking-wider uppercase flex items-center gap-1.5 ${activeSection === 'youtube' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
             >
               <Youtube className="w-3.5 h-3.5 text-red-500" /> YouTube Hub
+            </Link>
+          </MagneticIcon>
+
+          <MagneticIcon>
+            <Link 
+              to="/gallery?source=nav" 
+              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase flex items-center gap-1.5 ${activeSection === 'gallery' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
+            >
+              <Image className="w-3.5 h-3.5" /> Gallery
             </Link>
           </MagneticIcon>
         </div>

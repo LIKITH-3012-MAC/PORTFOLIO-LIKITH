@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 export const SolarCameraRig = ({ quality, prefersReduced }) => {
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const { camera, pointer, clock } = state;
 
     let targetX = 0;
@@ -25,8 +25,10 @@ export const SolarCameraRig = ({ quality, prefersReduced }) => {
     }
 
     // Dampened camera XY movement
-    camera.position.x += (targetX - camera.position.x) * 0.05;
-    camera.position.y += (targetY - camera.position.y) * 0.05;
+    const safeDelta = Math.min(delta, 0.05);
+    const damping = 1 - Math.exp(-3.0 * safeDelta);
+    camera.position.x += (targetX - camera.position.x) * damping;
+    camera.position.y += (targetY - camera.position.y) * damping;
 
     // Ensure camera up vector is always vertical when not in intro
     if (camera.up.x !== 0 || camera.up.y !== 1 || camera.up.z !== 0) {

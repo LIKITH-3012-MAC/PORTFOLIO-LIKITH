@@ -15,35 +15,62 @@ export const MotionProvider = ({ children }) => {
 
   // Monitor scroll bounds to map current active section index
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const height = window.innerHeight;
-      const progress = scrollY / (document.documentElement.scrollHeight - height || 1);
-      setScrollProgress(progress);
+    let scrollHeight = document.documentElement.scrollHeight;
+    let innerHeight = window.innerHeight;
+    let totalScroll = scrollHeight - innerHeight;
 
-      // Simple section spy mappings
-      const sections = ['about', 'experience', 'projects', 'skills', 'founder', 'contact'];
-      let currentSection = 'hero';
-      
-      const scrollPosition = scrollY + height * 0.35;
-      
-      for (const sectionId of sections) {
-        const el = document.getElementById(sectionId);
-        if (el) {
-          const top = el.offsetTop;
-          const sectionHeight = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + sectionHeight) {
-            currentSection = sectionId;
-            break;
+    const handleResize = () => {
+      scrollHeight = document.documentElement.scrollHeight;
+      innerHeight = window.innerHeight;
+      totalScroll = scrollHeight - innerHeight;
+    };
+
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const progress = totalScroll > 0 ? scrollY / totalScroll : 0;
+          setScrollProgress(progress);
+          if (scrollY < 200) {
+            setActiveSection('hero');
           }
-        }
+          ticking = false;
+        });
+        ticking = true;
       }
-      setActiveSection(currentSection);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    // High-performance IntersectionObserver for Section Spy
+    const sections = ['about', 'experience', 'projects', 'skills', 'founder', 'contact'];
+    const observerOptions = {
+      root: null,
+      rootMargin: '-30% 0px -60% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+      observer.disconnect();
+    };
   }, []);
 
   const value = {

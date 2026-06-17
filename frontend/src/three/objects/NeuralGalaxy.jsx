@@ -124,8 +124,10 @@ export const NeuralGalaxy = ({ quality, prefersReduced }) => {
       }
 
       // Smooth interpolation
-      currentOpacities[idx * 2] = THREE.MathUtils.lerp(currentOpacities[idx * 2], target, 0.06);
-      currentOpacities[idx * 2 + 1] = THREE.MathUtils.lerp(currentOpacities[idx * 2 + 1], target, 0.06);
+      const safeDelta = Math.min(delta, 0.05);
+      const lerpFactor = 1 - Math.exp(-3.7 * safeDelta);
+      currentOpacities[idx * 2] = THREE.MathUtils.lerp(currentOpacities[idx * 2], target, lerpFactor);
+      currentOpacities[idx * 2 + 1] = THREE.MathUtils.lerp(currentOpacities[idx * 2 + 1], target, lerpFactor);
     });
 
     if (lineGeomRef.current) {

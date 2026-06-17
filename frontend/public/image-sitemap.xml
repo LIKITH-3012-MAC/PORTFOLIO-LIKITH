@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
+  <url>
+    <loc>https://likith-portfolio.online/gallery</loc>
+
+    <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda.jpeg</image:loc>
+      <image:title>Likith Naidu Anumakonda</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-profile.png</image:loc>
+      <image:title>Likith Naidu Anumakonda — Professional Profile</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-portrait.png</image:loc>
+      <image:title>Likith Naidu Anumakonda — Editorial Portrait</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-professional.jpeg</image:loc>
+      <image:title>Likith Naidu Anumakonda — Rooftop Portrait</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-profile-photo.jpeg</image:loc>
+      <image:title>Likith Anumakonda — Outdoor Portrait</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-professional-photo.jpeg</image:loc>
+      <image:title>Likith Anumakonda — Terrace Portrait</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-portrait.jpeg</image:loc>
+      <image:title>Likith Anumakonda — By the Sea</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-casual-photo.jpeg</image:loc>
+      <image:title>Likith Naidu Anumakonda — Candid</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-personal-portrait.jpeg</image:loc>
+      <image:title>Likith Anumakonda — Monochrome Portrait</image:title>
+    </image:image>
+  </url>
+</urlset>

@@ -2,11 +2,9 @@
 User-agent: *
 Allow: /
 
-# Prevent indexing of specific asset types if needed
+# Prevent indexing of backend and internal paths
 Disallow: /backend/
-Disallow: /data/
-Disallow: /dataa.html
-Disallow: /analytics.js
 
-# Sitemap location
+# Sitemap locations
 Sitemap: https://likith-portfolio.online/sitemap.xml
+Sitemap: https://likith-portfolio.online/image-sitemap.xml

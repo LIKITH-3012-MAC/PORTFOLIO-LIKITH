@@ -115,8 +115,8 @@ export const FounderMessage = ({ isOpen, onClose }) => {
               {/* Right Side: Portrait */}
               <div className="relative rounded-3xl overflow-hidden glass-panel border border-white/10 aspect-[4/5] hidden md:block">
                 <img 
-                  src="/LIKITH's.jpeg" 
-                  alt="Likith Naidu - Founder Portrait"
+                  src="/images/likith/likith-anumakonda-professional-photo.jpeg" 
+                  alt="Likith Naidu Anumakonda — Founder Portrait"
                   className="w-full h-full object-cover filter contrast-110 saturate-50"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-85"></div>

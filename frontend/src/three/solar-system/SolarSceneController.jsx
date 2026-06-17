@@ -22,11 +22,15 @@ export const SolarSceneController = ({ quality, currentPath }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const s = scrollRef.current;
 
+    const safeDelta = Math.min(delta, 0.05);
+    const scrollSmoothing = 1 - Math.exp(-5.0 * safeDelta);
+    const groupSmoothing = 1 - Math.exp(-3.7 * safeDelta);
+
     // Smooth scroll interpolation
-    s.currentScroll += (s.targetScroll - s.currentScroll) * 0.08;
+    s.currentScroll += (s.targetScroll - s.currentScroll) * scrollSmoothing;
 
     const isMobile = window.innerWidth <= 768;
     const layout = isMobile ? SOLAR_SECTION_METRICS.mobile : SOLAR_SECTION_METRICS.desktop;
@@ -107,16 +111,16 @@ export const SolarSceneController = ({ quality, currentPath }) => {
     // Apply to the solar system group
     state.scene.traverse((child) => {
       if (child.isGroup && child.name === 'solar-system-group') {
-        child.position.x += (targetX - child.position.x) * 0.06;
-        child.position.y += (targetY - child.position.y) * 0.06;
-        child.position.z += (targetZ - child.position.z) * 0.06;
-        const scaleVal = child.scale.x + (targetScale - child.scale.x) * 0.06;
+        child.position.x += (targetX - child.position.x) * groupSmoothing;
+        child.position.y += (targetY - child.position.y) * groupSmoothing;
+        child.position.z += (targetZ - child.position.z) * groupSmoothing;
+        const scaleVal = child.scale.x + (targetScale - child.scale.x) * groupSmoothing;
         child.scale.set(scaleVal, scaleVal, scaleVal);
       }
     });
 
     // Interpolate camera depth
-    state.camera.position.z += (targetCamZ - state.camera.position.z) * 0.06;
+    state.camera.position.z += (targetCamZ - state.camera.position.z) * groupSmoothing;
   });
 
   return null;

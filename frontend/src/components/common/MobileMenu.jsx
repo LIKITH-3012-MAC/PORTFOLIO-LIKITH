@@ -54,6 +54,7 @@ export const MobileMenu = ({ isOpen, onClose, onOpenMessage }) => {
     { label: 'Systems', type: 'section', target: 'projects' },
     { label: 'Git Archive', type: 'link', target: '/git-profile?source=nav' },
     { label: 'YouTube Hub', type: 'link', target: '/youtube?source=nav' },
+    { label: 'Gallery', type: 'link', target: '/gallery?source=nav' },
   ];
 
   return (

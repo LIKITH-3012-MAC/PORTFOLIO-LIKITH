@@ -282,6 +282,7 @@ export const CometSystem = ({ quality, prefersReduced }) => {
 
 // Independent Comet component for visual testing and specific path trajectories
 export const Comet = ({ start, end, duration = 6, debug = false }) => {
+  const groupRef = useRef();
   const trailGeomRef = useRef(null);
 
   const startVec = React.useMemo(() => new THREE.Vector3(...start), [start]);
@@ -289,16 +290,17 @@ export const Comet = ({ start, end, duration = 6, debug = false }) => {
   const color = React.useMemo(() => new THREE.Color('#fbbf24'), []); // Amber test color
 
   const particles = useRef([]);
-  const [position, setPosition] = useState(startVec.clone());
 
   useFrame((state, delta) => {
-    const dt = Math.min(delta, 0.1);
+    const dt = Math.min(delta, 0.05);
     const time = state.clock.getElapsedTime();
     const t = (time % duration) / duration;
 
     // Linear interpolation
     const currentPos = new THREE.Vector3().lerpVectors(startVec, endVec, t);
-    setPosition(currentPos);
+    if (groupRef.current) {
+      groupRef.current.position.copy(currentPos);
+    }
 
     // Spawn trail particles
     const travelDir = new THREE.Vector3().subVectors(endVec, startVec).normalize();
@@ -369,7 +371,7 @@ export const Comet = ({ start, end, duration = 6, debug = false }) => {
   return (
     <group>
       {/* Comet Nucleus */}
-      <group position={position}>
+      <group ref={groupRef}>
         <mesh>
           <sphereGeometry args={[0.08, 12, 12]} />
           <meshBasicMaterial color="#ffffff" depthWrite={false} />

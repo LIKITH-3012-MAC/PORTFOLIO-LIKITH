@@ -14,6 +14,7 @@ export function NeuralCore({ quality, prefersReduced }) {
   const internalData = useMemo(() => {
     const count = 120;
     const positions = new Float32Array(count * 3);
+    const initialPositions = new Float32Array(count * 3);
     const phases = new Float32Array(count);
     const speeds = new Float32Array(count);
     for (let i = 0; i < count; i++) {
@@ -21,16 +22,25 @@ export function NeuralCore({ quality, prefersReduced }) {
       const r = Math.random() * 1.0;
       const theta = Math.random() * Math.PI * 2.0;
       const phi = Math.random() * Math.PI;
-      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      positions[i * 3 + 2] = r * Math.cos(phi);
+      const x = r * Math.sin(phi) * Math.cos(theta);
+      const y = r * Math.sin(phi) * Math.sin(theta);
+      const z = r * Math.cos(phi);
+
+      positions[i * 3] = x;
+      positions[i * 3 + 1] = y;
+      positions[i * 3 + 2] = z;
+
+      initialPositions[i * 3] = x;
+      initialPositions[i * 3 + 1] = y;
+      initialPositions[i * 3 + 2] = z;
+
       phases[i] = Math.random() * Math.PI * 2.0;
       speeds[i] = Math.random() * 0.4 + 0.1;
     }
-    return { positions, phases, speeds };
+    return { positions, initialPositions, phases, speeds };
   }, []);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const time = state.clock.getElapsedTime();
     const speedCoeff = quality.animationSpeed || 1.0;
     
@@ -118,23 +128,16 @@ export function NeuralCore({ quality, prefersReduced }) {
       const posAttr = geom.getAttribute('position');
       const arr = posAttr.array;
       const cycleTime = time * 0.6;
+      const initial = internalData.initialPositions;
       
       for (let i = 0; i < 120; i++) {
         const i3 = i * 3;
         const phase = internalData.phases[i];
         const speed = internalData.speeds[i];
         
-        arr[i3] += Math.sin(cycleTime * speed + phase) * 0.004;
-        arr[i3 + 1] += Math.cos(cycleTime * speed + phase) * 0.004;
-        
-        // Constrain energy particles inside shell boundaries
-        const pVec = new THREE.Vector3(arr[i3], arr[i3 + 1], arr[i3 + 2]);
-        if (pVec.length() > 1.2) {
-          pVec.normalize().multiplyScalar(1.0);
-          arr[i3] = pVec.x;
-          arr[i3 + 1] = pVec.y;
-          arr[i3 + 2] = pVec.z;
-        }
+        arr[i3] = initial[i3] + Math.sin(cycleTime * speed + phase) * 0.18;
+        arr[i3 + 1] = initial[i3 + 1] + Math.cos(cycleTime * speed + phase) * 0.18;
+        arr[i3 + 2] = initial[i3 + 2];
       }
       posAttr.needsUpdate = true;
       
