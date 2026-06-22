@@ -1,9 +1,9 @@
 {
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/:path*",
+      "source": "/((?!assets|images|email-assets|knowledge|favicon.png|apple-touch-icon.png|likiths.jpeg|my_resume.pdf|LIKITH-resume.pdf|robots.txt|sitemap.xml|image-sitemap.xml).*)",
       "destination": "/index.html"
     }
   ],
