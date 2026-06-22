@@ -30,9 +30,11 @@ export const App = () => {
               <Route path="index.html" element={<Navigate to="/" replace />} />
               <Route path="collab.html" element={<Navigate to="/collab" replace />} />
               <Route path="dataa.html" element={<Navigate to="/data" replace />} />
+              <Route path="dataa" element={<Navigate to="/data" replace />} />
               <Route path="likith-git-profile.html" element={<Navigate to="/git-profile" replace />} />
               <Route path="likith-git-profile" element={<Navigate to="/git-profile" replace />} />
               <Route path="likith-youtube.html" element={<Navigate to="/youtube" replace />} />
+              <Route path="likith-youtube" element={<Navigate to="/youtube" replace />} />
               <Route path="problem.html" element={<Navigate to="/problem" replace />} />
               
               {/* Catch-all Not Found Route */}
