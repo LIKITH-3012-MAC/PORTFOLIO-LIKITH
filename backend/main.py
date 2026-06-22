@@ -664,9 +664,9 @@ def send_collab_confirmation_email(
 
                     <!-- Actions -->
                     <div class="action-section">
-                        <a href="https://www.likith-portfolio.online" class="btn">Visit Portfolio</a>
-                        <a href="https://www.likith-portfolio.online/collab.html?source=email" class="btn btn-secondary">Submit Another Request</a>
-                        <a href="mailto:likith.anumakonda@gmail.com" class="btn btn-secondary">Contact Likith</a>
+                        <a href="https://www.likith-portfolio.online" target="_blank" rel="noopener noreferrer" class="btn" style="display: block; background-color: #ffffff; color: #000000; text-decoration: none; padding: 18px; border-radius: 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; text-align: center;">Visit Portfolio</a>
+                        <a href="https://www.likith-portfolio.online/collab?source=email" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: block; background-color: transparent; border: 1px solid rgba(255,255,255,0.1); color: #ffffff; text-decoration: none; padding: 18px; border-radius: 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; text-align: center;">Submit Another Request</a>
+                        <a href="mailto:likith.anumakonda@gmail.com" class="btn btn-secondary" style="display: block; background-color: transparent; border: 1px solid rgba(255,255,255,0.1); color: #ffffff; text-decoration: none; padding: 18px; border-radius: 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; text-align: center;">Contact Likith</a>
                     </div>
                     
                     <!-- Footer -->
