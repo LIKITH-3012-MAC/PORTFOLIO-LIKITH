@@ -16,7 +16,7 @@ export const CONFIG = {
     PHONE: "+919440113763",
     GITHUB: "https://github.com/LIKITH-3012-MAC",
     LINKEDIN: "https://www.linkedin.com/in/likith-naidu-anumakonda/",
-    INSTAGRAM: "https://www.instagram.com/likhith_anumakonda?igsh=MTgxZ3hrc3BtcHAzdg==",
+    INSTAGRAM: "https://www.instagram.com/likhithnaidu_anumakonda",
     X: "https://x.com/Likithdob301206?t=4FzQYS1UgCKSQBgc99xspg&s=09"
   }
 };
