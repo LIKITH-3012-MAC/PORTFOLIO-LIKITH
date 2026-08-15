@@ -187,7 +187,7 @@ export function generateImageViewerHtml(imagePath) {
       z-index: 10;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
       padding: 0.6rem 1.25rem;
       background: rgba(15, 23, 42, 0.75);
       backdrop-filter: blur(12px);
@@ -196,13 +196,6 @@ export function generateImageViewerHtml(imagePath) {
       font-size: 0.75rem;
       color: #64748b;
       font-family: 'JetBrains Mono', monospace;
-    }
-
-    .badge {
-      padding: 0.15rem 0.4rem;
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 4px;
-      color: #94a3b8;
     }
 
     .shortcut-legend {
@@ -215,9 +208,6 @@ export function generateImageViewerHtml(imagePath) {
         display: none;
       }
       .header-spacer {
-        display: none;
-      }
-      .shortcut-legend {
         display: none;
       }
       footer {
@@ -247,8 +237,6 @@ export function generateImageViewerHtml(imagePath) {
   </main>
 
   <footer>
-    <span class="badge">${safePath}</span>
-
     <div class="shortcut-legend">
       <span><kbd style="background:rgba(255,255,255,0.1);padding:1px 4px;border-radius:3px;">Esc</kbd> Home</span>
     </div>
