@@ -52,7 +52,6 @@ export function generateImageViewerHtml(imagePath) {
   const safePath = String(imagePath).replace(/"/g, '&quot;');
   const title = formatImageTitle(safePath);
   const rawPath = safePath.includes('?') ? `${safePath}&raw=true` : `${safePath}?raw=true`;
-  const filename = safePath.split('/').pop()?.split('?')[0] || 'image';
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -145,47 +144,12 @@ export function generateImageViewerHtml(imagePath) {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 40vw;
+      max-width: 50vw;
       text-align: center;
     }
 
-    .actions {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.375rem;
-      padding: 0.4rem 0.75rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #cbd5e1;
-      background: rgba(30, 41, 59, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 6px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.15s ease;
-    }
-
-    .btn:hover {
-      background: rgba(51, 65, 85, 0.9);
-      color: #ffffff;
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .btn-primary {
-      background: #2563eb;
-      color: #ffffff;
-      border-color: #3b82f6;
-    }
-
-    .btn-primary:hover {
-      background: #1d4ed8;
-      border-color: #60a5fa;
+    .header-spacer {
+      width: 140px;
     }
 
     /* Main Viewport */
@@ -198,11 +162,6 @@ export function generateImageViewerHtml(imagePath) {
       justify-content: center;
       padding: 1.5rem;
       overflow: auto;
-      cursor: grab;
-    }
-
-    main:active {
-      cursor: grabbing;
     }
 
     .image-container {
@@ -212,7 +171,6 @@ export function generateImageViewerHtml(imagePath) {
       justify-content: center;
       max-width: 100%;
       max-height: 100%;
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .viewer-image {
@@ -221,7 +179,6 @@ export function generateImageViewerHtml(imagePath) {
       object-fit: contain;
       border-radius: 8px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
-      transition: box-shadow 0.2s ease;
     }
 
     /* Bottom Info Bar */
@@ -241,12 +198,6 @@ export function generateImageViewerHtml(imagePath) {
       font-family: 'JetBrains Mono', monospace;
     }
 
-    .info-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
     .badge {
       padding: 0.15rem 0.4rem;
       background: rgba(255, 255, 255, 0.06);
@@ -261,6 +212,9 @@ export function generateImageViewerHtml(imagePath) {
 
     @media (max-width: 640px) {
       .header-title {
+        display: none;
+      }
+      .header-spacer {
         display: none;
       }
       .shortcut-legend {
@@ -283,92 +237,29 @@ export function generateImageViewerHtml(imagePath) {
 
     <div class="header-title">${title}</div>
 
-    <div class="actions">
-      <button id="zoomBtn" class="btn" title="Toggle Zoom (Z)">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-        <span>Zoom</span>
-      </button>
-
-      <a href="${rawPath}" target="_blank" class="btn" title="View Direct Raw Image Binary">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        <span>Raw Image</span>
-      </a>
-
-      <a href="${rawPath}" download="${filename}" class="btn btn-primary" title="Download Image (D)">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        <span>Download</span>
-      </a>
-    </div>
+    <div class="header-spacer"></div>
   </header>
 
-  <main id="mainViewport">
-    <div class="image-container" id="imgContainer">
-      <img src="${rawPath}" alt="${title}" class="viewer-image" id="viewerImg" />
+  <main>
+    <div class="image-container">
+      <img src="${rawPath}" alt="${title}" class="viewer-image" />
     </div>
   </main>
 
   <footer>
-    <div class="info-item">
-      <span class="badge" id="dimBadge">Loading dimensions...</span>
-      <span class="badge">${safePath}</span>
-    </div>
+    <span class="badge">${safePath}</span>
 
     <div class="shortcut-legend">
-      <span><kbd style="background:rgba(255,255,255,0.1);padding:1px 4px;border-radius:3px;">Z</kbd> Zoom</span>
       <span><kbd style="background:rgba(255,255,255,0.1);padding:1px 4px;border-radius:3px;">Esc</kbd> Home</span>
-      <span><kbd style="background:rgba(255,255,255,0.1);padding:1px 4px;border-radius:3px;">D</kbd> Download</span>
     </div>
   </footer>
 
   <script>
-    (function() {
-      const img = document.getElementById('viewerImg');
-      const container = document.getElementById('imgContainer');
-      const dimBadge = document.getElementById('dimBadge');
-      const zoomBtn = document.getElementById('zoomBtn');
-      let isZoomed = false;
-
-      function updateDimensions() {
-        if (img.naturalWidth && img.naturalHeight) {
-          dimBadge.textContent = img.naturalWidth + ' × ' + img.naturalHeight + ' px';
-        }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        window.location.href = '/';
       }
-
-      if (img.complete) {
-        updateDimensions();
-      } else {
-        img.addEventListener('load', updateDimensions);
-      }
-
-      function toggleZoom() {
-        isZoomed = !isZoomed;
-        if (isZoomed) {
-          container.style.transform = 'scale(1.75)';
-          container.style.cursor = 'zoom-out';
-          img.style.maxHeight = 'none';
-          img.style.maxWidth = 'none';
-        } else {
-          container.style.transform = 'scale(1)';
-          container.style.cursor = 'grab';
-          img.style.maxHeight = '78vh';
-          img.style.maxWidth = '88vw';
-        }
-      }
-
-      zoomBtn.addEventListener('click', toggleZoom);
-      img.addEventListener('click', toggleZoom);
-
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'z' || e.key === 'Z') {
-          toggleZoom();
-        } else if (e.key === 'Escape') {
-          window.location.href = '/';
-        } else if (e.key === 'd' || e.key === 'D') {
-          const downloadBtn = document.querySelector('a[download]');
-          if (downloadBtn) downloadBtn.click();
-        }
-      });
-    })();
+    });
   </script>
 </body>
 </html>`;
