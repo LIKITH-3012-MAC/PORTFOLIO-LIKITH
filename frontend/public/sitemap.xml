@@ -7,7 +7,7 @@
     <!-- Home Page -->
     <url>
         <loc>https://likith-portfolio.online/</loc>
-        <lastmod>2026-06-17</lastmod>
+        <lastmod>2026-08-26</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
         
@@ -56,7 +56,7 @@
     <!-- GitHub Project Archive -->
     <url>
         <loc>https://likith-portfolio.online/git-profile</loc>
-        <lastmod>2026-06-17</lastmod>
+        <lastmod>2026-08-26</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
         
@@ -69,7 +69,7 @@
     <!-- YouTube Media Hub -->
     <url>
         <loc>https://likith-portfolio.online/youtube</loc>
-        <lastmod>2026-06-17</lastmod>
+        <lastmod>2026-08-26</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
         
@@ -82,7 +82,7 @@
     <!-- Collaboration Page -->
     <url>
         <loc>https://likith-portfolio.online/collab</loc>
-        <lastmod>2026-06-17</lastmod>
+        <lastmod>2026-08-26</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
         
@@ -95,7 +95,7 @@
     <!-- Intelligence / Data Console -->
     <url>
         <loc>https://likith-portfolio.online/data</loc>
-        <lastmod>2026-06-17</lastmod>
+        <lastmod>2026-08-26</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
@@ -103,7 +103,7 @@
     <!-- Problem Page -->
     <url>
         <loc>https://likith-portfolio.online/problem</loc>
-        <lastmod>2026-06-17</lastmod>
+        <lastmod>2026-08-26</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
