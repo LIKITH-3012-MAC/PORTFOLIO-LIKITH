@@ -8,6 +8,16 @@
     <loc>https://likith-portfolio.online/</loc>
 
     <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/suit-likith-1.jpg</image:loc>
+      <image:title>Likith Naidu Anumakonda — Suit Portrait 1</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://likith-portfolio.online/images/likith/suit-likith-2.jpg</image:loc>
+      <image:title>Likith Naidu Anumakonda — Suit Portrait 2</image:title>
+    </image:image>
+
+    <image:image>
       <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-profile.png</image:loc>
       <image:title>Likith Naidu Anumakonda — Official Profile</image:title>
     </image:image>

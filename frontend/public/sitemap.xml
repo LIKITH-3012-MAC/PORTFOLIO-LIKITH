@@ -11,6 +11,16 @@
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
         
+        <image:image>
+            <image:loc>https://likith-portfolio.online/images/likith/suit-likith-1.jpg</image:loc>
+            <image:title>Likith Naidu Anumakonda — Suit Portrait 1</image:title>
+        </image:image>
+
+        <image:image>
+            <image:loc>https://likith-portfolio.online/images/likith/suit-likith-2.jpg</image:loc>
+            <image:title>Likith Naidu Anumakonda — Suit Portrait 2</image:title>
+        </image:image>
+        
         <!-- HIGH-PRIORITY SAKRA VISION IMAGE -->
         <image:image>
             <image:loc>https://likith-portfolio.online/images/sakravision.png</image:loc>
