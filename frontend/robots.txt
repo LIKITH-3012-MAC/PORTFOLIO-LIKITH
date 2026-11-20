@@ -1,4 +1,5 @@
 # Robots.txt for Likith Portfolio
+
 User-agent: *
 Allow: /
 
@@ -6,5 +7,5 @@ Allow: /
 Disallow: /backend/
 
 # Sitemap locations
-Sitemap: https://likith-portfolio.online/sitemap.xml
-Sitemap: https://likith-portfolio.online/image-sitemap.xml
+Sitemap: https://likith-naidu-anumakonda.online/sitemap.xml
+Sitemap: https://likith-naidu-anumakonda.online/image-sitemap.xml
