@@ -9,7 +9,6 @@ import StarFallback from './StarFallback';
 import CinematicStarUniverse from './CinematicStarUniverse';
 import SolarSystemScene from '../solar-system/SolarSystemScene';
 import PerformanceMonitor from '../performance/PerformanceMonitor';
-import DevPerformanceOverlay from '../performance/DevPerformanceOverlay';
 
 export const GlobalStarCanvas = ({ introActive, introTime, onIntroComplete }) => {
   const hasWebGL = useWebGLSupport();
@@ -69,10 +68,6 @@ export const GlobalStarCanvas = ({ introActive, introTime, onIntroComplete }) =>
         />
 
         <PerformanceMonitor downgradeQuality={downgradeQuality} />
-
-        {import.meta.env.DEV && (
-          <DevPerformanceOverlay quality={quality} />
-        )}
       </Canvas>
     </div>
   );

@@ -23,12 +23,22 @@ import {
 import CONFIG from '../../services/config';
 import { sendMessageStream, getOfflineReply } from '../../services/chatbotService';
 
+const QUICK_ACTIONS = [
+  "Who is Likith?",
+  "Contact Details",
+  "Systems",
+  "Git Archive",
+  "YouTube Hub",
+  "Collaborate"
+];
+
 export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
   const [localOpen, setLocalOpen] = useState(false);
   const isOpen = propIsOpen !== undefined ? propIsOpen : localOpen;
 
   const [messages, setMessages] = useState([
     {
+      id: 'welcome-0',
       role: 'assistant',
       content: "hi im sakra(ai) likith's assistant, you can ask me anything about my boss ill letchu know",
       card: 'none'
@@ -46,6 +56,13 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
 
   const chatAreaRef = useRef(null);
   const recognitionRef = useRef(null);
+  const activeRequestIdRef = useRef(0);
+  const chatHistoryRef = useRef([]);
+
+  // Keep history ref synchronized for rapid consecutive requests
+  useEffect(() => {
+    chatHistoryRef.current = chatHistory;
+  }, [chatHistory]);
 
   // Auto-scroll chat area to bottom
   useEffect(() => {
@@ -135,6 +152,7 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
 
   const handleLangToggle = (lang) => {
     setSelectedLang(lang);
+    setInfoIsError(false);
     if (lang === 'te-IN') {
       setInfoMessage("Language: Telugu (India)");
     } else {
@@ -143,22 +161,33 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
   };
 
   const handleSendMessage = async (textToSend) => {
-    const text = textToSend || input.trim();
+    const rawText = typeof textToSend === 'string' ? textToSend : input;
+    const text = rawText.trim();
     if (!text) return;
 
     setInput('');
     setInfoMessage('');
-    
-    // Add user message
-    const userMsg = { role: 'user', content: text, card: 'none' };
-    setMessages(prev => [...prev, userMsg]);
+
+    const requestId = ++activeRequestIdRef.current;
+    const userId = `user-${requestId}`;
+    const assistantId = `assistant-${requestId}`;
+
+    // Prepare history payload from ref before appending current turn
+    const historyPayload = chatHistoryRef.current.map(h => ({ role: h.role, content: h.content }));
+
+    // Add user message and streaming assistant placeholder immutably
+    const userMsg = { id: userId, role: 'user', content: text, card: 'none' };
+    const assistantPlaceholder = {
+      id: assistantId,
+      role: 'assistant',
+      content: '',
+      isStreaming: true,
+      card: 'none',
+      retryText: text
+    };
+
+    setMessages(prev => [...prev, userMsg, assistantPlaceholder]);
     setIsTyping(true);
-
-    // Prepare history payload
-    const historyPayload = chatHistory.map(h => ({ role: h.role, content: h.content }));
-
-    // Append a streaming placeholder message for AI response
-    setMessages(prev => [...prev, { role: 'assistant', content: '', isStreaming: true, card: 'none' }]);
 
     let accumulatedText = '';
 
@@ -169,87 +198,98 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
         // onChunk callback
         (chunk) => {
           accumulatedText += chunk;
-          setMessages(prev => {
-            const updated = [...prev];
-            const lastMsg = updated[updated.length - 1];
-            if (lastMsg && lastMsg.role === 'assistant') {
-              // progressive clean for display
-              lastMsg.content = accumulatedText.replace(/\[\[CARD:.*?\]\]/g, '').trim();
-            }
-            return updated;
-          });
+          const partialText = accumulatedText.replace(/\[\[CARD:.*?\]\]/g, '').trim();
+          setMessages(prev =>
+            prev.map(msg =>
+              msg.id === assistantId ? { ...msg, content: partialText } : msg
+            )
+          );
         },
         // onError callback (fallback to local offline response)
         (error) => {
           console.warn('Chat Stream error, activating offline fallback:', error);
-          handleOfflineFallback(text);
+          handleOfflineFallback(text, assistantId, requestId);
         },
         // onDone callback
         () => {
-          setIsTyping(false);
+          if (activeRequestIdRef.current === requestId) {
+            setIsTyping(false);
+          }
+
           // Parse card tags from final text
           const cardMatch = accumulatedText.match(/\[\[CARD:(.*?)\]\]/);
           const cardType = cardMatch ? cardMatch[1] : 'none';
           const cleanText = accumulatedText.replace(/\[\[CARD:.*?\]\]/g, '').trim();
 
-          setMessages(prev => {
-            const updated = [...prev];
-            const lastMsg = updated[updated.length - 1];
-            if (lastMsg && lastMsg.role === 'assistant') {
-              lastMsg.content = cleanText;
-              lastMsg.card = cardType;
-              lastMsg.isStreaming = false;
-            }
-            return updated;
-          });
+          setMessages(prev =>
+            prev.map(msg =>
+              msg.id === assistantId
+                ? { ...msg, content: cleanText, card: cardType, isStreaming: false }
+                : msg
+            )
+          );
 
           // Save to state history
-          setChatHistory(prev => [
-            ...prev,
-            { role: 'user', content: text },
-            { role: 'assistant', content: cleanText }
-          ]);
+          setChatHistory(prev => {
+            const next = [
+              ...prev,
+              { role: 'user', content: text },
+              { role: 'assistant', content: cleanText }
+            ];
+            chatHistoryRef.current = next;
+            return next;
+          });
         }
       );
     } catch (err) {
       console.error(err);
-      handleOfflineFallback(text);
+      handleOfflineFallback(text, assistantId, requestId);
     }
   };
 
-  const handleOfflineFallback = (text) => {
-    setIsTyping(false);
+  const handleOfflineFallback = (text, assistantId, requestId) => {
+    if (activeRequestIdRef.current === requestId) {
+      setIsTyping(false);
+    }
     const offlineReply = getOfflineReply(text);
 
     if (offlineReply) {
-      setMessages(prev => {
-        const updated = [...prev];
-        const lastMsg = updated[updated.length - 1];
-        if (lastMsg && lastMsg.role === 'assistant') {
-          lastMsg.content = offlineReply.reply;
-          lastMsg.card = offlineReply.card;
-          lastMsg.isStreaming = false;
-        }
-        return updated;
-      });
+      setMessages(prev =>
+        prev.map(msg =>
+          msg.id === assistantId
+            ? {
+                ...msg,
+                content: offlineReply.reply,
+                card: offlineReply.card,
+                isStreaming: false
+              }
+            : msg
+        )
+      );
 
-      setChatHistory(prev => [
-        ...prev,
-        { role: 'user', content: text },
-        { role: 'assistant', content: offlineReply.reply }
-      ]);
+      setChatHistory(prev => {
+        const next = [
+          ...prev,
+          { role: 'user', content: text },
+          { role: 'assistant', content: offlineReply.reply }
+        ];
+        chatHistoryRef.current = next;
+        return next;
+      });
     } else {
       // Default offline error
-      setMessages(prev => {
-        const updated = [...prev];
-        const lastMsg = updated[updated.length - 1];
-        if (lastMsg && lastMsg.role === 'assistant') {
-          lastMsg.content = "I encountered a technical glitch. The connection to my neural backend was interrupted.";
-          lastMsg.card = 'error';
-          lastMsg.isStreaming = false;
-        }
-        return updated;
-      });
+      setMessages(prev =>
+        prev.map(msg =>
+          msg.id === assistantId
+            ? {
+                ...msg,
+                content: "I encountered a technical glitch. The connection to my neural backend was interrupted.",
+                card: 'error',
+                isStreaming: false
+              }
+            : msg
+        )
+      );
     }
   };
 
@@ -259,7 +299,7 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
   };
 
   // Helper to render special components under response bubbles
-  const renderCard = (cardType) => {
+  const renderCard = (cardType, retryText) => {
     switch (cardType) {
       case 'contact':
       case 'social':
@@ -365,7 +405,7 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
               </Link>
               <button 
                 type="button" 
-                onClick={() => handleSendMessage(messages[messages.length - 2]?.content)} 
+                onClick={() => retryText && handleSendMessage(retryText)} 
                 className="w-full py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center justify-center gap-2 text-[10px] text-slate-300 font-semibold"
               >
                 <RefreshCw className="w-3 h-3" /> Retry
@@ -392,7 +432,7 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
       <div 
         id="ai-agent-launcher" 
         onClick={handleOpenPanel}
-        className={`fixed bottom-8 right-8 z-[100] group cursor-pointer transition-all duration-300 ${
+        className={`fixed bottom-6 right-5 sm:bottom-8 sm:right-8 z-[100] group cursor-pointer transition-all duration-300 ${
           isOpen ? 'opacity-0 scale-95 pointer-events-none' : 'opacity-100 scale-100 pointer-events-auto'
         }`}
       >
@@ -410,20 +450,23 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
       {/* AI CHAT PANEL */}
       <div 
         id="ai-agent-panel" 
-        className={`fixed bottom-28 right-8 w-96 h-[min(600px,calc(100vh-10rem))] z-[100] glass-panel border border-white/10 rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all duration-500 max-w-[calc(100vw-2rem)] shadow-[0_0_50px_rgba(251,191,36,0.15)] ${
+        className={`fixed bottom-24 right-4 left-4 sm:left-auto sm:bottom-28 sm:right-8 sm:w-[420px] max-w-[calc(100vw-2rem)] h-[min(640px,calc(100dvh-7.5rem))] z-[100] bg-slate-950/90 backdrop-blur-2xl border border-white/10 rounded-2xl flex flex-col overflow-hidden transition-all duration-500 shadow-[0_20px_50px_rgba(0,0,0,0.6),0_0_50px_rgba(251,191,36,0.12)] ${
           isOpen 
             ? 'opacity-100 translate-y-0 pointer-events-auto' 
             : 'opacity-0 translate-y-10 pointer-events-none'
         }`}
         data-lenis-prevent="true"
       >
-        {/* Panel Header */}
-        <div className="p-4 border-b border-white/10 flex justify-between items-center bg-white/[0.02] backdrop-blur-md relative text-left">
+        {/* 1. Panel Header */}
+        <div 
+          className="shrink-0 p-4 border-b border-white/10 flex justify-between items-center bg-white/[0.02] backdrop-blur-md relative text-left"
+          style={{ flex: '0 0 auto' }}
+        >
           <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
           
           <div className="flex items-center gap-3">
             {/* AI Spinner Orb */}
-            <div className="relative w-10 h-10 rounded-full flex items-center justify-center overflow-hidden">
+            <div className="relative w-10 h-10 rounded-full flex items-center justify-center overflow-hidden shrink-0">
               <div className="absolute inset-0 bg-gradient-to-tr from-amber-500 via-purple-600 to-cyan-500 animate-spin-slow rounded-full opacity-80 blur-[2px]" />
               <div className="absolute w-8 h-8 rounded-full bg-slate-950 flex items-center justify-center z-10 border border-white/10">
                 <Cpu className="w-4 h-4 text-amber-400 animate-pulse" />
@@ -448,124 +491,77 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
           </div>
 
           <button 
+            type="button"
             onClick={handleClosePanel} 
-            className="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/5 transition-colors border border-white/5" 
+            className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-slate-400 hover:text-white hover:bg-white/5 transition-colors border border-white/5" 
             aria-label="Close Chatbot"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Chat Messages Area */}
-        <div ref={chatAreaRef} id="ai-chat-area" className="flex-grow min-h-0 overflow-y-auto p-4 space-y-4 custom-scrollbar relative">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(251,191,36,0.05),_transparent_70%)] pointer-events-none" />
-          
-          {messages.map((msg, index) => {
-            const isUser = msg.role === 'user';
-            return (
-              <div 
-                key={index}
-                className={`flex gap-3 max-w-[85%] animate-fade-in text-left ${
-                  isUser ? 'ml-auto flex-row-reverse' : ''
-                }`}
-              >
-                {/* Avatar Icon */}
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border ${
-                  isUser 
-                    ? 'bg-gradient-to-br from-indigo-500/20 to-blue-600/10 border-indigo-500/30 shadow-[0_0_15px_rgba(99,102,241,0.05)]' 
-                    : 'bg-gradient-to-br from-white/[0.06] to-white/[0.02] border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.2)]'
-                }`}>
-                  {isUser ? (
-                    <User className="w-4 h-4 text-indigo-400" />
-                  ) : (
-                    <Cpu className="w-4 h-4 text-amber-400" />
-                  )}
-                </div>
-
-                {/* Message Body */}
-                <div className={`border rounded-2xl p-3 text-sm text-slate-300 max-w-full overflow-hidden break-words ${
-                  isUser 
-                    ? 'bg-gradient-to-br from-indigo-500/20 to-blue-600/10 border-indigo-500/30 rounded-tr-sm shadow-[0_0_15px_rgba(99,102,241,0.05)]' 
-                    : 'bg-gradient-to-br from-white/[0.06] to-white/[0.02] border-white/10 rounded-tl-sm shadow-[0_4px_20px_rgba(0,0,0,0.2)]'
-                }`}>
-                  <div className="prose prose-invert prose-sm break-words max-w-full font-light leading-relaxed">
-                    <span>{msg.content}</span>
-                    {msg.isStreaming && <span className="typing-cursor"></span>}
+        {/* 2. Conversation / Messages Area */}
+        <div className="flex-1 min-h-0 relative flex flex-col">
+          <div ref={chatAreaRef} id="ai-chat-area" className="flex-1 min-h-0 overflow-y-auto p-4 space-y-4 custom-scrollbar relative">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(251,191,36,0.05),_transparent_70%)] pointer-events-none" />
+            
+            {messages.map((msg, index) => {
+              const isUser = msg.role === 'user';
+              return (
+                <div 
+                  key={msg.id || index}
+                  className={`flex gap-3 max-w-[85%] animate-fade-in text-left ${
+                    isUser ? 'ml-auto flex-row-reverse' : ''
+                  }`}
+                >
+                  {/* Avatar Icon */}
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border ${
+                    isUser 
+                      ? 'bg-gradient-to-br from-indigo-500/20 to-blue-600/10 border-indigo-500/30 shadow-[0_0_15px_rgba(99,102,241,0.05)]' 
+                      : 'bg-gradient-to-br from-white/[0.06] to-white/[0.02] border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.2)]'
+                  }`}>
+                    {isUser ? (
+                      <User className="w-4 h-4 text-indigo-400" />
+                    ) : (
+                      <Cpu className="w-4 h-4 text-amber-400" />
+                    )}
                   </div>
-                  
-                  {/* Embedded Custom UI Card */}
-                  {msg.card && msg.card !== 'none' && renderCard(msg.card)}
+
+                  {/* Message Body */}
+                  <div className={`border rounded-2xl p-3 text-sm text-slate-300 max-w-full overflow-hidden break-words ${
+                    isUser 
+                      ? 'bg-gradient-to-br from-indigo-500/20 to-blue-600/10 border-indigo-500/30 rounded-tr-sm shadow-[0_0_15px_rgba(99,102,241,0.05)]' 
+                      : 'bg-gradient-to-br from-white/[0.06] to-white/[0.02] border-white/10 rounded-tl-sm shadow-[0_4px_20px_rgba(0,0,0,0.2)]'
+                  }`}>
+                    <div className="prose prose-invert prose-sm break-words max-w-full font-light leading-relaxed">
+                      <span>{msg.content}</span>
+                      {msg.isStreaming && <span className="typing-cursor"></span>}
+                    </div>
+                    
+                    {/* Embedded Custom UI Card */}
+                    {msg.card && msg.card !== 'none' && renderCard(msg.card, msg.retryText)}
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Assistant typing loader dot state */}
+            {isTyping && messages[messages.length - 1]?.role !== 'assistant' && (
+              <div className="flex gap-3 max-w-[85%] animate-fade-in text-left">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-white/[0.06] to-white/[0.02] flex items-center justify-center shrink-0 border border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
+                  <Cpu className="w-4 h-4 text-amber-400" />
+                </div>
+                <div className="bg-gradient-to-br from-white/[0.06] to-white/[0.02] border border-white/10 rounded-2xl rounded-tl-sm p-4 text-slate-400 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-bounce typing-dot" style={{ animationDelay: '0s' }} />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-bounce typing-dot" style={{ animationDelay: '0.2s' }} />
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-bounce typing-dot" style={{ animationDelay: '0.4s' }} />
                 </div>
               </div>
-            );
-          })}
+            )}
+          </div>
 
-          {/* Assistant typing loader dot state */}
-          {isTyping && messages[messages.length - 1]?.role !== 'assistant' && (
-            <div className="flex gap-3 max-w-[85%] animate-fade-in text-left">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-white/[0.06] to-white/[0.02] flex items-center justify-center shrink-0 border border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
-                <Cpu className="w-4 h-4 text-amber-400" />
-              </div>
-              <div className="bg-gradient-to-br from-white/[0.06] to-white/[0.02] border border-white/10 rounded-2xl rounded-tl-sm p-4 text-slate-400 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-bounce typing-dot" style={{ animationDelay: '0s' }} />
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-bounce typing-dot" style={{ animationDelay: '0.2s' }} />
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-bounce typing-dot" style={{ animationDelay: '0.4s' }} />
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Quick Prompts Container */}
-        <div className="px-4 py-2.5 flex gap-2 overflow-x-auto quick-reply-container whitespace-nowrap border-t border-white/5 custom-scrollbar select-none">
-          <button 
-            type="button" 
-            onClick={() => handleSendMessage("Who is Likith?")}
-            className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300 hover:bg-amber-500/20 hover:text-amber-400 hover:border-amber-500/50 transition-all font-medium"
-          >
-            Who is Likith?
-          </button>
-          <button 
-            type="button" 
-            onClick={() => handleSendMessage("Contact Details")}
-            className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300 hover:bg-amber-500/20 hover:text-amber-400 hover:border-amber-500/50 transition-all font-medium"
-          >
-            Contact Details
-          </button>
-          <button 
-            type="button" 
-            onClick={() => handleSendMessage("Systems")}
-            className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300 hover:bg-amber-500/20 hover:text-amber-400 hover:border-amber-500/50 transition-all font-medium"
-          >
-            Systems
-          </button>
-          <button 
-            type="button" 
-            onClick={() => handleSendMessage("Git Archive")}
-            className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300 hover:bg-amber-500/20 hover:text-amber-400 hover:border-amber-500/50 transition-all font-medium"
-          >
-            Git Archive
-          </button>
-          <button 
-            type="button" 
-            onClick={() => handleSendMessage("YouTube Hub")}
-            className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300 hover:bg-amber-500/20 hover:text-amber-400 hover:border-amber-500/50 transition-all font-medium"
-          >
-            YouTube Hub
-          </button>
-          <button 
-            type="button" 
-            onClick={() => handleSendMessage("Collaborate")}
-            className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300 hover:bg-amber-500/20 hover:text-amber-400 hover:border-amber-500/50 transition-all font-medium"
-          >
-            Collaborate
-          </button>
-        </div>
-
-        {/* Input Form Area */}
-        <div className="p-4 border-t border-white/10 bg-slate-950/40 relative">
-          
-          {/* Speech Recording Status Indicator overlay */}
-          <div className={`absolute -top-12 left-0 right-0 h-12 bg-slate-950/95 border-t border-white/5 items-center justify-between px-6 backdrop-blur-md transition-all duration-300 z-30 ${isListening ? 'flex' : 'hidden'}`}>
+          {/* Speech Recording Status Indicator overlay (docked inside chat area so Quick Actions stay clear) */}
+          <div className={`shrink-0 h-11 bg-slate-950/95 border-t border-white/10 items-center justify-between px-5 backdrop-blur-md transition-all duration-300 z-20 ${isListening ? 'flex' : 'hidden'}`}>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
               <span id="ai-voice-status" className="text-xs text-slate-300 font-mono">
@@ -580,48 +576,76 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
               <div className="w-[2.5px] bg-amber-400 animate-wave-bar h-3" style={{ animationDelay: '0.5s' }} />
             </div>
           </div>
+        </div>
 
-          {/* Language Toggle Pill & Info Status */}
-          <div className="flex items-center justify-between mb-2 px-1 text-left">
-            <div className="flex bg-white/5 border border-white/10 p-0.5 rounded-full text-[10px] font-mono select-none">
-              <button 
-                type="button" 
-                onClick={() => handleLangToggle('en-IN')}
-                className={`px-2.5 py-0.5 rounded-full transition-all font-semibold ${
-                  selectedLang === 'en-IN' 
-                    ? 'text-white bg-amber-500/20 border border-amber-500/30' 
-                    : 'text-slate-400 hover:text-white'
-                }`}
+        {/* 3. Quick Actions */}
+        <div
+          id="ai-quick-actions"
+          className="quick-reply-container shrink-0 px-3.5 py-3 border-t border-white/10 bg-slate-950/60 select-none"
+          style={{ flex: '0 0 auto' }}
+        >
+          <div className="quick-reply-grid">
+            {QUICK_ACTIONS.map((label) => (
+              <button
+                key={label}
+                type="button"
+                onClick={() => handleSendMessage(label)}
+                className="sakra-quick-btn"
               >
-                EN
+                {label}
               </button>
-              <button 
-                type="button" 
-                onClick={() => handleLangToggle('te-IN')}
-                className={`px-2.5 py-0.5 rounded-full transition-all font-semibold ${
-                  selectedLang === 'te-IN' 
-                    ? 'text-white bg-amber-500/20 border border-amber-500/30' 
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                TE
-              </button>
-            </div>
-            
-            {/* Info Message Label */}
-            <div className={`text-[9px] font-mono truncate max-w-[200px] ${infoIsError ? 'text-red-400' : 'text-slate-500'}`}>
-              {infoMessage}
-            </div>
+            ))}
           </div>
+        </div>
 
-          {/* Form */}
+        {/* 4. Language Selector (EN/TE) */}
+        <div
+          className="shrink-0 px-4 py-2 border-t border-white/10 bg-slate-950/50 flex items-center justify-between gap-2 text-left"
+          style={{ flex: '0 0 auto' }}
+        >
+          <div className="flex shrink-0 bg-white/5 border border-white/10 p-0.5 rounded-full text-[10px] font-mono select-none">
+            <button 
+              type="button" 
+              onClick={() => handleLangToggle('en-IN')}
+              className={`shrink-0 px-2.5 py-0.5 rounded-full transition-colors font-semibold ${
+                selectedLang === 'en-IN' 
+                  ? 'text-white bg-amber-500/20 border border-amber-500/30' 
+                  : 'text-slate-400 hover:text-white border border-transparent'
+              }`}
+            >
+              EN
+            </button>
+            <button 
+              type="button" 
+              onClick={() => handleLangToggle('te-IN')}
+              className={`shrink-0 px-2.5 py-0.5 rounded-full transition-colors font-semibold ${
+                selectedLang === 'te-IN' 
+                  ? 'text-white bg-amber-500/20 border border-amber-500/30' 
+                  : 'text-slate-400 hover:text-white border border-transparent'
+              }`}
+            >
+              TE
+            </button>
+          </div>
+          
+          {/* Info Message Label */}
+          <div className={`text-[10px] font-mono truncate max-w-[220px] ${infoIsError ? 'text-red-400' : 'text-slate-500'}`}>
+            {infoMessage}
+          </div>
+        </div>
+
+        {/* 5. Message Input */}
+        <div
+          className="shrink-0 px-4 py-3 border-t border-white/10 bg-slate-950/70 relative"
+          style={{ flex: '0 0 auto' }}
+        >
           <form onSubmit={handleSubmit} className="relative">
             <input 
               type="text" 
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder={isListening ? 'Listening... Speak now' : 'Initiate query...'} 
-              className="w-full bg-white/5 border border-white/10 rounded-full py-3 pl-4 pr-24 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/50 transition-colors" 
+              className="w-full bg-white/5 border border-white/10 rounded-full py-2.5 pl-4 pr-24 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/50 transition-colors" 
               autoComplete="off" 
               aria-label="Chat query input"
             />
@@ -631,7 +655,7 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
               <button 
                 type="button" 
                 onClick={toggleVoiceInput}
-                className={`w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all relative ${
+                className={`w-8 h-8 shrink-0 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors relative ${
                   isListening ? 'mic-listening' : ''
                 }`}
                 title="Speak to AI" 
@@ -649,7 +673,7 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
               {/* Submit Arrow up */}
               <button 
                 type="submit" 
-                className="w-8 h-8 rounded-full bg-amber-500 flex items-center justify-center text-black hover:bg-amber-400 transition-colors" 
+                className="w-8 h-8 shrink-0 rounded-full bg-amber-500 flex items-center justify-center text-black hover:bg-amber-400 transition-colors" 
                 aria-label="Send query message"
               >
                 <ArrowUp className="w-4 h-4 font-black" />

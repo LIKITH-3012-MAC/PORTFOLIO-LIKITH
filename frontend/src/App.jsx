@@ -6,6 +6,7 @@ import { CollaborationPage } from './pages/CollaborationPage';
 import { DataConsolePage } from './pages/DataConsolePage';
 import { GitProfilePage } from './pages/GitProfilePage';
 import { YouTubePage } from './pages/YouTubePage';
+import { PianoStudioPage } from './pages/PianoStudioPage';
 import { ProblemPage } from './pages/ProblemPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { QualityProvider } from './hooks/useAdaptive3DQuality';
@@ -24,6 +25,7 @@ export const App = () => {
               <Route path="data" element={<DataConsolePage />} />
               <Route path="git-profile" element={<GitProfilePage />} />
               <Route path="youtube" element={<YouTubePage />} />
+              <Route path="piano" element={<PianoStudioPage />} />
               <Route path="problem" element={<ProblemPage />} />
               
               {/* Legacy URL Backward Compatibility Redirects */}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, Mail, Github, Youtube } from 'lucide-react';
+import { Menu, Mail, Github, Youtube, Music } from 'lucide-react';
 import CONFIG from '../../services/config';
 import useKnowledge from '../../hooks/useKnowledge';
 import { MagneticButton } from '../effects/MagneticButton';
@@ -96,6 +96,8 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
       setActiveSection('git');
     } else if (path.includes('youtube') || path.includes('likith-youtube')) {
       setActiveSection('youtube');
+    } else if (path.includes('piano')) {
+      setActiveSection('piano');
     } else if (path.includes('collab')) {
       setActiveSection('collab');
     } else if (path === '/' && !location.hash) {
@@ -159,11 +161,11 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
         </MagneticIcon>
 
         {/* Desktop Links with magnetic effects */}
-        <div className="hidden lg:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-4 xl:gap-6">
           <MagneticIcon>
             <button 
               onClick={() => handleNavClick('about')} 
-              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase ${activeSection === 'about' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase whitespace-nowrap ${activeSection === 'about' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
             >
               Identity
             </button>
@@ -172,7 +174,7 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
           <MagneticIcon>
             <button 
               onClick={() => handleNavClick('experience')} 
-              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase ${activeSection === 'experience' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase whitespace-nowrap ${activeSection === 'experience' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
             >
               Experience
             </button>
@@ -181,7 +183,7 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
           <MagneticIcon>
             <button 
               onClick={() => handleNavClick('projects')} 
-              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase ${activeSection === 'projects' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase whitespace-nowrap ${activeSection === 'projects' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
             >
               Systems
             </button>
@@ -190,18 +192,27 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
           <MagneticIcon>
             <Link 
               to="/git-profile?source=nav" 
-              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase flex items-center gap-1.5 ${activeSection === 'git' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase flex items-center gap-1.5 whitespace-nowrap ${activeSection === 'git' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
             >
-              <Github className="w-3.5 h-3.5" /> Git Archive
+              <Github className="w-3.5 h-3.5 shrink-0" /> Git Archive
             </Link>
           </MagneticIcon>
 
           <MagneticIcon>
             <Link 
               to="/youtube?source=nav" 
-              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase flex items-center gap-1.5 ${activeSection === 'youtube' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase flex items-center gap-1.5 whitespace-nowrap ${activeSection === 'youtube' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
             >
-              <Youtube className="w-3.5 h-3.5 text-red-500" /> YouTube Hub
+              <Youtube className="w-3.5 h-3.5 text-red-500 shrink-0" /> YouTube Hub
+            </Link>
+          </MagneticIcon>
+
+          <MagneticIcon>
+            <Link 
+              to="/piano?source=nav" 
+              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase flex items-center gap-1.5 whitespace-nowrap ${activeSection === 'piano' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
+            >
+              <Music className="w-3.5 h-3.5 text-amber-400 shrink-0" /> Piano Studio
             </Link>
           </MagneticIcon>
 
