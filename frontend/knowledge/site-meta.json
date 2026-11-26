@@ -3,8 +3,8 @@
     "name": "Likith Naidu Anumakonda Portfolio",
     "baseUrl": "https://likith-portfolio.online",
     "core_identity": {
-      "primary": "Founder & CEO of SAKRA VISION | AI/ML Engineer",
-      "specialties": "Artificial Intelligence, Machine Learning, Computer Vision, Generative AI, AI Agents, Python, Node.js"
+      "primary": "AI/ML Engineer | Founder & CEO of SAKRA VISION",
+      "specialties": "AI Application Development, Machine Learning, Computer Vision, LLM & RAG Applications, AI Agents, Python, Node.js, Software & Web Apps"
     },
     "primaryImage": "https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-profile.png",
     "images": [
@@ -22,7 +22,7 @@
       {
         "file": "index.html",
         "title": "Likith Naidu Anumakonda | Founder & CEO, SAKRA VISION | AI/ML Engineer",
-        "description": "Likith Naidu Anumakonda is the Founder & CEO of SAKRA VISION, an AI/ML Engineer, B.Tech CSE (AI) student at PBR VITS, Kavali, pianist, and author of \"Echoes of an Unsaid Goodbye\"."
+        "description": "Likith Naidu Anumakonda is an AI/ML Engineer and Founder & CEO of SAKRA VISION, pursuing B.Tech CSE (AI) at PBR VITS, Kavali. Completed the AI & ML Programme at Vishlesan i-Hub, IIT Patna (July 2025 – June 2026), VINS Intern at Vicharanashala Lab, IIT Ropar (Oct 7 – Dec 5, 2026), Classical Pianist, and Author of \"Echoes of an Unsaid Goodbye\"."
       },
       {
         "file": "collab.html",
@@ -32,12 +32,12 @@
       {
         "file": "likith-youtube.html",
         "title": "Media Hub | Likith Naidu Anumakonda",
-        "description": "Media hub featuring AI/ML demos and piano performances by Likith Naidu Anumakonda, Founder & CEO of SAKRA VISION, AI/ML Engineer, and Pianist."
+        "description": "Media hub featuring AI/ML demos and piano performances by Likith Naidu Anumakonda, Founder & CEO of SAKRA VISION, AI/ML Engineer, and Classical Pianist."
       },
       {
         "file": "likith-git-profile.html",
         "title": "Engineering Archive | Likith Naidu Anumakonda",
-        "description": "Explore public repositories, AI/ML systems, and engineering builds by Likith Naidu Anumakonda — Founder & CEO of SAKRA VISION and AI/ML Engineer."
+        "description": "Explore public repositories, AI/ML projects, and software builds by Likith Naidu Anumakonda — AI/ML Engineer and Founder & CEO of SAKRA VISION."
       }
     ]
   }

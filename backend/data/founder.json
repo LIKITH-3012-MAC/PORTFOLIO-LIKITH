@@ -1,16 +1,20 @@
 {
   "founder_profile": {
     "company": "SAKRA VISION",
+    "website": "https://www.sakra-vision.online/",
     "role": "Founder & CEO",
     "status": "Founder & CEO of SAKRA VISION",
-    "mission": "Independent AI and software startup focused on applied machine learning, computer vision workflows, and practical web applications.",
+    "type": "AI Product Studio & Technology Venture",
+    "focus_areas": [
+      "AI application development",
+      "Machine learning",
+      "Computer vision",
+      "LLM and RAG applications",
+      "AI agents and automation",
+      "Software and web application development"
+    ],
+    "mission": "AI product studio and technology venture focused on applied machine learning, computer vision, LLM/RAG workflows, automation tools, and web application development.",
     "vision": "Building dependable software tools that connect machine learning models cleanly with everyday operational workflows.",
-    "execution_philosophy": "Every project under SAKRA VISION focuses on clear problem definition, clean backend APIs, and maintainable deployment.",
-    "core_values": [
-      "Applied Engineering Focus",
-      "Reliable Backend & Data Design",
-      "Iterative Testing & Delivery",
-      "Practical AI Workflows"
-    ]
+    "execution_philosophy": "Every project under SAKRA VISION focuses on clear problem definition, clean backend APIs, and maintainable deployment."
   }
 }

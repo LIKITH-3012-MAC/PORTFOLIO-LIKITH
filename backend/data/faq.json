@@ -2,15 +2,23 @@
   "faq": [
     {
       "question": "What does Likith do?",
-      "answer": "Likith Naidu Anumakonda is an AI/ML Engineer and the Founder & CEO of SAKRA VISION. He builds applied AI/ML models, RAG assistants, computer vision tools, and full-stack web applications with Python (FastAPI), Node.js, React, and Next.js."
+      "answer": "Likith Naidu Anumakonda is an AI/ML Engineer and Founder & CEO of SAKRA VISION (an AI product studio and technology venture). He builds AI applications, machine learning models, computer vision workflows, LLM/RAG systems, AI agents, and full-stack web software."
     },
     {
       "question": "What is Likith's education background?",
-      "answer": "Likith is currently pursuing a B.Tech in Computer Science and Engineering (Artificial Intelligence) at Parvatha Reddy Babul Reddy Visvodaya Institute of Technology and Science (PBR VITS), Kavali, Andhra Pradesh, India. He also completed an Advanced AI/ML Specialization programme from IIT Patna (I-HUB)."
+      "answer": "Likith is currently pursuing a B.Tech in Computer Science and Engineering (Artificial Intelligence) at PBR VITS, Kavali, Andhra Pradesh. He also successfully completed the Artificial Intelligence and Machine Learning Programme offered by Vishlesan i-Hub, IIT Patna (July 2025 – June 2026) as an additional AI/ML programme."
+    },
+    {
+      "question": "What is Likith's internship at IIT Ropar?",
+      "answer": "Likith is currently participating in the Vicharanashala Internship (VINS), associated with the Vicharanashala Lab for Education Design at IIT Ropar, from October 7, 2026 to December 5, 2026 (Currently Ongoing). It provides exposure to research-oriented software engineering and open-source development."
     },
     {
       "question": "What creative work does Likith do?",
-      "answer": "Alongside software and AI engineering, Likith is a classical pianist and the author of the book \"Echoes of an Unsaid Goodbye\"."
+      "answer": "Alongside software and AI engineering, Likith is a Classical Pianist and Author of \"Echoes of an Unsaid Goodbye\"."
+    },
+    {
+      "question": "What is SAKRA VISION?",
+      "answer": "SAKRA VISION (https://www.sakra-vision.online/) is Likith Naidu Anumakonda's AI product studio and technology venture where he serves as Founder & CEO, covering AI application development, machine learning, computer vision, LLM and RAG applications, AI agents and automation, and software and web application development."
     },
     {
       "question": "What is RESOLVIT?",
@@ -23,14 +31,6 @@
     {
       "question": "Does Likith work with Python and Node.js web applications?",
       "answer": "Yes. He builds backend services and full-stack web applications using Python (FastAPI/Flask) and Node.js (Express/Next.js) alongside React and Tailwind CSS."
-    },
-    {
-      "question": "Does Likith handle APIs, databases, and deployment?",
-      "answer": "Yes. His experience covers REST APIs, authentication middleware, messaging/OTP workflows (Resend, Twilio), PostgreSQL and MySQL databases, domain/DNS configuration, Google Search Console setup, structured SEO metadata, and deployments on Vercel and Render."
-    },
-    {
-      "question": "What is Likith's role in the Solution Challenge 2026?",
-      "answer": "Likith led Team SΛKRΛ in building RESOLVIT for the GDG Solution Challenge 2026 (currently Under Evaluation), coordinating AI workflow design and full-stack implementation."
     }
   ]
 }

@@ -1,10 +1,11 @@
 {
   "founder": {
     "company": "SAKRA VISION",
+    "website": "https://www.sakra-vision.online/",
     "role": "Founder & CEO",
     "status": "Founder & CEO of SAKRA VISION",
-    "mission": "Independent AI and software startup focused on applied machine learning, computer vision workflows, automation tools, and practical full-stack web products.",
+    "mission": "AI product studio and technology venture focused on AI application development, machine learning, computer vision, LLM and RAG applications, AI agents and automation, and software and web application development.",
     "executionPhilosophy": "Every project under SAKRA VISION focuses on clear problem definition, reliable backend engineering, and maintainable delivery from prototype to deployment.",
-    "capabilities": "Applied AI/ML pipelines, AI assistants, backend APIs, database modeling, and web application delivery."
+    "capabilities": "AI application development, machine learning, computer vision, LLM/RAG workflows, AI agents and automation, backend APIs, database modeling, and web application delivery."
   }
 }

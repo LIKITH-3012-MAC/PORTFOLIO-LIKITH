@@ -4,30 +4,66 @@
     "Likith Anumakonda",
     "Likith Naidu"
   ],
-  "headline": "AI/ML Engineer | Founder & CEO of SAKRA VISION | Classical Pianist | Author",
-  "tagline": "AI/ML Engineer and Founder & CEO of SAKRA VISION, building applied machine learning workflows and full-stack web software.",
+  "headline": "AI/ML Engineer | Founder & CEO — SAKRA VISION | Classical Pianist | Author",
+  "tagline": "AI/ML Engineer and Founder & CEO of SAKRA VISION, pursuing B.Tech CSE (AI) at PBR VITS, completed AI & ML Programme at Vishlesan i-Hub, IIT Patna, and participating in the VINS Internship with Vicharanashala Lab, IIT Ropar.",
   "origin": {
     "city": "Kavali",
     "region": "Nellore",
     "state": "Andhra Pradesh",
     "country": "India"
   },
-  "current_status": "AI/ML Engineer | Founder & CEO of SAKRA VISION",
+  "current_status": "AI/ML Engineer | Founder & CEO — SAKRA VISION | VINS Intern (Vicharanashala Lab, IIT Ropar)",
   "summary": [
-    "Likith Naidu Anumakonda is an AI/ML Engineer and the Founder & CEO of SAKRA VISION, specializing in Artificial Intelligence, Machine Learning, Computer Vision, and Generative AI.",
-    "He is currently pursuing a Bachelor of Technology (B.Tech) in Computer Science and Engineering (Artificial Intelligence) at Parvatha Reddy Babul Reddy Visvodaya Institute of Technology and Science (PBR VITS), Kavali, Andhra Pradesh, India, and completed an Advanced AI/ML Specialization programme at IIT Patna (I-HUB).",
-    "He is also a Classical Pianist and the Author of \"Echoes of an Unsaid Goodbye\"."
+    "Likith Naidu Anumakonda is an AI/ML Engineer and Founder & CEO of SAKRA VISION, an AI product studio and technology venture specializing in AI application development, machine learning, computer vision, LLM and RAG applications, AI agents and automation, and software and web application development.",
+    "He is currently pursuing a B.Tech in Computer Science and Engineering (Artificial Intelligence) at PBR VITS, Kavali, Andhra Pradesh, and successfully completed the Artificial Intelligence and Machine Learning Programme offered by Vishlesan i-Hub, IIT Patna (July 2025 – June 2026).",
+    "He is currently participating in the Vicharanashala Internship (VINS), associated with the Vicharanashala Lab for Education Design at IIT Ropar (October 7, 2026 – December 5, 2026, ongoing).",
+    "He is also a Classical Pianist and Author of \"Echoes of an Unsaid Goodbye\"."
   ],
   "roles": [
     "AI/ML Engineer",
     "Founder & CEO — SAKRA VISION",
+    "VINS Intern — Vicharanashala Lab for Education Design, IIT Ropar (Ongoing)",
     "Classical Pianist",
     "Author"
   ],
+  "experience": [
+    {
+      "programme": "Vicharanashala Internship (VINS)",
+      "organization": "Vicharanashala Lab for Education Design, IIT Ropar",
+      "role": "VINS Intern",
+      "start_date": "October 7, 2026",
+      "end_date": "December 5, 2026",
+      "status": "Currently Ongoing",
+      "note": "Associated internship programme; not IIT Ropar employment or student enrollment.",
+      "description": "Currently participating in the Vicharanashala Internship (VINS), associated with the Vicharanashala Lab for Education Design at IIT Ropar. The programme provides practical exposure to research-oriented software engineering and open-source development through structured technical work and mentorship."
+    },
+    {
+      "programme": "Artificial Intelligence and Machine Learning Programme",
+      "organization": "Vishlesan i-Hub, IIT Patna",
+      "duration": "July 2025 – June 2026",
+      "status": "Successfully Completed",
+      "note": "Additional AI/ML programme; not an IIT Patna degree.",
+      "description": "Successfully completed the Artificial Intelligence and Machine Learning Programme offered by Vishlesan i-Hub, IIT Patna."
+    },
+    {
+      "venture": "SAKRA VISION",
+      "role": "Founder & CEO",
+      "year": "2026",
+      "website": "https://www.sakra-vision.online/",
+      "description": "AI product studio and technology venture focusing on AI application development, machine learning, computer vision, LLM and RAG applications, AI agents and automation, and software and web application development."
+    },
+    {
+      "event": "Smart India Hackathon",
+      "project": "Prometheus AI",
+      "role": "Engineering Team Lead",
+      "year": "2025",
+      "description": "Led a 5-member engineering team building Prometheus AI."
+    }
+  ],
   "technical_philosophy": "Focusing on practical problem definition, structured APIs, clean data models, and reliable web and AI software delivery.",
   "specialties": [
-    "Machine Learning & Deep Learning",
-    "AI Agents & RAG Pipelines",
+    "AI Application Development & Machine Learning",
+    "LLM, RAG Applications & AI Agents / Automation",
     "Computer Vision & NLP",
     "Python (FastAPI) Backend Development",
     "Node.js, React & Next.js Web Applications",

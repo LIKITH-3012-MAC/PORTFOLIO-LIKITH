@@ -1,14 +1,26 @@
 {
   "achievements": [
     {
-      "title": "SIH 2025 Internal Hackathon — Team Lead",
+      "title": "Vicharanashala Internship (VINS) — Vicharanashala Lab for Education Design, IIT Ropar",
+      "duration": "October 7, 2026 – December 5, 2026",
+      "status": "Currently Ongoing",
+      "description": "Participating as VINS Intern in research-oriented software engineering and open-source development."
+    },
+    {
+      "title": "Completed AI & Machine Learning Programme — Vishlesan i-Hub, IIT Patna",
+      "duration": "July 2025 – June 2026",
+      "status": "Successfully Completed",
+      "description": "Completed the Artificial Intelligence and Machine Learning Programme strengthening AI/ML fundamentals and practical applications."
+    },
+    {
+      "title": "SIH 2025 Internal Hackathon — Engineering Team Lead",
       "project": "Prometheus AI",
       "impact": "Led a 5-member engineering team, structured NoSQL schemas, and coordinated core AI interaction pipelines."
     },
     {
       "title": "GDG Solution Challenge 2026 — Team SΛKRΛ Lead",
       "project": "RESOLVIT",
-      "description": "Led the contribution of RESOLVIT, an AI-assisted civic issue platform (currently under evaluation)."
+      "description": "Led the contribution of RESOLVIT, an AI-assisted civic issue platform (currently Under Evaluation)."
     },
     {
       "title": "Technova2K25 — Best Concept",

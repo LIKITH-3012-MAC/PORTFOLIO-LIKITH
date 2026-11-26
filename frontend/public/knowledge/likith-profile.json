@@ -20,19 +20,55 @@
     "roles": [
       "AI/ML Engineer",
       "Founder & CEO — SAKRA VISION",
+      "VINS Intern — Vicharanashala Lab for Education Design, IIT Ropar (Ongoing)",
       "Classical Pianist",
       "Author — Echoes of an Unsaid Goodbye"
     ],
-    "tagline": "AI/ML Engineer and Founder & CEO of SAKRA VISION, building practical AI workflows and full-stack web software.",
+    "tagline": "AI/ML Engineer and Founder & CEO of SAKRA VISION, pursuing B.Tech CSE (AI) at PBR VITS, completed AI & ML Programme at Vishlesan i-Hub, IIT Patna, and participating in the VINS Internship with Vicharanashala Lab, IIT Ropar.",
     "location": {
       "city": "Kavali",
       "district": "Nellore",
       "state": "Andhra Pradesh",
       "country": "India"
     },
+    "experience": [
+      {
+        "title": "Vicharanashala Internship (VINS)",
+        "organization": "Vicharanashala Lab for Education Design, IIT Ropar",
+        "role": "VINS Intern",
+        "startDate": "October 7, 2026",
+        "endDate": "December 5, 2026",
+        "status": "Currently Ongoing",
+        "description": "Currently participating in the Vicharanashala Internship (VINS), associated with the Vicharanashala Lab for Education Design at IIT Ropar. Provides practical exposure to research-oriented software engineering and open-source development through structured technical work and mentorship."
+      },
+      {
+        "title": "Artificial Intelligence and Machine Learning Programme",
+        "organization": "Vishlesan i-Hub, IIT Patna",
+        "role": "Programme Participant",
+        "startDate": "July 2025",
+        "endDate": "June 2026",
+        "status": "Successfully Completed",
+        "description": "Successfully completed the Artificial Intelligence and Machine Learning Programme offered by Vishlesan i-Hub, IIT Patna."
+      },
+      {
+        "title": "SAKRA VISION",
+        "organization": "SAKRA VISION",
+        "role": "Founder & CEO",
+        "year": "2026",
+        "url": "https://www.sakra-vision.online/",
+        "description": "AI product studio and technology venture focused on AI application development, machine learning, computer vision, LLM and RAG applications, AI agents and automation, and software and web application development."
+      },
+      {
+        "title": "Smart India Hackathon — Prometheus AI",
+        "organization": "Ministry of Education · Government of India Initiative",
+        "role": "Engineering Team Lead (5 Members)",
+        "year": "2025",
+        "description": "Led a five-member engineering team building Prometheus AI."
+      }
+    ],
     "specialties": [
-      "Machine Learning & Deep Learning",
-      "AI Agents & RAG Pipelines",
+      "AI Application Development & Machine Learning",
+      "LLM, RAG Applications & AI Agents / Automation",
       "Computer Vision & NLP",
       "Python (FastAPI) Backend Development",
       "Node.js, React & Next.js Web Applications",
@@ -42,11 +78,11 @@
       "Domain, DNS & Google Search Console Configuration",
       "Cloud Deployment & Structured SEO Metadata"
     ],
-    "founderVision": "Founder & CEO of SAKRA VISION, an independent venture focused on applied machine learning, computer vision automation, and full-stack web products."
+    "founderVision": "Founder & CEO of SAKRA VISION (https://www.sakra-vision.online/), an AI product studio and technology venture building applied AI/ML, computer vision, LLM/RAG, automation, and web applications."
   },
   "metadata": {
-    "version": "1.2.0",
-    "lastUpdated": "2026-11-25",
+    "version": "1.3.0",
+    "lastUpdated": "2026-11-26",
     "maintainer": "Likith Naidu Anumakonda"
   }
 }

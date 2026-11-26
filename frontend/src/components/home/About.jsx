@@ -66,13 +66,13 @@ export const About = () => {
             
             <div className="space-y-4 text-slate-300 text-base md:text-lg leading-relaxed font-light">
               <p>
-                I am Likith Naidu Anumakonda from {city}, {state}, {country}. I am currently pursuing a Bachelor of Technology (B.Tech) in Computer Science and Engineering (Artificial Intelligence) at Parvatha Reddy Babul Reddy Visvodaya Institute of Technology and Science (PBR VITS), while completing specialized AI/ML coursework through the IIT Patna I-HUB programme.
+                I am Likith Naidu Anumakonda from {city}, {state}, {country}. I am currently pursuing a B.Tech in Computer Science and Engineering (Artificial Intelligence) at Parvatha Reddy Babul Reddy Visvodaya Institute of Technology and Science (PBR VITS), Kavali. Having completed the Artificial Intelligence and Machine Learning Programme offered by Vishlesan i-Hub, IIT Patna (July 2025 – June 2026), I am currently participating in the Vicharanashala Internship (VINS), associated with the Vicharanashala Lab for Education Design at IIT Ropar (October 7 – December 5, 2026).
               </p>
               <p>
-                My technical focus lies in <strong className="text-white font-medium">machine learning, AI application development, backend engineering, and database integration</strong> using Python, FastAPI, Java, and modern web technologies. I enjoy turning real operational problems—from civic reporting and local offline learning tools to automated event verification—into reliable software.
+                My technical focus lies in <strong className="text-white font-medium">machine learning, AI application development, computer vision, LLM/RAG workflows, backend engineering, and database integration</strong> using Python, FastAPI, Java, and modern web technologies.
               </p>
               <p>
-                Alongside my academics, I lead product planning and engineering at <strong className="text-white font-medium">{companyName}</strong> as Founder &amp; CEO. Outside of software engineering, I am a classical pianist and author of <em>Echoes of an Unsaid Goodbye</em>.
+                Alongside my academics and internship work, I lead <strong className="text-white font-medium">{companyName}</strong> as Founder &amp; CEO — an AI product studio and technology venture. Outside of software engineering, I am a Classical Pianist and Author of <em>Echoes of an Unsaid Goodbye</em>.
               </p>
             </div>
             

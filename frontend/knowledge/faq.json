@@ -2,15 +2,27 @@
   "faq": [
     {
       "question": "Who is Likith Naidu Anumakonda?",
-      "answer": "Likith Naidu Anumakonda is an AI/ML Engineer and the Founder & CEO of SAKRA VISION. He is currently pursuing a B.Tech in CSE (Artificial Intelligence) at PBR VITS, Kavali, with an Advanced AI/ML specialization programme from IIT Patna (I-HUB). Outside engineering, he is a classical pianist and author of \"Echoes of an Unsaid Goodbye\"."
+      "answer": "Likith Naidu Anumakonda is an AI/ML Engineer and Founder & CEO of SAKRA VISION. He is currently pursuing a B.Tech in Computer Science and Engineering (Artificial Intelligence) at PBR VITS, Kavali, Andhra Pradesh. He completed the Artificial Intelligence and Machine Learning Programme at Vishlesan i-Hub, IIT Patna (July 2025 – June 2026), and is participating in the Vicharanashala Internship (VINS) with the Vicharanashala Lab for Education Design, IIT Ropar (October 7 – December 5, 2026, ongoing). He is also a Classical Pianist and Author of \"Echoes of an Unsaid Goodbye\"."
+    },
+    {
+      "question": "What is the VINS Internship?",
+      "answer": "Likith is currently participating in the Vicharanashala Internship (VINS), associated with the Vicharanashala Lab for Education Design at IIT Ropar, from October 7, 2026 to December 5, 2026 (Currently Ongoing). It provides practical exposure to research-oriented software engineering and open-source development through structured technical work and mentorship."
+    },
+    {
+      "question": "Did Likith complete the Vishlesan i-Hub, IIT Patna AI & ML Programme?",
+      "answer": "Yes. Likith successfully completed the Artificial Intelligence and Machine Learning Programme offered by Vishlesan i-Hub, IIT Patna (July 2025 – June 2026). It is an additional AI/ML programme rather than an IIT Patna degree."
+    },
+    {
+      "question": "What is SAKRA VISION?",
+      "answer": "SAKRA VISION (https://www.sakra-vision.online/) is Likith Naidu Anumakonda's AI product studio and technology venture where he serves as Founder & CEO, focusing on AI application development, machine learning, computer vision, LLM and RAG applications, AI agents and automation, and software and web application development."
     },
     {
       "question": "What does Likith specialize in?",
-      "answer": "Likith focuses on AI and Machine Learning engineering, AI agent and RAG workflows, computer vision automation, and full-stack web application development with Python (FastAPI), Node.js, React, and Next.js."
+      "answer": "Likith focuses on AI application development, machine learning, computer vision, LLM and RAG pipelines, AI agents and automation, and full-stack software and web development with Python (FastAPI), Node.js, React, and Next.js."
     },
     {
       "question": "What is RESOLVIT?",
-      "answer": "RESOLVIT is an AI-assisted civic operations web platform submitted to the GDG Solution Challenge 2026 (Under Evaluation). Built with FastAPI, PostgreSQL, and Leaflet, it structures issue triage, clustering, and status tracking for citizens, NGOs, and civic administrators."
+      "answer": "RESOLVIT is an AI-assisted civic operations web platform contributed for the GDG Solution Challenge 2026 (Under Evaluation). Built with FastAPI, PostgreSQL, and Leaflet, it structures issue triage, clustering, and status tracking for citizens, NGOs, and civic administrators."
     },
     {
       "question": "Can Likith build AI agents and ML models?",
@@ -25,12 +37,8 @@
       "answer": "Yes. His work includes REST API design, authentication middleware, messaging and OTP workflows (Resend, Twilio), PostgreSQL and MySQL database integration, domain configuration, Google Search Console setup, and deployment on platforms like Vercel and Render."
     },
     {
-      "question": "What is Likith's role in the Solution Challenge 2026?",
-      "answer": "Likith led Team SΛKRΛ in building RESOLVIT for the GDG Solution Challenge 2026 (currently Under Evaluation), coordinating AI workflow integration and full-stack delivery."
-    },
-    {
       "question": "Is Likith open to collaboration or engineering opportunities?",
-      "answer": "Yes. Likith is open to AI/ML engineering roles, software product collaborations, research discussions, and technical inquiries via the Collaboration page or email."
+      "answer": "Yes. Likith is open to AI/ML engineering roles, research collaborations, product collaborations, and technical inquiries via the Collaboration page or email."
     }
   ]
 }

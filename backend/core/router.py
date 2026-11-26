@@ -4,16 +4,18 @@ class IntentRouter:
     def __init__(self, knowledge):
         self.knowledge = knowledge
         self.intents = {
+            "internship": [r"\bvins\b", r"vicharanashala", r"ropar", r"intern(?:ship)?"],
             "projects": [
                 r"resolvit", r"prometheus", r"benchai", r"bench ai", r"student bench",
                 r"event hub", r"aquasentinel", r"sentinel", r"gui utility",
                 r"project", r"portfolio", r"repo", r"github", r"\bbuild\b", r"\bbuilt\b"
             ],
             "creative": [r"\bbook\b", r"\bauthor\b", r"echoes", r"unsaid goodbye", r"\bpiano\b", r"writing", r"creative"],
-            "education": [r"education", r"degree", r"university", r"college", r"\biit\b", r"study", r"studying", r"pbr", r"b\.?tech"],
+            "education": [r"education", r"degree", r"university", r"college", r"\biit\b", r"vishlesan", r"patna", r"study", r"studying", r"pbr", r"b\.?tech"],
             "achievements": [r"award", r"achievement", r"prize", r"\bwin\b", r"\bwon\b", r"\bsih\b", r"codeclash", r"technova", r"solution challenge"],
             "skills": [r"skill", r"tech stack", r"technologies", r"framework", r"tools", r"database"],
             "stack": [r"\bpython\b", r"javascript", r"react", r"fastapi", r"node\.?js", r"tensorflow", r"scikit"],
+            "sakra": [r"sakra vision", r"\bsakra\b", r"product studio", r"venture"],
             "collab": [r"\bhire\b", r"work with", r"collab", r"partnership", r"freelance"],
             "youtube": [r"\bvideo\b", r"youtube", r"watch", r"performance"],
             "contact": [r"email", r"contact", r"phone", r"reach", r"\bcall\b"],
@@ -60,14 +62,20 @@ class IntentRouter:
                 return None, "none"
             return "Likith has developed projects including RESOLVIT, SAKRA VISION Event Hub, Student Bench AI, Prometheus AI, and AquaSentinel AI. You can explore public code repositories on the GitHub Repositories page.", "git"
 
+        if intent == "internship":
+            return "Likith is currently participating in the Vicharanashala Internship (VINS), associated with the Vicharanashala Lab for Education Design at IIT Ropar (October 7, 2026 – December 5, 2026; currently ongoing). The programme provides practical exposure to research-oriented software engineering and open-source development through structured technical work and mentorship.", "none"
+
+        if intent == "sakra":
+            return "SAKRA VISION (https://www.sakra-vision.online/) is Likith Naidu Anumakonda's AI product studio and technology venture, where he serves as Founder & CEO. Its focus areas include AI application development, machine learning, computer vision, LLM and RAG applications, AI agents and automation, and software and web application development.", "collab"
+
         if intent == "achievements":
-            return "Likith led a 5-member team in SIH 2025, contributed RESOLVIT for the GDG Solution Challenge 2026 (Under Evaluation), won 1st Prize at CodeClash 2025, and received the Best Concept award at Technova2K25.", "none"
+            return "Likith is participating in the VINS Internship with Vicharanashala Lab, IIT Ropar (Oct 7 – Dec 5, 2026, ongoing), led a 5-member team in SIH 2025 (Prometheus AI), contributed RESOLVIT for the GDG Solution Challenge 2026 (Under Evaluation), won 1st Prize at CodeClash 2025, and received the Best Concept award at Technova2K25.", "none"
 
         if intent == "education":
-            return "Likith Naidu Anumakonda is currently pursuing a B.Tech in Computer Science and Engineering (Artificial Intelligence) at Parvatha Reddy Babul Reddy Visvodaya Institute of Technology and Science (PBR VITS), Kavali, Andhra Pradesh, India. He also completed an Advanced AI/ML Specialization programme (non-degree) at IIT Patna (I-HUB).", "none"
+            return "Likith Naidu Anumakonda is currently pursuing a B.Tech in Computer Science and Engineering (Artificial Intelligence) at Parvatha Reddy Babul Reddy Visvodaya Institute of Technology and Science (PBR VITS), Kavali, Andhra Pradesh, India. He also successfully completed the Artificial Intelligence and Machine Learning Programme offered by Vishlesan i-Hub, IIT Patna (July 2025 – June 2026) as an additional AI/ML programme.", "none"
 
         if intent == "identity":
-            return "Likith Naidu Anumakonda is an AI/ML Engineer and the Founder & CEO of SAKRA VISION. Currently pursuing a B.Tech in CSE (AI) at PBR VITS, Kavali (alongside an IIT Patna I-HUB AI/ML specialization programme), he works on machine learning, computer vision, RAG pipelines, and full-stack web applications. Beyond technology, he is a classical pianist and the author of \"Echoes of an Unsaid Goodbye.\"", "none"
+            return "Likith Naidu Anumakonda is an AI/ML Engineer and Founder & CEO of SAKRA VISION. He is currently pursuing a B.Tech in CSE (Artificial Intelligence) at PBR VITS, Kavali, completed the Artificial Intelligence and Machine Learning Programme at Vishlesan i-Hub, IIT Patna (July 2025 – June 2026), and is a VINS Intern associated with the Vicharanashala Lab for Education Design, IIT Ropar (October 7 – December 5, 2026, ongoing). Beyond engineering, he is a Classical Pianist and Author of \"Echoes of an Unsaid Goodbye.\"", "none"
 
         if intent == "collab":
             return "Likith is open to AI/ML engineering roles, product collaborations, and software development discussions. You can submit an inquiry through the Collaboration Form.", "collab"

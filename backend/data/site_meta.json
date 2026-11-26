@@ -3,8 +3,9 @@
     "name": "Likith Naidu Anumakonda Portfolio",
     "founder": "Likith Naidu Anumakonda",
     "company": "SAKRA VISION",
-    "primary_description": "Likith Naidu Anumakonda is an AI/ML Engineer, Founder & CEO of SAKRA VISION, currently pursuing a B.Tech CSE (AI) at PBR VITS, Kavali, classical pianist, and author of \"Echoes of an Unsaid Goodbye\".",
-    "capabilities": "Artificial Intelligence, Machine Learning, Computer Vision, Generative AI, AI Agents, RAG Pipelines, Python (FastAPI), Node.js, React, Next.js, and SQL Databases.",
+    "company_url": "https://www.sakra-vision.online/",
+    "primary_description": "Likith Naidu Anumakonda is an AI/ML Engineer, Founder & CEO of SAKRA VISION, currently pursuing B.Tech CSE (AI) at PBR VITS, Kavali. Completed the Artificial Intelligence and Machine Learning Programme at Vishlesan i-Hub, IIT Patna (July 2025 – June 2026), and participating in the Vicharanashala Internship (VINS) with the Vicharanashala Lab for Education Design, IIT Ropar (Oct 7 – Dec 5, 2026). Classical Pianist and Author of \"Echoes of an Unsaid Goodbye\".",
+    "capabilities": "AI Application Development, Machine Learning, Computer Vision, LLM & RAG Applications, AI Agents & Automation, Python (FastAPI), Node.js, React, Next.js, and SQL Databases.",
     "vision": "Applying machine learning and practical software engineering through SAKRA VISION."
   }
 }

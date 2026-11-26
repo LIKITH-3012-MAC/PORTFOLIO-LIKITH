@@ -110,6 +110,7 @@ export const Hero = ({ onOpenMessage }) => {
                 <div className="text-lg font-display font-bold text-white tracking-tight">AI/ML Engineer</div>
                 <div className="text-xs text-slate-300 font-mono">B.Tech CSE (AI) · PBR VITS, Kavali</div>
                 <div className="text-[11px] text-amber-300/90 font-mono">Founder &amp; CEO, SAKRA VISION</div>
+                <div className="text-[11px] text-slate-400 font-mono">VINS Intern (IIT Ropar Lab) · Vishlesan i-Hub (IIT Patna)</div>
               </div>
             </div>
           </motion.div>

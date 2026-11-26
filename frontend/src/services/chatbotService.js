@@ -58,8 +58,33 @@ export function getOfflineReply(text, language = 'en') {
   ) {
     return {
       reply: isTelugu
-        ? "లికిత్ నాయుడు అనుమకొండ ఒక AI/ML ఇంజనీర్ మరియు SAKRA VISION వ్యవస్థాపకుడు & CEO. ఆయన PBR VITS, కావలి లో B.Tech CSE (AI) చదువుతున్నారు, IIT పాట్నా (I-HUB) నుండి అడ్వాన్స్‌డ్ AI/ML స్పెషలైజేషన్ పూర్తి చేశారు. ఆయన క్లాసికల్ పియానిస్ట్ మరియు 'Echoes of an Unsaid Goodbye' పుస్తక రచయిత."
-        : "Likith Naidu Anumakonda is an AI/ML Engineer and the Founder & CEO of SAKRA VISION. He is currently pursuing a B.Tech in CSE (Artificial Intelligence) at PBR VITS, Kavali, with an Advanced AI/ML specialization programme from IIT Patna (I-HUB). Outside engineering, he is a classical pianist and author of Echoes of an Unsaid Goodbye.",
+        ? "లికిత్ నాయుడు అనుమకొండ ఒక AI/ML ఇంజనీర్ మరియు SAKRA VISION వ్యవస్థాపకుడు & CEO. ఆయన PBR VITS, కావలిలో B.Tech CSE (AI) చదువుతున్నారు, Vishlesan i-Hub, IIT పాట్నా AI & ML ప్రోగ్రామ్ (జులై 2025 – జూన్ 2026) పూర్తి చేశారు, మరియు ప్రస్తుతం Vicharanashala Lab for Education Design, IIT రోపర్ ద్వారా VINS ఇంటర్న్‌షిప్ (అక్టోబర్ 7 – డిసెంబర్ 5, 2026) చేస్తున్నారు. ఆయన క్లాసికల్ పియానిస్ట్ మరియు 'Echoes of an Unsaid Goodbye' పుస్తక రచయిత."
+        : "Likith Naidu Anumakonda is an AI/ML Engineer and Founder & CEO of SAKRA VISION. He is currently pursuing a B.Tech in CSE (AI) at PBR VITS, Kavali, completed the Artificial Intelligence and Machine Learning Programme at Vishlesan i-Hub, IIT Patna (July 2025 – June 2026), and is participating in the Vicharanashala Internship (VINS) associated with the Vicharanashala Lab for Education Design, IIT Ropar (October 7 – December 5, 2026). Outside engineering, he is a Classical Pianist and Author of Echoes of an Unsaid Goodbye.",
+      card: "none"
+    };
+  }
+
+  if (
+    lowerText.includes('vins') ||
+    lowerText.includes('vicharanashala') ||
+    lowerText.includes('ropar') ||
+    lowerText.includes('intern')
+  ) {
+    return {
+      reply: "Likith is currently participating in the Vicharanashala Internship (VINS), associated with the Vicharanashala Lab for Education Design at IIT Ropar (October 7, 2026 – December 5, 2026, ongoing). It focuses on research-oriented software engineering and open-source development through structured technical work and mentorship.",
+      card: "none"
+    };
+  }
+
+  if (
+    lowerText.includes('patna') ||
+    lowerText.includes('vishlesan') ||
+    lowerText.includes('education') ||
+    lowerText.includes('degree') ||
+    lowerText.includes('college')
+  ) {
+    return {
+      reply: "Likith is currently pursuing a B.Tech in CSE (Artificial Intelligence) at PBR VITS, Kavali, Andhra Pradesh, and has successfully completed the Artificial Intelligence and Machine Learning Programme offered by Vishlesan i-Hub, IIT Patna (July 2025 – June 2026).",
       card: "none"
     };
   }

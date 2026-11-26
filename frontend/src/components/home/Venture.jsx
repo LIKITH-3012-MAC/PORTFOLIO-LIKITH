@@ -22,11 +22,25 @@ export const Venture = () => {
               <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-amber-400 mb-8">
                 <Building2 className="w-8 h-8" />
               </div>
-              <h3 className="text-xs font-mono text-amber-400 tracking-widest uppercase mb-2">Independent Venture</h3>
+              <h3 className="text-xs font-mono text-amber-400 tracking-widest uppercase mb-2">AI Product Studio &amp; Technology Venture</h3>
               <h2 className="text-3xl font-display font-bold text-white mb-4">SAKRA VISION</h2>
-              <p className="text-slate-400 font-light leading-relaxed mb-8">
-                Founder &amp; CEO. An independent AI and software startup focused on applied machine learning, computer vision workflows, automation tools, and full-stack web applications designed to solve practical operational problems.
+              <p className="text-slate-300 font-light leading-relaxed mb-6">
+                Founder &amp; CEO. An AI product studio and technology venture focused on AI application development, machine learning, computer vision, LLM and RAG applications, AI agents and automation, and software and web application development.
               </p>
+              <div className="flex flex-wrap gap-2 mb-8">
+                {[
+                  "AI Application Development",
+                  "Machine Learning",
+                  "Computer Vision",
+                  "LLM & RAG Applications",
+                  "AI Agents & Automation",
+                  "Software & Web Apps"
+                ].map((area) => (
+                  <span key={area} className="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300">
+                    {area}
+                  </span>
+                ))}
+              </div>
               <div className="flex flex-wrap gap-4">
                 <Link to="/collab?source=venture" className="btn-premium group">
                   Discuss a Project
@@ -142,20 +156,24 @@ export const Venture = () => {
               <div className="space-y-6">
                 <div className="glass-panel p-6 rounded-2xl border-l-2 border-l-amber-500">
                   <div className="text-[11px] font-mono text-amber-400 uppercase tracking-wider mb-1">Currently Pursuing</div>
-                  <h3 className="text-xl font-bold text-white mb-1">B.Tech in CSE (Artificial Intelligence)</h3>
-                  <div className="text-sm font-mono text-slate-300 mb-3">
-                    Parvatha Reddy Babul Reddy Visvodaya Institute of Technology and Science (PBR VITS), Kavali
+                  <h3 className="text-xl font-bold text-white mb-1">B.Tech, Computer Science and Engineering (Artificial Intelligence)</h3>
+                  <div className="text-sm font-mono text-slate-200 mb-3">
+                    Parvatha Reddy Babul Reddy Visvodaya Institute of Technology and Science (PBR VITS), Kavali, Andhra Pradesh
                   </div>
-                  <p className="text-slate-400 text-sm font-light">
+                  <p className="text-slate-300 text-sm font-light">
                     Undergraduate degree in Computer Science &amp; Engineering specializing in AI, with coursework in Data Structures, Python, Java OOP, Database Management, and Machine Learning.
                   </p>
                 </div>
                 <div className="glass-panel p-6 rounded-2xl border-l-2 border-l-blue-500">
-                  <div className="text-[11px] font-mono text-blue-400 uppercase tracking-wider mb-1">Specialization Programme</div>
-                  <h3 className="text-xl font-bold text-white mb-1">Advanced AI &amp; ML Specialization</h3>
-                  <div className="text-sm font-mono text-slate-300 mb-3">IIT Patna — I-HUB</div>
-                  <p className="text-slate-400 text-sm font-light">
-                    Specialized programme training covering Deep Learning, Natural Language Processing (NLP), Computer Vision, and applied predictive modeling.
+                  <div className="text-[11px] font-mono text-blue-300 uppercase tracking-wider mb-1">
+                    Additional AI/ML Programme · Successfully Completed · July 2025 – June 2026
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-1">Completed AI &amp; Machine Learning Programme — Vishlesan i-Hub, IIT Patna</h3>
+                  <div className="text-sm font-mono text-slate-200 mb-3">
+                    Vishlesan i-Hub, IIT Patna · Artificial Intelligence and Machine Learning Programme
+                  </div>
+                  <p className="text-slate-300 text-sm font-light">
+                    Successfully completed the Artificial Intelligence and Machine Learning Programme offered by Vishlesan i-Hub, IIT Patna. The programme strengthened my understanding of AI/ML fundamentals and their practical applications.
                   </p>
                 </div>
               </div>

@@ -67,23 +67,23 @@ export const FounderMessage = ({ isOpen, onClose }) => {
 
                 <div className="space-y-4 text-slate-400 text-sm md:text-base font-light leading-relaxed">
                   <p>
-                    I&apos;m <b>Likith Naidu Anumakonda</b>, an AI/ML Engineer and the Founder &amp; CEO of <b>SAKRA VISION</b>. I am currently pursuing a B.Tech in Computer Science and Engineering (Artificial Intelligence) at PBR VITS, Kavali.
+                    I&apos;m <b>Likith Naidu Anumakonda</b>, an AI/ML Engineer and the Founder &amp; CEO of <b>SAKRA VISION</b>. I am currently pursuing a B.Tech in Computer Science and Engineering (Artificial Intelligence) at PBR VITS, Kavali, Andhra Pradesh.
                   </p>
                   <p>
-                    My engineering work covers <b>machine learning workflows</b>, <b>AI assistants and RAG pipelines</b>, and <b>computer vision prototypes</b> alongside full-stack web delivery with <b>Python (FastAPI), Node.js, React, and Next.js</b>. I also implement REST APIs, database schemas, automated verification and messaging flows via <b>Resend and Twilio</b>, and production hosting setup.
+                    I completed the Artificial Intelligence and Machine Learning Programme offered by <b>Vishlesan i-Hub, IIT Patna</b> (July 2025 – June 2026) and am currently participating in the <b>Vicharanashala Internship (VINS)</b> associated with the <b>Vicharanashala Lab for Education Design, IIT Ropar</b> (October 7 – December 5, 2026).
                   </p>
                   <p>
-                    From initial problem framing to domain configuration, Google Search Console setup, and metadata maintenance, I enjoy taking software products carefully from prototype to reliable live deployment.
+                    My engineering work covers <b>AI application development</b>, <b>machine learning</b>, <b>computer vision</b>, <b>LLM and RAG workflows</b>, and <b>AI agents and automation</b> alongside full-stack web delivery with <b>Python (FastAPI), Node.js, React, and Next.js</b>.
                   </p>
                 </div>
 
                 {/* SAKRA Block */}
                 <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 space-y-2">
                   <div className="text-[10px] text-amber-400 font-mono tracking-widest uppercase">
-                    SAKRA VISION · Independent Venture
+                    SAKRA VISION · AI Product Studio &amp; Venture
                   </div>
                   <p className="text-xs text-slate-400 leading-relaxed">
-                    Through <b>SAKRA VISION</b>, I focus on building practical AI automation tools and full-stack software products with clean engineering standards and dependable execution.
+                    As Founder &amp; CEO of <b>SAKRA VISION</b>, I build practical AI applications, automation workflows, and web software with clean engineering standards from prototype to deployment.
                   </p>
                 </div>
 

@@ -1,17 +1,21 @@
 {
   "education": [
     {
-      "degree": "Bachelor of Technology (B.Tech) in Computer Science and Engineering (Artificial Intelligence)",
+      "degree": "B.Tech, Computer Science and Engineering (Artificial Intelligence)",
       "institution": "Parvatha Reddy Babul Reddy Visvodaya Institute of Technology and Science (PBR VITS)",
       "location": "Kavali, Andhra Pradesh, India",
       "status": "Currently pursuing (not yet completed)",
       "focus": "Data Structures, Python, Java OOP, Database Management, and Machine Learning."
     },
     {
-      "programme": "Advanced AI & ML Specialization",
-      "type": "Specialization Programme (non-degree)",
-      "provider": "IIT Patna (I-HUB)",
-      "focus": "Deep Learning, NLP, Computer Vision, and applied predictive modeling."
+      "programme": "Artificial Intelligence and Machine Learning Programme",
+      "label": "Completed AI & Machine Learning Programme — Vishlesan i-Hub, IIT Patna",
+      "type": "Additional AI/ML Programme (non-degree programme)",
+      "institution": "Vishlesan i-Hub, IIT Patna",
+      "duration": "July 2025 – June 2026",
+      "status": "Successfully Completed",
+      "description": "Successfully completed the Artificial Intelligence and Machine Learning Programme offered by Vishlesan i-Hub, IIT Patna. The programme strengthened my understanding of AI/ML fundamentals and their practical applications.",
+      "certificateStatus": "Official certificate PDF will be added once provided."
     }
   ]
 }
