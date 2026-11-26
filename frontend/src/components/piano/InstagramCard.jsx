@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Instagram, ExternalLink, Music, Sparkles } from 'lucide-react';
 import { pianoInstagramProfile } from '../../data/pianoLinks';
 import { fadeUp } from '../../motion/variants';
+import InstagramReelsGrid from '../common/InstagramReelsGrid';
 
 export const InstagramCard = () => {
   const { profileUrl, username, bio, category, stats } = pianoInstagramProfile;
@@ -95,6 +96,21 @@ export const InstagramCard = () => {
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>
+      </div>
+
+      {/* Featured Instagram Reels */}
+      <div className="relative z-10 mt-8 pt-8 border-t border-white/10 space-y-5">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-rose-300">
+            <Instagram className="w-3.5 h-3.5" />
+            <span>Instagram Reels</span>
+          </div>
+          <span className="text-xs text-slate-400 font-light">
+            Selected Reels available directly on Instagram
+          </span>
+        </div>
+
+        <InstagramReelsGrid />
       </div>
     </motion.div>
   );

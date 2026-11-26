@@ -1,9 +1,13 @@
 {
   "creative_identity": {
     "music": {
-      "role": "Classical Pianist",
-      "specialization": "Classical Piano",
+      "role": "Pianist",
+      "specialization": "Piano Performance",
       "description": "Blending discipline and emotion in performance. Viewable on the official YouTube Media Hub."
+    },
+    "literature": {
+      "role": "Author",
+      "authored_book": "Echoes of an Unsaid Goodbye"
     }
   }
 }

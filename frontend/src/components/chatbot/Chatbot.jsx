@@ -26,9 +26,9 @@ import { sendMessageStream, getOfflineReply } from '../../services/chatbotServic
 const QUICK_ACTIONS = [
   "Who is Likith?",
   "Contact Details",
-  "Systems",
-  "Git Archive",
-  "YouTube Hub",
+  "Projects",
+  "GitHub Repos",
+  "Media & Piano",
   "Collaborate"
 ];
 
@@ -40,7 +40,7 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
     {
       id: 'welcome-0',
       role: 'assistant',
-      content: "hi im sakra(ai) likith's assistant, you can ask me anything about my boss ill letchu know",
+      content: "Hello! I'm SAKRA AI, Likith Naidu Anumakonda's portfolio assistant. Ask me about his AI/ML projects, technical skills, education, classical piano, authored book, or how to collaborate.",
       card: 'none'
     }
   ]);
@@ -57,7 +57,21 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
   const chatAreaRef = useRef(null);
   const recognitionRef = useRef(null);
   const activeRequestIdRef = useRef(0);
+  const abortControllerRef = useRef(null);
+  const selectedLangRef = useRef(selectedLang);
   const chatHistoryRef = useRef([]);
+
+  useEffect(() => {
+    selectedLangRef.current = selectedLang;
+  }, [selectedLang]);
+
+  useEffect(() => {
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, []);
 
   // Keep history ref synchronized for rapid consecutive requests
   useEffect(() => {
@@ -108,7 +122,7 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
       rec.onresult = (event) => {
         const transcript = event.results[0][0].transcript;
         setInput(transcript);
-        setInfoMessage("Speech recognized. Press send to transmit.");
+        setInfoMessage("Speech recognized. Press send to submit.");
       };
 
       recognitionRef.current = rec;
@@ -151,6 +165,7 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
   };
 
   const handleLangToggle = (lang) => {
+    selectedLangRef.current = lang;
     setSelectedLang(lang);
     setInfoIsError(false);
     if (lang === 'te-IN') {
@@ -168,6 +183,14 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
     setInput('');
     setInfoMessage('');
 
+    // Abort any prior in-flight stream so rapid burst queries never interleave or stall
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
+    const language = selectedLangRef.current === 'te-IN' ? 'te' : 'en';
     const requestId = ++activeRequestIdRef.current;
     const userId = `user-${requestId}`;
     const assistantId = `assistant-${requestId}`;
@@ -175,7 +198,7 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
     // Prepare history payload from ref before appending current turn
     const historyPayload = chatHistoryRef.current.map(h => ({ role: h.role, content: h.content }));
 
-    // Add user message and streaming assistant placeholder immutably
+    // Finalize any interrupted previous streaming bubbles cleanly before appending this turn
     const userMsg = { id: userId, role: 'user', content: text, card: 'none' };
     const assistantPlaceholder = {
       id: assistantId,
@@ -186,7 +209,25 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
       retryText: text
     };
 
-    setMessages(prev => [...prev, userMsg, assistantPlaceholder]);
+    setMessages(prev => {
+      const settled = prev.map(msg => {
+        if (msg.role === 'assistant' && msg.isStreaming) {
+          const existing = (msg.content || '').trim();
+          if (existing) {
+            return { ...msg, isStreaming: false };
+          }
+          const supersededOffline = msg.retryText ? getOfflineReply(msg.retryText, language) : null;
+          return {
+            ...msg,
+            content: supersededOffline?.reply || 'Superseded by your next question.',
+            card: supersededOffline?.card || 'none',
+            isStreaming: false
+          };
+        }
+        return msg;
+      });
+      return [...settled, userMsg, assistantPlaceholder];
+    });
     setIsTyping(true);
 
     let accumulatedText = '';
@@ -197,6 +238,7 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
         historyPayload,
         // onChunk callback
         (chunk) => {
+          if (controller.signal.aborted) return;
           accumulatedText += chunk;
           const partialText = accumulatedText.replace(/\[\[CARD:.*?\]\]/g, '').trim();
           setMessages(prev =>
@@ -207,11 +249,13 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
         },
         // onError callback (fallback to local offline response)
         (error) => {
+          if (controller.signal.aborted) return;
           console.warn('Chat Stream error, activating offline fallback:', error);
-          handleOfflineFallback(text, assistantId, requestId);
+          handleOfflineFallback(text, assistantId, requestId, language);
         },
         // onDone callback
         () => {
+          if (controller.signal.aborted) return;
           if (activeRequestIdRef.current === requestId) {
             setIsTyping(false);
           }
@@ -219,12 +263,15 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
           // Parse card tags from final text
           const cardMatch = accumulatedText.match(/\[\[CARD:(.*?)\]\]/);
           const cardType = cardMatch ? cardMatch[1] : 'none';
-          const cleanText = accumulatedText.replace(/\[\[CARD:.*?\]\]/g, '').trim();
+          const parsedText = accumulatedText.replace(/\[\[CARD:.*?\]\]/g, '').trim();
+          const fallbackObj = parsedText ? null : getOfflineReply(text, language);
+          const cleanText = parsedText || fallbackObj?.reply || 'Unable to generate a response right now. Please try again.';
+          const resolvedCard = parsedText ? cardType : (fallbackObj?.card || 'none');
 
           setMessages(prev =>
             prev.map(msg =>
               msg.id === assistantId
-                ? { ...msg, content: cleanText, card: cardType, isStreaming: false }
+                ? { ...msg, content: cleanText, card: resolvedCard, isStreaming: false }
                 : msg
             )
           );
@@ -239,19 +286,42 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
             chatHistoryRef.current = next;
             return next;
           });
+        },
+        {
+          language,
+          signal: controller.signal,
+          onAbort: () => {
+            setMessages(prev =>
+              prev.map(msg => {
+                if (msg.id === assistantId && msg.isStreaming) {
+                  const trimmed = (msg.content || '').trim();
+                  if (trimmed) return { ...msg, isStreaming: false };
+                  const supersededOffline = getOfflineReply(text, language);
+                  return {
+                    ...msg,
+                    content: supersededOffline?.reply || 'Superseded by your next question.',
+                    card: supersededOffline?.card || 'none',
+                    isStreaming: false
+                  };
+                }
+                return msg;
+              })
+            );
+          }
         }
       );
     } catch (err) {
+      if (err?.name === 'AbortError' || controller.signal.aborted) return;
       console.error(err);
-      handleOfflineFallback(text, assistantId, requestId);
+      handleOfflineFallback(text, assistantId, requestId, language);
     }
   };
 
-  const handleOfflineFallback = (text, assistantId, requestId) => {
+  const handleOfflineFallback = (text, assistantId, requestId, language = 'en') => {
     if (activeRequestIdRef.current === requestId) {
       setIsTyping(false);
     }
-    const offlineReply = getOfflineReply(text);
+    const offlineReply = getOfflineReply(text, language);
 
     if (offlineReply) {
       setMessages(prev =>
@@ -277,13 +347,12 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
         return next;
       });
     } else {
-      // Default offline error
       setMessages(prev =>
         prev.map(msg =>
           msg.id === assistantId
             ? {
                 ...msg,
-                content: "I encountered a technical glitch. The connection to my neural backend was interrupted.",
+                content: "I could not reach the assistant service right now. Please try again or reach out directly.",
                 card: 'error',
                 isStreaming: false
               }
@@ -351,7 +420,7 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
               onClick={handleClosePanel}
               className="w-full btn-premium py-2 text-[10px] flex items-center justify-center gap-2"
             >
-              <span>Open Collab Portal</span>
+              <span>Open Collaboration Form</span>
               <Zap className="w-3 h-3" />
             </Link>
           </div>
@@ -360,14 +429,14 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
         return (
           <div className="space-y-3 mt-4 pt-4 border-t border-white/5 text-left">
             <p className="text-[10px] text-slate-400 leading-relaxed">
-              Explore Likith's curated showcase of 22+ public repositories and AI systems.
+              Explore Likith&apos;s public repositories covering AI/ML experiments, backend APIs, and web projects.
             </p>
             <Link 
               to="/git-profile?source=agent" 
               onClick={handleClosePanel}
               className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors flex items-center justify-center gap-2 text-[10px] text-slate-300 font-semibold"
             >
-              <span>Open Engineering Archive</span>
+              <span>View GitHub Repositories</span>
               <Github className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -376,7 +445,7 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
         return (
           <div className="space-y-3 mt-4 pt-4 border-t border-white/5 text-left">
             <p className="text-[10px] text-slate-400 leading-relaxed">
-              Watch Likith's project deep dives and cinematic piano performances.
+              Watch Likith&apos;s AI/ML demos and piano performances on the Media Hub.
             </p>
             <Link 
               to="/youtube?source=agent" 
@@ -393,7 +462,7 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
           <div className="space-y-3 mt-4 pt-4 border-t border-white/5 text-left">
             <div className="p-3 rounded-xl bg-red-500/5 border border-red-500/20 text-center mb-2">
               <AlertTriangle className="w-6 h-6 text-red-400 mx-auto mb-2 animate-pulse" />
-              <p className="text-[10px] text-slate-400 leading-relaxed">The connection to my neural backend was interrupted.</p>
+              <p className="text-[10px] text-slate-400 leading-relaxed">The connection to the assistant service was interrupted.</p>
             </div>
             <div className="grid grid-cols-2 gap-2">
               <Link 
@@ -450,7 +519,7 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
       {/* AI CHAT PANEL */}
       <div 
         id="ai-agent-panel" 
-        className={`fixed bottom-24 right-4 left-4 sm:left-auto sm:bottom-28 sm:right-8 sm:w-[420px] max-w-[calc(100vw-2rem)] h-[min(640px,calc(100dvh-7.5rem))] z-[100] bg-slate-950/90 backdrop-blur-2xl border border-white/10 rounded-2xl flex flex-col overflow-hidden transition-all duration-500 shadow-[0_20px_50px_rgba(0,0,0,0.6),0_0_50px_rgba(251,191,36,0.12)] ${
+        className={`fixed bottom-24 right-4 left-4 sm:left-auto sm:bottom-28 sm:right-8 sm:w-[420px] max-w-[calc(100vw-2rem)] h-[min(600px,calc(100dvh-9.5rem))] sm:h-[min(640px,calc(100dvh-8.5rem))] z-[100] bg-slate-950/90 backdrop-blur-2xl border border-white/10 rounded-2xl flex flex-col overflow-hidden transition-all duration-500 shadow-[0_20px_50px_rgba(0,0,0,0.6),0_0_50px_rgba(251,191,36,0.12)] ${
           isOpen 
             ? 'opacity-100 translate-y-0 pointer-events-auto' 
             : 'opacity-0 translate-y-10 pointer-events-none'
@@ -476,16 +545,16 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
 
             <div>
               <h3 className="font-bold text-white text-sm tracking-wider font-display flex items-center gap-1.5 uppercase leading-none">
-                SAKRA-AI
+                SAKRA AI
               </h3>
-              <p className="text-[10px] text-slate-400 font-light tracking-wide leading-none mt-1">Likith Naidu's AI Assistant</p>
+              <p className="text-[10px] text-slate-400 font-light tracking-wide leading-none mt-1">Portfolio Assistant</p>
               
               <div className="flex items-center gap-1.5 mt-1.5">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
                 </span>
-                <span className="text-[9px] text-emerald-400 font-mono tracking-widest uppercase">System Online</span>
+                <span className="text-[9px] text-emerald-400 font-mono tracking-widest uppercase">Online</span>
               </div>
             </div>
           </div>
@@ -534,8 +603,16 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
                       : 'bg-gradient-to-br from-white/[0.06] to-white/[0.02] border-white/10 rounded-tl-sm shadow-[0_4px_20px_rgba(0,0,0,0.2)]'
                   }`}>
                     <div className="prose prose-invert prose-sm break-words max-w-full font-light leading-relaxed">
-                      <span>{msg.content}</span>
-                      {msg.isStreaming && <span className="typing-cursor"></span>}
+                      {msg.content ? (
+                        <span>{msg.content}</span>
+                      ) : msg.isStreaming ? (
+                        <span className="inline-flex items-center gap-1 py-0.5 text-xs text-slate-400" aria-label="Generating response">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: '0s' }} />
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: '0.15s' }} />
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-bounce" style={{ animationDelay: '0.3s' }} />
+                        </span>
+                      ) : null}
+                      {msg.content && msg.isStreaming && <span className="typing-cursor"></span>}
                     </div>
                     
                     {/* Embedded Custom UI Card */}
@@ -644,10 +721,10 @@ export const Chatbot = ({ isOpen: propIsOpen, onOpen, onClose }) => {
               type="text" 
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={isListening ? 'Listening... Speak now' : 'Initiate query...'} 
+              placeholder={isListening ? 'Listening... Speak now' : 'Ask a question...'} 
               className="w-full bg-white/5 border border-white/10 rounded-full py-2.5 pl-4 pr-24 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500/50 transition-colors" 
               autoComplete="off" 
-              aria-label="Chat query input"
+              aria-label="Ask SAKRA AI a question"
             />
             
             <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-2">

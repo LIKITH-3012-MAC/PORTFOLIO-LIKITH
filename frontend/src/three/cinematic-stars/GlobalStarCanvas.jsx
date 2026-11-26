@@ -33,8 +33,8 @@ export const GlobalStarCanvas = ({ introActive, introTime, onIntroComplete }) =>
     return <StarFallback />;
   }
 
-  // Suspend canvas loop if tab is hidden or user is on non-canvas route
-  const loopMode = (tabVisible && isCanvasRoute) ? 'always' : 'never';
+  // Suspend continuous loop when tab is hidden, route omits canvas, or reduced motion is preferred
+  const loopMode = !(tabVisible && isCanvasRoute) ? 'never' : prefersReduced ? 'demand' : 'always';
 
   return (
     <div className="cosmic-background">

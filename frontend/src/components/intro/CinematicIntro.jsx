@@ -77,9 +77,9 @@ export const CinematicIntro = ({ exiting, onComplete, onSkip }) => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 0.7, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="text-[9px] text-slate-400 font-mono tracking-widest uppercase"
+          className="text-[10px] text-slate-400 font-mono tracking-widest uppercase"
         >
-          System Boot // Cosmic Engine
+          Likith Naidu Anumakonda · Portfolio
         </motion.div>
       </div>
 
@@ -89,13 +89,14 @@ export const CinematicIntro = ({ exiting, onComplete, onSkip }) => {
       {/* Bottom Controls */}
       <div className="w-full flex justify-end items-center pointer-events-auto">
         <motion.button
+          type="button"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.4 }}
           onClick={onSkip}
-          className="px-4 py-2 rounded-full border border-amber-500/20 bg-amber-950/20 text-amber-400/80 hover:text-amber-400 hover:border-amber-400/40 hover:bg-amber-400/10 font-mono text-xs tracking-wider transition-all duration-300 backdrop-blur-sm shadow-[0_0_15px_rgba(245,158,11,0.05)] cursor-pointer"
+          className="px-4 py-2 rounded-full border border-amber-500/25 bg-slate-950/75 text-amber-300 hover:text-amber-200 hover:border-amber-400/50 font-mono text-xs tracking-wider transition-all duration-300 backdrop-blur-md cursor-pointer"
         >
-          Skip Sequence ➔
+          Skip Intro &rarr;
         </motion.button>
       </div>
     </motion.div>

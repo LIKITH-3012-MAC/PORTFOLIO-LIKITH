@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import SEO from '../components/common/SEO';
 import { request } from '../services/api';
+import CONFIG from '../services/config';
 
 export const DataConsolePage = () => {
   const [authToken, setAuthToken] = useState('');
@@ -68,7 +69,7 @@ export const DataConsolePage = () => {
 
     try {
       // Test the token against visitor-stats endpoint
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'https://portfolio-likith.onrender.com'}/api/admin/visitor-stats`, {
+      const response = await fetch(`${CONFIG.API_BASE_URL}/api/admin/visitor-stats`, {
         headers: { 'X-Admin-Token': authToken }
       });
 
@@ -78,14 +79,14 @@ export const DataConsolePage = () => {
           sessionStorage.setItem('admin_token', authToken);
           setIsAuthenticated(true);
         } else {
-          setAuthError('Authorization protocol rejected: Invalid Secret Signature.');
+          setAuthError('Invalid access token.');
         }
       } else {
-        setAuthError('Access denied: Authentication failure.');
+        setAuthError('Access denied: invalid credentials.');
       }
     } catch (err) {
       console.error(err);
-      setAuthError('Connection failure: Access grid offline.');
+      setAuthError('Connection failure: unable to reach server.');
     } finally {
       setIsLoading(false);
     }
@@ -213,17 +214,17 @@ export const DataConsolePage = () => {
 
   // Header Titles based on tab
   const tabConfigs = {
-    overview: { main: "Command Center", sub: "Operational Matrix Overview" },
-    signals: { main: "AI Neural Feed", sub: "Deep Stream Signal Intelligence" },
-    collabs: { main: "Strategic Intake", sub: "Partnership Protocol Ingest" },
-    visitors: { main: "Global Traffic", sub: "Node Distribution Analysis" }
+    overview: { main: "Overview", sub: "Operations Summary" },
+    signals: { main: "AI Chat Logs", sub: "Assistant Session History" },
+    collabs: { main: "Collaboration Requests", sub: "Project & Contact Submissions" },
+    visitors: { main: "Visitor Analytics", sub: "Traffic & Referrer Logs" }
   };
 
   return (
     <>
       <SEO 
-        title="Operations Control Console | Likith OS"
-        description="Secure admin command suite for monitoring artificial intelligence sessions and collaboration workflows."
+        title="Admin Data Console | Likith Naidu Anumakonda"
+        description="Private administrative dashboard for monitoring AI assistant logs, collaboration requests, and visitor analytics."
         meta={[{ name: "robots", content: "noindex, nofollow" }]}
       />
 
@@ -380,8 +381,8 @@ export const DataConsolePage = () => {
                 </div>
               </div>
               
-              <h2 className="text-2xl font-bold title-gradient mb-2">Likith OS</h2>
-              <p className="text-xs font-mono text-slate-500 mb-10 tracking-[0.3em] uppercase">Security Protocol Alpha-9</p>
+              <h2 className="text-2xl font-bold title-gradient mb-2">Admin Console</h2>
+              <p className="text-xs font-mono text-slate-400 mb-10 tracking-[0.2em] uppercase">Authorized Access Only</p>
               
               <form onSubmit={handleAuthenticate} className="space-y-6">
                 <div className="relative group">
@@ -389,13 +390,14 @@ export const DataConsolePage = () => {
                     type="password" 
                     value={authToken} 
                     onChange={(e) => setAuthToken(e.target.value)}
-                    placeholder="Authorization Secret" 
-                    className="w-full input-premium rounded-xl px-4 py-4 text-white focus:outline-none text-center font-mono placeholder:text-slate-700 text-sm"
+                    placeholder="Enter access token" 
+                    aria-label="Admin access token"
+                    className="w-full input-premium rounded-xl px-4 py-4 text-white focus:outline-none text-center font-mono placeholder:text-slate-500 text-sm"
                   />
                 </div>
                 
                 {authError && (
-                  <p className="text-xs text-red-500 font-mono text-center mb-4">{authError}</p>
+                  <p role="alert" className="text-xs text-red-400 font-mono text-center mb-4">{authError}</p>
                 )}
                 
                 <button 
@@ -403,7 +405,7 @@ export const DataConsolePage = () => {
                   disabled={isLoading}
                   className="w-full py-4 bg-amber-500 hover:bg-amber-400 text-black font-bold rounded-xl transition-all transform active:scale-95 shadow-lg shadow-amber-500/20 font-mono text-xs uppercase tracking-widest flex items-center justify-center gap-2"
                 >
-                  {isLoading ? 'Verifying Credentials...' : 'Unlock Console'}
+                  {isLoading ? 'Verifying...' : 'Unlock Console'}
                 </button>
               </form>
               
@@ -426,41 +428,41 @@ export const DataConsolePage = () => {
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 rounded-lg bg-amber-500 flex items-center justify-center text-black font-black text-lg">L</div>
                   <div className="hidden lg:block">
-                    <h1 className="font-bold text-sm tracking-tight text-white uppercase">Likith Intelligence</h1>
-                    <p className="text-[9px] text-slate-500 font-mono tracking-widest mt-0.5">OPS COMMAND V3.0</p>
+                    <h1 className="font-bold text-sm tracking-tight text-white uppercase">Portfolio Admin</h1>
+                    <p className="text-[9px] text-slate-500 font-mono tracking-widest mt-0.5">DATA CONSOLE</p>
                   </div>
                 </div>
               </div>
 
               <nav className="flex-grow space-y-1 px-4 text-left">
-                <div className="px-4 mb-4 text-[10px] font-mono text-slate-600 uppercase tracking-widest hidden lg:block">Core Interface</div>
+                <div className="px-4 mb-4 text-[10px] font-mono text-slate-600 uppercase tracking-widest hidden lg:block">Navigation</div>
                 <button 
                   onClick={() => switchTab('overview')} 
                   className={`sidebar-link w-full flex items-center gap-4 px-4 py-4 text-slate-400 hover:text-white group rounded-xl ${activeTab === 'overview' ? 'active' : ''}`}
                 >
                   <LayoutDashboard className="w-4 h-4 transition-transform group-hover:scale-110" />
-                  <span className="hidden lg:block font-semibold text-xs tracking-wide">Command Center</span>
+                  <span className="hidden lg:block font-semibold text-xs tracking-wide">Overview</span>
                 </button>
                 <button 
                   onClick={() => switchTab('signals')} 
                   className={`sidebar-link w-full flex items-center gap-4 px-4 py-4 text-slate-400 hover:text-white group rounded-xl ${activeTab === 'signals' ? 'active' : ''}`}
                 >
                   <Radio className="w-4 h-4 transition-transform group-hover:scale-110" />
-                  <span className="hidden lg:block font-semibold text-xs tracking-wide">AI Neural Feed</span>
+                  <span className="hidden lg:block font-semibold text-xs tracking-wide">AI Chat Logs</span>
                 </button>
                 <button 
                   onClick={() => switchTab('collabs')} 
                   className={`sidebar-link w-full flex items-center gap-4 px-4 py-4 text-slate-400 hover:text-white group rounded-xl ${activeTab === 'collabs' ? 'active' : ''}`}
                 >
                   <Briefcase className="w-4 h-4 transition-transform group-hover:scale-110" />
-                  <span className="hidden lg:block font-semibold text-xs tracking-wide">Strategic Intake</span>
+                  <span className="hidden lg:block font-semibold text-xs tracking-wide">Collaborations</span>
                 </button>
                 <button 
                   onClick={() => switchTab('visitors')} 
                   className={`sidebar-link w-full flex items-center gap-4 px-4 py-4 text-slate-400 hover:text-white group rounded-xl ${activeTab === 'visitors' ? 'active' : ''}`}
                 >
                   <Activity className="w-4 h-4 transition-transform group-hover:scale-110" />
-                  <span className="hidden lg:block font-semibold text-xs tracking-wide">Global Traffic</span>
+                  <span className="hidden lg:block font-semibold text-xs tracking-wide">Visitor Traffic</span>
                 </button>
               </nav>
 
@@ -470,7 +472,7 @@ export const DataConsolePage = () => {
                   className="w-full flex items-center gap-4 px-4 py-4 text-slate-500 hover:text-red-400 transition-all group rounded-xl"
                 >
                   <Power className="w-4 h-4 transition-transform group-hover:rotate-90" />
-                  <span className="hidden lg:block font-semibold text-xs tracking-wide">Terminate Session</span>
+                  <span className="hidden lg:block font-semibold text-xs tracking-wide">Sign Out</span>
                 </button>
               </div>
             </aside>
@@ -494,12 +496,13 @@ export const DataConsolePage = () => {
                 
                 <div className="flex items-center gap-4 panel-glass px-6 py-3 rounded-2xl border-white/5 relative overflow-hidden">
                   <div className="flex flex-col items-end">
-                    <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">System Pulse</span>
-                    <span className="text-[11px] font-bold text-green-400 uppercase tracking-tighter">Sync: Nominal</span>
+                    <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">API Status</span>
+                    <span className="text-[11px] font-bold text-green-400 uppercase tracking-tighter">Connected</span>
                   </div>
                   <div className="w-px h-8 bg-white/10 mx-2" />
                   <button 
                     onClick={handleRefresh} 
+                    aria-label="Refresh console data"
                     className="p-2 rounded-lg hover:bg-white/5 transition-all text-slate-400 hover:text-amber-500"
                   >
                     <RefreshCw className={`w-5 h-5 ${isLoading ? 'animate-spin text-amber-500' : ''}`} />
@@ -507,30 +510,30 @@ export const DataConsolePage = () => {
                 </div>
               </header>
 
-              {/* Metrics Matrix (Command Center only) */}
+              {/* Metrics Matrix */}
               {activeTab === 'overview' && (
                 <div id="stats-grid" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
                   <div className="panel-glass hud-card p-8 rounded-3xl relative overflow-hidden">
-                    <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-4">Total Signals</p>
+                    <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-4">Total Records</p>
                     <div className="flex items-baseline gap-2">
                       <span id="stat-signals" className="text-4xl font-bold stat-value text-white">{totalRecords || '--'}</span>
-                      <span className="text-[10px] text-slate-600 font-mono uppercase">units</span>
+                      <span className="text-[10px] text-slate-600 font-mono uppercase">entries</span>
                     </div>
                     <div className="mt-4 flex items-center gap-2 text-green-400/60 text-[10px] font-mono">
                       <TrendingUp className="w-3 h-3" />
-                      <span>+12.4% vs prev sync</span>
+                      <span>Active database query</span>
                     </div>
                   </div>
 
                   <div className="panel-glass hud-card p-8 rounded-3xl relative overflow-hidden">
-                    <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-4">Global Reach</p>
+                    <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-4">Unique Visitors</p>
                     <div className="flex items-baseline gap-2">
                       <span id="stat-visits" className="text-4xl font-bold stat-value text-white">{stats.uniqueVisitors || '--'}</span>
-                      <span className="text-[10px] text-slate-600 font-mono uppercase">nodes</span>
+                      <span className="text-[10px] text-slate-600 font-mono uppercase">visitors</span>
                     </div>
                     <div className="mt-4 flex items-center gap-2 text-blue-400/60 text-[10px] font-mono">
                       <Globe className="w-3 h-3" />
-                      <span>Live ingestion active</span>
+                      <span>Recorded sessions</span>
                     </div>
                   </div>
 
@@ -542,37 +545,37 @@ export const DataConsolePage = () => {
                     </div>
                     <div className="mt-4 flex items-center gap-2 text-amber-400/60 text-[10px] font-mono">
                       <Zap className="w-3 h-3" />
-                      <span>Optimized response core</span>
+                      <span>Current page mean</span>
                     </div>
                   </div>
 
                   <div className="panel-glass hud-card p-8 rounded-3xl relative overflow-hidden">
-                    <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-4">Auth Integrity</p>
+                    <p className="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-4">Auth Status</p>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-4xl font-bold stat-value text-white">99.8</span>
-                      <span className="text-[10px] text-slate-600 font-mono uppercase">%</span>
+                      <span className="text-2xl font-bold stat-value text-white">Verified</span>
                     </div>
                     <div className="mt-4 flex items-center gap-2 text-purple-400/60 text-[10px] font-mono">
                       <ShieldCheck className="w-3 h-3" />
-                      <span>Encrypted tunnels only</span>
+                      <span>Token-protected session</span>
                     </div>
                   </div>
                 </div>
               )}
 
-              {/* Intelligence Data Grid */}
+              {/* Activity Data Table */}
               <div className="panel-glass rounded-[2rem] overflow-hidden relative">
-                <div className="px-10 py-8 border-b border-white/5 flex flex-wrap items-center justify-between gap-8 bg-white/[0.01]">
-                  <div className="flex items-center gap-6">
-                    <h3 className="font-bold text-lg text-white">Operations Feed</h3>
+                <div className="px-6 md:px-10 py-8 border-b border-white/5 flex flex-wrap items-center justify-between gap-6 bg-white/[0.01]">
+                  <div className="flex flex-wrap items-center gap-4 md:gap-6">
+                    <h3 className="font-bold text-lg text-white">Records</h3>
                     <div className="relative">
                       <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500" />
                       <input 
                         type="text" 
                         value={searchTerm}
                         onChange={handleSearchChange}
-                        placeholder="Filter parameters..." 
-                        className="bg-black/40 border border-white/5 rounded-full pl-12 pr-6 py-2.5 text-xs focus:outline-none focus:border-amber-500/30 transition-all w-80 font-mono"
+                        placeholder="Filter records..." 
+                        aria-label="Filter console records"
+                        className="bg-black/40 border border-white/5 rounded-full pl-12 pr-6 py-2.5 text-xs focus:outline-none focus:border-amber-500/30 transition-all w-64 sm:w-80 font-mono"
                       />
                     </div>
                   </div>

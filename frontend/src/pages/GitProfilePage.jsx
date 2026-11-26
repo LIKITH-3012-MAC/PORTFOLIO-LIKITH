@@ -30,8 +30,8 @@ export const GitProfilePage = () => {
     <>
       <SEO 
         title="Engineering Archive | Likith Naidu Anumakonda"
-        description="Explore the curated showcase of 22+ public repositories, AI systems, and experimental builds by Likith Naidu Anumakonda."
-        keywords="Likith Naidu GitHub, AI Projects, ML Repositories, Python Code, Open Source AI"
+        description="Explore public repositories, AI/ML systems, and engineering builds by Likith Naidu Anumakonda — Founder & CEO of SAKRA VISION and AI/ML Engineer."
+        keywords="Likith Naidu Anumakonda, SAKRA VISION, AI/ML Engineer, Artificial Intelligence, Machine Learning, Computer Vision, Generative AI, PBR VITS"
         canonical="https://likith-portfolio.online/git-profile"
         image="https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-portrait.png"
       />
@@ -54,13 +54,13 @@ export const GitProfilePage = () => {
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
                 <Code className="w-3.5 h-3.5 text-amber-400" />
-                <span className="text-[10px] font-mono text-slate-300 tracking-widest uppercase">System Core</span>
+                <span className="text-[10px] font-mono text-slate-300 tracking-widest uppercase">Open Source</span>
               </div>
               <h1 className="text-4xl md:text-6xl font-display font-bold text-white leading-tight">
-                Engineering <br /><span className="text-gradient">Archive.</span>
+                GitHub <br /><span className="text-gradient">Repositories.</span>
               </h1>
               <p className="text-slate-400 text-lg leading-relaxed font-light">
-                Explore the curated showcase of 22+ public repositories, AI systems, and experimental builds by Likith Naidu Anumakonda. Curated for performance and modularity.
+                Selected public repositories by Likith Naidu Anumakonda covering AI/ML experiments, backend APIs, web interfaces, and coursework projects.
               </p>
             </motion.div>
           </div>
@@ -139,6 +139,7 @@ export const GitProfilePage = () => {
                         href={`https://github.com/LIKITH-3012-MAC/${repo.name}`} 
                         target="_blank" 
                         rel="noopener noreferrer" 
+                        aria-label={`Open ${repo.name} repository on GitHub`}
                         className="text-white hover:text-amber-400 transition-colors"
                       >
                         <ExternalLink className="w-4 h-4" />

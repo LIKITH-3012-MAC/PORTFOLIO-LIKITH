@@ -10,11 +10,11 @@ import MusicPlayer from '../components/piano/MusicPlayer';
 import InstagramCard from '../components/piano/InstagramCard';
 
 const ABOUT_MUSIC_CONTENT = {
-  eyebrow: "Creative Philosophy",
-  heading: "Music is another language of creativity.",
+  eyebrow: "Creative Practice",
+  heading: "Music and writing alongside engineering.",
   paragraphs: [
-    "Writing code and playing the piano draw from the same quiet focus — structure, timing, dynamics, and patience. Where software engineering translates ideas into intelligent systems, the piano translates emotion into resonance.",
-    "Likith's Piano Studio is a dedicated space to explore that intersection: sit at the keys, experiment with harmonies in real time, and experience melodies crafted beyond the terminal.",
+    "Writing software and playing classical piano both rely on structure, timing, dynamics, and sustained focus. While engineering turns ideas into practical AI and web tools, the piano gives direct form to melody and expression.",
+    "Alongside performing classical piano, I am the author of the book \"Echoes of an Unsaid Goodbye.\" This studio space brings together the interactive virtual piano, performances, and creative writing outside the terminal.",
   ],
 };
 
@@ -36,9 +36,9 @@ export const PianoStudioPage = () => {
   return (
     <>
       <SEO
-        title="Likith's Piano Studio | Where Code Meets Music"
-        description="Likith's Piano Studio — a cinematic interactive music studio featuring a playable Web Audio virtual piano, studio music deck, and @pianopeaceby_lee."
-        keywords="Likith Naidu Piano Studio, pianopeaceby_lee, Virtual Piano, Interactive Music Studio, Classical Piano"
+        title="Likith's Piano Studio | Likith Naidu Anumakonda"
+        description='Interactive Piano Studio of Likith Naidu Anumakonda — Pianist, Author of "Echoes of an Unsaid Goodbye", Founder & CEO of SAKRA VISION, and AI/ML Engineer.'
+        keywords="Likith Naidu Anumakonda, Pianist, Author, Echoes of an Unsaid Goodbye, SAKRA VISION, AI/ML Engineer, PBR VITS"
         canonical="https://likith-portfolio.online/piano"
         image="https://likith-portfolio.online/images/piano-studio-hero.jpg"
       />

@@ -49,11 +49,11 @@ export const MobileMenu = ({ isOpen, onClose, onOpenMessage }) => {
   };
 
   const menuItems = [
-    { label: 'Identity', type: 'section', target: 'about' },
+    { label: 'About', type: 'section', target: 'about' },
     { label: 'Experience', type: 'section', target: 'experience' },
-    { label: 'Systems', type: 'section', target: 'projects' },
-    { label: 'Git Archive', type: 'link', target: '/git-profile?source=nav' },
-    { label: 'YouTube Hub', type: 'link', target: '/youtube?source=nav' },
+    { label: 'Projects', type: 'section', target: 'projects' },
+    { label: 'GitHub', type: 'link', target: '/git-profile?source=nav' },
+    { label: 'Media', type: 'link', target: '/youtube?source=nav' },
     { label: 'Piano Studio', type: 'link', target: '/piano?source=nav' },
   ];
 
@@ -85,6 +85,14 @@ export const MobileMenu = ({ isOpen, onClose, onOpenMessage }) => {
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
               <span className="font-display font-bold text-sm text-white tracking-wider uppercase">Navigation</span>
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label="Close navigation menu"
+                className="w-10 h-10 rounded-full border border-white/15 bg-white/5 hover:bg-white/15 text-slate-200 hover:text-white flex items-center justify-center transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
             
             {/* Nav items */}
@@ -130,7 +138,7 @@ export const MobileMenu = ({ isOpen, onClose, onOpenMessage }) => {
                 className="mobile-nav-item w-full text-left"
               >
                 <span className="mobile-nav-label flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-amber-400" /> Message Founder
+                  <Mail className="w-4 h-4 text-amber-400" /> Personal Note
                 </span>
                 <ArrowRight className="mobile-nav-arrow w-4 h-4 opacity-0 transition-all text-amber-400" />
               </MagneticButton>

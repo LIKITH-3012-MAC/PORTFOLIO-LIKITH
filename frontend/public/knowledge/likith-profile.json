@@ -18,20 +18,12 @@
       "/images/likith/likith-anumakonda-personal-portrait.jpeg"
     ],
     "roles": [
-      "AI-ML Architect",
-      "AI Agents Developer",
-      "ML Model Developer",
-      "Full Stack Systems Architect",
-      "Python Full-Stack Specialist",
-      "Node.js Full-Stack Specialist",
-      "API Architecture Lead",
-      "Middleware & Integration Expert",
-      "Metadata Architect",
-      "Domain & Cloud Infrastructure Controller",
-      "Google Console Setup Specialist",
-      "End-to-End Product Execution Founder"
+      "AI/ML Engineer",
+      "Founder & CEO — SAKRA VISION",
+      "Classical Pianist",
+      "Author — Echoes of an Unsaid Goodbye"
     ],
-    "tagline": "Engineering Intelligent Systems. Architecting the intersection of autonomous AI and creative technical leadership.",
+    "tagline": "AI/ML Engineer and Founder & CEO of SAKRA VISION, building practical AI workflows and full-stack web software.",
     "location": {
       "city": "Kavali",
       "district": "Nellore",
@@ -39,28 +31,22 @@
       "country": "India"
     },
     "specialties": [
-      "AI-ML Architecting",
-      "AI Agent Development",
-      "ML Model Development",
-      "Full-Stack Application Development",
-      "Python-based Backend and Full-Stack Systems",
-      "Node.js-based Backend and Full-Stack Systems",
-      "API Architecture and Controller Logic",
-      "Middleware Integration",
-      "OTP/Email/Communication System Integrations",
-      "Cloud Database Setup and Management",
-      "Deployment across Frontend and Backend Platforms",
-      "Metadata Architecture and Structured Web Systems",
-      "Domain Setup, Control, and Configuration",
-      "Google Console / Search Console Setup",
-      "End-to-End Technical Execution",
-      "Product Delivery based on Client Vision"
+      "Machine Learning & Deep Learning",
+      "AI Agents & RAG Pipelines",
+      "Computer Vision & NLP",
+      "Python (FastAPI) Backend Development",
+      "Node.js, React & Next.js Web Applications",
+      "REST API Design & Middleware Integration",
+      "OTP & Email/Messaging Integrations (Resend, Twilio)",
+      "PostgreSQL & MySQL Database Management",
+      "Domain, DNS & Google Search Console Configuration",
+      "Cloud Deployment & Structured SEO Metadata"
     ],
-    "founderVision": "Driving innovation in computer vision automation and dedicated AI infrastructure through SAKRA VISION. Projects operate under the technical vision, discipline, and execution ecosystem of SAKRA VISION."
+    "founderVision": "Founder & CEO of SAKRA VISION, an independent venture focused on applied machine learning, computer vision automation, and full-stack web products."
   },
   "metadata": {
-    "version": "1.1.0",
-    "lastUpdated": "2026-06-17",
+    "version": "1.2.0",
+    "lastUpdated": "2026-11-25",
     "maintainer": "Likith Naidu Anumakonda"
   }
 }

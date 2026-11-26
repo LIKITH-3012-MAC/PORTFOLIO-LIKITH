@@ -30,13 +30,24 @@ class RetrievalService:
             context_parts.append(json.dumps(collab))
 
         # 5. Education & Achievements context
-        if intent in ["education", "achievements"] or any(word in message for word in ["school", "college", "award", "prize"]):
+        if intent in ["education", "achievements"] or any(word in message for word in ["school", "college", "award", "prize", "pbr", "iit", "degree"]):
             edu = self.knowledge.get("education", {})
             ach = self.knowledge.get("achievements", {})
             context_parts.append(json.dumps({"education": edu, "achievements": ach}))
 
-        # If no specific context found, provide a general profile summary
+        # 6. Creative & Founder context
+        if intent in ["creative", "identity"] or any(word in message for word in ["book", "author", "echoes", "piano", "music", "writing", "sakra"]):
+            creative = self.knowledge.get("creative", {})
+            founder = self.knowledge.get("founder", {})
+            context_parts.append(json.dumps({"creative": creative, "founder": founder}))
+
+        # If no specific context found, provide full profile and creative summary
         if not context_parts:
-            context_parts.append(json.dumps(self.knowledge.get("profile", {}))[:500])
+            context_parts.append(json.dumps({
+                "profile": self.knowledge.get("profile", {}),
+                "creative": self.knowledge.get("creative", {}),
+                "education": self.knowledge.get("education", {}),
+                "contact": self.knowledge.get("contact", {})
+            }))
 
         return "\n---\n".join(context_parts)

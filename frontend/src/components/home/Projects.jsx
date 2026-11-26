@@ -8,132 +8,148 @@ const projectsList = [
   {
     id: "prometheus",
     icon: "cpu",
-    badge: "Flagship",
+    category: "Generative AI / Local Assistant",
+    status: "Active",
     title: "Prometheus AI V2.0",
-    subtitle: "Local-First Gen-AI System",
-    description: "A local-first, privacy-centric Gen-AI system utilizing Llama 3.2 and Apple MLX for secure, voice-enabled intelligence.",
-    tags: ["Llama 3.2", "Apple MLX", "Local AI", "Whisper API", "FastAPI"],
+    subtitle: "Privacy-Focused Local AI Assistant",
+    description: "A privacy-focused, local-first generative AI assistant using Llama 3.2 and Apple MLX with voice input support via Whisper.",
+    tags: ["Llama 3.2", "Apple MLX", "Whisper", "FastAPI", "Python"],
     gradient: "from-amber-500/10 to-blue-500/10",
     liveUrl: "https://www.prometheuslikiths-ai.online/",
     sourceUrl: "https://github.com/LIKITH-3012-MAC/my_chatbot.git",
     details: [
       {
-        heading: "Project Overview",
-        text: "Prometheus AI V2.0 is an advanced, privacy-first localized AI desktop environment designed to execute high-performance LLM capabilities directly on edge devices. By prioritizing local compute, the platform ensures total user privacy and offline operability."
+        heading: "Overview & Problem Addressed",
+        text: "Cloud-hosted AI tools send user queries to external servers. Prometheus AI V2.0 runs quantized language models directly on Apple Silicon so prompts and audio transcripts stay local to the device."
       },
       {
-        heading: "Architecture & Pipeline",
-        text: "The core engine leverages Apple MLX and Llama 3.2, utilizing unified memory architecture to optimize throughput on Apple Silicon. Audio inputs are processed locally using Whisper-based neural nets, feeding prompts directly to the LLM core."
+        heading: "Key Functionality & Contribution",
+        text: "Built the inference pipeline around Llama 3.2 and Apple MLX, integrated local speech-to-text transcription using Whisper, and exposed a local FastAPI backend for desktop interaction."
       }
     ],
     specs: [
-      { label: "Status", value: "Production-Grade / Flagship" },
-      { label: "Performance", value: "Sub-100ms Inference Latency" }
+      { label: "Category", value: "Local Generative AI" },
+      { label: "Contribution", value: "LLM inference pipeline, voice input & FastAPI backend" },
+      { label: "Status", value: "Active Development" }
     ]
   },
   {
     id: "resolvit",
     icon: "globe",
+    category: "Civic Tech / AI Workflows",
+    status: "Under Evaluation",
     title: "Resolvit-AI",
-    subtitle: "Civic & NGO Operations Platform",
-    description: "AI-powered civic issue resolution platform with real-time tracking, authority workflows, and modern government-grade UI.",
-    tags: ["Next.js", "FastAPI", "PostgreSQL", "Google Maps SDK", "AI Classifier"],
+    subtitle: "Civic & NGO Issue Reporting Platform",
+    description: "Civic issue reporting, tracking, and resolution workflow platform featuring AI-assisted category classification and map visualization.",
+    tags: ["Next.js", "FastAPI", "PostgreSQL", "Google Maps SDK", "AI Classification"],
     gradient: "from-blue-500/10 to-purple-500/10",
     liveUrl: "https://www.resolvit-ai.online",
     sourceUrl: "https://github.com/LIKITH-3012-MAC/SYNAPTIX_2026_404-FOUND_TEAM.git",
     details: [
       {
-        heading: "Project Overview",
-        text: "Resolvit-AI is a comprehensive, production-grade civic intelligence platform designed to connect citizens directly with public authorities and municipal agencies. The platform empowers users to report local issues and track real-time resolution pipelines."
+        heading: "Overview & Problem Addressed",
+        text: "Citizens and civic groups often lack a structured channel to route local grievances to the appropriate department and verify progress over time."
       },
       {
-        heading: "Intelligence & Routing",
-        text: "Features a specialized classification pipeline that parses natural language reports and routes them automatically to the correct agency department. Built-in interactive map layers and dynamic authority dashboards provide full accountability at every stage."
+        heading: "Key Functionality & Contribution",
+        text: "Built reporting forms, PostgreSQL data models, FastAPI endpoints, location mapping, and an AI-assisted text classification step to help triage reports into agency queues. Developed with Team SΛKRΛ for Solution Challenge 2026."
       }
     ],
     specs: [
-      { label: "Architecture", value: "FastAPI Middleware & Next.js" },
-      { label: "Database", value: "PostgreSQL Cloud Backend" }
+      { label: "Category", value: "Civic Issue Resolution" },
+      { label: "Contribution", value: "Team Lead, FastAPI backend, database & AI triage logic" },
+      { label: "Status", value: "Submitted · Under Evaluation" }
     ]
   },
   {
     id: "benchai",
     icon: "database",
+    category: "EdTech / Offline RAG",
+    status: "Prototype",
     title: "BenchAI",
-    subtitle: "Smart Classroom System",
-    description: "Offline LLM + RAG-powered smart classroom infrastructure providing multilingual AI learning support without internet dependency.",
-    tags: ["Ollama", "LangChain", "RAG", "FAISS Vector DB", "Local WebSockets"],
+    subtitle: "Offline Classroom Study Assistant",
+    description: "Offline AI study assistant combining local language models (Ollama) with FAISS Retrieval-Augmented Generation for low-connectivity classrooms.",
+    tags: ["Ollama", "LangChain", "RAG", "FAISS", "Python"],
     gradient: "from-rose-500/10 to-orange-500/10",
     details: [
       {
-        heading: "Project Overview",
-        text: "BenchAI is a localized offline learning solution built for environments lacking stable internet. It bridges the digital divide by running optimized LLMs and RAG systems on localized local area networks (LANs)."
+        heading: "Overview & Problem Addressed",
+        text: "Students in classrooms with limited or unstable internet access cannot reliably use cloud study assistants. BenchAI enables curriculum Q&A over a local network."
       },
       {
-        heading: "Local RAG Architecture",
-        text: "A local server indexes educational curricula and PDF textbooks using FAISS and LangChain. Students connect via a local WiFi access point and query the system. Deployed Ollama engines handle secure local token generation with high speed and zero cloud data costs."
+        heading: "Key Functionality & Contribution",
+        text: "Indexed study materials and PDF handouts with FAISS and LangChain, wired to locally served Ollama models so students can ask curriculum questions offline."
       }
     ],
     specs: [
-      { label: "Ecosystem", value: "Offline Hub-and-Spoke" },
-      { label: "Latency", value: "Zero Internet Lag (LAN-Speed)" }
+      { label: "Category", value: "Offline EdTech / RAG" },
+      { label: "Contribution", value: "RAG indexing pipeline & local LLM integration" },
+      { label: "Status", value: "Working Prototype" }
     ]
   },
   {
     id: "pythongui",
     icon: "layout",
+    category: "Desktop Utility / Python",
+    status: "Completed",
     title: "Python GUI Utility",
-    subtitle: "Desktop Data Processing System",
-    description: "Desktop application using Tkinter/PyQt with robust backend processing, reducing processing latency by 12% vs CLI tools.",
-    tags: ["Python", "PyQt5", "Tkinter", "Pandas Engine", "Multi-threading"],
+    subtitle: "Desktop Batch Data Processor",
+    description: "Desktop GUI application built with PyQt5/Tkinter and worker threading to automate repetitive file conversions and tabular data tasks.",
+    tags: ["Python", "PyQt5", "Tkinter", "Pandas", "QThread"],
     gradient: "from-green-500/10 to-blue-500/10",
     details: [
       {
-        heading: "Project Overview",
-        text: "A high-performance desktop processing tool built to automate complex data tasks. It addresses bottleneck issues commonly found in CLI scripts and web applications by executing processing pipelines locally."
+        heading: "Overview & Problem Addressed",
+        text: "Running repetitive command-line scripts for file formatting and tabular cleanup is error-prone for everyday workflows. This utility wraps those tasks into a graphical interface."
       },
       {
-        heading: "Thread Management & Latency",
-        text: "Features a responsive PyQt5 layout. The backend employs QThreads to split intensive IO operations and file conversions off the main event loop, preventing system lockups and reducing processing latency by 12% compared to standard CLI approaches."
+        heading: "Key Functionality & Contribution",
+        text: "Designed the PyQt5 interface, Pandas batch processing routines, and background QThread worker tasks so file operations run without freezing the application UI."
       }
     ],
     specs: [
-      { label: "Architecture", value: "PyQt5 Concurrent Engine" },
-      { label: "Optimization", value: "Pandas Batch Ingestion" }
+      { label: "Category", value: "Desktop Automation" },
+      { label: "Contribution", value: "GUI layout, Pandas batch logic & worker threads" },
+      { label: "Status", value: "Completed" }
     ]
   },
   {
     id: "sakraevents",
     icon: "ticket",
+    category: "Event Operations / Backend",
+    status: "Active",
     title: "SAKRA VISION Event Hub",
-    subtitle: "AI-Powered Event Operations Platform",
-    description: "A premium, dynamic event registration portal featuring automated UPI QR verification and live configuration APIs.",
-    tags: ["FastAPI", "Render API", "UPI Integration", "Aiven Cloud MySQL", "Resend Domain Email"],
+    subtitle: "Event Registration & Verification Portal",
+    description: "Event registration portal featuring UPI payment receipt review workflows, REST configuration APIs, automated confirmation emails, and MySQL persistence.",
+    tags: ["Python", "FastAPI", "MySQL", "Resend API", "OCR Screening"],
     gradient: "from-indigo-500/10 to-pink-500/10",
     liveUrl: "https://forms-project-f3sb.vercel.app/"
   },
   {
     id: "aquasentinel",
     icon: "waves",
+    category: "Environmental Concept / AI",
+    status: "Concept / Prototype",
     title: "AquaSentinel AI",
-    subtitle: "Ocean Intelligence Operating System",
-    description: "A specialized marine intelligence operating system tracking debris via satellite telemetry and supporting teams with multilingual AI copilots.",
-    tags: ["Satellite Fusion", "Groq AI", "Marine AI", "NASA MODIS Ingest", "OpenStreetMap API"],
+    subtitle: "Marine Debris Monitoring Prototype",
+    description: "Environmental monitoring prototype exploring satellite imagery datasets (NASA MODIS, Copernicus), interactive mapping, and a multilingual Groq-powered assistant.",
+    tags: ["NASA MODIS", "Copernicus", "Groq API", "OpenStreetMap", "Python"],
     gradient: "from-cyan-500/10 to-teal-500/10",
     liveUrl: "https://aquq-sentinel-phsv.vercel.app/",
     details: [
       {
-        heading: "Project Overview",
-        text: "AquaSentinel AI is a specialized ocean protection operating system designed to ingest, process, and map telemetry regarding global marine health and plastic debris layouts."
+        heading: "Overview & Problem Addressed",
+        text: "Explores how publicly available Earth-observation datasets and conversational assistants can help visualize regional marine debris indicators in a single map view."
       },
       {
-        heading: "Satellite Data & AI Integration",
-        text: "The core engine consumes spatial imagery from NASA MODIS, Copernicus, and OpenWeather APIs to model debris density indices and calculate real-time regional threat alerts. The platform features a customized Groq-based RAG copilot offering tactical guidelines in multiple languages (Telugu, Tamil, Hindi, and English)."
+        heading: "Key Functionality & Status",
+        text: "Prototype combines OpenStreetMap views, sample MODIS/Copernicus ingestion concepts, and a Groq-backed multilingual Q&A assistant supporting English, Telugu, Tamil, and Hindi. Conceptual/prototype build."
       }
     ],
     specs: [
-      { label: "RAG Assistant", value: "Groq Engine / Multilingual" },
-      { label: "Ingestion Pipeline", value: "NASA MODIS & Copernicus API" }
+      { label: "Category", value: "Environmental Monitoring Concept" },
+      { label: "Contribution", value: "Concept design, map UI & multilingual Groq copilot" },
+      { label: "Status", value: "Prototype" }
     ]
   }
 ];
@@ -159,13 +175,18 @@ export const Projects = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeUp}
-          className="flex flex-col md:flex-row justify-between items-end mb-16 text-left"
+          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-14 text-left"
         >
           <div>
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
-              Featured <span className="text-gradient-accent">Systems.</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[11px] font-mono text-amber-300 uppercase tracking-widest mb-4">
+              Portfolio
+            </div>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-3">
+              Selected <span className="text-gradient-accent">Projects.</span>
             </h2>
-            <p className="text-slate-400 text-lg">Architecting intelligent infrastructure.</p>
+            <p className="text-slate-300 text-lg font-light max-w-2xl">
+              AI applications, backend platforms, and desktop software built around real workflows.
+            </p>
           </div>
         </motion.div>
 

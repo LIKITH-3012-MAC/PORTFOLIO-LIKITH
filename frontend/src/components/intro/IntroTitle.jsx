@@ -32,14 +32,14 @@ export const IntroTitle = ({ show }) => {
           </span>
         </h1>
 
-        {/* Futuristic technology tagline */}
+        {/* Professional identity tagline */}
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="text-[9px] md:text-xs text-slate-400 font-mono tracking-[0.3em] uppercase mt-5 max-w-md"
+          className="text-[10px] md:text-xs text-slate-300 font-mono tracking-[0.25em] uppercase mt-5 max-w-md"
         >
-          Architecting Intelligent Systems
+          AI/ML Engineer · Founder &amp; CEO, SAKRA VISION
         </motion.p>
 
         {/* Decorative holographic neural indicator */}

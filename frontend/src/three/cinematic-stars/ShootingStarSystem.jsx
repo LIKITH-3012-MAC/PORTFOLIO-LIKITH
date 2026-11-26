@@ -13,9 +13,9 @@ export const ShootingStarSystem = ({ quality, prefersReduced, currentPath }) => 
     return 3; // ultra
   }, [quality.tier]);
 
-  // Track shooting stars state in a ref to avoid React re-renders at 60fps
+  // Pre-allocate max slots so resizing upward across quality tiers never indexes undefined.
   const starsState = useRef(
-    Array.from({ length: maxStars }, () => ({
+    Array.from({ length: 3 }, () => ({
       active: false,
       progress: 0.0,
       speed: 0.0,
@@ -71,8 +71,10 @@ export const ShootingStarSystem = ({ quality, prefersReduced, currentPath }) => 
     const elapsed = state.clock.getElapsedTime();
     const stars = starsState.current;
 
-    for (let i = 0; i < maxStars; i++) {
+    const limit = Math.min(maxStars, stars.length);
+    for (let i = 0; i < limit; i++) {
       const star = stars[i];
+      if (!star) continue;
 
       if (!star.active) {
         // Trigger randomly: small chance per frame (~1% chance per second per slot)

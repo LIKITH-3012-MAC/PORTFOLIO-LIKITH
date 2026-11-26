@@ -1,15 +1,15 @@
 {
   "collaboration_logic": {
     "focus_areas": [
-      "AI Agent Development (Autonomous Systems)",
-      "Full Stack Product Architecture",
-      "Offline LLM & RAG Implementations",
+      "AI Agents & RAG Workflows",
+      "Applied Machine Learning Models",
+      "Full-Stack Web Applications (Python / Node.js / React)",
       "Computer Vision Automation",
-      "Civic Tech & Blockchain Integrations",
-      "High-Stakes Startup Partnerships"
+      "Civic Tech & Automation Tools",
+      "Music & Creative Technology"
     ],
-    "process": "Requests are logged through the secure collaboration portal and reviewed for technical alignment and impact.",
+    "process": "Requests submitted through the Collaboration Form are logged and reviewed carefully for technical alignment.",
     "availability_status": "Active / Accepting Inquiries",
-    "consultation": "Available for technical architecture and AI implementation strategy."
+    "consultation": "Available for AI/ML engineering roles, product collaborations, and software development inquiries."
   }
 }

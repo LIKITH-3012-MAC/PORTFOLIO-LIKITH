@@ -19,15 +19,17 @@ class LLMService:
         self.client = None
         if api_key and "YOUR_GROQ_API_KEY" not in api_key:
             try:
-                self.client = Groq(api_key=api_key, max_retries=1)
+                self.client = Groq(api_key=api_key, max_retries=0, timeout=12.0)
             except Exception as e:
                 logger.error(f"Failed to init Groq client: {e}")
         self.system_prompt = system_prompt
         configured = (model or os.getenv("GROQ_MODEL") or FALLBACK_MODELS[0]).strip()
         self.models = [configured] + [m for m in FALLBACK_MODELS if m != configured]
 
-    def _build_messages(self, message, history, context):
+    def _build_messages(self, message, history, context, language="en"):
         grounded_prompt = self.system_prompt
+        if language and language.lower().startswith("te"):
+            grounded_prompt += "\n\nLANGUAGE REQUIREMENT:\nRespond naturally and clearly in Telugu script (తెలుగు), while keeping proper names (Likith Naidu Anumakonda, SAKRA VISION, PBR VITS), project names, technologies, and URLs accurate."
         if context:
             grounded_prompt += f"\n\nRELEVANT CONTEXT:\n{context}"
 
@@ -38,13 +40,13 @@ class LLMService:
         ]
         return [{"role": "system", "content": grounded_prompt}, *sanitized_history, {"role": "user", "content": message}]
 
-    async def stream_chat(self, message, history, context=""):
+    async def stream_chat(self, message, history, context="", language="en"):
         """Stream completion text from Groq, falling back across configured models on pre-stream failures."""
         if not self.client:
-            yield "The AI brain is currently offline (missing API key). Please contact Likith directly. [[CARD:contact]]"
+            yield "The assistant backend is currently offline (missing API key). Please contact Likith directly. [[CARD:contact]]"
             return
 
-        messages = self._build_messages(message, history, context)
+        messages = self._build_messages(message, history, context, language=language)
         last_error = None
 
         for model_name in self.models:

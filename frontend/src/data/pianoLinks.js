@@ -31,7 +31,30 @@ export const pianoInstagramProfile = {
  */
 export const authorizedTracks = [];
 
+/**
+ * Curated Instagram Reels displayed in Media Hub & Piano Studio.
+ * Keep official destination URLs intact and avoid invented metadata.
+ */
+export const instagramReels = [
+  {
+    id: "reel-1",
+    label: "Instagram Reel 1",
+    url: "https://www.instagram.com/reel/DgEw_LCB6un/?cnvx=bzI5ZXdic3hmZWth",
+  },
+  {
+    id: "reel-2",
+    label: "Instagram Reel 2",
+    url: "https://www.instagram.com/reel/Df9VfnZRDao/?avpt=MzU1NXh5Mzh1NXhm",
+  },
+  {
+    id: "reel-3",
+    label: "Instagram Reel 3",
+    url: "https://www.instagram.com/reel/Dfw88KGp8s4/?dmpr=MWd5NzV1ejVvcHN1dg==",
+  },
+];
+
 export default {
   pianoInstagramProfile,
   authorizedTracks,
+  instagramReels,
 };

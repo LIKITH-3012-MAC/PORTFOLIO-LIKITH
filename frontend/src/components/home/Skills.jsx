@@ -1,5 +1,5 @@
 import React from 'react';
-import { Brain, Code2, Database } from 'lucide-react';
+import { Brain, Code2, Database, Server } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { fadeUp } from '../../motion/variants';
 import { MagneticCard } from '../effects/MagneticCard';
@@ -7,39 +7,81 @@ import { MagneticCard } from '../effects/MagneticCard';
 export const Skills = () => {
   const skillCategories = [
     {
-      title: "AI & Intelligence",
+      title: "AI & Machine Learning",
       icon: Brain,
       iconColor: "text-amber-400",
-      skills: ["AI Agent Dev", "ML Model Design", "RAG Architecture", "Ollama / Llama 3.2", "Scikit-Learn", "TensorFlow"]
+      skills: [
+        "Machine Learning",
+        "Deep Learning",
+        "NLP",
+        "Computer Vision",
+        "RAG Pipelines",
+        "AI Agents",
+        "Scikit-Learn",
+        "TensorFlow",
+        "Ollama / Llama 3.2"
+      ]
     },
     {
-      title: "Full-Stack Systems",
+      title: "Programming & Application Development",
       icon: Code2,
       iconColor: "text-blue-400",
-      skills: ["Python (FastAPI)", "Node.js Ecosystem", "Next.js / React", "Tailwind CSS", "API Controller Logic", "Middleware Dev"]
+      skills: [
+        "Python (FastAPI)",
+        "React & Next.js",
+        "Node.js",
+        "Java (OOP)",
+        "REST APIs",
+        "Tailwind CSS",
+        "Middleware & Auth"
+      ]
     },
     {
-      title: "Infrastructure & Execution",
+      title: "Data & Databases",
       icon: Database,
+      iconColor: "text-emerald-400",
+      skills: [
+        "SQL",
+        "PostgreSQL",
+        "MySQL (Aiven)",
+        "Data Structures",
+        "Data Storytelling"
+      ]
+    },
+    {
+      title: "Tools & Infrastructure",
+      icon: Server,
       iconColor: "text-purple-400",
-      skills: ["Cloud DB (PostgreSQL)", "Metadata Architecture", "Domain Control", "Google Console Setup", "A-Z Deployment", "Product Execution"]
+      skills: [
+        "Git & GitHub",
+        "Vercel & Render",
+        "Resend & Twilio APIs",
+        "Domain & DNS",
+        "Google Search Console",
+        "Metadata & SEO"
+      ]
     }
   ];
 
   return (
     <section id="skills" className="py-24 relative z-10 bg-white/[0.02] border-y border-white/5">
       <div className="max-w-7xl mx-auto px-6">
-        <motion.h2 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeUp}
-          className="text-3xl md:text-5xl font-display font-bold text-center text-white mb-16"
+          className="text-center mb-16 space-y-3"
         >
-          Technical Ecosystem
-        </motion.h2>
+          <h2 className="text-3xl md:text-5xl font-display font-bold text-white">
+            Technical Skills
+          </h2>
+          <p className="text-sm md:text-base text-slate-400 font-light max-w-2xl mx-auto">
+            Core technologies, frameworks, and tools used across machine learning, backend engineering, databases, and web delivery.
+          </p>
+        </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           {skillCategories.map((cat, idx) => {
             const IconComponent = cat.icon;
             return (

@@ -2,39 +2,35 @@
   "faq": [
     {
       "question": "What does Likith do?",
-      "answer": "Likith Naidu Anumamkonda is an AI-ML Architect and Founder of SAKRA VISION. He architectures complete digital ecosystems, specializing in AI agents, custom ML models, and full-stack systems built with Python and Node.js."
+      "answer": "Likith Naidu Anumakonda is an AI/ML Engineer and the Founder & CEO of SAKRA VISION. He builds applied AI/ML models, RAG assistants, computer vision tools, and full-stack web applications with Python (FastAPI), Node.js, React, and Next.js."
     },
     {
-      "question": "Is Likith an AI-ML architect?",
-      "answer": "Yes. Likith is a specialized AI-ML architect with deep expertise in developing ML models, AI Agents, and autonomous automation. He builds intelligent systems from the ground up."
+      "question": "What is Likith's education background?",
+      "answer": "Likith is currently pursuing a B.Tech in Computer Science and Engineering (Artificial Intelligence) at Parvatha Reddy Babul Reddy Visvodaya Institute of Technology and Science (PBR VITS), Kavali, Andhra Pradesh, India. He also completed an Advanced AI/ML Specialization programme from IIT Patna (I-HUB)."
+    },
+    {
+      "question": "What creative work does Likith do?",
+      "answer": "Alongside software and AI engineering, Likith is a classical pianist and the author of the book \"Echoes of an Unsaid Goodbye\"."
     },
     {
       "question": "What is RESOLVIT?",
-      "answer": "RESOLVIT is Likith's flagship civic-tech platform—an AI-powered operations system designed for citizens, NGOs, and public authorities. It transforms community signals and complaints into structured, actionable workflows through AI clustering, real-time tracking, and geo-intelligence mapping."
+      "answer": "RESOLVIT is an AI-assisted civic issue tracking platform contributed for the GDG Solution Challenge 2026 (currently Under Evaluation). Built with FastAPI, PostgreSQL, and Leaflet, it supports citizens, NGOs, and civic authorities."
     },
     {
       "question": "Can Likith build AI agents and ML models?",
-      "answer": "Absolutely. Likith develops sophisticated AI Agents and custom ML models tailored to specific technical requirements. He handles everything from algorithm design to production deployment."
+      "answer": "Yes. Likith builds applied machine learning models, retrieval-augmented generation (RAG) workflows, and task-specific AI assistants in Python."
     },
     {
-      "question": "Does Likith do full-stack in Python or Node.js?",
-      "answer": "Likith is a strong full-stack developer in both Python (FastAPI/Flask) and Node.js environments. He manages both backend logic and premium frontend architectures."
+      "question": "Does Likith work with Python and Node.js web applications?",
+      "answer": "Yes. He builds backend services and full-stack web applications using Python (FastAPI/Flask) and Node.js (Express/Next.js) alongside React and Tailwind CSS."
     },
     {
-      "question": "Does Likith handle APIs and Metadata?",
-      "answer": "Yes. Likith is an API controller and metadata expert. He designs robust API architectures, handles end-to-end integration, and builds structured metadata systems for web SEO and AI readability."
-    },
-    {
-      "question": "Does Likith handle domains and Google Console?",
-      "answer": "Yes. Likith is a domain controller and infrastructure setup specialist. He manages domain configuration, server setup, and Google Search Console/Google Console configuration for production systems."
-    },
-    {
-      "question": "Can Likith do deployment?",
-      "answer": "Likith handles the entire deployment workflow across both frontend and backend platforms. He manages cloud databases (PostgreSQL, MongoDB) and ensures production-grade delivery of every product."
+      "question": "Does Likith handle APIs, databases, and deployment?",
+      "answer": "Yes. His experience covers REST APIs, authentication middleware, messaging/OTP workflows (Resend, Twilio), PostgreSQL and MySQL databases, domain/DNS configuration, Google Search Console setup, structured SEO metadata, and deployments on Vercel and Render."
     },
     {
       "question": "What is Likith's role in the Solution Challenge 2026?",
-      "answer": "Likith is the founder and leader of Team SΛKRΛ in the GDG Solution Challenge 2026. He led the team in architecting RESOLVIT, an AI-powered civic operations platform, demonstrating high-level engineering leadership and innovation under the Google 'Build with AI' initiative."
+      "answer": "Likith led Team SΛKRΛ in building RESOLVIT for the GDG Solution Challenge 2026 (currently Under Evaluation), coordinating AI workflow design and full-stack implementation."
     }
   ]
 }

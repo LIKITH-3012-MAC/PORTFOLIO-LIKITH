@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { X, Github, ExternalLink, Cpu, Globe, Database, Layout, Ticket, Waves, Eye, Shield, ShieldCheck, Server, Sparkles, Sliders, Award, Phone, Check, TrendingUp } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { X, Github, ExternalLink, Cpu, Globe, Database, Layout, Ticket, Waves, Eye, Shield, ShieldCheck, Server, Sparkles, Sliders, Award, Phone, Check, TrendingUp, ArrowRight, Mail } from 'lucide-react';
 import useBodyScrollLock from '../../hooks/useBodyScrollLock';
 
 const iconMap = {
@@ -30,8 +31,8 @@ export const ProjectModal = ({ isOpen, onClose, project }) => {
 
   // Custom detailed layout for Sakra Vision Event Hub
   if (project.id === 'modal-sakraevents' || project.id === 'sakraevents') {
-    return (
-      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    return createPortal(
+      <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
         {/* Backdrop overlay */}
         <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={onClose}></div>
         
@@ -55,6 +56,7 @@ export const ProjectModal = ({ isOpen, onClose, project }) => {
             </div>
             <button 
               onClick={onClose}
+              aria-label="Close project details"
               className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors backdrop-blur-md"
             >
               <X className="w-5 h-5" />
@@ -67,19 +69,19 @@ export const ProjectModal = ({ isOpen, onClose, project }) => {
               <div>
                 <h4 className="text-white font-semibold font-display mb-2 text-lg">Overview</h4>
                 <p className="text-slate-300 font-light text-sm md:text-base leading-relaxed">
-                  SAKRA VISION Event Hub is a next-generation AI-powered event operations platform built to replace the limitations of traditional registration systems.
-                  While platforms such as Google Forms are useful for collecting basic information, they lack intelligent verification, automated communication workflows, participant lifecycle management, and advanced event administration capabilities.
-                  To address these limitations, we engineered a complete event management ecosystem that combines Artificial Intelligence, automation, cloud infrastructure, and real-time communication into a single platform.
-                  The platform enables organizers to manage registrations, verify payment submissions, automate participant communication, distribute certificates, track attendance, and operate events from a centralized dashboard.
+                  SAKRA VISION Event Hub is an AI-powered event operations platform built to address the manual limitations of traditional registration forms.
+                  While general form tools work well for collecting basic inputs, they do not provide automated payment verification, participant lifecycle communication, or integrated event administration.
+                  To solve this, we built an integrated platform combining AI verification, automated notifications, cloud data storage, and organizer workflows in one system.
+                  Organizers can manage registrations, screen uploaded payment receipts, automate participant emails and status calls, record attendance, and distribute certificates from a central dashboard.
                 </p>
               </div>
               <div className="p-5 rounded-2xl bg-indigo-500/5 border border-indigo-500/10">
                 <h4 className="text-indigo-400 font-semibold font-display mb-2 text-base flex items-center gap-2">
-                  <Eye className="w-5 h-5" /> Vision
+                  <Eye className="w-5 h-5" /> Objective
                 </h4>
                 <p className="text-slate-300 font-light text-sm md:text-base leading-relaxed">
-                  Our goal is simple: Transform traditional event registration into an intelligent, automated, and scalable event operations platform powered by AI.
-                  Instead of manually verifying payments, manually sending emails, manually calling participants, and manually issuing certificates, the platform automates the entire workflow from registration to post-event engagement.
+                  The goal is straightforward: turn repetitive event registration and verification tasks into a structured, automated operational workflow.
+                  Instead of manually checking payment screenshots, sending emails one by one, calling participants for updates, and generating certificates separately, the platform handles each stage systematically from sign-up to post-event follow-up.
                 </p>
               </div>
             </div>
@@ -238,7 +240,7 @@ export const ProjectModal = ({ isOpen, onClose, project }) => {
                 <Phone className="w-5 h-5 text-indigo-400" /> AI Voice Agent Automation
               </h4>
               <p className="text-xs text-slate-300 leading-relaxed font-light">
-                One of the platform's most advanced capabilities is its AI-powered voice communication system. It integrates intelligent Voice AI agents capable of communicating directly with participants via real phone calls.
+                The platform includes an automated voice communication workflow using AI voice agents to place status and schedule update calls directly to registered participants.
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-light text-slate-300">
@@ -345,7 +347,7 @@ export const ProjectModal = ({ isOpen, onClose, project }) => {
 
               <div className="p-5 border-t border-white/10 text-slate-400 text-xs md:text-sm font-light leading-relaxed">
                 <p>
-                  <strong>Conclusion:</strong> SAKRA VISION Event Hub is more than a registration platform. It is a complete AI-powered event operations ecosystem designed to automate verification, communication, participant management, attendance tracking, and post-event engagement. By combining Artificial Intelligence, automation, cloud infrastructure, and modern communication systems, SAKRA VISION transforms traditional event management into a scalable, intelligent, and professional experience.
+                  <strong>Summary:</strong> SAKRA VISION Event Hub brings payment screenshot screening, participant status communication, attendance tracking, and certificate distribution into one system. By combining AI verification, automated email and voice updates, and cloud storage, it streamlines operations for event organizers.
                 </p>
               </div>
             </div>
@@ -363,13 +365,14 @@ export const ProjectModal = ({ isOpen, onClose, project }) => {
             </a>
           </div>
         </div>
-      </div>
+      </div>,
+      document.body
     );
   }
 
   // Standard project modal layout
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+  return createPortal(
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
       {/* Backdrop overlay */}
       <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={onClose}></div>
       
@@ -391,6 +394,7 @@ export const ProjectModal = ({ isOpen, onClose, project }) => {
           </div>
           <button 
             onClick={onClose}
+            aria-label="Close project details"
             className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors backdrop-blur-md"
           >
             <X className="w-5 h-5" />
@@ -460,7 +464,8 @@ export const ProjectModal = ({ isOpen, onClose, project }) => {
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

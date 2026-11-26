@@ -61,7 +61,7 @@ export const SunMaterial = shaderMaterial(
       float n_ = 0.142857142857;
       vec3 ns = n_ * D.wyz - D.xzx;
 
-      vec4 j = p - 49.0 * floor(p * ns.z);
+      vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
 
       vec4 x_ = floor(j * ns.z);
       vec4 y_ = floor(j - 7.0 * x_);
@@ -104,14 +104,14 @@ export const SunMaterial = shaderMaterial(
       float n3 = snoise(vPosition * 7.5 + vec3(uTime * 0.9, 0.0, 0.0));
 
       float noise = n1 * 0.55 + n2 * 0.30 + n3 * 0.15;
-      noise = noise * 0.5 + 0.5;
+      noise = clamp(noise * 0.5 + 0.5, 0.0, 1.0);
 
       // Color mapping
       vec3 color = mix(uColorRange, uColorCore, noise);
 
-      // Add a subtle Fresnel brightness towards edges
+      // Subtle warm limb highlight without clipping
       float fresnel = pow(1.0 - max(dot(vNormal, vec3(0.0, 0.0, 1.0)), 0.0), 3.0);
-      color += fresnel * uColorCore * 0.45;
+      color += fresnel * uColorCore * 0.3;
 
       gl_FragColor = vec4(color, 1.0);
     }

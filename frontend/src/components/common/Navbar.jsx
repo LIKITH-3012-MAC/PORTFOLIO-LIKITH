@@ -20,7 +20,7 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
     ? profile.identity.fullName.split(' ').slice(0, 2).join(' ').toUpperCase()
     : 'LIKITH NAIDU';
     
-  const brandRole = profile?.identity?.roles?.[0] || 'AI Architect';
+  const brandRole = profile?.identity?.roles?.[0] || 'AI/ML Engineer';
 
   // 1. Lightweight scroll state for backdrop-blur
   useEffect(() => {
@@ -150,12 +150,12 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
                 height="72"
                 loading="eager"
                 decoding="async"
-                fetchPriority="high"
+                fetchpriority="high"
               />
             </div>
             <div className="flex flex-col text-left">
               <span className="font-display font-bold tracking-tight leading-none text-sm text-white">{brandName}</span>
-              <span className="text-[8px] text-slate-400 font-mono tracking-widest uppercase">{brandRole}</span>
+              <span className="text-[9px] text-slate-300 font-mono tracking-wider uppercase">{brandRole}</span>
             </div>
           </Link>
         </MagneticIcon>
@@ -164,17 +164,19 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
         <div className="hidden lg:flex items-center gap-4 xl:gap-6">
           <MagneticIcon>
             <button 
+              type="button"
               onClick={() => handleNavClick('about')} 
-              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase whitespace-nowrap ${activeSection === 'about' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase whitespace-nowrap ${activeSection === 'about' ? 'active text-white' : 'text-slate-300 hover:text-white'}`}
             >
-              Identity
+              About
             </button>
           </MagneticIcon>
 
           <MagneticIcon>
             <button 
+              type="button"
               onClick={() => handleNavClick('experience')} 
-              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase whitespace-nowrap ${activeSection === 'experience' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase whitespace-nowrap ${activeSection === 'experience' ? 'active text-white' : 'text-slate-300 hover:text-white'}`}
             >
               Experience
             </button>
@@ -182,37 +184,38 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
 
           <MagneticIcon>
             <button 
+              type="button"
               onClick={() => handleNavClick('projects')} 
-              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase whitespace-nowrap ${activeSection === 'projects' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase whitespace-nowrap ${activeSection === 'projects' ? 'active text-white' : 'text-slate-300 hover:text-white'}`}
             >
-              Systems
+              Projects
             </button>
           </MagneticIcon>
 
           <MagneticIcon>
             <Link 
               to="/git-profile?source=nav" 
-              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase flex items-center gap-1.5 whitespace-nowrap ${activeSection === 'git' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase flex items-center gap-1.5 whitespace-nowrap ${activeSection === 'git' ? 'active text-white' : 'text-slate-300 hover:text-white'}`}
             >
-              <Github className="w-3.5 h-3.5 shrink-0" /> Git Archive
+              <Github className="w-3.5 h-3.5 shrink-0" /> GitHub
             </Link>
           </MagneticIcon>
 
           <MagneticIcon>
             <Link 
               to="/youtube?source=nav" 
-              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase flex items-center gap-1.5 whitespace-nowrap ${activeSection === 'youtube' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase flex items-center gap-1.5 whitespace-nowrap ${activeSection === 'youtube' ? 'active text-white' : 'text-slate-300 hover:text-white'}`}
             >
-              <Youtube className="w-3.5 h-3.5 text-red-500 shrink-0" /> YouTube Hub
+              <Youtube className="w-3.5 h-3.5 text-red-500 shrink-0" /> Media
             </Link>
           </MagneticIcon>
 
           <MagneticIcon>
             <Link 
               to="/piano?source=nav" 
-              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase flex items-center gap-1.5 whitespace-nowrap ${activeSection === 'piano' ? 'active text-white' : 'text-slate-400 hover:text-white'}`}
+              className={`desktop-nav-link text-xs font-medium tracking-wider uppercase flex items-center gap-1.5 whitespace-nowrap ${activeSection === 'piano' ? 'active text-white' : 'text-slate-300 hover:text-white'}`}
             >
-              <Music className="w-3.5 h-3.5 text-amber-400 shrink-0" /> Piano Studio
+              <Music className="w-3.5 h-3.5 text-amber-400 shrink-0" /> Piano
             </Link>
           </MagneticIcon>
 
@@ -223,15 +226,15 @@ export const Navbar = ({ visible, mobileMenuEnabled, menuOpen, setMenuOpen, onOp
         <div className="flex items-center gap-4">
           <MagneticButton 
             onClick={handleMessageClick}
-            className="hidden lg:flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-amber-400 hover:text-white transition-colors px-3 py-1.5 rounded-full border border-amber-400/20 bg-amber-400/5 hover:bg-amber-400/10"
+            className="hidden lg:flex items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-amber-300 hover:text-white transition-colors px-3 py-1.5 rounded-full border border-amber-400/25 bg-amber-400/5 hover:bg-amber-400/10"
           >
-            <Mail className="w-3.5 h-3.5" /> Message
+            <Mail className="w-3.5 h-3.5" /> Note
           </MagneticButton>
           
-          <MagneticButton>
+          <MagneticButton className="hidden lg:inline-block">
             <Link 
               to="/collab?source=nav" 
-              className={`btn-premium hidden lg:flex !py-2 !px-5 !text-[10px] ${activeSection === 'collab' ? 'border-amber-400' : ''}`}
+              className={`btn-premium hidden lg:flex !py-2 !px-5 !text-[11px] !min-h-[36px] ${activeSection === 'collab' ? 'border-amber-400' : ''}`}
             >
               Collaborate
             </Link>

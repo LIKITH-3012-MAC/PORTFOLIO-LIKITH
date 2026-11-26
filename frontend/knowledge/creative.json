@@ -1,8 +1,12 @@
 {
   "creative": {
     "music": {
-      "role": "Classical Pianist",
+      "role": "Pianist",
       "description": "Explores the intersection of discipline and emotion through piano performance. Videos and performances are hosted on the official YouTube channel."
+    },
+    "literature": {
+      "role": "Author",
+      "authoredBook": "Echoes of an Unsaid Goodbye"
     }
   }
 }

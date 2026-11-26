@@ -132,7 +132,7 @@ export const CollaborationPage = () => {
     if (source === 'nav') {
       setBadgeNote({ icon: <Compass className="w-3 h-3 text-slate-400" />, text: 'Opened from Navigation' });
     } else if (source === 'agent') {
-      setBadgeNote({ icon: <Cpu className="w-3 h-3 text-amber-400" />, text: 'Opened from im sakra' });
+      setBadgeNote({ icon: <Cpu className="w-3 h-3 text-amber-400" />, text: 'Opened from SAKRA AI' });
     } else if (source === 'hero') {
       setBadgeNote({ icon: <Zap className="w-3 h-3 text-amber-400" />, text: 'Opened from Hero CTA' });
     } else if (utmSource === 'instagram') {
@@ -353,8 +353,8 @@ export const CollaborationPage = () => {
     <>
       <SEO 
         title="Collaborate | Likith Naidu Anumakonda"
-        description="Start a high-end technical collaboration with Likith Naidu Anumakonda. Founder-grade intake for AI, ML, and creative tech projects."
-        keywords="Likith Naidu Collaboration, Partner with Likith, AI Agent Development, Custom SaaS"
+        description="Collaborate with Likith Naidu Anumakonda — Founder & CEO of SAKRA VISION and AI/ML Engineer specializing in Artificial Intelligence, Machine Learning, Computer Vision, and Generative AI."
+        keywords="Likith Naidu Anumakonda, SAKRA VISION, Founder & CEO, AI/ML Engineer, Artificial Intelligence, Machine Learning, Computer Vision, Generative AI"
         canonical="https://likith-portfolio.online/collab"
         image="https://likith-portfolio.online/images/likith/likith-anumakonda-profile-photo.jpeg"
       />
@@ -563,9 +563,24 @@ export const CollaborationPage = () => {
                   />
 
                   {/* Cloudflare Turnstile Widget */}
-                  <div className="flex justify-center mt-6">
+                  <div className="flex flex-col items-center gap-2 mt-6">
                     <div ref={turnstileRef} className="cf-turnstile" />
+                    {!turnstileToken && (
+                      <p className="text-[11px] font-mono text-slate-400">
+                        Complete security verification above before submitting.
+                      </p>
+                    )}
                   </div>
+
+                  {submitError && (
+                    <div
+                      role="alert"
+                      className="flex items-center gap-2.5 p-3.5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-300 text-xs"
+                    >
+                      <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+                      <span>{submitError}</span>
+                    </div>
+                  )}
 
                   {/* Submit Button */}
                   <button 
@@ -573,19 +588,14 @@ export const CollaborationPage = () => {
                     disabled={isSubmitting || !turnstileToken}
                     className={`w-full flex items-center justify-center gap-3 py-5 rounded-2xl text-sm font-bold uppercase tracking-widest transition-all ${
                       isSubmitting || !turnstileToken
-                        ? 'bg-white/5 border border-white/10 text-slate-500 cursor-not-allowed opacity-50'
+                        ? 'bg-white/5 border border-white/10 text-slate-400 cursor-not-allowed opacity-60'
                         : 'btn-premium hover:scale-[1.01]'
                     }`}
                   >
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin text-amber-500" />
-                        <span>Transmitting to Database...</span>
-                      </>
-                    ) : submitError ? (
-                      <>
-                        <AlertCircle className="w-4 h-4 text-red-500 animate-pulse" />
-                        <span className="text-red-400">{submitError}</span>
+                        <span>Submitting Request...</span>
                       </>
                     ) : (
                       <>
@@ -601,34 +611,34 @@ export const CollaborationPage = () => {
             {/* Sidebar Column */}
             <div className="space-y-6 text-left">
 
-              {/* Why Likith Sidebar Card */}
+              {/* Focus Areas Sidebar Card */}
               <div className="glass-panel p-6 rounded-3xl border border-white/10 relative overflow-hidden">
-                <h3 className="text-amber-500 font-display font-bold text-lg mb-6 uppercase tracking-tighter">Why Likith?</h3>
+                <h3 className="text-amber-400 font-display font-bold text-lg mb-6 uppercase tracking-tight">Areas of Focus</h3>
                 <ul className="space-y-5">
                   <li className="flex gap-3">
                     <Zap className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-sm font-bold text-white">AI-First Mindset</p>
-                      <p className="text-xs text-slate-500 leading-relaxed mt-1">
-                        Building systems that leverage local LLMs and RAG architecture.
+                      <p className="text-sm font-bold text-white">AI &amp; Machine Learning</p>
+                      <p className="text-xs text-slate-400 leading-relaxed mt-1">
+                        Applied machine learning, LLM agents, and retrieval-augmented generation workflows.
                       </p>
                     </div>
                   </li>
                   <li className="flex gap-3">
                     <Code className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-sm font-bold text-white">Full Stack Mastery</p>
-                      <p className="text-xs text-slate-500 leading-relaxed mt-1">
-                        End-to-end execution from architecture to premium UI/UX.
+                      <p className="text-sm font-bold text-white">Web &amp; Backend Engineering</p>
+                      <p className="text-xs text-slate-400 leading-relaxed mt-1">
+                        REST APIs and web applications built with Python (FastAPI), Node.js, React, and Next.js.
                       </p>
                     </div>
                   </li>
                   <li className="flex gap-3">
                     <Award className="w-5 h-5 text-purple-400 shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-sm font-bold text-white">Founder Vision</p>
-                      <p className="text-xs text-slate-500 leading-relaxed mt-1">
-                        Product-driven development with a focus on impact and scale.
+                      <p className="text-sm font-bold text-white">SAKRA VISION</p>
+                      <p className="text-xs text-slate-400 leading-relaxed mt-1">
+                        Founder &amp; CEO focused on practical software products and automation tools.
                       </p>
                     </div>
                   </li>
@@ -637,22 +647,22 @@ export const CollaborationPage = () => {
 
               {/* Categories Sidebar Card */}
               <div className="glass-panel p-6 rounded-3xl border border-white/10">
-                <h3 className="text-blue-400 font-display font-bold text-lg mb-4 uppercase tracking-tighter">Categories</h3>
+                <h3 className="text-blue-400 font-display font-bold text-lg mb-4 uppercase tracking-tight">Collaboration Topics</h3>
                 <div className="flex flex-wrap gap-2">
-                  <span className="text-[10px] px-3.5 py-2 rounded-full bg-white/5 border border-white/10 text-slate-400 font-mono tracking-wider">
-                    GenAI Agents
+                  <span className="text-[10px] px-3.5 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300 font-mono tracking-wider">
+                    AI &amp; ML Agents
                   </span>
-                  <span className="text-[10px] px-3.5 py-2 rounded-full bg-white/5 border border-white/10 text-slate-400 font-mono tracking-wider">
-                    ML Model Dev
+                  <span className="text-[10px] px-3.5 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300 font-mono tracking-wider">
+                    Machine Learning
                   </span>
-                  <span className="text-[10px] px-3.5 py-2 rounded-full bg-white/5 border border-white/10 text-slate-400 font-mono tracking-wider">
-                    Custom SaaS
+                  <span className="text-[10px] px-3.5 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300 font-mono tracking-wider">
+                    Web Applications
                   </span>
-                  <span className="text-[10px] px-3.5 py-2 rounded-full bg-white/5 border border-white/10 text-slate-400 font-mono tracking-wider">
+                  <span className="text-[10px] px-3.5 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300 font-mono tracking-wider">
                     Civic Tech
                   </span>
-                  <span className="text-[10px] px-3.5 py-2 rounded-full bg-white/5 border border-white/10 text-slate-400 font-mono tracking-wider">
-                    Music Tech
+                  <span className="text-[10px] px-3.5 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300 font-mono tracking-wider">
+                    Music &amp; Piano
                   </span>
                 </div>
               </div>
@@ -663,8 +673,8 @@ export const CollaborationPage = () => {
 
       {/* Footer */}
       <footer className="py-10 border-t border-white/5 text-center">
-        <p className="text-slate-600 text-xs font-mono uppercase tracking-[0.5em]">
-          Likith Naidu Anumamkonda • Secure Collaboration Intake
+        <p className="text-slate-500 text-xs font-mono uppercase tracking-[0.3em]">
+          Likith Naidu Anumakonda · Collaboration &amp; Project Inquiries
         </p>
       </footer>
 

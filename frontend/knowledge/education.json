@@ -1,15 +1,17 @@
 {
   "education": [
     {
-      "degree": "B.Tech in Computer Science Engineering (Artificial Intelligence)",
-      "institution": "PBR VITS",
-      "status": "Current",
-      "focus": "Complex data structures, Java OOP, and Neural Networks."
+      "degree": "Bachelor of Technology (B.Tech) in Computer Science and Engineering (Artificial Intelligence)",
+      "institution": "Parvatha Reddy Babul Reddy Visvodaya Institute of Technology and Science (PBR VITS)",
+      "location": "Kavali, Andhra Pradesh, India",
+      "status": "Currently pursuing (not yet completed)",
+      "focus": "Data Structures, Python, Java OOP, Database Management, and Machine Learning."
     },
     {
-      "certification": "Advanced AIML Specialization",
+      "programme": "Advanced AI & ML Specialization",
+      "type": "Specialization Programme (non-degree)",
       "provider": "IIT Patna (I-HUB)",
-      "focus": "Deep Learning, NLP, Computer Vision, and real-time predictive modeling."
+      "focus": "Deep Learning, NLP, Computer Vision, and applied predictive modeling."
     }
   ]
 }

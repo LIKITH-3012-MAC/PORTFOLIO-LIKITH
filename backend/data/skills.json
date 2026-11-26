@@ -1,39 +1,34 @@
 {
   "technical_capabilities": {
-    "ai_and_ml": [
-      "AI-ML Architecting",
-      "AI Agent Development",
-      "ML Model Development",
-      "Offline LLM Architectures",
-      "RAG System Architecture",
-      "Computer Vision Automation"
+    "ai_and_machine_learning": [
+      "Machine Learning & Deep Learning",
+      "NLP & Computer Vision",
+      "AI Agents & RAG Pipelines",
+      "Offline LLM Inference (Ollama / Llama 3.2 / Apple MLX)",
+      "Scikit-Learn & TensorFlow"
     ],
-    "full_stack": [
-      "Python Full-Stack Systems",
-      "Node.js Full-Stack Systems",
-      "FastAPI & Flask Backend Logic",
-      "Next.js & React Frontend Architecture",
-      "Middleware Development"
+    "programming_and_application_development": [
+      "Python (FastAPI & Flask)",
+      "React & Next.js",
+      "Node.js & Express",
+      "Java (OOP)",
+      "REST APIs & Middleware",
+      "Tailwind CSS"
     ],
-    "logic_and_api": [
-      "API Architecture & Controller Logic",
-      "End-to-End API Integration",
-      "Middleware Systems (OTP, Twilio, Resend)",
-      "Metadata Architecture",
-      "Structured Data & Semantic SEO"
+    "data_and_databases": [
+      "SQL",
+      "PostgreSQL",
+      "MySQL (Aiven)",
+      "Data Structures & Algorithms",
+      "Data Storytelling"
     ],
-    "infrastructure_and_deployment": [
-      "Domain Setup & Control",
-      "Google Search Console & Google Console Setup",
-      "Cloud Database Management (PostgreSQL, MongoDB)",
-      "Production Deployment Workflows",
-      "Server & Infrastructure Configuration"
-    ],
-    "product_execution": [
-      "End-to-End Product Execution",
-      "Complete System Delivery",
-      "Technical Vision & Discipline",
-      "Client Requirement Translation to Architecture"
+    "tools_and_infrastructure": [
+      "Git & GitHub",
+      "Vercel & Render Deployment",
+      "Resend & Twilio APIs",
+      "Domain & DNS Configuration",
+      "Google Search Console Setup",
+      "Structured SEO Metadata"
     ]
   }
 }

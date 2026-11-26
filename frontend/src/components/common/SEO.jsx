@@ -1,31 +1,32 @@
 import { useEffect } from 'react';
 
+const upsertMeta = (attrName, attrValue, content) => {
+  if (!content) return;
+  let el = document.querySelector(`meta[${attrName}="${attrValue}"]`);
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute(attrName, attrValue);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', content);
+};
+
 export const SEO = ({ title, description, keywords, canonical, image }) => {
   useEffect(() => {
     if (title) {
       document.title = title;
+      upsertMeta('property', 'og:title', title);
+      upsertMeta('name', 'twitter:title', title);
     }
 
-    // Update meta description
-    let metaDescription = document.querySelector('meta[name="description"]');
-    if (!metaDescription) {
-      metaDescription = document.createElement('meta');
-      metaDescription.setAttribute('name', 'description');
-      document.head.appendChild(metaDescription);
-    }
     if (description) {
-      metaDescription.setAttribute('content', description);
+      upsertMeta('name', 'description', description);
+      upsertMeta('property', 'og:description', description);
+      upsertMeta('name', 'twitter:description', description);
     }
 
-    // Update meta keywords
-    let metaKeywords = document.querySelector('meta[name="keywords"]');
-    if (!metaKeywords) {
-      metaKeywords = document.createElement('meta');
-      metaKeywords.setAttribute('name', 'keywords');
-      document.head.appendChild(metaKeywords);
-    }
     if (keywords) {
-      metaKeywords.setAttribute('content', keywords);
+      upsertMeta('name', 'keywords', keywords);
     }
 
     // Update canonical link
@@ -41,66 +42,26 @@ export const SEO = ({ title, description, keywords, canonical, image }) => {
 
     // Update page-specific Open Graph / Twitter image
     if (image) {
-      let ogImage = document.querySelector('meta[property="og:image"]');
-      if (!ogImage) {
-        ogImage = document.createElement('meta');
-        ogImage.setAttribute('property', 'og:image');
-        document.head.appendChild(ogImage);
-      }
-      ogImage.setAttribute('content', image);
+      upsertMeta('property', 'og:image', image);
+      upsertMeta('property', 'og:image:secure_url', image);
+      upsertMeta('name', 'twitter:image', image);
 
-      let ogImageSecure = document.querySelector('meta[property="og:image:secure_url"]');
-      if (!ogImageSecure) {
-        ogImageSecure = document.createElement('meta');
-        ogImageSecure.setAttribute('property', 'og:image:secure_url');
-        document.head.appendChild(ogImageSecure);
-      }
-      ogImageSecure.setAttribute('content', image);
-
-      let twitterImage = document.querySelector('meta[name="twitter:image"]');
-      if (!twitterImage) {
-        twitterImage = document.createElement('meta');
-        twitterImage.setAttribute('name', 'twitter:image');
-        document.head.appendChild(twitterImage);
-      }
-      twitterImage.setAttribute('content', image);
-
-      // Set explicit type and dimensions if it's png vs jpeg
-      let ogImageType = document.querySelector('meta[property="og:image:type"]');
-      if (!ogImageType) {
-        ogImageType = document.createElement('meta');
-        ogImageType.setAttribute('property', 'og:image:type');
-        document.head.appendChild(ogImageType);
-      }
       const isPng = image.endsWith('.png');
-      ogImageType.setAttribute('content', isPng ? 'image/png' : 'image/jpeg');
-      
-      let ogImageWidth = document.querySelector('meta[property="og:image:width"]');
-      if (!ogImageWidth) {
-        ogImageWidth = document.createElement('meta');
-        ogImageWidth.setAttribute('property', 'og:image:width');
-        document.head.appendChild(ogImageWidth);
-      }
-      let ogImageHeight = document.querySelector('meta[property="og:image:height"]');
-      if (!ogImageHeight) {
-        ogImageHeight = document.createElement('meta');
-        ogImageHeight.setAttribute('property', 'og:image:height');
-        document.head.appendChild(ogImageHeight);
-      }
+      upsertMeta('property', 'og:image:type', isPng ? 'image/png' : 'image/jpeg');
 
       // Map sizes
       if (image.includes('likith-naidu-anumakonda-profile.png')) {
-        ogImageWidth.setAttribute('content', '1672');
-        ogImageHeight.setAttribute('content', '941');
+        upsertMeta('property', 'og:image:width', '1672');
+        upsertMeta('property', 'og:image:height', '941');
       } else if (image.includes('likith-naidu-anumakonda-portrait.png')) {
-        ogImageWidth.setAttribute('content', '1184');
-        ogImageHeight.setAttribute('content', '864');
+        upsertMeta('property', 'og:image:width', '1184');
+        upsertMeta('property', 'og:image:height', '864');
       } else if (image.includes('likith-anumakonda-portrait.jpeg')) {
-        ogImageWidth.setAttribute('content', '1227');
-        ogImageHeight.setAttribute('content', '685');
+        upsertMeta('property', 'og:image:width', '1227');
+        upsertMeta('property', 'og:image:height', '685');
       } else if (image.includes('likith-anumakonda-profile-photo.jpeg')) {
-        ogImageWidth.setAttribute('content', '2752');
-        ogImageHeight.setAttribute('content', '1536');
+        upsertMeta('property', 'og:image:width', '2752');
+        upsertMeta('property', 'og:image:height', '1536');
       }
     }
   }, [title, description, keywords, canonical, image]);

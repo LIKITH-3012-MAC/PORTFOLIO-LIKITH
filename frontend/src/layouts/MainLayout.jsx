@@ -28,6 +28,11 @@ export const MainLayout = () => {
         sessionStorage.removeItem('likith-cinematic-intro-seen');
         return false;
       }
+      // Skip boot sequence automatically when opening subroutes directly.
+      const path = window.location.pathname;
+      if (path !== '/' && path !== '/index.html') {
+        return true;
+      }
       return sessionStorage.getItem('likith-cinematic-intro-seen') === 'true';
     } catch {
       return false;
@@ -179,14 +184,16 @@ export const MainLayout = () => {
         )}
       </AnimatePresence>
 
-      {/* Shared Chatbot Concierge (Layer 4) */}
-      <Chatbot 
-        isOpen={chatbotOpen} 
-        onOpen={() => setChatbotOpen(true)}
-        onClose={() => setChatbotOpen(false)}
-      />
+      {/* Shared Assistant Panel (mounted after intro so launcher never overlaps Skip button) */}
+      {introComplete && (
+        <Chatbot 
+          isOpen={chatbotOpen} 
+          onOpen={() => setChatbotOpen(true)}
+          onClose={() => setChatbotOpen(false)}
+        />
+      )}
 
-      {/* Founder Direct Transmission Modal (Layer 4) */}
+      {/* Personal Note Modal (Layer 4) */}
       <FounderMessage 
         isOpen={founderMessageOpen}
         onClose={() => setFounderMessageOpen(false)}

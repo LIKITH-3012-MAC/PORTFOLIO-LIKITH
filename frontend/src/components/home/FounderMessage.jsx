@@ -20,14 +20,14 @@ export const FounderMessage = ({ isOpen, onClose }) => {
   }, [isOpen, onClose]);
 
   const capabilities = [
-    "AI Agents",
-    "Full-Stack Systems",
-    "Python & Node.js",
-    "ML Models",
-    "Cloud Databases",
-    "API Architecture",
-    "OTP & Twilio",
-    "Google Console"
+    "AI Agents & RAG",
+    "ML & Computer Vision",
+    "Python & FastAPI",
+    "React & Next.js",
+    "Node.js",
+    "PostgreSQL & MySQL",
+    "Resend & Twilio APIs",
+    "Deployment & DNS"
   ];
 
   return (
@@ -57,34 +57,33 @@ export const FounderMessage = ({ isOpen, onClose }) => {
               {/* Left Side: Copy */}
               <div className="space-y-6">
                 <div className="inline-block text-xs font-mono text-amber-400 tracking-[0.2em] uppercase border border-amber-400/20 bg-amber-400/5 px-3 py-1 rounded-full">
-                  Founder’s Direct Transmission
+                  Personal Note
                 </div>
                 
                 <h2 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tight leading-tight">
-                  Beyond the code, <br />
-                  I architect <br />
-                  complete ecosystems.
+                  Building AI and web software <br />
+                  with practical engineering focus.
                 </h2>
 
                 <div className="space-y-4 text-slate-400 text-sm md:text-base font-light leading-relaxed">
                   <p>
-                    Beyond the code, I architect complete ecosystems. As the founder of <b>SAKRA VISION</b>, I approach every project not just as a developer, but as a technical architect and strategic lead.
+                    I&apos;m <b>Likith Naidu Anumakonda</b>, an AI/ML Engineer and the Founder &amp; CEO of <b>SAKRA VISION</b>. I am currently pursuing a B.Tech in Computer Science and Engineering (Artificial Intelligence) at PBR VITS, Kavali.
                   </p>
                   <p>
-                    My A-to-Z specialties include <b>AI-ML architecting</b>, the development of sophisticated <b>AI Agents</b>, and the design of custom <b>ML models</b>. I own the entire technical stack—leveraging <b>Python and Node.js</b> to build robust full-stack systems that handle everything from complex <b>API architecture</b> and <b>middleware integration</b> to secure communication systems like <b>Resend OTP and Twilio</b>.
+                    My engineering work covers <b>machine learning workflows</b>, <b>AI assistants and RAG pipelines</b>, and <b>computer vision prototypes</b> alongside full-stack web delivery with <b>Python (FastAPI), Node.js, React, and Next.js</b>. I also implement REST APIs, database schemas, automated verification and messaging flows via <b>Resend and Twilio</b>, and production hosting setup.
                   </p>
                   <p>
-                    I manage the entire technical launch cycle, including <b>domain control</b>, server configuration, <b>Google Console setup</b>, and <b>metadata architecture</b>. My focus is the absolute, end-to-end execution of the client’s vision, ensuring every product is delivered with engineered excellence.
+                    From initial problem framing to domain configuration, Google Search Console setup, and metadata maintenance, I enjoy taking software products carefully from prototype to reliable live deployment.
                   </p>
                 </div>
 
                 {/* SAKRA Block */}
                 <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 space-y-2">
                   <div className="text-[10px] text-amber-400 font-mono tracking-widest uppercase">
-                    SAKRA VISION • THE EXECUTION ECOSYSTEM
+                    SAKRA VISION · Independent Venture
                   </div>
                   <p className="text-xs text-slate-400 leading-relaxed">
-                    I am the founder of <b>SAKRA VISION</b>. Every project under my leadership operates under the technical vision, discipline, and real execution ecosystem of SAKRA. We don’t just deliver code; we deliver complete, production-grade technical solutions.
+                    Through <b>SAKRA VISION</b>, I focus on building practical AI automation tools and full-stack software products with clean engineering standards and dependable execution.
                   </p>
                 </div>
 
@@ -102,13 +101,13 @@ export const FounderMessage = ({ isOpen, onClose }) => {
 
                 <div className="flex flex-wrap gap-4 pt-4">
                   <Link to="/collab?source=footer" onClick={onClose} className="btn-premium">
-                    Work With Likith
+                    Discuss a Project
                   </Link>
                   <a href="/LIKITH-resume.pdf" target="_blank" rel="noopener noreferrer" className="btn-glass flex items-center gap-2">
-                    <FileText className="w-4 h-4" /> Resume
+                    <FileText className="w-4 h-4" /> View Resume
                   </a>
                   <button onClick={onClose} className="btn-glass">
-                    Close Message
+                    Close
                   </button>
                 </div>
               </div>

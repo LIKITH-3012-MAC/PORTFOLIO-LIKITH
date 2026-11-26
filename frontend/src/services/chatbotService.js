@@ -4,14 +4,16 @@ import CONFIG from './config';
  * Sends a chat query to the streaming AI bot endpoint.
  * Calls onChunk with each new text fragment received.
  */
-export async function sendMessageStream(text, history, onChunk, onError, onDone) {
+export async function sendMessageStream(text, history, onChunk, onError, onDone, options = {}) {
+  const { language = 'en', signal, onAbort } = options;
   try {
     const response = await fetch(`${CONFIG.API_BASE_URL}/api/chat`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ message: text, history })
+      body: JSON.stringify({ message: text, history, language }),
+      signal
     });
 
     if (!response.ok) {
@@ -31,6 +33,10 @@ export async function sendMessageStream(text, history, onChunk, onError, onDone)
     
     if (onDone) onDone();
   } catch (error) {
+    if (error?.name === 'AbortError') {
+      if (onAbort) onAbort();
+      return;
+    }
     if (onError) onError(error);
   }
 }
@@ -38,9 +44,10 @@ export async function sendMessageStream(text, history, onChunk, onError, onDone)
 /**
  * Offline fallback replies when the AI backend is unreachable.
  */
-export function getOfflineReply(text) {
+export function getOfflineReply(text, language = 'en') {
   const lowerText = text.toLowerCase().trim();
-  
+  const isTelugu = language === 'te';
+
   if (
     lowerText.includes('who is') || 
     lowerText.includes('about') || 
@@ -50,7 +57,9 @@ export function getOfflineReply(text) {
     lowerText === 'identity'
   ) {
     return {
-      reply: "Likith Naidu Anumamkonda is a premium AI-ML Architect, Full Stack Systems Architect, and the Founder of SAKRA VISION. He specializes in designing autonomous AI agents, machine learning models, and building end-to-end full-stack systems with rigorous engineering discipline.",
+      reply: isTelugu
+        ? "లికిత్ నాయుడు అనుమకొండ ఒక AI/ML ఇంజనీర్ మరియు SAKRA VISION వ్యవస్థాపకుడు & CEO. ఆయన PBR VITS, కావలి లో B.Tech CSE (AI) చదువుతున్నారు, IIT పాట్నా (I-HUB) నుండి అడ్వాన్స్‌డ్ AI/ML స్పెషలైజేషన్ పూర్తి చేశారు. ఆయన క్లాసికల్ పియానిస్ట్ మరియు 'Echoes of an Unsaid Goodbye' పుస్తక రచయిత."
+        : "Likith Naidu Anumakonda is an AI/ML Engineer and the Founder & CEO of SAKRA VISION. He is currently pursuing a B.Tech in CSE (Artificial Intelligence) at PBR VITS, Kavali, with an Advanced AI/ML specialization programme from IIT Patna (I-HUB). Outside engineering, he is a classical pianist and author of Echoes of an Unsaid Goodbye.",
       card: "none"
     };
   }
@@ -60,11 +69,10 @@ export function getOfflineReply(text) {
     lowerText.includes('phone') || 
     lowerText.includes('email') || 
     lowerText.includes('reach') || 
-    lowerText.includes('call') || 
-    lowerText === 'collaborate'
+    lowerText.includes('call')
   ) {
     return {
-      reply: `You can reach Likith at ${CONFIG.CONTACT.PRIMARY_EMAIL} or call ${CONFIG.CONTACT.PHONE}. He is open to high-stakes collaborations.`,
+      reply: `You can reach Likith at ${CONFIG.CONTACT.PRIMARY_EMAIL} or call ${CONFIG.CONTACT.PHONE}.`,
       card: "contact"
     };
   }
@@ -77,10 +85,11 @@ export function getOfflineReply(text) {
     lowerText.includes('github') || 
     lowerText.includes('git') || 
     lowerText === 'systems' || 
-    lowerText === 'git archive'
+    lowerText === 'git archive' ||
+    lowerText === 'github repos'
   ) {
     return {
-      reply: "Likith has built several production-grade systems including RESOLVIT, Prometheus AI, SAKRA VISION Event Hub, and AquaSentinel AI. Check out his Engineering Archive.",
+      reply: "Likith has developed projects including RESOLVIT, SAKRA VISION Event Hub, Student Bench AI, Prometheus AI, and AquaSentinel AI. You can explore the source repositories on the GitHub Repositories page.",
       card: "git"
     };
   }
@@ -89,10 +98,11 @@ export function getOfflineReply(text) {
     lowerText.includes('collab') || 
     lowerText.includes('hire') || 
     lowerText.includes('work with') || 
-    lowerText.includes('partnership')
+    lowerText.includes('partnership') ||
+    lowerText === 'collaborate'
   ) {
     return {
-      reply: "Likith is open to high-stakes collaborations, technical architecture design, and AI agent implementations. You can pitch your project through the secure Collab Portal.",
+      reply: "Likith is open to AI/ML engineering roles, product collaborations, and software development inquiries. You can share details through the Collaboration Form.",
       card: "collab"
     };
   }
@@ -103,10 +113,11 @@ export function getOfflineReply(text) {
     lowerText.includes('youtube') || 
     lowerText.includes('performance') || 
     lowerText.includes('piano') || 
-    lowerText === 'youtube hub'
+    lowerText === 'youtube hub' ||
+    lowerText === 'media & piano'
   ) {
     return {
-      reply: "You can watch Likith's technical deep-dives and piano performances on his Media Hub.",
+      reply: "You can watch Likith's project demos and classical piano performances on the Media Hub or visit the Piano Studio.",
       card: "youtube"
     };
   }
@@ -119,7 +130,7 @@ export function getOfflineReply(text) {
     lowerText.includes('skills matrix')
   ) {
     return {
-      reply: "Likith specializes in AI/ML (Agent Development, RAG, Computer Vision), Full Stack Systems (Python, Node.js, FastAPI, Next.js), and complete infrastructure deployment (Cloud Databases, Secure APIs, Domain setups). Check out the Technical Ecosystem section on the homepage.",
+      reply: "Likith works across AI/ML (Machine Learning, Deep Learning, NLP, Computer Vision, RAG pipelines, AI Agents), Backend & Web Development (Python, FastAPI, Node.js, React, Next.js), and Databases & Infrastructure (PostgreSQL, MySQL, Resend, Twilio, Vercel, Render). See the Technical Skills section on the homepage.",
       card: "none"
     };
   }
@@ -130,7 +141,7 @@ export function getOfflineReply(text) {
     lowerText.includes('experience')
   ) {
     return {
-      reply: "You can view Likith's experience and download his resume through the Contact section.",
+      reply: "You can review Likith's background and contact him via the Contact section or Collaboration page.",
       card: "contact"
     };
   }

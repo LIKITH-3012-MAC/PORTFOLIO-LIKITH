@@ -1,5 +1,6 @@
 import React from 'react';
-import { Mail, Linkedin, Instagram } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Mail, Linkedin, Instagram, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import CONFIG from '../../services/config';
 import { fadeUp } from '../../motion/variants';
@@ -17,22 +18,25 @@ export const Contact = () => {
             variants={fadeUp}
             className="space-y-6 max-w-2xl"
           >
-            <h2 className="text-4xl md:text-6xl font-display font-bold text-white">Ready to Build?</h2>
+            <h2 className="text-4xl md:text-6xl font-display font-bold text-white">Get in Touch</h2>
             <p className="text-lg text-slate-400 font-light leading-relaxed">
-              Whether you're looking for a technical co-founder, an architect for your next AI system, or simply want to connect.
+              Open to AI/ML engineering roles, product collaborations, research discussions, and technical inquiries.
             </p>
 
-            <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+            <div className="flex flex-wrap justify-center gap-4 pt-4">
               <a href={`mailto:${CONFIG.CONTACT.PRIMARY_EMAIL}`} className="btn-premium flex items-center justify-center">
-                <Mail className="w-4 h-4 mr-2" /> Initiate Contact
+                <Mail className="w-4 h-4 mr-2" /> Send Email
               </a>
+              <Link to="/collab?source=home" className="btn-glass flex items-center justify-center">
+                Project Inquiry <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
               <a 
                 href={CONFIG.CONTACT.LINKEDIN} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="btn-glass flex items-center justify-center"
               >
-                <Linkedin className="w-4 h-4 mr-2" /> Professional Network
+                <Linkedin className="w-4 h-4 mr-2" /> LinkedIn
               </a>
               <a 
                 href={CONFIG.CONTACT.INSTAGRAM} 

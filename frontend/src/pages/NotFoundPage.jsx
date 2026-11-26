@@ -15,7 +15,7 @@ export const NotFoundPage = () => {
   return (
     <>
       <SEO 
-        title="404 - Page Not Found | Likith Naidu"
+        title="404 - Page Not Found | Likith Naidu Anumakonda"
         description="The requested page could not be found."
         meta={[{ name: "robots", content: "noindex, follow" }]}
       />
@@ -28,11 +28,11 @@ export const NotFoundPage = () => {
           </div>
 
           <h1 className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-6 text-white">
-            Matrix Disruption <br /><span className="text-red-500">404.</span>
+            Page Not Found <br /><span className="text-red-500">404.</span>
           </h1>
 
           <p className="text-slate-400 text-lg mb-12 font-light leading-relaxed max-w-lg mx-auto">
-            The requested node could not be resolved in the current operational environment.
+            The page you are looking for does not exist or may have been moved.
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-16">
@@ -51,7 +51,7 @@ export const NotFoundPage = () => {
           </div>
 
           <p className="mt-12 text-[10px] text-slate-600 uppercase tracking-[0.2em] font-mono">
-            Node status: Unresolved
+            Status: 404 Not Found
           </p>
         </div>
       </div>

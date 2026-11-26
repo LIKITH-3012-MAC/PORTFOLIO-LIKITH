@@ -13,7 +13,7 @@ export const Footer = () => {
   const { data: contactData } = useKnowledge('contact.json');
   const { data: profile } = useKnowledge('likith-profile.json');
 
-  const name = profile?.identity?.fullName || 'Likith Naidu Anumamkonda';
+  const name = profile?.identity?.fullName || 'Likith Naidu Anumakonda';
   
   const getSocialUrl = (platformName) => {
     return socialsData?.socials?.find(s => s.platform.toLowerCase().includes(platformName.toLowerCase()))?.url;
@@ -43,17 +43,18 @@ export const Footer = () => {
   return (
     <footer className="py-8 border-t border-white/5 text-center relative z-10 bg-transparent">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p className="text-sm text-slate-500 font-light">
-          &copy; {currentYear} {name}. All systems operational.
+        <p className="text-sm text-slate-400 font-light">
+          &copy; {currentYear} {name} · AI/ML Engineer &amp; Founder, SAKRA VISION
         </p>
-        <div className="flex flex-wrap justify-center items-center gap-4 text-sm text-slate-500">
+        <div className="flex flex-wrap justify-center items-center gap-4 text-sm text-slate-400">
           <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
-          <span>/</span>
+          <span aria-hidden="true">/</span>
           <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
-          <span>/</span>
-          <a href={twitterUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">X / Twitter</a>
-          <a href="#contact" onClick={handleSupportClick} className="hover:text-white transition-colors">Support</a>
-          <span>/</span>
+          <span aria-hidden="true">/</span>
+          <a href={twitterUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">X</a>
+          <span aria-hidden="true">/</span>
+          <a href="#contact" onClick={handleSupportClick} className="hover:text-white transition-colors">Contact</a>
+          <span aria-hidden="true">/</span>
           <a href={`tel:${phone}`} className="hover:text-white transition-colors">Phone</a>
         </div>
       </div>

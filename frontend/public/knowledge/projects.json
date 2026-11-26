@@ -2,50 +2,50 @@
   "projects": [
     {
       "name": "Resolvit AI",
-      "description": "AI-powered civic issue tracking system with real-time priority scoring, blockchain audit trails, and authority performance accountability. Uses FastAPI for backend, vanilla JS/Leaflet for frontend, and PostgreSQL for storage.",
-      "technologies": ["FastAPI", "PostgreSQL", "Leaflet", "Vanilla JS", "AI Simulation"],
-      "status": "Production",
+      "description": "AI-assisted civic issue tracking platform featuring priority scoring, audit trails, and status tracking. Built with FastAPI, Vanilla JS/Leaflet, and PostgreSQL.",
+      "technologies": ["FastAPI", "PostgreSQL", "Leaflet", "Vanilla JS", "AI Classification"],
+      "status": "Under Evaluation",
       "url": "https://www.resolvit-ai.online",
       "category": "Civic Tech / AI"
     },
     {
       "name": "Prometheus AI V2.0",
-      "description": "A local-first, privacy-centric Gen-AI system utilizing Llama 3.2 and Apple MLX for secure, voice-enabled intelligence.",
+      "description": "Local-first generative AI assistant utilizing Llama 3.2 and Apple MLX for private, offline voice-enabled interaction.",
       "technologies": ["Llama 3.2", "Apple MLX", "Python", "Local AI"],
-      "status": "Featured",
+      "status": "Active",
       "url": "https://github.com/LIKITH-3012-MAC/my_chatbot.git",
-      "category": "GenAI / Privacy"
+      "category": "GenAI / Local Privacy"
     },
     {
       "name": "BenchAI / Student Bench AI",
-      "description": "Offline LLM + RAG-powered smart classroom infrastructure providing multilingual AI learning support without internet dependency.",
-      "technologies": ["Offline LLM", "RAG Architecture", "Python", "Education Tech"],
-      "status": "Active",
+      "description": "Offline LLM and RAG classroom assistant designed to support multilingual educational learning without internet connectivity.",
+      "technologies": ["Offline LLM", "RAG Pipeline", "Python", "Education Tech"],
+      "status": "Prototype",
       "url": "https://likith-3012-mac.github.io/STUDENT-BENCH-AI/",
       "category": "EdTech / AI"
     },
     {
       "name": "Python GUI Utility",
-      "description": "Desktop application using Tkinter/PyQt with robust backend processing, reducing processing latency by 12% vs CLI tools.",
+      "description": "Cross-platform desktop utility built with Python, Tkinter, and PyQt to streamline file and system management workflows.",
       "technologies": ["Python", "Tkinter", "PyQt"],
       "status": "Completed",
-      "category": "Utility / Software"
+      "category": "Desktop / Software"
     },
     {
       "name": "SAKRA VISION Event Hub",
-      "description": "A next-generation AI-powered event operations platform built to replace traditional systems. Automates payment verification, email workflows, Voice AI calling, attendance tracking, and certificate distribution.",
-      "technologies": ["Python", "FastAPI", "Aiven Cloud MySQL", "Resend API", "AI Receipt Screening (OCR)", "Voice AI Agent", "Certificate distribution engine"],
-      "status": "Production",
+      "description": "AI-assisted event operations web app combining automated payment screenshot screening, Resend email updates, voice AI calling, attendance tracking, and certificate generation.",
+      "technologies": ["Python", "FastAPI", "Aiven Cloud MySQL", "Resend API", "AI Receipt Screening (OCR)", "Voice AI Agent"],
+      "status": "Deployed",
       "url": "https://forms-project-f3sb.vercel.app/",
-      "category": "Events / AI Verification"
+      "category": "Events / Automation"
     },
     {
       "name": "AquaSentinel AI",
-      "description": "A specialized marine intelligence operating system tracking ocean debris, satellite telemetry (NASA MODIS, Copernicus), and local risk metrics. Features a Groq-powered AI copilot supporting regional Indian languages for mission-critical operations.",
-      "technologies": ["Satellite Telemetry APIs", "Groq AI API", "Vector Search", "Marine Debris Risk Engine"],
-      "status": "Featured",
+      "description": "Concept prototype for marine intelligence and coastal monitoring, exploring NASA MODIS / Copernicus telemetry analysis and Groq AI regional language querying.",
+      "technologies": ["Satellite Telemetry APIs", "Groq AI API", "Vector Search", "Python"],
+      "status": "Concept / Prototype",
       "url": "https://aquq-sentinel-phsv.vercel.app/",
-      "category": "Environmental / AI Systems"
+      "category": "Environmental / AI"
     }
   ]
 }

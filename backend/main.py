@@ -1,9 +1,10 @@
 import os
 import json
+import asyncio
 import logging
 import urllib.request
 import urllib.parse
-from fastapi import FastAPI, Request, HTTPException, Header, Depends
+from fastapi import FastAPI, Request, HTTPException, Header, Depends, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel
@@ -101,221 +102,22 @@ router = IntentRouter(kb)
 retriever = RetrievalService(kb)
 
 BASE_PROMPT = """
-# 🌌 WORLD-CLASS AI AGENT RESPONSE STYLE PROMPT
+You are SAKRA AI — the portfolio assistant for Likith Naidu Anumakonda.
 
-### Ultra Premium UI + Readability + Humanized AI Personality
+OFFICIAL IDENTITY & FACTS (Follow Strictly):
+- Name: Likith Naidu Anumakonda
+- Primary Role: AI/ML Engineer
+- Entrepreneurial Role: Founder & CEO of SAKRA VISION
+- Academic Status: Currently pursuing Bachelor of Technology (B.Tech) in Computer Science and Engineering (Artificial Intelligence) at Parvatha Reddy Babul Reddy Visvodaya Institute of Technology and Science (PBR VITS), Kavali, Andhra Pradesh, India. Never claim this degree is already completed.
+- Specialization Programme: Advanced AI/ML Specialization programme at IIT Patna — I-HUB. Always refer to this as a specialization programme (never claim IIT Patna alumni status or an IIT degree).
+- Creative Identity: Classical Pianist and Author of the book "Echoes of an Unsaid Goodbye". Do not invent publisher names, release dates, sales figures, ISBNs, or awards for the book.
+- Never invent extra degrees, qualifications, awards, or unverified metrics. Use only his official titles: "AI/ML Engineer" and "Founder & CEO of SAKRA VISION", and avoid generic unverified "Architect" or "Full Stack Developer" titles as his primary identity.
 
-You are **im sakra** — Likith’s AI Representative, a futuristic, intelligent, elegant AI system designed with premium-grade readability, emotional clarity, structured communication, and world-class UI response formatting.
-
-Your responses must NEVER look like plain text dumps.
-Every answer should feel like:
-* ✨ Visually premium
-* 🧠 Intelligently structured
-* 📱 Easy to scan on mobile
-* 💎 Luxury-tech aesthetic
-* 🚀 Modern AI operating system vibes
-* 🤖 Human-friendly but highly advanced
-
----
-
-# 🎨 RESPONSE DESIGN RULES
-
-## 1. STRUCTURE RESPONSES BEAUTIFULLY
-Never give giant paragraphs.
-Instead use:
-* Short sections
-* Proper spacing
-* Headings
-* Emoji indicators
-* Visual separators
-* Bullet points
-* Compact information blocks
-
-Example format:
-━━━━━━━━━━━━━━━━━━
-⚡ SYSTEM OVERVIEW
-━━━━━━━━━━━━━━━━━━
-Instead of: "Here is the system overview..."
-
----
-
-## 2. USE PREMIUM SPACING
-Always maintain:
-* Space between sections
-* Space between ideas
-* Space between bullets
-* Comfortable readability
-
-BAD ❌
-Text text text text text text text text text.
-
-GOOD ✅
-✨ Overview
-Your system performs:
-• AI processing
-• Analytics
-• Automation
-
----
-
-## 3. MAKE TEXT FEEL “ALIVE”
-Add intelligent emoji usage.
-Use emojis as UI indicators — NOT randomly.
-Examples:
-🧠 AI Logic
-⚡ Fast Response
-🔐 Security
-🚀 Deployment
-📊 Analytics
-🌐 Network
-🛠 Backend
-🤖 Automation
-📡 Systems Online
-🎯 Objective
-💎 Premium Feature
-
----
-
-## 4. USE CLEAN VISUAL SEPARATORS
-Use premium separators like:
-━━━━━━━━━━━━━━━━━━
-══════════════════
-⬢⬢⬢⬢⬢⬢⬢⬢⬢⬢
-──────────────
-Avoid ugly markdown spam.
-
----
-
-## 5. NEVER WRITE WALLS OF TEXT
-Maximum:
-* 2–3 lines per paragraph
-* Small readable chunks
-AI responses should feel breathable and cinematic.
-
----
-
-# 🧠 AI PERSONALITY STYLE
-The AI should sound:
-* Advanced
-* Calm
-* Intelligent
-* Elite
-* Professional
-* Slightly futuristic
-* Confident
-* Helpful
-NOT robotic.
-
----
-
-# 💬 LANGUAGE STYLE
-Use:
-✔ Elegant wording
-✔ Short impactful sentences
-✔ Smooth transitions
-✔ High readability
-Avoid:
-❌ Massive explanations without structure
-❌ Monotone paragraphs
-❌ Overly academic tone
-❌ Repetitive wording
-
----
-
-# 🌌 RESPONSE EXPERIENCE EXAMPLES
-
-## Example 1 — Project Explanation
-━━━━━━━━━━━━━━━━━━
-🚀 SAKRA EVENT HUB
-━━━━━━━━━━━━━━━━━━
-An AI-powered event operations ecosystem built for intelligent automation, real-time management, and scalable event coordination.
-
-### ⚡ Core Capabilities
-• AI receipt verification
-• Smart registration workflows
-• Automated email systems
-• Real-time analytics dashboard
-• FastAPI backend architecture
-
-### 🛠 Tech Stack
-🔹 Python
-🔹 FastAPI
-🔹 MySQL
-🔹 OCR + AI Screening
-🔹 Resend API
-
-### 🎯 Mission
-Transform traditional event handling into an autonomous AI-driven experience.
-
----
-
-## Example 2 — AI Assistant Response
-Hello.
-I am im sakra.
-
-How may I assist you today?
-
-### Available Operations
-⚡ Project Intelligence
-🧠 AI/ML Systems
-🌐 Backend Architecture
-📊 Analytics
-🚀 Deployment Guidance
-🔐 System Design
-
-Awaiting your query...
-
----
-
-# 🎨 TYPOGRAPHY STYLE RULES
-## IMPORTANT
-Responses must FEEL visually premium even in plain text.
-Use:
-* Clean alignment
-* Consistent spacing
-* Minimal clutter
-* Elegant formatting
-
----
-
-# 🧩 ADVANCED UI BEHAVIOR
-When explaining projects:
-1. Start with a title banner
-2. Give a 1-line premium summary
-3. Show capabilities
-4. Show stack
-5. Show impact
-6. End elegantly
-
----
-
-# 🚫 STRICTLY AVOID
-❌ Huge text blocks
-❌ Plain boring responses
-❌ Too many markdown tables
-❌ Repeating same sentence patterns
-❌ Looking like ChatGPT default style
-
----
-
-# 🌟 FINAL OUTPUT GOAL
-Every response should feel like:
-“An elite AI operating system interface.”
-The user should instantly feel:
-* professionalism
-* intelligence
-* futuristic design
-* readability
-* premium engineering quality
-
-The response experience must feel:
-💎 Luxury
-⚡ Intelligent
-🌌 Futuristic
-🚀 Advanced
-🧠 Human-friendly
-
-Maintain this style in ALL responses.
+STYLE & FORMATTING RULES:
+- Respond clearly, concisely, and professionally — helpful for recruiters, founders, collaborators, and visitors.
+- Avoid exaggerated marketing claims, hype phrases, unverified percentages, or walls of text.
+- Use clean formatting: a short overview line followed by crisp bullet points when listing projects, skills, or background details.
+- Stay strictly grounded in the provided context and verified portfolio facts. If something isn't known or verified, state that plainly rather than guessing.
 """
 
 llm_service = LLMService(api_key=GROQ_API_KEY, system_prompt=BASE_PROMPT)
@@ -474,6 +276,7 @@ except Exception as e:
 class ChatRequest(BaseModel):
     message: str
     history: Optional[List[dict]] = []
+    language: Optional[str] = "en"
 
 class ChatResponse(BaseModel):
     reply_text: str
@@ -598,19 +401,19 @@ def send_collab_confirmation_email(
                     <div class="header-card">
                         <img src="https://raw.githubusercontent.com/LIKITH-3012-MAC/SAKRA-VISION/main/SAKRAVISION.png" alt="SAKRA VISION" class="brand-logo">
                         <div class="company-name">THE SAKRA GROUP PVT LTD</div>
-                        <div class="founder-name">Likith Naidu Anumamkonda</div>
-                        <div class="founder-role">Founder • AI/ML • Full-Stack • SAKRA VISION</div>
+                        <div class="founder-name">Likith Naidu Anumakonda</div>
+                        <div class="founder-role">Founder &amp; CEO, SAKRA VISION • AI/ML Engineer</div>
                     </div>
                     
                     <!-- Confirmation -->
                     <div class="main-card">
-                        <span class="card-label">Transmission Secure</span>
+                        <span class="card-label">Confirmation</span>
                         <h1 class="card-title">Collaboration Request Received</h1>
                         <div class="greeting">Dear {fn},</div>
                         <p class="message-text">
-                            Thank you for submitting your collaboration request with Likith Naidu Anumamkonda.
+                            Thank you for submitting your collaboration request with Likith Naidu Anumakonda.
                             <br><br>
-                            Your request has been received successfully and will be reviewed carefully. We’ll contact you soon using the email or mobile number you provided.
+                            Your inquiry has been received successfully and will be reviewed carefully. We&rsquo;ll follow up using the email or phone number you provided.
                         </p>
                     </div>
 
@@ -640,17 +443,17 @@ def send_collab_confirmation_email(
                     
                     <!-- Expertise -->
                     <div class="expertise-card">
-                        <span class="card-label">System Capabilities</span>
+                        <span class="card-label">Core Focus Areas</span>
                         <div class="chip-container">
-                            <span class="chip">AI Agents</span>
-                            <span class="chip">ML Models</span>
-                            <span class="chip">Full-Stack Systems</span>
-                            <span class="chip">Python / Node.js</span>
-                            <span class="chip">API Architecture</span>
-                            <span class="chip">Middleware</span>
-                            <span class="chip">Cloud Databases</span>
-                            <span class="chip">Metadata Systems</span>
-                            <span class="chip">Domain & Google Console</span>
+                            <span class="chip">AI Agents &amp; RAG</span>
+                            <span class="chip">Machine Learning</span>
+                            <span class="chip">Computer Vision</span>
+                            <span class="chip">Python &amp; FastAPI</span>
+                            <span class="chip">Node.js</span>
+                            <span class="chip">React &amp; Next.js</span>
+                            <span class="chip">PostgreSQL &amp; MySQL</span>
+                            <span class="chip">REST APIs</span>
+                            <span class="chip">Domain &amp; Search Console</span>
                             <span class="chip">Deployment</span>
                         </div>
                     </div>
@@ -658,7 +461,7 @@ def send_collab_confirmation_email(
                     <!-- Vision -->
                     <div class="vision-card">
                         <p class="vision-text">
-                            This request is connected to the SAKRA VISION execution ecosystem, where ideas are shaped into production-grade technical solutions under THE SAKRA GROUP PVT LTD.
+                            Submitted through Likith Naidu Anumakonda&apos;s portfolio collaboration portal (SAKRA VISION).
                         </p>
                     </div>
 
@@ -671,7 +474,7 @@ def send_collab_confirmation_email(
                     
                     <!-- Footer -->
                     <div class="footer-area">
-                        <div class="footer-brand">Likith Naidu Anumamkonda</div>
+                        <div class="footer-brand">Likith Naidu Anumakonda</div>
                         <div class="footer-legal">Founder, THE SAKRA GROUP PVT LTD</div>
                         <div class="footer-legal" style="margin-top: 12px; opacity: 0.5;">
                             &copy; 2026 THE SAKRA GROUP PVT LTD. All rights reserved.
@@ -703,12 +506,12 @@ async def root():
     return {"message": "Likith Portfolio API is active.", "status": "online"}
 
 @app.post("/api/chat")
-async def chat(request: ChatRequest):
+async def chat(request: ChatRequest, background_tasks: BackgroundTasks):
     start_time = datetime.now()
     
     # Layer 1: Intent Routing & Static Answers
     intent = router.classify(request.message)
-    static_answer, card = router.get_static_answer(intent, request.message)
+    static_answer, card = router.get_static_answer(intent, request.message, language=request.language or "en")
     
     final_response_text = ""
     
@@ -716,10 +519,10 @@ async def chat(request: ChatRequest):
         final_response_text = static_answer
         logger.info(f"🚀 Intent: {intent} (Static Match)")
         
-        # Log to DB (Sync for static)
-        _log_chat(request.message, static_answer, intent, card, 0)
+        # Log in background so response streams immediately without waiting on DB round-trip
+        background_tasks.add_task(_log_chat, request.message, static_answer, intent, card, 0)
         
-        return StreamingResponse(self_stream(static_answer, card), media_type="text/plain")
+        return StreamingResponse(self_stream(static_answer, card), media_type="text/plain", background=background_tasks)
 
     # Layer 2: RAG Context Retrieval
     context = retriever.get_context(request.message, intent)
@@ -728,13 +531,18 @@ async def chat(request: ChatRequest):
     # Layer 3: Selective LLM Generation
     async def log_and_stream():
         full_text = ""
-        async for chunk in llm_service.stream_chat(request.message, request.history, context):
+        async for chunk in llm_service.stream_chat(
+            request.message,
+            request.history,
+            context,
+            language=request.language or "en",
+        ):
             full_text += chunk
             yield chunk
         
-        # Calculate latency and log
+        # Calculate latency and log asynchronously off the event loop
         duration = (datetime.now() - start_time).total_seconds() * 1000
-        _log_chat(request.message, full_text, intent, "none", int(duration))
+        await asyncio.to_thread(_log_chat, request.message, full_text, intent, "none", int(duration))
 
     return StreamingResponse(log_and_stream(), media_type="text/plain")
 

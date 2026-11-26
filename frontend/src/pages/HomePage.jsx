@@ -33,9 +33,9 @@ export const HomePage = () => {
   return (
     <>
       <SEO 
-        title="Likith Naidu Anumakonda | AI/ML Architect & Founder"
-        description="Official portfolio of Likith Naidu Anumakonda, featuring AI/ML engineering, full-stack projects, technical work, creative work and founder initiatives."
-        keywords="Likith Naidu Anumakonda, Likith Anumakonda, Likith Naidu, AI Engineer, ML Architect, SAKRA VISION, Full Stack Developer, Python, Node.js, IIT Patna"
+        title="Likith Naidu Anumakonda | Founder & CEO, SAKRA VISION | AI/ML Engineer"
+        description='Likith Naidu Anumakonda is the Founder & CEO of SAKRA VISION, an AI/ML Engineer, B.Tech CSE (AI) student at PBR VITS, Kavali, pianist, and author of "Echoes of an Unsaid Goodbye".'
+        keywords="Likith Naidu Anumakonda, SAKRA VISION, Founder & CEO, AI/ML Engineer, Artificial Intelligence, Machine Learning, Computer Vision, Generative AI, B.Tech CSE Artificial Intelligence, PBR VITS, Pianist, Author, Echoes of an Unsaid Goodbye"
         canonical="https://likith-portfolio.online/"
         image="https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-profile.png"
       />

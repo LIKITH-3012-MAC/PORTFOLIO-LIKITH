@@ -143,14 +143,14 @@ export const CinematicSuccess = ({ isActive, insertedId, emailSent, source, onRe
   let statusBadge = '';
   let descText = '';
   if (emailSent === true) {
-    statusBadge = 'Premium Confirmation Sent';
-    descText = 'Your collaboration request has successfully entered the Sakra execution ecosystem. A confirmation message has been dispatched to your email address.';
+    statusBadge = 'Confirmation Sent';
+    descText = 'Your collaboration inquiry has been saved, and a confirmation email has been sent to your address.';
   } else if (emailSent === false) {
-    statusBadge = 'Email Dispatch Interrupted';
-    descText = 'Your request has been securely stored in the SAKRA database. Although the confirmation email was interrupted, Likith Naidu will review your details manually.';
+    statusBadge = 'Email Delivery Interrupted';
+    descText = 'Your inquiry has been saved in the database. Confirmation email delivery encountered a temporary issue, and Likith Naidu will review your message directly.';
   } else {
-    statusBadge = 'Request Stored';
-    descText = 'Thank you for collaborating. Your request has successfully entered the Sakra ecosystem.';
+    statusBadge = 'Request Saved';
+    descText = 'Thank you for reaching out. Your collaboration request has been saved.';
   }
 
   if (!isActive) return null;

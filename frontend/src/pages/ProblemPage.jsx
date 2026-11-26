@@ -21,9 +21,9 @@ export const ProblemPage = () => {
   }, []);
 
   // Define Default Messaging
-  let title = "System Anomaly.";
-  let message = "Likith's architecture encountered a technical interruption. Your request may not have been fully processed.";
-  let statusText = `Anomaly: ${type || 'System'} • State: ${state || 'Interrupted'} • Code: ${code || '500'}`;
+  let title = "Something Went Wrong.";
+  let message = "A technical error occurred while processing your request. Please try again or contact directly.";
+  let statusText = `Type: ${type || 'Request'} · State: ${state || 'Interrupted'} · Code: ${code || '500'}`;
   
   let buttons = (
     <>
@@ -44,12 +44,12 @@ export const ProblemPage = () => {
 
   // Context-Specific Refinement
   if (code === '500') {
-    message = "The secure database transmission was interrupted. This is likely a temporary system maintenance state.";
+    message = "The request could not be completed due to a temporary server error. Please try again shortly.";
   } else if (state === 'offline') {
     message = "The backend service is currently unreachable. Please check your connection or try again later.";
   } else if (result === 'success' && token) {
-    title = "Legacy Verification.";
-    message = "Success states are now handled directly on the collaboration page. Your token confirms a valid submission.";
+    title = "Submission Recorded.";
+    message = "Success states are now handled directly on the collaboration page. Your reference ID confirms the submission was recorded.";
     buttons = (
       <button 
         onClick={() => navigate('/')} 
@@ -58,14 +58,14 @@ export const ProblemPage = () => {
         <Home className="w-4 h-4" /> Return to Portfolio
       </button>
     );
-    statusText = `Status: Logged • ID: ${id}`;
+    statusText = `Status: Recorded · ID: ${id}`;
   }
 
   return (
     <>
       <SEO 
-        title="System Interruption | Likith Naidu"
-        description="Support and fallback page for Likith Naidu's portfolio. Technical anomalies are logged here."
+        title="Request Error | Likith Naidu Anumakonda"
+        description="Fallback error and status page for Likith Naidu Anumakonda's portfolio."
         meta={[{ name: "robots", content: "noindex, follow" }]}
       />
 

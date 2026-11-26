@@ -11,13 +11,15 @@ import { ProblemPage } from './pages/ProblemPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { QualityProvider } from './hooks/useAdaptive3DQuality';
 import { MotionProvider } from './motion/MotionProvider';
+import ErrorBoundary from './components/common/ErrorBoundary';
 
 export const App = () => {
   return (
     <QualityProvider>
       <Router>
         <MotionProvider>
-          <Routes>
+          <ErrorBoundary>
+            <Routes>
             {/* Main Layout containing persistent components and the global 3D Scene */}
             <Route path="/" element={<MainLayout />}>
               <Route index element={<HomePage />} />
@@ -44,6 +46,7 @@ export const App = () => {
               <Route path="*" element={<Navigate to="/404" replace />} />
             </Route>
           </Routes>
+          </ErrorBoundary>
         </MotionProvider>
       </Router>
     </QualityProvider>

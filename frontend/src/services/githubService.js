@@ -2,7 +2,7 @@ export const repositories = [
   {
     name: "AQUQ-SENTINEL",
     language: "Python",
-    description: "Environmental and risk intelligence system with robust monitoring foundations and Python backend architecture.",
+    description: "Water quality monitoring prototype featuring pollution detection concepts and a Python backend.",
     status: "Updated 16 hours ago",
     category: "featured",
     tags: ["Risk Analysis", "Python"]
@@ -50,7 +50,7 @@ export const repositories = [
   {
     name: "HEALTH_APP",
     language: "Dart",
-    description: "Health-focused application architecture exploring mobile workflows and user-centric data systems.",
+    description: "Mobile health application prototype built with Dart/Flutter exploring user wellness workflows.",
     status: "Updated Mar 3",
     category: "other",
     tags: ["Mobile", "Health"]
@@ -66,7 +66,7 @@ export const repositories = [
   {
     name: "Prometheus-Core",
     language: "Python",
-    description: "The neural intelligence and backend engine for the Prometheus AI ecosystem.",
+    description: "Backend service and AI workflow orchestration repository for the Prometheus project.",
     status: "Updated Feb 8",
     category: "featured",
     tags: ["Core AI", "Backend"]
@@ -74,7 +74,7 @@ export const repositories = [
   {
     name: "Prometheus-UI",
     language: "TypeScript",
-    description: "Advanced frontend layer for the Prometheus system, featuring structured interaction design.",
+    description: "TypeScript frontend interface for the Prometheus AI application.",
     status: "Updated Feb 7",
     category: "featured",
     tags: ["UI/UX", "Frontend"]
@@ -82,7 +82,7 @@ export const repositories = [
   {
     name: "llms-app",
     language: "Python",
-    description: "Experimental LLM integration project exploring modern AI orchestration and model workflows.",
+    description: "Experimental LLM integration project exploring model workflows and prompt orchestration.",
     status: "Updated Jan 31",
     category: "ai-ml",
     tags: ["LLM", "Orchestration"]
@@ -90,7 +90,7 @@ export const repositories = [
   {
     name: "SAKRA-VISION",
     language: "CSS",
-    description: "Visual identity and design system project for the SAKRA VISION brand ecosystem.",
+    description: "Visual styling and frontend design repository for SAKRA VISION.",
     status: "Updated Jan 30",
     category: "web",
     tags: ["Design", "Vision"]
@@ -98,18 +98,18 @@ export const repositories = [
   {
     name: "personal-db",
     language: "JavaScript",
-    description: "Structured project for managing personal data and logic through web-based interface experiments.",
+    description: "Web application project exploring personal data storage and management workflows.",
     status: "Updated Jan 29",
     category: "other",
-    tags: ["Data", "Systems"]
+    tags: ["Data", "Web"]
   },
   {
     name: "portfolio-backend",
     language: "HTML",
-    description: "Backend infrastructure and supporting web services for the portfolio ecosystem.",
+    description: "Backend API service and supporting utilities for the personal portfolio.",
     status: "Updated Jan 29",
     category: "web",
-    tags: ["Systems", "Infrastructure"]
+    tags: ["Backend", "API"]
   },
   {
     name: "ALL-RAG-AND-NEURAL-NETWORK-AND-LLL-WORKSHOP",

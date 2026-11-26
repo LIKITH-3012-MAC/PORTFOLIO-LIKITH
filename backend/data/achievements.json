@@ -1,23 +1,28 @@
 {
   "achievements": [
     {
-      "title": "SIH Hackathon 2025 Team Lead",
+      "title": "SIH 2025 Internal Hackathon — Team Lead",
       "project": "Prometheus AI",
-      "impact": "Led 5 engineers, designed NoSQL schemas, improved data retrieval latency by >50%."
+      "impact": "Led a 5-member engineering team, structured NoSQL schemas, and coordinated core AI interaction pipelines."
     },
     {
-      "title": "Technova2K25 Best Concept",
-      "awarded_by": "PBRVITS",
-      "description": "Awarded for innovative software engineering principles."
+      "title": "GDG Solution Challenge 2026 — Team SΛKRΛ Lead",
+      "project": "RESOLVIT",
+      "description": "Led the contribution of RESOLVIT, an AI-assisted civic issue platform (currently under evaluation)."
     },
     {
-      "title": "1st Prize: CodeClash 2025",
+      "title": "Technova2K25 — Best Concept",
+      "awarded_by": "PBR VITS",
+      "description": "Recognized for presenting an applied software engineering concept."
+    },
+    {
+      "title": "CodeClash 2025 — First Prize",
       "category": "Algorithmic Problem Solving",
       "description": "Secured 1st place in competitive programming."
     },
     {
-      "title": "SQL & AI Data Storytelling",
-      "impact": "Optimized complex queries, reducing report generation time by 60%."
+      "title": "SQL & Data Analysis Workflows",
+      "description": "Designed structured relational queries and reporting workflows for clean operational data analysis."
     }
   ]
 }

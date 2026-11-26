@@ -1,10 +1,10 @@
 {
   "site_metadata": {
-    "name": "Likith Naidu Anumamkonda Portfolio",
-    "founder": "Likith Naidu Anumamkonda",
+    "name": "Likith Naidu Anumakonda Portfolio",
+    "founder": "Likith Naidu Anumakonda",
     "company": "SAKRA VISION",
-    "primary_description": "Official Portfolio of Likith Naidu Anumamkonda — AI-ML Architect, Founder of SAKRA VISION, and Technical Architect specializing in AI Agents, ML Models, and complete full-stack systems.",
-    "capabilities": "AI-ML Architecting, AI Agents, ML Models, Python & Node.js Full-Stack, API/Middleware Architecture, Metadata Design, Domain Setup, Google Console Configuration, and End-to-End Product Execution.",
-    "vision": "Engineering Intelligent Systems. Architecting the future of autonomous automation through the SAKRA execution ecosystem."
+    "primary_description": "Likith Naidu Anumakonda is an AI/ML Engineer, Founder & CEO of SAKRA VISION, currently pursuing a B.Tech CSE (AI) at PBR VITS, Kavali, classical pianist, and author of \"Echoes of an Unsaid Goodbye\".",
+    "capabilities": "Artificial Intelligence, Machine Learning, Computer Vision, Generative AI, AI Agents, RAG Pipelines, Python (FastAPI), Node.js, React, Next.js, and SQL Databases.",
+    "vision": "Applying machine learning and practical software engineering through SAKRA VISION."
   }
 }

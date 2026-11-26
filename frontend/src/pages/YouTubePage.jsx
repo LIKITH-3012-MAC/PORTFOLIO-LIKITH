@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Youtube, ExternalLink, Play, ArrowLeft } from 'lucide-react';
+import { Youtube, Instagram, ExternalLink, Play, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/common/SEO';
 import { youtubeContent } from '../services/youtubeService';
 import { fadeUp, staggerContainer, staggerChild } from '../motion/variants';
+import InstagramReelsGrid from '../components/common/InstagramReelsGrid';
 
 export const YouTubePage = () => {
   const [filter, setFilter] = useState('all');
@@ -19,7 +20,7 @@ export const YouTubePage = () => {
   }, [filter]);
 
   const tabs = [
-    { label: 'All Artifacts', value: 'all' },
+    { label: 'All Videos', value: 'all' },
     { label: 'Project Demos', value: 'video' },
     { label: 'Piano Covers', value: 'short' }
   ];
@@ -28,8 +29,8 @@ export const YouTubePage = () => {
     <>
       <SEO 
         title="Media Hub | Likith Naidu Anumakonda"
-        description="Cinematic media hub showcasing Likith Naidu's AI/ML innovations and creative piano expressions. Experience the intersection of technology and art."
-        keywords="Likith Naidu YouTube, AI Demo, Piano Cover, Music Tech, Classical Piano India"
+        description="Media hub featuring AI/ML demos and piano performances by Likith Naidu Anumakonda, Founder & CEO of SAKRA VISION, AI/ML Engineer, and Pianist."
+        keywords="Likith Naidu Anumakonda, SAKRA VISION, AI/ML Engineer, Pianist, Author, Echoes of an Unsaid Goodbye"
         canonical="https://likith-portfolio.online/youtube"
         image="https://likith-portfolio.online/images/likith/likith-anumakonda-portrait.jpeg"
       />
@@ -52,13 +53,13 @@ export const YouTubePage = () => {
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
                 <Youtube className="w-3.5 h-3.5 text-red-500" />
-                <span className="text-[10px] font-mono text-slate-300 tracking-widest uppercase">Media Ingest</span>
+                <span className="text-[10px] font-mono text-slate-300 tracking-widest uppercase">YouTube &amp; Media</span>
               </div>
               <h1 className="text-4xl md:text-6xl font-display font-bold text-white leading-tight">
                 Media <br /><span className="text-gradient">Hub.</span>
               </h1>
               <p className="text-slate-400 text-lg leading-relaxed font-light font-sans">
-                Cinematic media hub showcasing Likith Naidu's AI/ML innovations and creative piano expressions. Experience the intersection of technology and art.
+                A collection of AI/ML project demonstrations and piano performances by Likith Naidu Anumakonda.
               </p>
             </motion.div>
           </div>
@@ -202,6 +203,32 @@ export const YouTubePage = () => {
               })}
             </AnimatePresence>
           </motion.div>
+
+          {/* Instagram Reels Subsection */}
+          <section id="instagram-reels" className="mt-20 pt-16 border-t border-white/10">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              variants={fadeUp}
+              className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10"
+            >
+              <div className="space-y-3">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
+                  <Instagram className="w-3.5 h-3.5 text-rose-400" />
+                  <span className="text-[10px] font-mono text-slate-300 tracking-widest uppercase">Instagram Reels</span>
+                </div>
+                <h2 className="text-2xl md:text-4xl font-display font-bold text-white">
+                  Instagram Reels
+                </h2>
+                <p className="text-sm md:text-base text-slate-400 font-light max-w-2xl">
+                  Watch directly on Instagram in a new tab.
+                </p>
+              </div>
+            </motion.div>
+
+            <InstagramReelsGrid />
+          </section>
 
         </div>
       </div>
