@@ -17,7 +17,7 @@ export const NotFoundPage = () => {
       <SEO 
         title="404 - Page Not Found | Likith Naidu Anumakonda"
         description="The requested page could not be found."
-        meta={[{ name: "robots", content: "noindex, follow" }]}
+        robots="noindex, follow"
       />
 
       <div className="min-h-screen flex items-center justify-center p-6 bg-transparent selection:bg-white/20 selection:text-white text-left">

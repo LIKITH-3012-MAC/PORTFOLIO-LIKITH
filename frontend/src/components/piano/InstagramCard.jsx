@@ -46,9 +46,9 @@ export const InstagramCard = () => {
               </span>
             </div>
 
-            <h3 className="text-2xl md:text-3xl font-display font-bold text-white tracking-tight">
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-white tracking-tight">
               {username}
-            </h3>
+            </h2>
 
             <p className="text-slate-300 text-base font-light leading-relaxed">
               {bio}

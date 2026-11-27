@@ -32,7 +32,7 @@ export const About = () => {
               <figure className="w-full h-full relative">
                 <img 
                   src={imageConfig.multiDimensionImage}
-                  alt="Likith Naidu Anumakonda"
+                  alt="Likith Naidu Anumakonda — AI/ML Engineer and Founder & CEO of SAKRA VISION"
                   width="1672"
                   height="941"
                   loading="eager"
@@ -90,6 +90,31 @@ export const About = () => {
                 <div className="text-xs font-mono text-slate-400 uppercase tracking-wider">Founder &amp; CEO</div>
               </div>
             </div>
+
+            {Array.isArray(imageConfig.supplementaryAboutImages) && imageConfig.supplementaryAboutImages.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                {imageConfig.supplementaryAboutImages.map((photo) => (
+                  <figure
+                    key={photo.src}
+                    className="relative rounded-2xl overflow-hidden glass-panel border border-white/10 aspect-[16/9] group"
+                  >
+                    <img
+                      src={photo.src}
+                      alt={photo.alt}
+                      width={photo.width}
+                      height={photo.height}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent pointer-events-none" />
+                    <figcaption className="absolute bottom-2.5 left-3 right-3 text-[11px] font-mono text-white/85 truncate z-10">
+                      {photo.caption}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
           </motion.div>
         </div>
       </div>

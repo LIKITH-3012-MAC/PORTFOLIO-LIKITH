@@ -37,20 +37,24 @@ export const PianoStudioPage = () => {
     <>
       <SEO
         title="Likith's Piano Studio | Likith Naidu Anumakonda"
-        description='Interactive Piano Studio of Likith Naidu Anumakonda — Pianist, Author of "Echoes of an Unsaid Goodbye", Founder & CEO of SAKRA VISION, and AI/ML Engineer.'
-        keywords="Likith Naidu Anumakonda, Pianist, Author, Echoes of an Unsaid Goodbye, SAKRA VISION, AI/ML Engineer, PBR VITS"
-        canonical="https://likith-portfolio.online/piano"
-        image="https://likith-portfolio.online/images/piano-studio-hero.jpg"
+        description='Interactive Piano Studio of Likith Naidu Anumakonda — Classical Pianist, Author of "Echoes of an Unsaid Goodbye", Founder & CEO of SAKRA VISION, and AI/ML Engineer.'
+        keywords="Likith Naidu Anumakonda, Classical Pianist, Author, Echoes of an Unsaid Goodbye, SAKRA VISION, AI/ML Engineer, PBR VITS"
+        canonical="https://likith-naidu-anumakonda.online/piano"
+        image="https://likith-naidu-anumakonda.online/images/piano-studio-hero.jpg"
+        imageAlt="Concert grand piano in midnight studio lighting — Likith's Piano Studio"
+        robots="index, follow"
       />
 
       <div className="min-h-screen text-slate-200 pb-28">
         {/* HERO SECTION */}
         <section className="relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
           {/* Cinematic Piano Backdrop */}
-          <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
             <img
               src="/images/piano-studio-hero.jpg"
-              alt="Concert grand piano in midnight studio lighting"
+              alt=""
+              width="1376"
+              height="768"
               className="w-full h-full object-cover object-center opacity-35 scale-105"
               loading="eager"
               decoding="async"
@@ -137,7 +141,12 @@ export const PianoStudioPage = () => {
                   <div className="aspect-[16/10] w-full overflow-hidden">
                     <img
                       src="/images/piano-studio-hero.jpg"
-                      alt="Likith's Piano Studio concert grand piano"
+                      alt="Likith's Piano Studio concert grand piano in midnight studio lighting"
+                      width="1376"
+                      height="768"
+                      loading="eager"
+                      fetchpriority="high"
+                      decoding="async"
                       className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>

@@ -13,6 +13,6 @@ services:
       - key: GROQ_API_KEY
         sync: false
       - key: FRONTEND_URL
-        value: https://likith-portfolio.online
+        value: https://likith-naidu-anumakonda.online
       - key: FRONTEND_WWW_URL
-        value: https://www.likith-portfolio.online
+        value: https://www.likith-naidu-anumakonda.online

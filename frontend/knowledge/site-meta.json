@@ -1,43 +1,50 @@
 {
   "site": {
     "name": "Likith Naidu Anumakonda Portfolio",
-    "baseUrl": "https://likith-portfolio.online",
+    "baseUrl": "https://likith-naidu-anumakonda.online",
     "core_identity": {
       "primary": "AI/ML Engineer | Founder & CEO of SAKRA VISION",
       "specialties": "AI Application Development, Machine Learning, Computer Vision, LLM & RAG Applications, AI Agents, Python, Node.js, Software & Web Apps"
     },
-    "primaryImage": "https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-profile.png",
+    "primaryImage": "https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda-profile.png",
     "images": [
-      "https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-profile.png",
-      "https://likith-portfolio.online/images/likith/likith-naidu-anumakonda.jpeg",
-      "https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-portrait.png",
-      "https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-professional.jpeg",
-      "https://likith-portfolio.online/images/likith/likith-anumakonda-profile-photo.jpeg",
-      "https://likith-portfolio.online/images/likith/likith-anumakonda-portrait.jpeg",
-      "https://likith-portfolio.online/images/likith/likith-anumakonda-professional-photo.jpeg",
-      "https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-casual-photo.jpeg",
-      "https://likith-portfolio.online/images/likith/likith-anumakonda-personal-portrait.jpeg"
+      "https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda-profile.png",
+      "https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda-beach-blazer-monochrome.jpg",
+      "https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda-beach-blazer-portrait.jpg",
+      "https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda.jpeg",
+      "https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda-portrait.png",
+      "https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda-professional.jpeg",
+      "https://likith-naidu-anumakonda.online/images/likith/likith-anumakonda-profile-photo.jpeg",
+      "https://likith-naidu-anumakonda.online/images/likith/likith-anumakonda-portrait.jpeg",
+      "https://likith-naidu-anumakonda.online/images/likith/likith-anumakonda-professional-photo.jpeg",
+      "https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda-casual-photo.jpeg",
+      "https://likith-naidu-anumakonda.online/images/likith/likith-anumakonda-personal-portrait.jpeg"
     ],
     "pages": [
       {
-        "file": "index.html",
-        "title": "Likith Naidu Anumakonda | Founder & CEO, SAKRA VISION | AI/ML Engineer",
+        "path": "/",
+        "title": "Likith Naidu Anumakonda | AI/ML Engineer & Founder, SAKRA VISION",
         "description": "Likith Naidu Anumakonda is an AI/ML Engineer and Founder & CEO of SAKRA VISION, pursuing B.Tech CSE (AI) at PBR VITS, Kavali. Completed the AI & ML Programme at Vishlesan i-Hub, IIT Patna (July 2025 – June 2026), VINS Intern at Vicharanashala Lab, IIT Ropar (Oct 7 – Dec 5, 2026), Classical Pianist, and Author of \"Echoes of an Unsaid Goodbye\"."
       },
       {
-        "file": "collab.html",
+        "path": "/collab",
         "title": "Collaborate | Likith Naidu Anumakonda",
         "description": "Collaborate with Likith Naidu Anumakonda — Founder & CEO of SAKRA VISION and AI/ML Engineer specializing in Artificial Intelligence, Machine Learning, Computer Vision, and Generative AI."
       },
       {
-        "file": "likith-youtube.html",
+        "path": "/youtube",
         "title": "Media Hub | Likith Naidu Anumakonda",
         "description": "Media hub featuring AI/ML demos and piano performances by Likith Naidu Anumakonda, Founder & CEO of SAKRA VISION, AI/ML Engineer, and Classical Pianist."
       },
       {
-        "file": "likith-git-profile.html",
+        "path": "/piano",
+        "title": "Likith's Piano Studio | Likith Naidu Anumakonda",
+        "description": "Interactive Piano Studio of Likith Naidu Anumakonda — Classical Pianist, Author of \"Echoes of an Unsaid Goodbye\", Founder & CEO of SAKRA VISION, and AI/ML Engineer."
+      },
+      {
+        "path": "/git-profile",
         "title": "Engineering Archive | Likith Naidu Anumakonda",
-        "description": "Explore public repositories, AI/ML projects, and software builds by Likith Naidu Anumakonda — AI/ML Engineer and Founder & CEO of SAKRA VISION."
+        "description": "Explore public repositories, AI/ML systems, and engineering builds by Likith Naidu Anumakonda — Founder & CEO of SAKRA VISION and AI/ML Engineer."
       }
     ]
   }

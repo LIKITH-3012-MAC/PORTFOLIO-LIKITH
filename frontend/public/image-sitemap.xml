@@ -5,76 +5,86 @@
 >
   <!-- Home Page Images -->
   <url>
-    <loc>https://likith-portfolio.online/</loc>
+    <loc>https://likith-naidu-anumakonda.online/</loc>
 
     <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/suit-likith-1.jpg</image:loc>
-      <image:title>Likith Naidu Anumakonda — Suit Portrait 1</image:title>
+      <image:loc>https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda-profile.png</image:loc>
+      <image:title>Likith Naidu Anumakonda — AI/ML Engineer &amp; Founder, SAKRA VISION</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/suit-likith-2.jpg</image:loc>
-      <image:title>Likith Naidu Anumakonda — Suit Portrait 2</image:title>
+      <image:loc>https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda-beach-blazer-monochrome.jpg</image:loc>
+      <image:title>Likith Naidu Anumakonda — Monochrome Coastal Portrait</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-profile.png</image:loc>
-      <image:title>Likith Naidu Anumakonda — Official Profile</image:title>
+      <image:loc>https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda-beach-blazer-portrait.jpg</image:loc>
+      <image:title>Likith Naidu Anumakonda — Coastal Portrait in Black Blazer</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda.jpeg</image:loc>
-      <image:title>Likith Naidu Anumakonda — black and white close-up portrait wearing glasses</image:title>
+      <image:loc>https://likith-naidu-anumakonda.online/images/sakravision.png</image:loc>
+      <image:title>SAKRA VISION — Official Brand Visual</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-professional.jpeg</image:loc>
+      <image:loc>https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda.jpeg</image:loc>
+      <image:title>Likith Naidu Anumakonda — Black and white close-up portrait wearing glasses</image:title>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda-professional.jpeg</image:loc>
       <image:title>Likith Naidu Anumakonda in a blazer on a rooftop with city skyline</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-personal-portrait.jpeg</image:loc>
-      <image:title>Likith Anumakonda — monochrome rooftop portrait in blazer</image:title>
+      <image:loc>https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda-casual-photo.jpeg</image:loc>
+      <image:title>Likith Naidu Anumakonda — Portrait wearing dark blazer and sunglasses</image:title>
     </image:image>
 
     <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-casual-photo.jpeg</image:loc>
-      <image:title>Likith Naidu Anumakonda — candid indoor shot with sunglasses</image:title>
-    </image:image>
-
-    <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-professional-photo.jpeg</image:loc>
+      <image:loc>https://likith-naidu-anumakonda.online/images/likith/likith-anumakonda-professional-photo.jpeg</image:loc>
       <image:title>Likith Anumakonda wearing a blazer and blue shirt on a rooftop terrace</image:title>
     </image:image>
   </url>
 
   <!-- GitHub Archive Page Images -->
   <url>
-    <loc>https://likith-portfolio.online/git-profile</loc>
-    
+    <loc>https://likith-naidu-anumakonda.online/git-profile</loc>
+
     <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-portrait.png</image:loc>
-      <image:title>Likith Naidu Anumakonda — stylized editorial portrait with purple backdrop</image:title>
+      <image:loc>https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda-portrait.png</image:loc>
+      <image:title>Likith Naidu Anumakonda — Editorial Portrait</image:title>
     </image:image>
   </url>
 
-  <!-- YouTube Page Images -->
+  <!-- YouTube Media Hub Images -->
   <url>
-    <loc>https://likith-portfolio.online/youtube</loc>
-    
+    <loc>https://likith-naidu-anumakonda.online/youtube</loc>
+
     <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-portrait.jpeg</image:loc>
-      <image:title>Likith Anumakonda at the beach with ocean waves</image:title>
+      <image:loc>https://likith-naidu-anumakonda.online/images/likith/likith-anumakonda-portrait.jpeg</image:loc>
+      <image:title>Likith Naidu Anumakonda at the beach with ocean waves</image:title>
+    </image:image>
+  </url>
+
+  <!-- Piano Studio Images -->
+  <url>
+    <loc>https://likith-naidu-anumakonda.online/piano</loc>
+
+    <image:image>
+      <image:loc>https://likith-naidu-anumakonda.online/images/piano-studio-hero.jpg</image:loc>
+      <image:title>Likith's Piano Studio — Concert grand piano in midnight studio lighting</image:title>
     </image:image>
   </url>
 
   <!-- Collaboration Page Images -->
   <url>
-    <loc>https://likith-portfolio.online/collab</loc>
-    
+    <loc>https://likith-naidu-anumakonda.online/collab</loc>
+
     <image:image>
-      <image:loc>https://likith-portfolio.online/images/likith/likith-anumakonda-profile-photo.jpeg</image:loc>
-      <image:title>Likith Anumakonda in a blazer against a hillside cityscape</image:title>
+      <image:loc>https://likith-naidu-anumakonda.online/images/likith/likith-anumakonda-profile-photo.jpeg</image:loc>
+      <image:title>Likith Naidu Anumakonda in a blazer against a hillside cityscape</image:title>
     </image:image>
   </url>
 </urlset>

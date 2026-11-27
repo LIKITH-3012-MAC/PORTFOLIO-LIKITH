@@ -22,7 +22,7 @@ export const Venture = () => {
               <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-amber-400 mb-8">
                 <Building2 className="w-8 h-8" />
               </div>
-              <h3 className="text-xs font-mono text-amber-400 tracking-widest uppercase mb-2">AI Product Studio &amp; Technology Venture</h3>
+              <p className="text-xs font-mono text-amber-400 tracking-widest uppercase mb-2">AI Product Studio &amp; Technology Venture</p>
               <h2 className="text-3xl font-display font-bold text-white mb-4">SAKRA VISION</h2>
               <p className="text-slate-300 font-light leading-relaxed mb-6">
                 Founder &amp; CEO. An AI product studio and technology venture focused on AI application development, machine learning, computer vision, LLM and RAG applications, AI agents and automation, and software and web application development.
@@ -192,7 +192,7 @@ export const Venture = () => {
                 <div className="flex items-start gap-4 glass-panel p-4 rounded-xl">
                   <Trophy className="w-6 h-6 text-amber-400 shrink-0 mt-1" />
                   <div>
-                    <h4 className="text-white font-medium">Technova2K25 — Best Concept</h4>
+                    <h3 className="text-white font-medium">Technova2K25 — Best Concept</h3>
                     <p className="text-sm text-slate-400 font-light">
                       Recognized for presenting an applied software engineering concept at PBR VITS.
                     </p>
@@ -201,7 +201,7 @@ export const Venture = () => {
                 <div className="flex items-start gap-4 glass-panel p-4 rounded-xl">
                   <Medal className="w-6 h-6 text-slate-300 shrink-0 mt-1" />
                   <div>
-                    <h4 className="text-white font-medium">CodeClash 2025 — First Prize</h4>
+                    <h3 className="text-white font-medium">CodeClash 2025 — First Prize</h3>
                     <p className="text-sm text-slate-400 font-light">
                       Secured 1st place in algorithmic problem solving.
                     </p>
@@ -210,7 +210,7 @@ export const Venture = () => {
                 <div className="flex items-start gap-4 glass-panel p-4 rounded-xl">
                   <Database className="w-6 h-6 text-blue-400 shrink-0 mt-1" />
                   <div>
-                    <h4 className="text-white font-medium">SQL &amp; Data Analysis Workflows</h4>
+                    <h3 className="text-white font-medium">SQL &amp; Data Analysis Workflows</h3>
                     <p className="text-sm text-slate-400 font-light">
                       Designed structured SQL queries and reporting workflows to simplify operational data analysis.
                     </p>

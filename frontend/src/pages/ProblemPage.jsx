@@ -66,7 +66,7 @@ export const ProblemPage = () => {
       <SEO 
         title="Request Error | Likith Naidu Anumakonda"
         description="Fallback error and status page for Likith Naidu Anumakonda's portfolio."
-        meta={[{ name: "robots", content: "noindex, follow" }]}
+        robots="noindex, follow"
       />
 
       <div className="min-h-screen flex items-center justify-center p-6 bg-transparent selection:bg-white/20 selection:text-white text-left">

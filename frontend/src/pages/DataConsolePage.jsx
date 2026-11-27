@@ -225,7 +225,7 @@ export const DataConsolePage = () => {
       <SEO 
         title="Admin Data Console | Likith Naidu Anumakonda"
         description="Private administrative dashboard for monitoring AI assistant logs, collaboration requests, and visitor analytics."
-        meta={[{ name: "robots", content: "noindex, nofollow" }]}
+        robots="noindex, nofollow"
       />
 
       <style dangerouslySetInnerHTML={{ __html: `

@@ -32,8 +32,10 @@ export const GitProfilePage = () => {
         title="Engineering Archive | Likith Naidu Anumakonda"
         description="Explore public repositories, AI/ML systems, and engineering builds by Likith Naidu Anumakonda — Founder & CEO of SAKRA VISION and AI/ML Engineer."
         keywords="Likith Naidu Anumakonda, SAKRA VISION, AI/ML Engineer, Artificial Intelligence, Machine Learning, Computer Vision, Generative AI, PBR VITS"
-        canonical="https://likith-portfolio.online/git-profile"
-        image="https://likith-portfolio.online/images/likith/likith-naidu-anumakonda-portrait.png"
+        canonical="https://likith-naidu-anumakonda.online/git-profile"
+        image="https://likith-naidu-anumakonda.online/images/likith/likith-naidu-anumakonda-portrait.png"
+        imageAlt="Likith Naidu Anumakonda — Engineering Archive & Open Source Projects"
+        robots="index, follow"
       />
 
       <div className="pt-32 pb-24 text-slate-200">
@@ -114,9 +116,9 @@ export const GitProfilePage = () => {
                       )}
                     </div>
                     
-                    <h3 className="text-xl font-display font-bold text-white mb-3 group-hover:text-amber-500 transition-colors">
+                    <h2 className="text-xl font-display font-bold text-white mb-3 group-hover:text-amber-500 transition-colors">
                       {repo.name}
-                    </h3>
+                    </h2>
                     
                     <p className="text-slate-400 text-sm font-light leading-relaxed mb-6 flex-grow">
                       {repo.description}

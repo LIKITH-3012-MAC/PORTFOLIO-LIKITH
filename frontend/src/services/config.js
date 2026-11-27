@@ -8,7 +8,7 @@ export const CONFIG = {
   API_BASE_URL: import.meta.env.VITE_API_BASE_URL || (
     isLocal ? "http://127.0.0.1:8000" : "https://portfolio-likith.onrender.com"
   ),
-  SITE_URL: "https://likith-portfolio.online",
+  SITE_URL: "https://likith-naidu-anumakonda.online",
   TURNSTILE_SITE_KEY: import.meta.env.VITE_TURNSTILE_SITE_KEY || "0x4AAAAAADkBJO3pDza4-pkc",
   CONTACT: {
     PRIMARY_EMAIL: "likith.anumakonda@gmail.com",

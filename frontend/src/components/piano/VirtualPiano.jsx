@@ -591,9 +591,9 @@ export const VirtualPiano = () => {
             </span>
           </div>
 
-          <h3 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
             Interactive Virtual Piano
-          </h3>
+          </h2>
 
           {/* Live Readout + Spectrum */}
           <div className="flex flex-wrap items-center gap-3 pt-1">

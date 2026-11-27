@@ -29,10 +29,12 @@ export const YouTubePage = () => {
     <>
       <SEO 
         title="Media Hub | Likith Naidu Anumakonda"
-        description="Media hub featuring AI/ML demos and piano performances by Likith Naidu Anumakonda, Founder & CEO of SAKRA VISION, AI/ML Engineer, and Pianist."
-        keywords="Likith Naidu Anumakonda, SAKRA VISION, AI/ML Engineer, Pianist, Author, Echoes of an Unsaid Goodbye"
-        canonical="https://likith-portfolio.online/youtube"
-        image="https://likith-portfolio.online/images/likith/likith-anumakonda-portrait.jpeg"
+        description="Media hub featuring AI/ML demos and piano performances by Likith Naidu Anumakonda, Founder & CEO of SAKRA VISION, AI/ML Engineer, and Classical Pianist."
+        keywords="Likith Naidu Anumakonda, SAKRA VISION, AI/ML Engineer, Classical Pianist, Author, Echoes of an Unsaid Goodbye"
+        canonical="https://likith-naidu-anumakonda.online/youtube"
+        image="https://likith-naidu-anumakonda.online/images/likith/likith-anumakonda-portrait.jpeg"
+        imageAlt="Media Hub — Likith Naidu Anumakonda"
+        robots="index, follow"
       />
 
       <div className="pt-32 pb-24 text-slate-200">
@@ -85,6 +87,7 @@ export const YouTubePage = () => {
           </motion.div>
 
           {/* Video Grid */}
+          <h2 className="sr-only">Project Demos &amp; Piano Performances</h2>
           <motion.div 
             variants={staggerContainer}
             initial="hidden"

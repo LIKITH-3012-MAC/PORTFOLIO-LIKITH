@@ -355,8 +355,10 @@ export const CollaborationPage = () => {
         title="Collaborate | Likith Naidu Anumakonda"
         description="Collaborate with Likith Naidu Anumakonda — Founder & CEO of SAKRA VISION and AI/ML Engineer specializing in Artificial Intelligence, Machine Learning, Computer Vision, and Generative AI."
         keywords="Likith Naidu Anumakonda, SAKRA VISION, Founder & CEO, AI/ML Engineer, Artificial Intelligence, Machine Learning, Computer Vision, Generative AI"
-        canonical="https://likith-portfolio.online/collab"
-        image="https://likith-portfolio.online/images/likith/likith-anumakonda-profile-photo.jpeg"
+        canonical="https://likith-naidu-anumakonda.online/collab"
+        image="https://likith-naidu-anumakonda.online/images/likith/likith-anumakonda-profile-photo.jpeg"
+        imageAlt="Collaborate with Likith Naidu Anumakonda — AI/ML Engineer & Founder of SAKRA VISION"
+        robots="index, follow"
       />
 
       <main className="pt-32 pb-20 px-6 min-h-screen text-slate-200 transition-all duration-1000" id="main-content">
@@ -613,7 +615,7 @@ export const CollaborationPage = () => {
 
               {/* Focus Areas Sidebar Card */}
               <div className="glass-panel p-6 rounded-3xl border border-white/10 relative overflow-hidden">
-                <h3 className="text-amber-400 font-display font-bold text-lg mb-6 uppercase tracking-tight">Areas of Focus</h3>
+                <h2 className="text-amber-400 font-display font-bold text-lg mb-6 uppercase tracking-tight">Areas of Focus</h2>
                 <ul className="space-y-5">
                   <li className="flex gap-3">
                     <Zap className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
@@ -647,7 +649,7 @@ export const CollaborationPage = () => {
 
               {/* Categories Sidebar Card */}
               <div className="glass-panel p-6 rounded-3xl border border-white/10">
-                <h3 className="text-blue-400 font-display font-bold text-lg mb-4 uppercase tracking-tight">Collaboration Topics</h3>
+                <h2 className="text-blue-400 font-display font-bold text-lg mb-4 uppercase tracking-tight">Collaboration Topics</h2>
                 <div className="flex flex-wrap gap-2">
                   <span className="text-[10px] px-3.5 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300 font-mono tracking-wider">
                     AI &amp; ML Agents

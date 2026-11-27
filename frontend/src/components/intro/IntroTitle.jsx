@@ -14,7 +14,7 @@ export const IntroTitle = ({ show }) => {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="text-center flex flex-col items-center justify-center"
       >
-        <h1 
+        <p 
           className="font-display font-extrabold text-4xl md:text-6xl lg:text-7xl text-white tracking-tight leading-tight select-none relative"
           style={{
             textShadow: '0 0 30px rgba(255, 255, 255, 0.15), 0 0 60px rgba(251, 191, 36, 0.1)',
@@ -30,7 +30,7 @@ export const IntroTitle = ({ show }) => {
           <span className="hidden md:block text-gradient">
             Welcome to <span className="text-amber-400">Likith’s Portfolio</span>
           </span>
-        </h1>
+        </p>
 
         {/* Professional identity tagline */}
         <motion.p

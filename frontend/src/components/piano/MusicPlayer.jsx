@@ -225,9 +225,9 @@ export const MusicPlayer = ({ tracks = authorizedTracks }) => {
                 <Music2 className="w-3.5 h-3.5" />
                 Studio Audio Player
               </div>
-              <h3 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight">
                 {currentTrack?.title || 'No Audio Source Configured Yet'}
-              </h3>
+              </h2>
               <p className="text-sm text-slate-400 font-light">
                 {currentTrack?.artist
                   ? `${currentTrack.artist} • Studio Recording`

@@ -1,10 +1,12 @@
-# Robots.txt for Likith Portfolio
-
+# Robots.txt for Likith Naidu Anumakonda Portfolio
 User-agent: *
 Allow: /
 
-# Prevent indexing of backend and internal paths
+# Prevent crawling of backend, private admin paths, and legacy static endpoints
 Disallow: /backend/
+Disallow: /data
+Disallow: /dataa.html
+Disallow: /analytics.js
 
 # Sitemap locations
 Sitemap: https://likith-naidu-anumakonda.online/sitemap.xml

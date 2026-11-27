@@ -44,8 +44,8 @@ logger = logging.getLogger("API")
 app = FastAPI(title="Likith Portfolio API")
 
 # 2. Production-Ready Middleware
-FRONTEND_URL = os.getenv("FRONTEND_URL", "https://likith-portfolio.online")
-FRONTEND_WWW_URL = os.getenv("FRONTEND_WWW_URL", "https://www.likith-portfolio.online")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "https://likith-naidu-anumakonda.online")
+FRONTEND_WWW_URL = os.getenv("FRONTEND_WWW_URL", "https://www.likith-naidu-anumakonda.online")
 
 app.add_middleware(
     CORSMiddleware,
@@ -70,7 +70,7 @@ async def global_exception_handler(request: Request, exc: Exception):
     logger.error(f"Global Error: {exc}")
     return JSONResponse(
         status_code=500,
-        content={"success": False, "message": "Internal server error. Please check /problem.html on the frontend."},
+        content={"success": False, "message": "Internal server error. Please check /problem on the frontend."},
     )
 
 # 3. Knowledge Base Initialization
@@ -468,8 +468,8 @@ def send_collab_confirmation_email(
 
                     <!-- Actions -->
                     <div class="action-section">
-                        <a href="https://www.likith-portfolio.online" target="_blank" rel="noopener noreferrer" class="btn" style="display: block; background-color: #ffffff; color: #000000; text-decoration: none; padding: 18px; border-radius: 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; text-align: center;">Visit Portfolio</a>
-                        <a href="https://www.likith-portfolio.online/collab?source=email" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: block; background-color: transparent; border: 1px solid rgba(255,255,255,0.1); color: #ffffff; text-decoration: none; padding: 18px; border-radius: 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; text-align: center;">Submit Another Request</a>
+                        <a href="https://likith-naidu-anumakonda.online/" target="_blank" rel="noopener noreferrer" class="btn" style="display: block; background-color: #ffffff; color: #000000; text-decoration: none; padding: 18px; border-radius: 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; text-align: center;">Visit Portfolio</a>
+                        <a href="https://likith-naidu-anumakonda.online/collab?source=email" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="display: block; background-color: transparent; border: 1px solid rgba(255,255,255,0.1); color: #ffffff; text-decoration: none; padding: 18px; border-radius: 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; text-align: center;">Submit Another Request</a>
                         <a href="mailto:likith.anumakonda@gmail.com" class="btn btn-secondary" style="display: block; background-color: transparent; border: 1px solid rgba(255,255,255,0.1); color: #ffffff; text-decoration: none; padding: 18px; border-radius: 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; text-align: center;">Contact Likith</a>
                     </div>
                     
