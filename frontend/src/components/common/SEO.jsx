@@ -61,7 +61,13 @@ export const SEO = ({
     const robotsMetaEntry = Array.isArray(meta)
       ? meta.find((entry) => entry?.name === 'robots' && entry?.content)
       : null;
-    upsertMeta('name', 'robots', robotsMetaEntry?.content || robots);
+    const selectedRobots = robotsMetaEntry?.content || robots;
+    const robotDirectives = selectedRobots.split(',').map((directive) => directive.trim()).filter(Boolean);
+    const isNoIndex = robotDirectives.some((directive) => directive.toLowerCase() === 'noindex');
+    if (!isNoIndex && !robotDirectives.some((directive) => directive.toLowerCase() === 'max-image-preview:large')) {
+      robotDirectives.push('max-image-preview:large');
+    }
+    upsertMeta('name', 'robots', robotDirectives.join(', '));
 
     // Support any additional meta entries if provided
     if (Array.isArray(meta)) {

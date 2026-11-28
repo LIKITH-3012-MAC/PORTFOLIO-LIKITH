@@ -11,3 +11,6 @@ Disallow: /analytics.js
 # Sitemap locations
 Sitemap: https://likith-naidu-anumakonda.online/sitemap.xml
 Sitemap: https://likith-naidu-anumakonda.online/image-sitemap.xml
+
+# Keep public portfolio images crawlable for Google Images and Bing Images.
+# Public image assets are crawlable; no image path is disallowed.
