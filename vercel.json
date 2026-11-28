@@ -36,5 +36,18 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.likith-naidu-anumakonda.online"
+        }
+      ],
+      "destination": "https://likith-naidu-anumakonda.online/:path*",
+      "permanent": true
+    }
   ]
 }
